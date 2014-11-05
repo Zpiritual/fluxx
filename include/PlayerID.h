@@ -8,7 +8,7 @@ int val;
 	PlayerID(int val):val{val}
 	{}
 
-	//Default, Mode and Copy forbidden
+	//Default, Move and Copy forbidden
 	PlayerID() = delete;
 	PlayerID(const PlayerID&) = delete;
 	PlayerID (PlayerID&&) = delete;

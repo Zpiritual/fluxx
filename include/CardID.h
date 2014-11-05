@@ -8,7 +8,7 @@ int val;
 	CardID(int val):val{val}
 	{}
 
-	//Default, Mode and Copy forbidden
+	//Default, Move and Copy forbidden
 	CardID() = delete;
 	CardID(const CardID&) = delete;
 	CardID (CardID&&) = delete;

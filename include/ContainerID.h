@@ -1,14 +1,15 @@
 //Autor Martin
 #ifndef CARDCONTAINER_ID
 #define CARDCONTAINER_ID
+#include <string>
 struct CardContainerID
 {
-int val;
+std::string val;
 	//Can only be created with a value
-	CardContainerID(int val):val{val}
+	CardContainerID(std::string val):val{val}
 	{}
 
-	//Default, Mode and Copy forbidden
+	//Default, Move and Copy forbidden
 	CardContainerID() = delete;
 	CardContainerID(const CardContainerID&) = delete;
 	CardContainerID (CardContainerID&&) = delete;
@@ -18,7 +19,7 @@ int val;
 
 	//Default Destructor
 	~CardContainerID() = default;
-	
+
 	//operators 
 	bool operator ==(const CardContainerID &p) const
 	{
