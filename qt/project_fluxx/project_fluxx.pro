@@ -1,20 +1,26 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2014-11-05T19:01:59
+# Project created by QtCreator 2014-11-05T00:08:08
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       -= gui
 
-TARGET = project_fluxx
+QT       += widgets
+
+TARGET = MainMenu_Test_01
+CONFIG   += console
+CONFIG   -= app_bundle
+
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES += main.cpp \
+    mywidget.cpp
 
-HEADERS  += mainwindow.h
+HEADERS += \
+    mywidget.h
 
-FORMS    += mainwindow.ui
+QMAKE_CXXFLAGS += -std=c++11
