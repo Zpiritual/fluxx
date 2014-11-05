@@ -1,8 +1,35 @@
-//Athor Martin --Only Placehoder for Include purpose
+//Athor Martin
 #ifndef CARDCONTAINER_H
 #define CARDCONTAINER_H
+#include <vector>
+#include "CardID.h"
+#include "ContainerID.h"
 class CardContainer
 {
+private:
+	std::vector<CardID> _cards;
+	ContainerID* _id;
+public:
+	CardContainer(std::vector<CardID> cards, ContainerID* id):_cards{cards}, _id{id}
+	{}
+	CardContainer(ContainerID* id): _id{id}
+	{}
 
+	//Default and Move forbidden
+	CardContainer() = delete;
+	CardContainer(const CardContainer&) = default;
+	CardContainer(CardContainer&&) = delete;
+
+	CardContainer& operator= (const CardContainer&) = default;
+	CardContainer& operator= (CardContainer&&) = delete;
+
+	//Default Destructor
+	~CardContainer() = default;
+
+	void addCard(const CardID *);
+	void removeCard(const CardID *);
+	int getSize();
+	std::vector<CardID> getCards();
+	ContainerID* getID();
 };
 #endif
