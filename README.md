@@ -24,3 +24,7 @@ Project Organisation
 
 --lib		(external dependencies)
 
+HOW TO RUN TESTS
+================
+g++ std=c++11 -o [tesfile] -I include test/[testfile].cc
+[tesfilen].exe
