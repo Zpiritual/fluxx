@@ -1,14 +1,14 @@
 #include <QApplication>
 
-#include "mywidget.h"
+#include "mainmenu.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    MyWidget* mainMenu = new MyWidget();
+    MainMenu* main_menu = new MainMenu();
 
-    mainMenu->show();
+    main_menu->show();
 
     return a.exec();
 }
