@@ -18,5 +18,16 @@ int val;
 
 	//Default Destructor
 	~CardID() = default;
+
+	//operators 
+	bool operator ==(const CardID &p) const
+	{
+		return val == p.val;
+	}
+
+	bool operator !=(const CardID &p) const
+	{
+		return val != p.val;
+	}
 };
 #endif

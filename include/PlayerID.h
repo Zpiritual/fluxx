@@ -18,5 +18,17 @@ int val;
 
 	//Default Destructor
 	~PlayerID() = default;
+
+	//operators 
+	bool operator ==(const PlayerID &p) const
+	{
+		return val == p.val;
+	}
+
+	bool operator !=(const PlayerID &p) const
+	{
+		return val != p.val;
+	}
+
 };
 #endif
