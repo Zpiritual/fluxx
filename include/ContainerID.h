@@ -14,7 +14,7 @@ std::string val;
 
 	//Default forbidden
 	ContainerID() = delete;
-	CardContainerID(const ContainerID&) = default;
+	ContainerID(const ContainerID&) = default;
 	ContainerID (ContainerID&&) = default;
 
 	ContainerID& operator= (const ContainerID&) = default;

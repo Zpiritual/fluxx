@@ -2,8 +2,8 @@
 //Changelog:
 //==========
 //Made copy and move accessable
-#ifndef CARD_ID
-#define CARD_ID
+#ifndef CARDID_H
+#define CARDID_H
 struct CardID
 {
 int val;
