@@ -10,14 +10,14 @@ struct CardID
 	CardID(int val):val{val}
 	{}
 
-	CardID() = delete;
-	CardID(const CardID&) = default;
-	CardID (CardID&&) = default;
+	CardID() 							= delete;
+	CardID(const CardID&) 				= default;
+	CardID (CardID&&) 					= default;
 
-	CardID& operator= (const CardID&) = default;
-	CardID& operator= (CardID&&) = default;
+	CardID& operator= (const CardID&) 	= default;
+	CardID& operator= (CardID&&) 		= default;
 
-	~CardID() = default;
+	~CardID() 							= default;
 
 	bool operator ==(const CardID &p) const
 	{
