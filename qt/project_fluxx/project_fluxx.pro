@@ -21,6 +21,26 @@ SOURCES += main.cpp \
     mainmenu.cpp
 
 HEADERS += \
-    mainmenu.h
+    mainmenu.h \
+    ../../include/BoardSnapshot.h \
+    ../../include/Card.h \
+    ../../include/CardContainer.h \
+    ../../include/CardContainerManager.h \
+    ../../include/CardID.h \
+    ../../include/CardManager.h \
+    ../../include/ContainerID.h \
+    ../../include/Deck.h \
+    ../../include/Effect.h \
+    ../../include/GameLogic.h \
+    ../../include/GameLoop.h \
+    ../../include/GUISystem.h \
+    ../../include/MainMenu.h \
+    ../../include/Player.h \
+    ../../include/PlayerID.h \
+    ../../include/PlayerManager.h \
+    ../../include/RuleManager.h \
+    ../../include/SessionData.h \
+    ../../include/Stock.h \
+    ../../include/TriggeredRule.h
 
 QMAKE_CXXFLAGS += -std=c++11
