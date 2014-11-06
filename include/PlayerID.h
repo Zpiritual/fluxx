@@ -9,7 +9,6 @@ int val;
 	PlayerID(int val):val{val}
 	{}
 
-	//Default forbidden
 	PlayerID() = delete;
 	PlayerID(const PlayerID&) = default;
 	PlayerID (PlayerID&&) = default;
@@ -17,10 +16,8 @@ int val;
 	PlayerID& operator= (const PlayerID&) = default;
 	PlayerID& operator= (PlayerID&&) = default;
 
-	//Default Destructor
 	~PlayerID() = default;
-
-	//operators 
+ 
 	bool operator ==(const PlayerID &p) const
 	{
 		return val == p.val;
