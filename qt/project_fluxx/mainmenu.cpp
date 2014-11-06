@@ -3,19 +3,23 @@
 MainMenu::MainMenu(QWidget *parent) :
     QWidget(parent)
 {
+   main_widget = new QWidget();
+   options_widget = new QWidget();
    main_layout = new QVBoxLayout();
-
+   options_layout = new QVBoxLayout();
    new_game_button = new QPushButton(QString("New Game"));
    continue_game_button = new QPushButton(QString("Continue Game"));
    options_button = new QPushButton(QString("Options"));
    exit_button = new QPushButton(QString("Exit"));
+   temp = new QVBoxLayout();
 
    main_layout->addWidget(new_game_button);
    main_layout->addWidget(continue_game_button);
    main_layout->addWidget(options_button);
    main_layout->addWidget(exit_button);
 
-   this->setLayout(main_layout);
+
+   options_layout->addWidget(exit_button);
    this->setWindowTitle(QString("Main Menu"));
    this->setMinimumWidth(640);
    this->setMinimumHeight(480);
@@ -32,6 +36,21 @@ MainMenu::MainMenu(QWidget *parent) :
    QObject::connect(continue_game_button, SIGNAL(clicked()), this, SLOT(continue_game()));
    QObject::connect(options_button, SIGNAL(clicked()), this, SLOT(options()));
    QObject::connect(exit_button, SIGNAL(clicked()), this, SLOT(exit()));
+
+   main_widget->setLayout(main_layout);
+   options_widget->setLayout(options_layout);
+
+   layouts = new QStackedWidget();
+   layouts->addWidget(main_widget);
+   layouts->addWidget(options_widget);
+
+   layouts->setCurrentIndex(0);
+
+   temp->addWidget(layouts);
+   this->setLayout(temp);
+
+
+
 }
 
 MainMenu::~MainMenu()
@@ -59,6 +78,7 @@ void MainMenu::continue_game()
 
 void MainMenu::options()
 {
+    layouts->setCurrentIndex(1);
     qDebug() << "Add options functionality";
     // TODO: Add functionality
 }
