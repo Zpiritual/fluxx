@@ -6,12 +6,10 @@
 #define CARDID_H
 struct CardID
 {
-int val;
-	//Can only be created with a value
+	int val;
 	CardID(int val):val{val}
 	{}
 
-	//Default forbidden
 	CardID() = delete;
 	CardID(const CardID&) = default;
 	CardID (CardID&&) = default;
@@ -19,10 +17,8 @@ int val;
 	CardID& operator= (const CardID&) = default;
 	CardID& operator= (CardID&&) = default;
 
-	//Default Destructor
 	~CardID() = default;
 
-	//operators 
 	bool operator ==(const CardID &p) const
 	{
 		return val == p.val;
