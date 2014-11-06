@@ -18,9 +18,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    mainmenu.cpp
+    mainmenu.cpp \
+    options.cpp
 
 HEADERS += \
-    mainmenu.h
+    mainmenu.h \
+    options.h
 
 QMAKE_CXXFLAGS += -std=c++11

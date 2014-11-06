@@ -42,12 +42,19 @@ void MainMenu::new_game()
 {
     qDebug() << "Add new_game functionality";
     // TODO: Add functionality
+    main_layout->addWidget(exit_button);
+    main_layout->setAlignment(exit_button, Qt::AlignHCenter);
+    main_layout->update();
+    exit_button->show();
 }
 
 void MainMenu::continue_game()
 {
     qDebug() << "Add continue_game functionality";
     // TODO: Add functionality
+    main_layout->removeWidget(exit_button);
+    main_layout->update();
+    exit_button->hide();
 }
 
 void MainMenu::options()
