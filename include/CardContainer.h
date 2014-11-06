@@ -1,4 +1,3 @@
-//Athor: Martin
 //Changelog:
 //==========
 //Changed CardID* to CardID

@@ -1,4 +1,3 @@
-//Autor: Martin
 //Changelog:
 //==========
 //Made copy and move accessable

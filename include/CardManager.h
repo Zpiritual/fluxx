@@ -1,4 +1,3 @@
-//Author: Johannes
 //Changelog:
 //2014-11-06
 //Basic setup. Constructors and data members.
@@ -12,19 +11,19 @@
 
 class CardManager {
 public:
-	ContainerID(const Deck* const d) : _deck{d}
+	CardManager(const Deck* const d) : _deck{d}
 	{}
 
-	ContainerID() 								= delete;
-	CardContainerID(const ContainerID&) 		= delete;
-	ContainerID (ContainerID&&) 				= delete;
+	CardManager() 								= delete;
+	CardManager(const CardManager&) 			= delete;
+	CardManager (CardManager&&) 				= delete;
 
-	ContainerID& operator= (const ContainerID&)	= delete;
-	ContainerID& operator= (ContainerID&&)		= delete;
+	CardManager& operator= (const CardManager&)	= delete;
+	CardManager& operator= (CardManager&&)		= delete;
 
-	~ContainerID() 								= default;
+	~CardManager() 								= default;
 
-	Card* getCard(const CardID cid) { return _deck->getCard(cid) }
+	const Card* const getCard(const CardID cid) return { const _deck->getCard(cid); }
 
 private:
 	const Deck* const _deck;
