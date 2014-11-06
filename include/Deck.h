@@ -1,4 +1,3 @@
-//--Will not compiel since Card.getID() not defined
 //Changelog:
 //==========
 #ifndef DECK_H
@@ -23,9 +22,12 @@ public:
 	Deck& operator= (const Deck&) = default;
 	Deck& operator= (Deck&&) = default;
 
-	~Deck() = default;
+	~Deck() {
+	for (auto i : _cards)
+		delete i.second;
+	}
 
-	const Card* const getCard(CardID id)
+	const Card* const getCard(const CardID id) const
 	{
 		return _cards.at(id);
 	}
