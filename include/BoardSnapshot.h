@@ -1,3 +1,5 @@
+//Changelog:
+//=========
 #ifndef BOARDSNAPSHOT_H
 #define BOARDSNAPSHOT_H
 #include <vector>
