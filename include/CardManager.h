@@ -1,7 +1,8 @@
 //Author: Johannes
 //Changelog:
+//2014-11-06
+//Basic setup. Constructors and data members.
 //==========
-//Made copy and move accessable
 #ifndef CARDMANAGER_H
 #define CARDMANAGER_H
 
@@ -11,17 +12,22 @@
 
 class CardManager {
 public:
-//Can only be created with a pointer to a deck object
-ContainerID(const Deck* const d) : deck{d}
-{}
+	ContainerID(const Deck* const d) : _deck{d}
+	{}
 
-//Default forbidden
-ContainerID() = delete;
-CardContainerID(const ContainerID&) = default;
-ContainerID (ContainerID&&) = default;
+	ContainerID() 								= delete;
+	CardContainerID(const ContainerID&) 		= delete;
+	ContainerID (ContainerID&&) 				= delete;
 
-Card* getCard(CardID);
+	ContainerID& operator= (const ContainerID&)	= delete;
+	ContainerID& operator= (ContainerID&&)		= delete;
+
+	~ContainerID() 								= default;
+
+	Card* getCard(const CardID cid) { return _deck->getCard(cid) }
 
 private:
-const Deck* const deck;
-}
+	const Deck* const _deck;
+};
+
+#endif
