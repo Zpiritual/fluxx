@@ -1,4 +1,7 @@
-//Autor Martin
+//Autor: Martin
+//Changelog:
+//==========
+//Made copy and move accessable
 #ifndef CONTAINERID_H
 #define CONTAINERID_H
 #include <string>
@@ -9,13 +12,13 @@ std::string val;
 	ContainerID(std::string val):val{val}
 	{}
 
-	//Default, Move and Copy forbidden
+	//Default forbidden
 	ContainerID() = delete;
-	CardContainerID(const ContainerID&) = delete;
-	ContainerID (ContainerID&&) = delete;
+	CardContainerID(const ContainerID&) = default;
+	ContainerID (ContainerID&&) = default;
 
-	ContainerID& operator= (const ContainerID&) = delete;
-	ContainerID& operator= (ContainerID&&) = delete;
+	ContainerID& operator= (const ContainerID&) = default;
+	ContainerID& operator= (ContainerID&&) = default;
 
 	//Default Destructor
 	~ContainerID() = default;
