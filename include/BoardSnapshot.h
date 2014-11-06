@@ -1,4 +1,3 @@
-//Autor Martin
 #ifndef BOARDSNAPSHOT_H
 #define BOARDSNAPSHOT_H
 #include <vector>

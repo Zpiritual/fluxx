@@ -1,4 +1,4 @@
-//Autor: Martin --Will not compiel since Card.getID() not defined
+//--Will not compiel since Card.getID() not defined
 //Changelog:
 //==========
 #ifndef DECK_H

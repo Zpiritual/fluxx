@@ -1,8 +1,36 @@
-//Athor Martin --Only Placehoder for Include purpose
+//Changelog:
+//==========
 #ifndef PLAYER_H
 #define PLAYER_H
+#include <string>
+#include "PlayerID.h"
 class Player
 {
+public:
+	Player(const PlayerID pid, const std::string name):_id{pid}, _name{name}
+	{}
 
+	Player() = delete;
+	Player(const Player&) = default;
+	Player (Player&&) = default;
+
+	Player& operator= (const Player&) = default;
+	Player& operator= (Player&&) = default;
+
+	~Player() = default;
+
+	std::string getName()
+	{
+		return _name;
+	}
+
+	PlayerID getID()
+	{
+		return _id;
+	}
+
+private:
+	const PlayerID _id;
+	const std::string _name;
 };
 #endif

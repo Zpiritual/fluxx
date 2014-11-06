@@ -1,4 +1,3 @@
-//Author: Johannes
 //Changelog:
 //2014-11-06
 //Basic setup. Constructors and data members.

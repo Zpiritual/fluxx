@@ -1,4 +1,3 @@
-//Autor: Martin
 //Changelog:
 //==========
 #ifndef CARD_H

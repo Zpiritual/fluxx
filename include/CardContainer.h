@@ -1,4 +1,3 @@
-//Athor: Martin
 //Changelog:
 //==========
 //Changed CardID* to CardID
@@ -23,22 +22,18 @@ public:
 	CardContainer(ContainerID id): _id{id}
 	{}
 
-	//Default and Move forbidden
-	CardContainer() = delete;
+	CardContainer() 					= delete;
 	CardContainer(const CardContainer&) = default;
-	CardContainer(CardContainer&&) = delete;
+	CardContainer(CardContainer&&) 		= delete;
 
 	CardContainer& operator= (const CardContainer&) = default;
-	CardContainer& operator= (CardContainer&&) = delete;
+	CardContainer& operator= (CardContainer&&) 		= delete;
 
-	//Default Destructor
 	~CardContainer() = default;
 
-	//public Modifiers
 	void addCard(CardID);
 	void removeCard(CardID);
 
-	//public Capacity
 	int getSize();
 	std::vector<CardID> getCards();
 	ContainerID getID();

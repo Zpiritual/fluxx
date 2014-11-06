@@ -1,4 +1,3 @@
-//Autor: Martin
 //Changelog:
 //==========
 //Made copy and move accessable
@@ -7,7 +6,6 @@
 struct PlayerID
 {
 int val;
-	//Can only be created with a value
 	PlayerID(int val):val{val}
 	{}
 

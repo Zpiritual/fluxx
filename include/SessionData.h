@@ -1,4 +1,3 @@
-//Autor: Martin
 //Changelog:
 //==========
 //Changed PlayerID* to PlayerID
