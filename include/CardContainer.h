@@ -34,8 +34,8 @@ public:
 	void addCard(CardID);
 	void removeCard(CardID);
 
-	int getSize();
-	std::vector<CardID> getCards();
-	ContainerID getID();
+	const int 					getSize() 	const;
+	const std::vector<CardID> 	getCards() 	const ;
+	const ContainerID 			getID() 	const;
 };
 #endif

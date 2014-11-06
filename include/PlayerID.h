@@ -1,6 +1,8 @@
 //Changelog:
 //==========
+//2014-11-06
 //Made copy and move accessable
+//Changed != operator to inverse of ==
 #ifndef PLAYERID_H
 #define PLAYERID_H
 struct PlayerID
@@ -25,7 +27,7 @@ int val;
 
 	bool operator !=(const PlayerID &p) const
 	{
-		return val != p.val;
+		return !(*this == p);
 	}
 
 };

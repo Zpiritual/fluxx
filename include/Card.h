@@ -1,5 +1,7 @@
 //Changelog:
 //==========
+//2014-11-06
+//Added const to getters
 #ifndef CARD_H
 #define CARD_H
 

@@ -1,5 +1,7 @@
 //Changelog:
 //==========
+//2014-11-06
+//Added const to getters
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <string>
@@ -19,12 +21,12 @@ public:
 
 	~Player() = default;
 
-	std::string getName()
+	const std::string getName() const
 	{
 		return _name;
 	}
 
-	PlayerID getID()
+	const PlayerID getID() const 
 	{
 		return _id;
 	}

@@ -7,11 +7,11 @@
 struct BoardSnapshot
 {
 std::vector<CardContainer> val;
-	//Can only be created with a value
+
 	BoardSnapshot(std::vector<CardContainer> val):val{val}
 	{}
 
-	//Default, Move and Copy forbidden
+
 	BoardSnapshot() = delete;
 	BoardSnapshot(const BoardSnapshot&) = delete;
 	BoardSnapshot (BoardSnapshot&&) = delete;
@@ -19,7 +19,6 @@ std::vector<CardContainer> val;
 	BoardSnapshot& operator= (const BoardSnapshot&) = delete;
 	BoardSnapshot& operator= (BoardSnapshot&&) = delete;
 
-	//Default Destructor
 	~BoardSnapshot() = default;
 
 };

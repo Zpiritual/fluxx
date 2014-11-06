@@ -28,7 +28,7 @@ int main()
 	cout << "Sanitycheck: Duplicated ids OK" << endl;
 	cout<< "Adding Card: " << cid2.val << " to: " << cc1.getID().val << endl;
 	cc1.addCard(cid2);
-	cout << "Removing Card: " << cid1.val << "from: " << cc1.getID().val << endl;
+	cout << "Removing Card: " << cid1.val << " from: " << cc1.getID().val << endl;
 	cc1.removeCard(cid1);
 	cout<< "Adding Card: " << cid1.val << " to: " << cc2.getID().val << endl;
 	cc2.addCard(cid1);

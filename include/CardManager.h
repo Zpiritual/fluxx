@@ -1,6 +1,7 @@
 //Changelog:
 //2014-11-06
 //Basic setup. Constructors and data members.
+//Fixed missplaced Return and const statments
 //==========
 #ifndef CARDMANAGER_H
 #define CARDMANAGER_H
@@ -23,7 +24,7 @@ public:
 
 	~CardManager() 								= default;
 
-	const Card* const getCard(const CardID cid) return { const _deck->getCard(cid); }
+	const Card* const getCard(const CardID cid) const { return _deck->getCard(cid); }
 
 private:
 	const Deck* const _deck;
