@@ -19,6 +19,9 @@ private:
     QPushButton* options_button;
     QPushButton* exit_button;
 
+    void adjust_button_height(int height);
+    void adjust_button_width(int width);
+
 signals:
 
 public slots:

@@ -17,6 +17,16 @@ MainMenu::MainMenu(QWidget *parent) :
 
    this->setLayout(main_layout);
    this->setWindowTitle(QString("Main Menu"));
+   this->setMinimumWidth(640);
+   this->setMinimumHeight(480);
+
+   adjust_button_height(75);
+   adjust_button_width(320);
+
+   main_layout->setAlignment(new_game_button, Qt::AlignHCenter);
+   main_layout->setAlignment(continue_game_button, Qt::AlignHCenter);
+   main_layout->setAlignment(options_button, Qt::AlignHCenter);
+   main_layout->setAlignment(exit_button, Qt::AlignHCenter);
 
    QObject::connect(new_game_button, SIGNAL(clicked()), this, SLOT(new_game()));
    QObject::connect(continue_game_button, SIGNAL(clicked()), this, SLOT(continue_game()));
@@ -54,3 +64,26 @@ void MainMenu::exit()
     this->close();
 }
 
+void MainMenu::adjust_button_height(int height)
+{
+    new_game_button->setMinimumHeight(height);
+    new_game_button->setMaximumHeight(height);
+    continue_game_button->setMinimumHeight(height);
+    continue_game_button->setMaximumHeight(height);
+    options_button->setMinimumHeight(height);
+    options_button->setMaximumHeight(height);
+    exit_button->setMinimumHeight(height);
+    exit_button->setMaximumHeight(height);
+}
+
+void MainMenu::adjust_button_width(int width)
+{
+    new_game_button->setMinimumWidth(width);
+    new_game_button->setMaximumWidth(width);
+    continue_game_button->setMinimumWidth(width);
+    continue_game_button->setMaximumWidth(width);
+    options_button->setMinimumWidth(width);
+    options_button->setMaximumWidth(width);
+    exit_button->setMinimumWidth(width);
+    exit_button->setMaximumWidth(width);
+}
