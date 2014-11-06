@@ -1,5 +1,8 @@
 //Changelog:
 //==========
+//2014-11-06
+//Changed _cards from const
+//Changed pointers from const Card const pointer to const Card pointer - impossible to use map and const pointers 
 #ifndef DECK_H
 #define DECK_H
 #include "Card.h"
@@ -9,10 +12,10 @@
 class Deck
 {
 public:
-	Deck(const std::vector<const Card* const> &cards)
+	Deck(const std::vector<const Card* > &cards)
 	{
-		//for(auto a: cards)
-			//_cards.[a.getID()] = a;
+		for(auto a: cards)
+			_cards.insert(std::pair<const CardID, const Card * >(a->getID(), a));
 	}
 
 	Deck() = delete;
@@ -29,10 +32,18 @@ public:
 
 	const Card* const getCard(const CardID id) const
 	{
-		return _cards.at(id);
+		try
+		{
+
+			return _cards.at(id);
+		}
+		catch(...)
+		{
+			return nullptr;
+		}
 	}
 
 private:
-	const std::map<const CardID, const Card* const> _cards;
+	std::map<const CardID, const Card* > _cards;
 };
 #endif

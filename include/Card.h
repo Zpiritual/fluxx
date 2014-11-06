@@ -28,11 +28,11 @@ public:
 			delete i;
 	}
 
-	const CardID 		  getID() 			{ return _id; }
-	const string 		  getType() 		{ return _type; }
-	const string 		  getSubtype() 		{ return _subtype; }
-	const string 		  getDescription() 	{ return _description; }
-	const vector<Effect*> getEffects()		{ return _effects; }
+	const CardID 		  getID() 			const	{ return _id; }
+	const string 		  getType() 		const	{ return _type; }
+	const string 		  getSubtype() 		const	{ return _subtype; }
+	const string 		  getDescription() 	const	{ return _description; }
+	const vector<Effect*> getEffects()		const	{ return _effects; }
 
 private:
 	const CardID _id;

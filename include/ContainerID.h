@@ -1,6 +1,7 @@
 //Changelog:
 //==========
-//14-11-6 Made copy and move accessable
+//2014-11-06
+//Made copy and move accessable
 #ifndef CONTAINERID_H
 #define CONTAINERID_H
 #include <string>
