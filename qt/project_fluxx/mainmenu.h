@@ -12,7 +12,12 @@ public:
     ~MainMenu();
 
 private:
+    QStackedWidget* layouts;
+    QWidget* main_widget;
+    QWidget* options_widget;
     QVBoxLayout* main_layout;
+    QVBoxLayout* options_layout;
+    QVBoxLayout* temp;
 
     QPushButton* new_game_button;
     QPushButton* continue_game_button;
