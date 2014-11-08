@@ -38,6 +38,7 @@ Start::~Start()
 
 void Start::new_game()
 {
+
     qDebug() << "Add new_game functionality";
     // TODO: Add functionality
 }

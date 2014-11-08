@@ -9,7 +9,7 @@ MainMenu::MainMenu(QWidget *parent) :
    layouts = new QStackedWidget();
    start_widget = new Start();
    //options_widget = new options();
-   //newgame_widget = new newgame();
+   newgame_widget = new NewGame();
 
    this->setWindowTitle(QString("Main Menu"));
    this->setMinimumWidth(640);
@@ -20,7 +20,7 @@ MainMenu::MainMenu(QWidget *parent) :
    //layouts->addWidget(options_widget);
    layouts->setCurrentIndex(0);
 
-   main_layout->addWidget(layouts);
+   main_layout->addWidget(newgame_widget);
    this->setLayout(main_layout);
 }
 
