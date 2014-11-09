@@ -6,22 +6,15 @@ MainMenu::MainMenu(QWidget *parent) :
     QWidget(parent)
 {
    main_layout = new QVBoxLayout();
-   layouts = new QStackedWidget();
    start_widget = new Start(this);
    //options_widget = new options();
-   newgame_widget = new NewGame();
-   newgame_widget->setParent(this);
+   //newgame_widget = new NewGame(this);
 
    this->setWindowTitle(QString("Main Menu"));
    this->setMinimumWidth(640);
    this->setMinimumHeight(480);
 
-   layouts->addWidget(start_widget);
-   layouts->addWidget(newgame_widget);
-   //layouts->addWidget(options_widget);
-   layouts->setCurrentIndex(0);
-
-   main_layout->addWidget(layouts);
+   main_layout->addWidget(start_widget);
    this->setLayout(main_layout);
 }
 
@@ -29,17 +22,38 @@ MainMenu::~MainMenu()
 {
 }
 
-void MainMenu::changeStackWidget(QWidget* caller)
+void MainMenu::newGame()
 {
-    layouts->setCurrentIndex(layouts->indexOf(caller));
+    newgame_widget = new NewGame(this);
+    main_layout->addWidget(newgame_widget);
+    main_layout->removeWidget(start_widget);
+
+    delete start_widget;
 }
 
-QWidget* MainMenu::getNewGame()
+void MainMenu::newGameBack()
 {
-    return newgame_widget;
+    start_widget = new Start(this);
+    main_layout->addWidget(start_widget);
+    main_layout->removeWidget(newgame_widget);
+
+   delete newgame_widget;
 }
 
-QWidget* MainMenu::getStart()
-{
-    return start_widget;
-}
+//void MainMenu::options()
+//{
+//    options_widget = new Options(this);
+//    main_layout->addWidget(options_widget);
+//    main_layout->removeWidget(start_widget);
+
+//    delete start_widget;
+//}
+
+//void MainMenu::optionsBack()
+//{
+//    start_widget = new Start(this);
+//    main_layout->addWidget(start_widget);
+//    main_layout->removeWidget(options_widget);
+
+//   delete options_widget;
+//}

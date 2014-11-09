@@ -4,8 +4,6 @@
 NewGame::NewGame(QWidget *parent) :
     QWidget(parent)
 {
-
-
     uiElementSetup();
     parent2 = dynamic_cast<MainMenu*>(parent);
     player_list->addItem(QString("Player1"));
@@ -42,7 +40,8 @@ void NewGame::nextPlayer(){
 
 void NewGame::goBack(){
       qDebug() << "Add goBack functionality";
-    parent2->changeStackWidget(parent2->getStart());
+      parent2->newGameBack();
+    //parent2->changeLayout(this, parent2->getStart());
     //qDebug() << "Int:" << parent()->testing;
 
 }

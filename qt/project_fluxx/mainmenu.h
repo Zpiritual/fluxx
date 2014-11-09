@@ -10,9 +10,11 @@ class MainMenu : public QWidget
 public:
     explicit MainMenu(QWidget *parent = 0);
     ~MainMenu();
-    void changeStackWidget(QWidget*);
-    QWidget* getNewGame();
-    QWidget* getStart();
+
+    void newGame();
+    void newGameBack();
+   // void options();
+  //  void optionsBack();
 
 private:
     QVBoxLayout* main_layout; //Main window layout
