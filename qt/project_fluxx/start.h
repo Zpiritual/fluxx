@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include "mainmenu.h"
+
 
 class Start : public QWidget
 {
@@ -17,6 +19,7 @@ private:
     QPushButton* new_game_button;
     QPushButton* options_button;
     QPushButton* exit_button;
+    MainMenu* parent2;
 
     void adjust_button_height(int height);
     void adjust_button_width(int width);

@@ -28,6 +28,9 @@ Start::Start(QWidget *parent) :
     QObject::connect(options_button, SIGNAL(clicked()), this, SLOT(options()));
     QObject::connect(exit_button, SIGNAL(clicked()), this, SLOT(exit()));
 
+    parent2 = dynamic_cast<MainMenu*>(parent);
+
+
     this->setLayout(layout);
 }
 
@@ -38,7 +41,7 @@ Start::~Start()
 
 void Start::new_game()
 {
-
+    parent2->changeStackWidget(parent2->getNewGame());
     qDebug() << "Add new_game functionality";
     // TODO: Add functionality
 }

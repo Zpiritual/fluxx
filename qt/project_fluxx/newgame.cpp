@@ -1,16 +1,16 @@
 #include "newgame.h"
+#include "mainmenu.h"
 
 NewGame::NewGame(QWidget *parent) :
     QWidget(parent)
 {
+
+
     uiElementSetup();
+    parent2 = dynamic_cast<MainMenu*>(parent);
     player_list->addItem(QString("Player1"));
     player_list->addItem(QString("Player2"));
     player_list->addItem(QString("Player3"));
-
-
-
-
 }
 
 NewGame::~NewGame()
@@ -35,14 +35,16 @@ void NewGame::nextPlayer(){
     {
         QMessageBox msgBox;
         msgBox.setText("Only 6 players are allowed to play");
+        msgBox.setWindowTitle("ERROR!");
         msgBox.exec();
     }
-
-
 }
 
 void NewGame::goBack(){
-    qDebug() << "Add goBack functionality";
+      qDebug() << "Add goBack functionality";
+    parent2->changeStackWidget(parent2->getStart());
+    //qDebug() << "Int:" << parent()->testing;
+
 }
 
 void NewGame::selectPlayer()

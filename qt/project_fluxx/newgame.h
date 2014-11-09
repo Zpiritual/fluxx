@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include "mainmenu.h"
 
 class NewGame : public QWidget
 {
@@ -10,6 +11,7 @@ class NewGame : public QWidget
 public:
     explicit NewGame(QWidget *parent = 0);
     ~NewGame();
+    int testing = 78;
 
 private:
     QHBoxLayout* layout;
@@ -24,6 +26,7 @@ private:
     QPushButton* back_button;
     QLabel* view_players;
     int current_player = 1;
+    MainMenu* parent2;
 
     void uiElementSetup();
 
