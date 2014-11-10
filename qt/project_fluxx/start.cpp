@@ -53,7 +53,7 @@ void Start::continue_game()
 
 void Start::options()
 {
-    //parent2->options();
+    parent2->options();
     qDebug() << "Add options functionality";
     // TODO: Add functionality
 }

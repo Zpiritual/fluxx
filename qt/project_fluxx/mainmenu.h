@@ -13,8 +13,8 @@ public:
 
     void newGame();
     void newGameBack();
-   // void options();
-  //  void optionsBack();
+    void options();
+    void optionsBack();
 
 private:
     QVBoxLayout* main_layout; //Main window layout
