@@ -1,32 +1,35 @@
-//Autor Martin
-#ifndef CARDCONTAINER_ID
-#define CARDCONTAINER_ID
+//Autor: Martin
+//Changelog:
+//==========
+//Made copy and move accessable
+#ifndef CONTAINERID_H
+#define CONTAINERID_H
 #include <string>
-struct CardContainerID
+struct ContainerID
 {
 std::string val;
 	//Can only be created with a value
-	CardContainerID(std::string val):val{val}
+	ContainerID(std::string val):val{val}
 	{}
 
-	//Default, Move and Copy forbidden
-	CardContainerID() = delete;
-	CardContainerID(const CardContainerID&) = delete;
-	CardContainerID (CardContainerID&&) = delete;
+	//Default forbidden
+	ContainerID() = delete;
+	CardContainerID(const ContainerID&) = default;
+	ContainerID (ContainerID&&) = default;
 
-	CardContainerID& operator= (const CardContainerID&) = delete;
-	CardContainerID& operator= (CardContainerID&&) = delete;
+	ContainerID& operator= (const ContainerID&) = default;
+	ContainerID& operator= (ContainerID&&) = default;
 
 	//Default Destructor
-	~CardContainerID() = default;
+	~ContainerID() = default;
 
 	//operators 
-	bool operator ==(const CardContainerID &p) const
+	bool operator ==(const ContainerID &p) const
 	{
 		return val == p.val;
 	}
 
-	bool operator !=(const CardContainerID &p) const
+	bool operator !=(const ContainerID &p) const
 	{
 		return val != p.val;
 	}

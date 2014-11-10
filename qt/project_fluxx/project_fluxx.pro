@@ -19,10 +19,20 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     mainmenu.cpp \
+<<<<<<< HEAD
     options.cpp
 
 HEADERS += \
     mainmenu.h \
     options.h
+=======
+    newgame.cpp \
+    start.cpp
+
+HEADERS += \
+    mainmenu.h \
+    newgame.h \
+    start.h
+>>>>>>> fluxx/Main_Menu_Prototype
 
 QMAKE_CXXFLAGS += -std=c++11
