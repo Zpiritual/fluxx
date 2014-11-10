@@ -1,4 +1,7 @@
-//Autor Martin
+//Autor: Martin
+//Changelog:
+//==========
+//Made copy and move accessable
 #ifndef CARD_ID
 #define CARD_ID
 struct CardID
@@ -8,13 +11,13 @@ int val;
 	CardID(int val):val{val}
 	{}
 
-	//Default, Move and Copy forbidden
+	//Default forbidden
 	CardID() = delete;
-	CardID(const CardID&) = delete;
-	CardID (CardID&&) = delete;
+	CardID(const CardID&) = default;
+	CardID (CardID&&) = default;
 
-	CardID& operator= (const CardID&) = delete;
-	CardID& operator= (CardID&&) = delete;
+	CardID& operator= (const CardID&) = default;
+	CardID& operator= (CardID&&) = default;
 
 	//Default Destructor
 	~CardID() = default;

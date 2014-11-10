@@ -1,4 +1,7 @@
-//Autor Martin
+//Autor: Martin
+//Changelog:
+//==========
+//Made copy and move accessable
 #ifndef PLAYERID_H
 #define PLAYERID_H
 struct PlayerID
@@ -8,13 +11,13 @@ int val;
 	PlayerID(int val):val{val}
 	{}
 
-	//Default, Move and Copy forbidden
+	//Default forbidden
 	PlayerID() = delete;
-	PlayerID(const PlayerID&) = delete;
-	PlayerID (PlayerID&&) = delete;
+	PlayerID(const PlayerID&) = default;
+	PlayerID (PlayerID&&) = default;
 
-	PlayerID& operator= (const PlayerID&) = delete;
-	PlayerID& operator= (PlayerID&&) = delete;
+	PlayerID& operator= (const PlayerID&) = default;
+	PlayerID& operator= (PlayerID&&) = default;
 
 	//Default Destructor
 	~PlayerID() = default;

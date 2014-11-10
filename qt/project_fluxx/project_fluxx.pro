@@ -18,9 +18,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    mainmenu.cpp
+    mainmenu.cpp \
+    newgame.cpp \
+    start.cpp
 
 HEADERS += \
-    mainmenu.h
+    mainmenu.h \
+    newgame.h \
+    start.h
 
 QMAKE_CXXFLAGS += -std=c++11
