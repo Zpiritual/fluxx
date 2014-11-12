@@ -1,5 +1,8 @@
 //Changelog:
 //==========
+//2014-11-12
+//Added const to ContainerID
+//
 #ifndef STOCK_H
 #define STOCK_H
 #include <stack>
@@ -9,11 +12,11 @@ class Stock
 {
 private:
 	std::stack<CardID> _cards;
-	ContainerID _id;
+	const ContainerID _id;
 public:
-	Stock(std::stack<CardID> cards, ContainerID id):_cards{cards}, _id{id}
+	Stock(std::stack<CardID> cards, const ContainerID id):_cards{cards}, _id{id}
 	{}
-	Stock(ContainerID id): _id{id}
+	Stock(const ContainerID id): _id{id}
 	{}
 
 	Stock() 					= delete;
