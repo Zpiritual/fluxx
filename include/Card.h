@@ -4,7 +4,6 @@
 //Added const to getters
 #ifndef CARD_H
 #define CARD_H
-
 #include "CardID.h"
 #include "Effect.h"
 #include <vector>

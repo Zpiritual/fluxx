@@ -3,6 +3,7 @@
 //2014-11-06
 //Made copy and move accessable
 //Changed != operator to inverse of ==
+//Added < operator
 #ifndef PLAYERID_H
 #define PLAYERID_H
 struct PlayerID
@@ -30,5 +31,9 @@ int val;
 		return !(*this == p);
 	}
 
+	bool operator <(const PlayerID &p) const
+	{
+		return val < p.val;
+	}
 };
 #endif
