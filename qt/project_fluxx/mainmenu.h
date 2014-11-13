@@ -11,22 +11,21 @@ public:
     explicit MainMenu(QWidget *parent = 0);
     ~MainMenu();
 
-private:
-    QVBoxLayout* main_layout;
+    void newGame();
+    void newGameBack();
+    void options();
+    void optionsBack();
 
-    QPushButton* new_game_button;
-    QPushButton* continue_game_button;
-    QPushButton* options_button;
-    QPushButton* exit_button;
+private:
+    QVBoxLayout* main_layout; //Main window layout
+    QStackedWidget* layouts; //Container for the different menues
+    QWidget* start_widget; //The widget that run at start
+    QWidget* options_widget; //The options menu widget
+    QWidget* newgame_widget; //The newgame menu widget
 
 signals:
 
 public slots:
-    void new_game();
-    void continue_game();
-    void options();
-    void exit();
-
 };
 
 #endif // MAINMENU_H

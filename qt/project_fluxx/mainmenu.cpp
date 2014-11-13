@@ -1,56 +1,58 @@
 #include "mainmenu.h"
+#include "newgame.h"
+#include "start.h"
+#include "options.h"
 
 MainMenu::MainMenu(QWidget *parent) :
     QWidget(parent)
 {
    main_layout = new QVBoxLayout();
+   start_widget = new Start(this);
 
-   new_game_button = new QPushButton(QString("New Game"));
-   continue_game_button = new QPushButton(QString("Continue Game"));
-   options_button = new QPushButton(QString("Options"));
-   exit_button = new QPushButton(QString("Exit"));
-
-   main_layout->addWidget(new_game_button);
-   main_layout->addWidget(continue_game_button);
-   main_layout->addWidget(options_button);
-   main_layout->addWidget(exit_button);
-
-   this->setLayout(main_layout);
    this->setWindowTitle(QString("Main Menu"));
+   this->setMinimumWidth(640);
+   this->setMinimumHeight(480);
 
-   QObject::connect(new_game_button, SIGNAL(clicked()), this, SLOT(new_game()));
-   QObject::connect(continue_game_button, SIGNAL(clicked()), this, SLOT(continue_game()));
-   QObject::connect(options_button, SIGNAL(clicked()), this, SLOT(options()));
-   QObject::connect(exit_button, SIGNAL(clicked()), this, SLOT(exit()));
+   main_layout->addWidget(start_widget);
+   this->setLayout(main_layout);
 }
 
 MainMenu::~MainMenu()
 {
 }
 
-void MainMenu::new_game()
+void MainMenu::newGame()
 {
-    qDebug() << "Add new_game functionality";
-    // TODO: Add functionality
+    newgame_widget = new NewGame(this);
+    main_layout->addWidget(newgame_widget);
+    main_layout->removeWidget(start_widget);
+
+    delete start_widget;
 }
 
-void MainMenu::continue_game()
+void MainMenu::newGameBack()
 {
-    qDebug() << "Add continue_game functionality";
-    // TODO: Add functionality
+    start_widget = new Start(this);
+    main_layout->addWidget(start_widget);
+    main_layout->removeWidget(newgame_widget);
+
+   delete newgame_widget;
 }
 
 void MainMenu::options()
 {
-    qDebug() << "Add options functionality";
-    // TODO: Add functionality
+    options_widget = new Options(this);
+    main_layout->addWidget(options_widget);
+    main_layout->removeWidget(start_widget);
+
+    delete start_widget;
 }
 
-void MainMenu::exit()
+void MainMenu::optionsBack()
 {
-    qDebug() << "Add exit functionality";
-    // TODO: Add functionality
+    start_widget = new Start(this);
+    main_layout->addWidget(start_widget);
+    main_layout->removeWidget(options_widget);
 
-    this->close();
+   delete options_widget;
 }
-
