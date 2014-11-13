@@ -1,17 +1,17 @@
-//Autor: Martin
 //Changelog:
 //==========
+//2014-11-06
 //Made copy and move accessable
+//Changed != operator to inverse of ==
+//Added < operator
 #ifndef PLAYERID_H
 #define PLAYERID_H
 struct PlayerID
 {
 int val;
-	//Can only be created with a value
 	PlayerID(int val):val{val}
 	{}
 
-	//Default forbidden
 	PlayerID() = delete;
 	PlayerID(const PlayerID&) = default;
 	PlayerID (PlayerID&&) = default;
@@ -19,10 +19,8 @@ int val;
 	PlayerID& operator= (const PlayerID&) = default;
 	PlayerID& operator= (PlayerID&&) = default;
 
-	//Default Destructor
 	~PlayerID() = default;
-
-	//operators 
+ 
 	bool operator ==(const PlayerID &p) const
 	{
 		return val == p.val;
@@ -30,8 +28,12 @@ int val;
 
 	bool operator !=(const PlayerID &p) const
 	{
-		return val != p.val;
+		return !(*this == p);
 	}
 
+	bool operator <(const PlayerID &p) const
+	{
+		return val < p.val;
+	}
 };
 #endif

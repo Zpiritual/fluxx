@@ -1,12 +1,10 @@
-//Athor: Martin
 //Changelog:
 //==========
+//2014-11-06
 //Changed CardID* to CardID
 //Changed ContainerID* to ContainerID
-//==========
-//Default constructor deleted because it cant set the _id field any other way.
-//Allows copy but not moving because a CardContainer will always be present att same memory addr 
-//but allowd clones for BoardState.
+//2014-11-13
+//Added const to _ID
 #ifndef CARDCONTAINER_H
 #define CARDCONTAINER_H
 #include <vector>
@@ -16,31 +14,27 @@ class CardContainer
 {
 private:
 	std::vector<CardID> _cards;
-	ContainerID _id;
+	const ContainerID _id;
 public:
-	CardContainer(std::vector<CardID> cards, ContainerID id):_cards{cards}, _id{id}
+	CardContainer(std::vector<CardID> cards, const ContainerID id):_cards{cards}, _id{id}
 	{}
-	CardContainer(ContainerID id): _id{id}
+	CardContainer(const ContainerID id): _id{id}
 	{}
 
-	//Default and Move forbidden
-	CardContainer() = delete;
+	CardContainer() 					= delete;
 	CardContainer(const CardContainer&) = default;
-	CardContainer(CardContainer&&) = delete;
+	CardContainer(CardContainer&&) 		= delete;
 
 	CardContainer& operator= (const CardContainer&) = default;
-	CardContainer& operator= (CardContainer&&) = delete;
+	CardContainer& operator= (CardContainer&&) 		= delete;
 
-	//Default Destructor
 	~CardContainer() = default;
 
-	//public Modifiers
 	void addCard(CardID);
 	void removeCard(CardID);
 
-	//public Capacity
-	int getSize();
-	std::vector<CardID> getCards();
-	ContainerID getID();
+	const int 					getSize() 	const;
+	const std::vector<CardID> 	getCards() 	const ;
+	const ContainerID 			getID() 	const;
 };
 #endif

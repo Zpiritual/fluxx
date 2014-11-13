@@ -1,6 +1,6 @@
-//Autor: Martin
 //Changelog:
 //==========
+//2014-11-06
 //Changed PlayerID* to PlayerID
 #ifndef SESSIONDATA_H
 #define SESSIONDATA_H
@@ -12,19 +12,17 @@ struct SessionData
 std::vector<Player> val;
 //Winning players ID 
 PlayerID wp;	
-	//Can only be created with values
 	SessionData(std::vector<Player> val, PlayerID wp):val{val}, wp{wp}
 	{}
 
-	//Default, Move and Copy forbidden
+
 	SessionData() = delete;
-	SessionData(const SessionData&) = delete;
-	SessionData (SessionData&&) = delete;
+	SessionData(const SessionData&) = default;
+	SessionData (SessionData&&) = default;
 
-	SessionData& operator= (const SessionData&) = delete;
-	SessionData& operator= (SessionData&&) = delete;
+	SessionData& operator= (const SessionData&) = default;
+	SessionData& operator= (SessionData&&) = default;
 
-	//Default Destructor
 	~SessionData() = default;
 };
 #endif

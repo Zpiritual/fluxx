@@ -11,17 +11,17 @@
 		_cards.erase(std::find(_cards.begin(), _cards.end(),c));	//Does not need a guard given std::find() has it's own.
 	}
 
-	int CardContainer::getSize()
+	const int CardContainer::getSize() const
 	{
 		return _cards.size();
 	}
 
-	std::vector<CardID> CardContainer::getCards()
+	const std::vector<CardID> CardContainer::getCards() const
 	{
 		return _cards;
 	}
 
-	ContainerID CardContainer::getID()
+	const ContainerID CardContainer::getID() const
 	{
 		return _id;
 	}

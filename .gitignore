@@ -1,2 +1,6 @@
 *.gch
 *.exe
+*.out
+*.user
+*.ppm
+*.ppm#
