@@ -5,6 +5,7 @@
 //Changed ContainerID* to ContainerID
 //2014-11-13
 //Added const to _ID
+//Removed CardContainer(vector, id) constructor
 #ifndef CARDCONTAINER_H
 #define CARDCONTAINER_H
 #include <vector>
@@ -16,8 +17,6 @@ private:
 	std::vector<CardID> _cards;
 	const ContainerID _id;
 public:
-	CardContainer(std::vector<CardID> cards, const ContainerID id):_cards{cards}, _id{id}
-	{}
 	CardContainer(const ContainerID id): _id{id}
 	{}
 
