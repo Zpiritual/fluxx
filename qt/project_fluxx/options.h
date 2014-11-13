@@ -26,7 +26,7 @@ private:
     QPushButton* ok_button;
     QPushButton* cancel_button;
 
-    MainMenu* main_menu;
+    MainMenu* parent2;
 
     bool profileExist(const QString&) const;
     void profileMessage(const QString&) const;
