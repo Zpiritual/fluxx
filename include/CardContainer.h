@@ -29,8 +29,8 @@ public:
 
 	~CardContainer() = default;
 
-	void addCard(CardID);
-	void removeCard(CardID);
+	void addCard(const CardID);
+	void removeCard(const CardID);
 
 	const int 					getSize() 	const;
 	const std::vector<CardID> 	getCards() 	const ;

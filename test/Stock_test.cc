@@ -12,7 +12,7 @@ using namespace std;
 int main()
 {
 	//Gen Deck
-	vector<const Card *> cards;
+	vector<Card *> cards;
 	vector<Effect*> effects;
 	effects.push_back(new Effect);
 	for(int i =  0; i < 10; i++)
@@ -21,20 +21,25 @@ int main()
 	}
 	Deck *deck = new Deck(cards);
 	//==
-		ContainerID id1("Container 1");
+	ContainerID id1("Container 1");
 	cout << "Checking pop and push..." << endl;
-	Stock stock(deck->getCardIDList(), id1);
+	Stock stock(deck, id1);
 	for(int i = 0; i < 10; i++)
 	{
 		stock.pop();
 	}
 	for(int i = 0; i < 10; i++)
 	{
-		stock.push(cards.at(i));
+		stock.push(cards.at(i)->getID());
 	}
-	cout << "Top element: " << stock.pop() << endl;
-	cout << "Second element: " << stock.pop() << endl;
+	cout << "Top element: " << stock.pop().val << endl;
+	cout << "Second element: " << stock.pop().val << endl;
+	while(!stock.empty())
+	{
 	cout << "Randomizing..."<<endl;
-	cout << "Top element: " << stock.pop() << endl;
+	stock.shuffle();
+	cout << "Top element: " << stock.pop().val << endl;
+	}
+
 	return 0;
 }

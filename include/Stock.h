@@ -2,7 +2,8 @@
 //==========
 //2014-11-12
 //Added const to ContainerID
-//
+//2014-11-14
+//Removed const from stack and vector given <const T> not allowed
 #ifndef STOCK_H
 #define STOCK_H
 #include <random>
@@ -17,8 +18,14 @@ private:
 	std::stack<CardID> _cards;
 	const ContainerID _id;
 public:
-	Stock(const Deck* deck const, const ContainerID id):_cards{deck->}, _id{id}
-	{}
+	Stock(const Deck  * deck , const ContainerID id):_id{id}
+	{
+		for(auto i: deck->getCardIDList())
+		{
+			push(i);
+		}
+	}
+
 	Stock(const ContainerID id): _id{id}
 	{}
 
@@ -31,38 +38,11 @@ public:
 
 	~Stock() = default;
 
-	const CardID pop()
-	{
-		const CardID tmp = _cards.top();
-		_cards.pop();
-		return tmp;
-	}
-
-	void push(const CardID &id)
-	{
-		_cards.push(id);
-	}
-
-	void shuffle()
-	{
-		std::vector<CardID> tmp;
-		while(!_cards.empty())
-		{
-			tmp.push_back(pop());
-		}
- 		std::default_random_engine generator;
-  
-		while(!tmp.empty())
-		{
-			std::uniform_int_distribution<int> distribution(0,tmp.size()-1);
-			unsigned int i = distribution(generator);
-			push(tmp.at(i));
-			tmp.erase(tmp.begin() + i);
-		}
-	}
-
-	const int 					getSize() 	const;
-	const std::stack<CardID> 	getCards() 	const ;
-	const ContainerID 			getID() 	const;
+	void 							push(const CardID id);
+	const CardID 					pop();
+	const bool 						empty() 	const;
+	const int 						getSize() 	const;
+	const std::stack<const CardID> 	getCards() 	const;
+	const ContainerID 				getID() 	const;
 };
 #endif
