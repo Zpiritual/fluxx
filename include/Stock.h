@@ -5,16 +5,19 @@
 //
 #ifndef STOCK_H
 #define STOCK_H
+#include <random>
 #include <stack>
 #include "CardID.h"
 #include "ContainerID.h"
+#include "Deck.h"
+
 class Stock
 {
 private:
 	std::stack<CardID> _cards;
 	const ContainerID _id;
 public:
-	Stock(std::stack<CardID> cards, const ContainerID id):_cards{cards}, _id{id}
+	Stock(const Deck* deck const, const ContainerID id):_cards{deck->}, _id{id}
 	{}
 	Stock(const ContainerID id): _id{id}
 	{}
@@ -38,6 +41,24 @@ public:
 	void push(const CardID &id)
 	{
 		_cards.push(id);
+	}
+
+	void shuffle()
+	{
+		std::vector<CardID> tmp;
+		while(!_cards.empty())
+		{
+			tmp.push_back(pop());
+		}
+ 		std::default_random_engine generator;
+  
+		while(!tmp.empty())
+		{
+			std::uniform_int_distribution<int> distribution(0,tmp.size()-1);
+			unsigned int i = distribution(generator);
+			push(tmp.at(i));
+			tmp.erase(tmp.begin() + i);
+		}
 	}
 
 	const int 					getSize() 	const;

@@ -24,5 +24,12 @@ int main()
 		assert(i < 10 ? deck.getCard(CardID(i+1)) != nullptr:deck.getCard(CardID(i+1)) == nullptr );
 	}
 	cout << "Sanity check error handling OK" << endl;
+	cout << "Checking ID List... " << endl;
+	assert(deck.getCardIDList().size() == 10);
+	for(int i = 0; i < 10 ; i++)
+	{
+		assert(deck.getCardIDList().at(i) == cards.at(i)->getID());
+	}
+	cout << "Sanity check list size OK" << endl;
 	return 0;
 }

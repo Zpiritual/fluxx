@@ -30,6 +30,21 @@ public:
 		delete i.second;
 	}
 
+	const int getSize() const 
+	{
+		return _cards.size();
+	}
+
+	vector<CardID> getCardIDList()
+	{
+		vector<CardID> v;
+		for(auto it=_cards.begin(); it != _cards.end(); ++it)
+		{
+			v.push_back(it->first);
+		}
+	return v;
+	}
+
 	const Card* const getCard(const CardID id) const
 	{
 		try
