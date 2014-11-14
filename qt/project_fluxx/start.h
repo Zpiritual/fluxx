@@ -23,6 +23,10 @@ private:
 
     void adjust_button_height(int height);
     void adjust_button_width(int width);
+
+    void connectSignals();
+    void uiElements();
+
 signals:
 
 public slots:

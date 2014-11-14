@@ -4,7 +4,7 @@ Options::Options(QWidget *parent) :
     QWidget(parent)
 {
     uiElements();
-    main_menu = dynamic_cast<MainMenu*>(parent);
+    parent2 = dynamic_cast<MainMenu*>(parent);
 }
 
 void Options::addProfile()
@@ -45,14 +45,14 @@ void Options::ok()
 {
     qDebug() << "Add ok functionality.";
     // TODO: Add functionality
-    main_menu->optionsBack();
+    parent2->optionsBack();
 }
 
 void Options::cancel()
 {
     qDebug() << "Add cancel functionality.";
     // TODO: Add functionality
-    main_menu->optionsBack();
+    parent2->optionsBack();
 }
 
 bool Options::profileExist(const QString& profile_name) const
@@ -117,5 +117,4 @@ void Options::uiElements()
     connectSignals();
 
     this->setLayout(main_layout);
-    this->setWindowTitle(QString("Options"));
 }
