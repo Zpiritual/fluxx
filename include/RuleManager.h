@@ -4,8 +4,8 @@
 #include <vector>
 enum Direction
 {
-	CW,
-	CCW
+	CW = 1,
+	CCW = 2
 };
 
 class RuleManger
