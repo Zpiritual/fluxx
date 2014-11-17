@@ -1,5 +1,6 @@
 #include "newgame.h"
 #include "mainmenu.h"
+#include "gui.h"
 
 NewGame::NewGame(QWidget *parent) :
     QWidget(parent)
@@ -17,6 +18,12 @@ NewGame::~NewGame()
 
 void NewGame::startGame()
 {
+    Gui* gui = new Gui();
+
+    gui->move(QApplication::desktop()->screen()->rect().center() - gui->rect().center());
+
+    gui->show();
+
     qDebug() << "Add startGame functionality";
 }
 

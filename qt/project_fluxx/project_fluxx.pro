@@ -21,12 +21,29 @@ SOURCES += main.cpp \
     mainmenu.cpp \
     newgame.cpp \
     start.cpp \
-    options.cpp
+    options.cpp \
+    gui.cpp \
+    logwidget.cpp \
+    playerlist.cpp \
+    rulesgridwidget.cpp \
+    activeplayer.cpp \
+    card.cpp
 
 HEADERS += \
     mainmenu.h \
     newgame.h \
     start.h \
-    options.h
+    options.h \
+    gui.h \
+    logwidget.h \
+    playerlist.h \
+    rulesgridwidget.h \
+    activeplayer.h \
+    card.h
 
 QMAKE_CXXFLAGS += -std=c++11
+
+OTHER_FILES +=
+
+RESOURCES += \
+    images.qrc

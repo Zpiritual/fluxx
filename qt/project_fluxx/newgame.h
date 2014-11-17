@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "mainmenu.h"
+#include "gui.h"
 
 class NewGame : public QWidget
 {
