@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <vector>
+#include "../../include/PlayerID.h"
 
 class ActivePlayer : public QWidget
 {
@@ -11,6 +12,7 @@ class ActivePlayer : public QWidget
 public:
     explicit ActivePlayer(QWidget *parent = 0);
     ~ActivePlayer();
+
 private:
     QListWidget* hand_list;
     QHBoxLayout* layout;

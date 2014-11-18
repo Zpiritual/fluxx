@@ -1,12 +1,13 @@
 #include "rulesgridwidget.h"
-#include "card.h"
+#include "cardbutton.h"
+#include "../../include/CardID.h"
 
 
 RulesGridWidget::RulesGridWidget(QWidget *parent) :
     QWidget(parent)
 {
     layout = new QGridLayout();
-    card_1 = new Card(1);
+    card_1 = new CardButton(CardID{1});
 
     card_1->setMinimumSize(156,239);
 

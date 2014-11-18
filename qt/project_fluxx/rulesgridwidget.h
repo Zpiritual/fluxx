@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "card.h"
+#include "cardbutton.h"
 
 class RulesGridWidget : public QWidget
 {
@@ -14,7 +14,7 @@ public:
 
 private:
     QGridLayout* layout;
-    Card* card_1;
+    CardButton* card_1;
 
 signals:
 

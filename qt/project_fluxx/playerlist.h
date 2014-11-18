@@ -2,6 +2,7 @@
 #define PLAYERLIST_H
 
 #include <QWidget>
+#include "../../include/PlayerID.h"
 
 class PlayerList : public QWidget
 {
@@ -9,6 +10,8 @@ class PlayerList : public QWidget
 public:
     explicit PlayerList(QWidget *parent = 0);
     ~PlayerList();
+    const PlayerID pickPlayer() const;
+
 signals:
 
 public slots:

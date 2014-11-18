@@ -27,7 +27,8 @@ SOURCES += main.cpp \
     playerlist.cpp \
     rulesgridwidget.cpp \
     activeplayer.cpp \
-    card.cpp
+    cardbutton.cpp \
+    playerlistitem.cpp
 
 HEADERS += \
     mainmenu.h \
@@ -39,7 +40,10 @@ HEADERS += \
     playerlist.h \
     rulesgridwidget.h \
     activeplayer.h \
-    card.h
+    ../../include/BoardSnapshot.h \
+    ../../include/CardID.h \
+    cardbutton.h \
+    playerlistitem.h
 
 QMAKE_CXXFLAGS += -std=c++11
 
