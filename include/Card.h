@@ -2,6 +2,8 @@
 //==========
 //2014-11-06
 //Added const to getters
+//2014-11-14
+//Changed copy and move constructor/operators to default
 #ifndef CARD_H
 #define CARD_H
 #include "CardID.h"
@@ -18,11 +20,11 @@ public:
 	{}
 
 	Card() 							= delete;
-	Card(const Card&) 				= delete;
-	Card (Card&&) 					= delete;
+	Card(const Card&) 				= default;
+	Card (Card&&) 					= default;
 
-	Card& operator= (const Card&)	= delete;
-	Card& operator= (Card&&)		= delete;
+	Card& operator= (const Card&)	= default;
+	Card& operator= (Card&&)		= default;
 
 	~Card() {
 		for (auto i : _effects)

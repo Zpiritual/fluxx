@@ -2,20 +2,30 @@
 //==========
 //2014-11-12
 //Added const to ContainerID
-//
+//2014-11-14
+//Removed const from stack and vector given <const T> not allowed
 #ifndef STOCK_H
 #define STOCK_H
+#include <random>
 #include <stack>
 #include "CardID.h"
 #include "ContainerID.h"
+#include "Deck.h"
+
 class Stock
 {
 private:
 	std::stack<CardID> _cards;
 	const ContainerID _id;
 public:
-	Stock(std::stack<CardID> cards, const ContainerID id):_cards{cards}, _id{id}
-	{}
+	Stock(const Deck  * deck , const ContainerID id):_id{id}
+	{
+		for(auto i: deck->getCardIDList())
+		{
+			push(i);
+		}
+	}
+
 	Stock(const ContainerID id): _id{id}
 	{}
 
@@ -28,20 +38,11 @@ public:
 
 	~Stock() = default;
 
-	const CardID pop()
-	{
-		const CardID tmp = _cards.top();
-		_cards.pop();
-		return tmp;
-	}
-
-	void push(const CardID &id)
-	{
-		_cards.push(id);
-	}
-
-	const int 					getSize() 	const;
-	const std::stack<CardID> 	getCards() 	const ;
-	const ContainerID 			getID() 	const;
+	void 							push(const CardID id);
+	const CardID 					pop();
+	const bool 						empty() 	const;
+	const int 						getSize() 	const;
+	const std::stack<const CardID> 	getCards() 	const;
+	const ContainerID 				getID() 	const;
 };
 #endif

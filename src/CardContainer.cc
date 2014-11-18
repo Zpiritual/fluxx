@@ -1,12 +1,12 @@
 #include <algorithm>
 #include "CardContainer.h"
-	void CardContainer::addCard(CardID c)
+	void CardContainer::addCard(const CardID c)
 	{
 		if(std::find(_cards.begin(), _cards.end(),c) == _cards.end())	//Guard for duplicates
 		_cards.push_back(c);
 	}
 
-	void CardContainer::removeCard(CardID c)
+	void CardContainer::removeCard(const CardID c)
 	{
 		_cards.erase(std::find(_cards.begin(), _cards.end(),c));	//Does not need a guard given std::find() has it's own.
 	}
