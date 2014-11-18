@@ -1,8 +1,9 @@
 #ifndef CARDCONTAINERMANAGER_H
 #define CARDCONTAINERMANAGER_H
-#include <"CardContainer.h">
-#include <"Deck.h">
-#include <"Stock.h">
+
+#include "CardContainerID.h"
+#include "Deck.h"
+#include "Stock.h"
 
 class CardContainerManager {
 public:
@@ -21,15 +22,15 @@ public:
 	//const CardID popDeck(); 
 	// Kan nog tas bort helt, verkar överflödig.
 	void reshuffle();
-	void drawCard(const ContainerID);
-	void moveCard(const ContainerID, const ContainerID, const CardID);
+	void drawCard(const CardContainerID);
+	void moveCard(const CardContainerID, const CardContainerID, const CardID);
 	int getSize(const ContainerID) const;
-	const vector<CardID> getCards(const ContainerID) const;
+	const vector<CardID> getCards(const CardContainerID) const;
 
 private:
-	CardContainer* const getContainer(const ContainerID) const;
+	const CardContainer* const getContainer(const CardContainerID) const;
 
-	Stock* _stock;
+	Stock _stock;
 	//vector<CardContainer> _containers;
-	map<ContainerID, CardContainer*> _containers;
+	map<CardContainerID, CardContainer> _containers;
 };

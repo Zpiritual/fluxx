@@ -5,34 +5,28 @@ void CardContainerManager::reshuffle()
 	_stock.shuffle();
 }
 
-void CardContainerManager::drawCard(const ContainerID cid)
+void CardContainerManager::drawCard(const CardContainerID cid)
 {
-	getContainer(cid).addCard(_stock.pop());
+	getContainer(ccid).addCard(_stock.pop());
 }
 
-void CardContainerManager::moveCard(const ContainerID, const ContainerID, const CardID)
+void CardContainerManager::moveCard(const CardContainerID from, const CardContainerID to, const CardID card)
 {
-
+	getContainer(from)->removeCard(card);
+	getContainer(to)->addCard(card);
 }
 
-int CardContainerManager::getSize(const CardcontainerID) const
+int CardContainerManager::getSize(const CardContainerID container) const
 {
-
+	getContainer(container)->getSize();
 }
 
-vector<CardID> getCards(const ContainerID) const
+vector<CardID> getCards(const CardContainerID container) const
 {
-
+	return getContainer(container)->getCards();
 }
 
-CardContainer* const getContainer(const CardContainerID cid)
+CardContainer* const getContainer(const CardContainerID container)
 {
-	for (auto i : _containers)
-	{
-		if (i->getID() == cid)
-		{
-			return i;
-		}
-	}
-
+	return _containers.at(container);
 }

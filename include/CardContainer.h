@@ -5,11 +5,13 @@
 //Changed ContainerID* to ContainerID
 //2014-11-13
 //Added const to _ID
+
 #ifndef CARDCONTAINER_H
 #define CARDCONTAINER_H
 #include <vector>
 #include "CardID.h"
 #include "ContainerID.h"
+
 class CardContainer
 {
 private:

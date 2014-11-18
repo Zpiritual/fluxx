@@ -41,7 +41,7 @@ public:
 	}
 
 	const int 					getSize() 	const;
-	const std::stack<CardID> 	getCards() 	const ;
+	const std::stack<CardID> 	getCards() 	const;
 	const ContainerID 			getID() 	const;
 };
 #endif
