@@ -31,12 +31,15 @@ public:
 
 	const Player 	getPlayer(const PlayerID pid) const	
 	{
-		return _players.at(pid);	
+		for(auto a: _players)
+		{
+			if(a.getID() == pid) return a;
+		}
 	}
 	
-	void 			addPlayer(Player& p)				
+	void 			addPlayer(Player p)				
 	{
-		_players[p.getID()] = p;	
+		_players.push_back(p);
 	}
 
 	const PlayerID  getCurrentPlayer() const 
@@ -44,7 +47,7 @@ public:
 		return _current_player;	
 	}
 
-	void setCurrentPlayer(const PlayerID pid)
+	void 			setCurrentPlayer(const PlayerID pid)
 	{	
 		for(int i = 0; i < _players.size(); i++)
 		{
@@ -52,7 +55,7 @@ public:
 		}	
 	}
 
-	void nextPlayer()
+	void 			nextPlayer()
 	{
 		_current_player = (_current_player + 1) % _players.size();
 	}
