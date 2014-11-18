@@ -17,11 +17,8 @@
 class PlayerManager
 {
 public:
-	PlayerManager(const std::vector<Player> players)
-	{
-		for(auto a: players)
-			_players[a.getID()] = a;
-	}
+	PlayerManager(const std::vector<Player> players): _players{players}
+	{}
 
 	PlayerManager()						= delete;
 	PlayerManager(const PlayerManager&) = default;
@@ -32,13 +29,35 @@ public:
 
 	~PlayerManager() = default;
 
-	const Player 	getPlayer(const PlayerID pid) const	{	return _players.at(pid);	}
-	void 			addPlayer(Player& p)				{	_players[p.getID()] = p;	}
-	const PlayerID getCurrentPlayer() const {	return _current_player;	}
-	void setCurrentPlayer(const PlayerID pid){	_current_player = pid;	}
-	void nextPlayer();
+	const Player 	getPlayer(const PlayerID pid) const	
+	{
+		return _players.at(pid);	
+	}
+	
+	void 			addPlayer(Player& p)				
+	{
+		_players[p.getID()] = p;	
+	}
+
+	const PlayerID  getCurrentPlayer() const 
+	{	
+		return _current_player;	
+	}
+
+	void setCurrentPlayer(const PlayerID pid)
+	{	
+		for(int i = 0; i < _players.size(); i++)
+		{
+			if(_players.at(i).getID() == pid) _current_player = i;
+		}	
+	}
+
+	void nextPlayer()
+	{
+		_current_player = (_current_player + 1) % _players.size();
+	}
 private:
-	std::map<const PlayerID, Player> _players;
-	PlayerID _current_player;
+	std::vector<Player> _players;
+	int  _current_player;
 };
 #endif

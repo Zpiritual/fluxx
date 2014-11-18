@@ -7,11 +7,12 @@
 #include <vector>
 #include <algorithm>
 #include "CardContainer.h"
+#include "RuleManager.h"
 struct BoardSnapshot
 {
 std::vector<CardContainer> val;
-
-	BoardSnapshot(std::vector<CardContainer> val):val{val}
+Direction dir;
+	BoardSnapshot(std::vector<CardContainer> val, Direction dir):val{val}, dir{dir}
 	{}
 	BoardSnapshot() = delete;
 	BoardSnapshot(const BoardSnapshot&) = delete;
