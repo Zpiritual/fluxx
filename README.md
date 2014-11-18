@@ -22,6 +22,9 @@ Project Organisation
 --bin		(binaries)
 
 
+--qt/project_fluxx/Imgages		(image resources)
+
+
 --lib		(external dependencies)
 
 HOW TO RUN TESTS

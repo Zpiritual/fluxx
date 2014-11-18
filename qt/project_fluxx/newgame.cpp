@@ -1,5 +1,7 @@
 #include "newgame.h"
 #include "mainmenu.h"
+#include "gui.h"
+#include "../../include/PlayerID.h"
 
 NewGame::NewGame(QWidget *parent) :
     QWidget(parent)
@@ -17,6 +19,14 @@ NewGame::~NewGame()
 
 void NewGame::startGame()
 {
+    std::vector<PlayerID> pvector{1,2,3};
+
+    Gui* gui = new Gui(pvector);
+
+    gui->move(QApplication::desktop()->screen()->rect().center() - gui->rect().center());
+
+    gui->show();
+
     qDebug() << "Add startGame functionality";
 }
 
