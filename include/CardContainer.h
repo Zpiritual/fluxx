@@ -6,6 +6,8 @@
 //2014-11-13
 //Added const to _ID
 //Removed CardContainer(vector, id) constructor
+//2014-11-18
+//Changed move constructor and operator to default
 #ifndef CARDCONTAINER_H
 #define CARDCONTAINER_H
 #include <vector>
@@ -22,10 +24,10 @@ public:
 
 	CardContainer() 					= delete;
 	CardContainer(const CardContainer&) = default;
-	CardContainer(CardContainer&&) 		= delete;
+	CardContainer(CardContainer&&) 		= default;
 
 	CardContainer& operator= (const CardContainer&) = default;
-	CardContainer& operator= (CardContainer&&) 		= delete;
+	CardContainer& operator= (CardContainer&&) 		= default;
 
 	~CardContainer() = default;
 
