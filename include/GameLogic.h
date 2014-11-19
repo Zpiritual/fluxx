@@ -5,6 +5,13 @@
 class GameLogic
 {
 public:
+	GameLogic(Deck * deck, const std::vector<Player> players)
+	{
+		_ccm = new CardContainerManager();
+		_cm = new CardManager(deck);
+		_rm = new RuleManager();
+		_pm = new PlayerManager(players);
+	}
 	GameLogic()					= delete;
 	GameLogic(const GameLogic&) = default;
 	GameLogic (GameLogic&&) 	= default;

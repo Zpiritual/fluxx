@@ -11,7 +11,7 @@ enum Direction
 class RuleManger
 {
 public:
-	RuleManger() = delete;
+	RuleManger()=default;
 	RuleManger(const RuleManger&) = default;
 	RuleManger (RuleManger&&) = default;
 
@@ -31,19 +31,19 @@ public:
 	void setHandLimit(const int l);
 	void setKeeperLimit(const int l);
 	void setGoalLimmit(const int l);
-	void setInflatio(const int l);
+	void setInflation(const int l);
 	void setDraw(const int l);
 	void setPlay(const int l);
 	void setPlayOrder(const Direction l);
 
 private:
-	int _hand_limmit;
-	int _keeper_limit;
-	int _goal_limit;
-	int _inflation;
-	int _draw;
-	int _play;
-	Direction _play_direction;
+	int _hand_limmit 	= 0;
+	int _keeper_limit	= 0;
+	int _goal_limit		= 0;
+	int _inflation		= 0;
+	int _draw			= 0;
+	int _play 			= 0;
+	Direction _play_direction = Direction.CW;
 	std::vector<Effect*> _tiggered_rules;
 };
 #endif
