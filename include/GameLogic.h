@@ -11,16 +11,11 @@
 #include "CardManager.h"
 #include "RuleManager.h"
 #include "PlayerManager.h"
+class CardContainerManager;
 class GameLogic
 {
 public:
-	GameLogic(Deck * deck, const std::vector<Player> players)
-	{
-		_ccm = new CardContainerManager();
-		_cm = new CardManager(deck);
-		_rm = new RuleManager();
-		_pm = new PlayerManager(players);
-	}
+	GameLogic(const Deck * deck, const std::vector<Player> players);
 	GameLogic()					= delete;
 	GameLogic(const GameLogic&) = default;
 	GameLogic (GameLogic&&) 	= default;
@@ -28,9 +23,9 @@ public:
 	GameLogic& operator= (const GameLogic&) = default;
 	GameLogic& operator= (GameLogic&&) 		= default;
 
-	~GameLogic() = default;
+	~GameLogic();
 
-	void nextEffects();
+	void nextEffect();
 	void addEffect(Effect*);
 
 	CardContainerManager* getCCM();

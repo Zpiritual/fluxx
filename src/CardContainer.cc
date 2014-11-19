@@ -22,7 +22,7 @@
 		return _cards;
 	}
 
-	const ContainerID CardContainer::getID() const
+	const CardContainerID CardContainer::getID() const
 	{
 		return _id;
 	}

@@ -6,29 +6,22 @@
 //Removed const from stack and vector given <const T> not allowed
 #ifndef STOCK_H
 #define STOCK_H
+
 #include <random>
 #include <stack>
 #include "CardID.h"
 #include "CardContainerID.h"
 #include "Deck.h"
-
+class Deck;
 class Stock
 {
 private:
 	std::stack<CardID> _cards;
 	const CardContainerID _id;
 public:
-	Stock(const Deck  * deck , const CardContainerID id):_id{id}
-	{
-		for(auto i: deck->getCardIDList())
-		{
-			push(i);
-		}
-	}
+	Stock(const Deck  * deck , const CardContainerID id);
 
-	Stock(const CardContainerID id): _id{id}
-	{}
-
+	Stock(const CardContainerID id);
 	Stock() 					= delete;
 	Stock(const Stock&) = default;
 	Stock(Stock&&) 		= delete;
@@ -42,7 +35,8 @@ public:
 	const CardID 					pop();
 	const bool 						empty() 	const;
 	const int 						getSize() 	const;
-	const std::stack<const CardID> 	getCards() 	const;
+	const std::stack<CardID> 	getCards() 	const;
 	const CardContainerID 			getID() 	const;
+	void 							shuffle();
 };
 #endif

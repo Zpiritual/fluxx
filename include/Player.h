@@ -8,11 +8,11 @@
 #define PLAYER_H
 #include <string>
 #include "PlayerID.h"
-#include "ContainerID.h"
+#include "CardContainerID.h"
 class Player
 {
 public:
-	Player(const PlayerID pid,const ContainerID cid, const std::string name):_id{pid}, _name{name}, _cid{cid}
+	Player(const PlayerID pid,const CardContainerID cid, const std::string name):_id{pid}, _name{name}, _cid{cid}
 	{}
 
 	Player() = delete;
@@ -36,7 +36,7 @@ public:
 
 private:
 	const PlayerID _id;
-	const ContainerID _cid;
+	const CardContainerID _cid;
 	const std::string _name;
 };
 #endif

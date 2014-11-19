@@ -11,10 +11,11 @@
 #include "CardID.h"
 #include <map>
 #include <vector>
+class Card;
 class Deck
 {
 public:
-	Deck(const std::vector< Card* > &cards)
+	Deck(const std::vector< const Card* > &cards)
 	{
 		for(auto a: cards)
 			_cards.insert(std::pair<const CardID, const Card * >(a->getID(), a));

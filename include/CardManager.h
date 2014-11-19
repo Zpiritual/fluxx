@@ -9,7 +9,8 @@
 #include "Deck.h"
 #include "Card.h"
 #include "CardID.h"
-
+class Card;
+class Deck;
 class CardManager {
 public:
 	CardManager(const Deck* const d) : _deck{d}
@@ -24,7 +25,7 @@ public:
 
 	~CardManager() 								= default;
 
-	const Card* const getCard(const CardID cid) const { return _deck->getCard(cid); }
+	const Card* const getCard(const CardID) const;
 
 private:
 	const Deck* const _deck;

@@ -35,6 +35,10 @@ struct CardContainerID
 	{
 		return val != p.val;
 	}
+	bool operator<(const CardContainerID &p) const
+	{
+		return val < p.val;
+	}
 };
 
 #endif

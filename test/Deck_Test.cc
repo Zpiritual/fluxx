@@ -1,7 +1,7 @@
 #include "Deck.h"
 #include "Card.h"
 #include "CardID.h"
-#include "Effect.h"
+#include "Draw.h"
 #include <vector>
 #include <iostream>
 #include <cassert>
@@ -12,7 +12,7 @@ int main()
 {
 	vector<const Card *> cards;
 	vector<Effect*> effects;
-	effects.push_back(new Effect);
+	effects.push_back(new Draw(1,1,1));
 	for(int i =  0; i < 10; i++)
 	{
 		cards.push_back(new Card(CardID(i+1), "ACTION", "NUMERIC", "The card is a placeholder...", effects));
