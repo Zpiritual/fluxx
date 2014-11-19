@@ -2,14 +2,17 @@
 //==========
 //2014-11-06
 //Added const to getters
+//2014-11-19
+//Added ID to Container
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <string>
 #include "PlayerID.h"
+#include "ContainerID.h"
 class Player
 {
 public:
-	Player(const PlayerID pid, const std::string name):_id{pid}, _name{name}
+	Player(const PlayerID pid,const ContainerID cid, const std::string name):_id{pid}, _name{name}, _cid{cid}
 	{}
 
 	Player() = delete;
@@ -33,6 +36,7 @@ public:
 
 private:
 	const PlayerID _id;
+	const ContainerID _cid;
 	const std::string _name;
 };
 #endif

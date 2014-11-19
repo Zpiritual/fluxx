@@ -4,12 +4,16 @@
 //Made copy and move accessable
 //Changed != operator to inverse of ==
 //Added < operator
+//2014-11-19
+//Changed val to string
 #ifndef PLAYERID_H
 #define PLAYERID_H
+#include <string>
 struct PlayerID
 {
-int val;
-	PlayerID(int val):val{val}
+	std::string val;
+	
+	PlayerID(std::string val):val{val}
 	{}
 
 	PlayerID() = delete;
