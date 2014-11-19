@@ -11,9 +11,9 @@
 #include <string>
 struct PlayerID
 {
-	string val;
+	std::string val;
 	
-	PlayerID(string val):val{val}
+	PlayerID(std::string val):val{val}
 	{}
 
 	PlayerID() = delete;
