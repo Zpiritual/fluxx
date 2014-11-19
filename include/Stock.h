@@ -9,16 +9,16 @@
 #include <random>
 #include <stack>
 #include "CardID.h"
-#include "ContainerID.h"
+#include "CardContainerID.h"
 #include "Deck.h"
 
 class Stock
 {
 private:
 	std::stack<CardID> _cards;
-	const ContainerID _id;
+	const CardContainerID _id;
 public:
-	Stock(const Deck  * deck , const ContainerID id):_id{id}
+	Stock(const Deck  * deck , const CardContainerID id):_id{id}
 	{
 		for(auto i: deck->getCardIDList())
 		{
@@ -26,7 +26,7 @@ public:
 		}
 	}
 
-	Stock(const ContainerID id): _id{id}
+	Stock(const CardContainerID id): _id{id}
 	{}
 
 	Stock() 					= delete;
@@ -43,6 +43,6 @@ public:
 	const bool 						empty() 	const;
 	const int 						getSize() 	const;
 	const std::stack<const CardID> 	getCards() 	const;
-	const ContainerID 				getID() 	const;
+	const CardContainerID 			getID() 	const;
 };
 #endif

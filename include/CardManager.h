@@ -1,7 +1,7 @@
 //Changelog:
 //2014-11-06
 //Basic setup. Constructors and data members.
-//Fixed missplaced Return and const statments
+//Fixed misplaced Return and const statments
 //==========
 #ifndef CARDMANAGER_H
 #define CARDMANAGER_H

@@ -1,5 +1,6 @@
 #include <algorithm>
 #include "CardContainer.h"
+
 	void CardContainer::addCard(const CardID c)
 	{
 		if(std::find(_cards.begin(), _cards.end(),c) == _cards.end())	//Guard for duplicates
