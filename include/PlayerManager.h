@@ -42,9 +42,9 @@ public:
 		_players.push_back(p);
 	}
 
-	const PlayerID  getCurrentPlayer() const 
+	const Player  getCurrentPlayer() const 
 	{	
-		return _current_player;	
+		return _players.at(_current_player);	
 	}
 
 	void 			setCurrentPlayer(const PlayerID pid)

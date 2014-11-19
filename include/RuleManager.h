@@ -8,17 +8,16 @@ enum Direction
 	CCW = 2
 };
 
-class RuleManger
+class RuleManager
 {
 public:
-	RuleManger()=default;
-	RuleManger(const RuleManger&) = default;
-	RuleManger (RuleManger&&) = default;
+	RuleManager()=default;
+	RuleManager(const RuleManager&) = default;
+	RuleManager (RuleManager&&) = default;
 
-	RuleManger& operator= (const RuleManger&) = default;
-	RuleManger& operator= (RuleManger&&) = default;
-
-	~RuleManger() = default;
+	RuleManager& operator= (const RuleManager&) = default;
+	RuleManager& operator= (RuleManager&&) = default;
+	~RuleManager() = default;
 
 	const int 		getHandLimit()		const;
 	const int 		getKepperLimit() 	const;
@@ -43,7 +42,7 @@ private:
 	int _inflation		= 0;
 	int _draw			= 0;
 	int _play 			= 0;
-	Direction _play_direction = Direction.CW;
+	Direction _play_direction = CW;
 	std::vector<Effect*> _tiggered_rules;
 };
 #endif

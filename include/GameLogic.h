@@ -2,6 +2,15 @@
 //=========
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
+#include "Effect.h"
+#include "Deck.h"
+#include <vector>
+#include <deque>
+#include "Player.h"
+#include "CardContainerManager.h"
+#include "CardManager.h"
+#include "RuleManager.h"
+#include "PlayerManager.h"
 class GameLogic
 {
 public:
