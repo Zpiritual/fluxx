@@ -26,7 +26,6 @@ int main()
 	players.push_back(Player(PlayerID("player1"), CardContainerID("player1_hand"),"joe"));
 
 	GameLogic *logic = new GameLogic(deck,players);
-	logic->addEffect(effects.at(0));
-	logic->nextEffect();
+
 	return 0;
 }

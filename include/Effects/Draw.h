@@ -22,7 +22,7 @@ public:
 
 	virtual void execute(GameLogic * game)
 	{
-		std::cout << "Draw: " << _draw << "Play: " << _play << "Discard: " << _discard << "Inflation: " << _inflation << "\n";
+		std::cout << "Draw: " << _draw << " Play: " << _play << " Discard: " << _discard << " Inflation: " << _inflation << "\n";
 	}
 };
 

@@ -1,4 +1,7 @@
 //Changelog
+//2014--11-20
+//moved constructor and destructor to .cc
+//added forward declarations
 //=========
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H

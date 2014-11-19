@@ -2,6 +2,9 @@
 //2014-11-06
 //Basic setup. Constructors and data members.
 //Fixed misplaced Return and const statments
+//2014--11-20
+//moved constructor and destructor to .cc
+//added forward declarations
 //==========
 #ifndef CARDMANAGER_H
 #define CARDMANAGER_H

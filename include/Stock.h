@@ -4,6 +4,9 @@
 //Added const to ContainerID
 //2014-11-14
 //Removed const from stack and vector given <const T> not allowed
+//2014--11-20
+//moved constructor and destructor to .cc
+//added forward declaration
 #ifndef STOCK_H
 #define STOCK_H
 

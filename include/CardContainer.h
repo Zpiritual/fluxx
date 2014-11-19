@@ -38,6 +38,6 @@ public:
 
 	const int 					getSize() 	const;
 	const std::vector<CardID> 	getCards() 	const ;
-	const CardContainerID 			getID() 	const;
+	const CardContainerID 		getID() 	const;
 };
 #endif

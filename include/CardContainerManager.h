@@ -2,7 +2,9 @@
 //=========
 //2014-11-19
 //Changed _containers to _containers with *
-
+//changed stock to stock*
+//moved constructor and destructor to .cc
+//added forward declarations
 #ifndef CARDCONTAINERMANAGER_H
 #define CARDCONTAINERMANAGER_H
 
@@ -37,11 +39,10 @@ public:
 	const std::vector<CardID> getCards(const CardContainerID);
 
 private:
-
+	CardContainer* getContainer(const CardContainerID);
 	Stock* _stock;
 	//vector<CardContainer> _containers;
 	std::map<CardContainerID, CardContainer*> _containers;
-		CardContainer* getContainer(const CardContainerID);
 };
 
 #endif
