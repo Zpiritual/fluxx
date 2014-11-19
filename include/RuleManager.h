@@ -44,6 +44,6 @@ private:
 	int _draw;
 	int _play;
 	Direction _play_direction;
-	std::vector<Effect> _tiggered_rules;
+	std::vector<Effect*> _tiggered_rules;
 };
 #endif

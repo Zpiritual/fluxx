@@ -14,12 +14,8 @@ public:
 
 	~GameLogic() = default;
 
-	void runEffects();
-
-	void setCCM(CardContainerManager * ccm);
-	void setCM(CardManager * cm);
-	void setRM(RuleManager * rm);
-	void setPM(PlayerManager * pm);
+	void nextEffects();
+	void addEffect(Effect*);
 
 	CardContainerManager* getCCM();
 	CardManager*		  getCM();
@@ -32,6 +28,6 @@ private:
 	CardManager *_cm;
 	RuleManager *_rm;
 	PlayerManager *_pm;
-	std::deque<Effect> effect_deque;
+	std::deque<Effect*> effect_queue;
 };
 #endif
