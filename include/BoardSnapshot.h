@@ -8,6 +8,7 @@
 #include <algorithm>
 #include "CardContainer.h"
 #include "RuleManager.h"
+#include "Player.h"
 struct BoardSnapshot
 {
 std::vector<CardContainer> val;

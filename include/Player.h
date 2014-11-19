@@ -2,6 +2,8 @@
 //==========
 //2014-11-06
 //Added const to getters
+//2014-11-19
+//Added ID to Container
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <string>
@@ -33,6 +35,7 @@ public:
 
 private:
 	const PlayerID _id;
+	const ContainerID _cid;
 	const std::string _name;
 };
 #endif
