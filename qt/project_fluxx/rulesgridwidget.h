@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "cardbutton.h"
+#include <vector>
+#include "../../include/CardContainer.h"
+
 
 class RulesGridWidget : public QWidget
 {
@@ -11,10 +14,11 @@ class RulesGridWidget : public QWidget
 public:
     explicit RulesGridWidget(QWidget *parent = 0);
     ~RulesGridWidget();
+    void updateCards(const CardContainer&);
 
 private:
     QGridLayout* layout;
-    CardButton* card_1;
+    std::vector<CardID> cards;
 
 signals:
 
