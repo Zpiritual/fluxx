@@ -36,6 +36,11 @@ public:
 	void addCard(const CardID);
 	void removeCard(const CardID);
 
+	//bool operator ==(const CardContainer &other) const {return _id == other.getID();}
+	//bool operator !=(const CardContainer &other) const {return !(*this == other);}
+	//bool operator <(const CardContainer &other) const {return _id < other.getID();}
+	//bool operator >(const CardContainer &other) const {return _id < other.getID();}
+
 	const int 					getSize() 	const;
 	const std::vector<CardID> 	getCards() 	const ;
 	const CardContainerID 		getID() 	const;

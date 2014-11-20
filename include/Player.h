@@ -12,7 +12,7 @@
 class Player
 {
 public:
-	Player(const PlayerID pid,const CardContainerID cid, const std::string name):_id{pid}, _name{name}, _cid{cid}
+	Player(const PlayerID pid,const CardContainerID player_hand) : _id{pid}, _cid{player_hand}
 	{}
 
 	Player() = delete;
@@ -26,7 +26,7 @@ public:
 
 	const std::string getName() const
 	{
-		return _name;
+		return _id.val;
 	}
 
 	const PlayerID getID() const 
@@ -41,6 +41,5 @@ public:
 private:
 	const PlayerID _id;
 	const CardContainerID _cid;
-	const std::string _name;
 };
 #endif

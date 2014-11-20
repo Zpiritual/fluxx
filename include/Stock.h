@@ -38,7 +38,7 @@ public:
 	const CardID 					pop();
 	const bool 						empty() 	const;
 	const int 						getSize() 	const;
-	const std::stack<CardID> 	getCards() 	const;
+	const std::stack<CardID> 		getCards() 	const;
 	const CardContainerID 			getID() 	const;
 	void 							shuffle();
 };

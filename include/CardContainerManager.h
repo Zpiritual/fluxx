@@ -15,8 +15,10 @@
 #include <vector>
 #include <map>
 #include <string>
+
 class Stock;
 class Deck;
+
 class CardContainerManager {
 public:
 	CardContainerManager(const Deck*);
@@ -42,7 +44,7 @@ private:
 	CardContainer* getContainer(const CardContainerID);
 	Stock* _stock;
 	//vector<CardContainer> _containers;
-	std::map<CardContainerID, CardContainer*> _containers;
+	std::map<const CardContainerID, CardContainer*> _containers;
 };
 
 #endif
