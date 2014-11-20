@@ -12,7 +12,7 @@ class GameLoop
 {
 public:
 	//QT referece adding later
-	GameLoop(const Deck * deck, const std::vector<Player> players);
+	GameLoop(const Deck * deck, const std::vector<PlayerID> players);
 	GameLoop()					= delete;
 	GameLoop(const GameLoop&) = default;
 	GameLoop (GameLoop&&) 	= default;

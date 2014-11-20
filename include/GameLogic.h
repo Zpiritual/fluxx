@@ -14,7 +14,7 @@
 #include "CardManager.h"
 #include "RuleManager.h"
 #include "PlayerManager.h"
-class CardContainerManager;
+class Effect;
 class GameLogic
 {
 public:
@@ -38,8 +38,8 @@ public:
 	//Not sure
 	void 			playCard(const PlayerID, const CardID);
 	void			drawCard(const PlayerID);
-	void 			checkRules(RuleTriggerType);
-	bool 			resolveEffects();
+	//void 			checkRules(RuleTriggerType);
+	void 			resolveEffects();
 	const PlayerID 	getNextPlayer();
 
 private:

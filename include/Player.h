@@ -29,14 +29,8 @@ public:
 		return _id.val;
 	}
 
-	const PlayerID getID() const 
-	{
-		return _id;
-	}
-	const CardContainerID getContainerID() const
-	{
-		return _cid;
-	}
+	const PlayerID getID() const;
+	const CardContainerID getContainerID() const;
 
 private:
 	const PlayerID _id;

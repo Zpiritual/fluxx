@@ -11,13 +11,11 @@
 #include <vector>
 #include <string>
 using namespace std;
-
+class Effect;
 class Card
 {
 public:
-	Card(const CardID id, const string type, const string subtype, const string description, const vector<Effect*> effects)
-	: _id{id}, _type{type}, _subtype{subtype}, _description{description}, _effects{effects}
-	{}
+Card(const CardID id, const string type, const string subtype, const string description, const vector<Effect*> effects);
 
 	Card() 							= delete;
 	Card(const Card&) 				= default;
@@ -26,10 +24,7 @@ public:
 	Card& operator= (const Card&)	= default;
 	Card& operator= (Card&&)		= default;
 
-	~Card() {
-		for (auto i : _effects)
-			delete i;
-	}
+	~Card();
 
 	const CardID 		  getID() 			const	{ return _id; }
 	const string 		  getType() 		const	{ return _type; }

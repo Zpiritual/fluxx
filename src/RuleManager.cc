@@ -4,7 +4,7 @@
 		return _hand_limmit;
 	}
 
-	const int RuleManager::getKepperLimit() const;
+	const int RuleManager::getKepperLimit() const
 	{
 		return _keeper_limit;
 	}
@@ -14,22 +14,22 @@
 		return _goal_limit;
 	}
 
-	const int RuleManager::getInflation() const;
+	const int RuleManager::getInflation() const
 	{
 		return _inflation;
 	}
 
-	const int RuleManager::getDraw() const;
+	const int RuleManager::getDraw() const
 	{
 		return _draw;
 	}
 
-	const int RuleManager::getPlay() const;
+	const int RuleManager::getPlay() const
 	{
 		return _play;
 	}
 
-	const Direction RuleManager::getPlayOrder() const;
+	const Direction RuleManager::getPlayOrder() const
 	{
 		return _play_direction;
 	}
@@ -49,7 +49,7 @@
 		_goal_limit = l;
 	}
 	
-	void RuleManager::setInflatio(const int l)
+	void RuleManager::setInflation(const int l)
 	{
 		_inflation = l;
 	}
