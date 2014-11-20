@@ -10,10 +10,6 @@
 	Stock::Stock(const CardContainerID id): _id{id}
 	{}
 
-
-
-
-
 	const int Stock::getSize() 	const
 	{
 		return _cards.size();

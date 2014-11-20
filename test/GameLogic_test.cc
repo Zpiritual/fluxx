@@ -16,7 +16,7 @@ int main()
 	vector<const Card *> cards;
 	vector<Effect*> effects;
 	effects.push_back(new Draw(1,1,1));
-	for(int i =  0; i < 10; i++)
+	for(int i =  0; i < 3; i++)
 	{
 		cards.push_back(new Card(CardID(i+1), "ACTION", "NUMERIC", "The card is a placeholder...", effects));
 	}
@@ -26,6 +26,9 @@ int main()
 	players.push_back(Player(PlayerID("player1"), CardContainerID("player1_hand"),"joe"));
 
 	GameLogic *logic = new GameLogic(deck,players);
-
+	//logic->drawCard(players.at(0).getID());
+	//logic->playCard(players.at(0).getID(), CardID(3));
+	logic->addEffect(effects.at(0));
+	logic->nextEffect();
 	return 0;
 }

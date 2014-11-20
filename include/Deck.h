@@ -11,15 +11,10 @@
 #include "CardID.h"
 #include <map>
 #include <vector>
-class Card;
 class Deck
 {
 public:
-	Deck(const std::vector< const Card* > &cards)
-	{
-		for(auto a: cards)
-			_cards.insert(std::pair<const CardID, const Card * >(a->getID(), a));
-	}
+	Deck(const std::vector< const Card* > &cards);
 
 	Deck() = delete;
 	Deck(const Deck&) = default;
@@ -28,38 +23,12 @@ public:
 	Deck& operator= (const Deck&) = default;
 	Deck& operator= (Deck&&) = default;
 
-	~Deck() {
-	for (auto i : _cards)
-		delete i.second;
-	}
+	~Deck();
 
-	const int getSize() const 
-	{
-		return _cards.size();
-	}
+	const int getSize() const;
+	const std::vector<CardID> getCardIDList() const ;
 
-	const std::vector<CardID> getCardIDList() const 
-	{
-		std::vector<CardID> v;
-		for(auto it=_cards.begin(); it != _cards.end(); ++it)
-		{
-			v.push_back(it->first);
-		}
-		return v;
-	}
-
-	const Card* const getCard(const CardID id) const
-	{
-		try
-		{
-
-			return _cards.at(id);
-		}
-		catch(...)
-		{
-			return nullptr;
-		}
-	}
+	const Card* const getCard(const CardID id) const;
 
 private:
 	std::map<const CardID, const Card* > _cards;

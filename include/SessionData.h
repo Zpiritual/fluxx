@@ -12,8 +12,7 @@ struct SessionData
 std::vector<Player> val;
 //Winning players ID 
 PlayerID wp;	
-	SessionData(std::vector<Player> val, PlayerID wp):val{val}, wp{wp}
-	{}
+	SessionData(std::vector<Player> val, PlayerID wp);
 
 
 	SessionData() = delete;

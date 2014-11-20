@@ -14,9 +14,7 @@ struct BoardSnapshot
 std::vector<CardContainer> val;
 std::vector<Player> play;
 Direction dir;
-	BoardSnapshot(std::vector<CardContainer> val, std::vector<Player> play, Direction dir):
-	val{val},play{play}, dir{dir}
-	{}
+	BoardSnapshot(std::vector<CardContainer> val, std::vector<Player> play, Direction dir);
 	BoardSnapshot() = delete;
 	BoardSnapshot(const BoardSnapshot&) = delete;
 	BoardSnapshot (BoardSnapshot&&) = delete;
@@ -25,10 +23,6 @@ Direction dir;
 	BoardSnapshot& operator= (BoardSnapshot&&) = delete;
 
 	~BoardSnapshot() = default;
-	CardContainer getContainer(const ContainerID id)
-	{
-	for(auto a: val)
-		if(a.getID() == id) return a;
-	}
+	CardContainer getContainer(const ContainerID id);
 };
 #endif
