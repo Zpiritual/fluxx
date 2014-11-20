@@ -2,6 +2,7 @@
 #include "mainmenu.h"
 #include "gui.h"
 #include "../../include/PlayerID.h"
+#include <sstream>
 
 NewGame::NewGame(QWidget *parent) :
     QWidget(parent)
@@ -17,9 +18,33 @@ NewGame::~NewGame()
 {
 }
 
+void NewGame::message(const QString& title, const QString& message) const
+{
+    // Display a message box
+    QMessageBox message_dialog;
+    message_dialog.setWindowTitle(title);
+    message_dialog.setText(message);
+    message_dialog.exec();
+}
+
+bool NewGame::existPlayer(const QString& name) const
+{
+    std::istringstream ss;
+    ss.str(view_players->text().toStdString());
+    std::string temp;
+    while(ss >> temp)
+    {
+        if(temp == name.toStdString())
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 void NewGame::startGame()
 {
-    std::vector<PlayerID> pvector{1,2,3};
+    std::vector<PlayerID> pvector{std::string{"Rasmus"}, std::string{"Fredrik"}, std::string{"Martin"}};
 
     Gui* gui = new Gui(pvector);
 
@@ -33,7 +58,15 @@ void NewGame::startGame()
 void NewGame::nextPlayer(){
     qDebug() << "Add nexPlayer functionality";
 
-    if(current_player <= 6)
+    if(text_field->text() == "")
+    {
+        message(QString("New Game"), QString("No profile is chosen."));
+    }
+    else if(existPlayer(text_field->text()))
+    {
+        message(QString("New Game"), QString("Player already in current game."));
+    }
+    else if(current_player <= 6)
     {
         QString temp = view_players->text();
         temp = temp + "\nPlayer " + QString::number(current_player++) + ": " + text_field->text();
@@ -41,16 +74,23 @@ void NewGame::nextPlayer(){
     }
     else
     {
-        QMessageBox msgBox;
-        msgBox.setText("Only 6 players are allowed to play");
-        msgBox.setWindowTitle("ERROR!");
-        msgBox.exec();
+        message(QString("New Game"), QString("6 players are the limit."));
     }
+    text_field->clear();
+    next_player_button->setEnabled(false);
 }
 
 void NewGame::goBack(){
       qDebug() << "Add goBack functionality";
-      parent2->newGameBack();
+
+      if(parent2 != nullptr)
+      {
+          parent2->newGameBack();
+      }
+      else
+      {
+          message(QString("Error"), QString("parent2 does not exist"));
+      }
     //parent2->changeLayout(this, parent2->getStart());
     //qDebug() << "Int:" << parent()->testing;
 
@@ -61,7 +101,27 @@ void NewGame::selectPlayer()
     const QListWidgetItem* selected = player_list->currentItem();
     text_field->setText(selected->text());
 
+    select_player_button->setEnabled(false);
+    player_list->clearSelection();
+
     qDebug() << "Add selectPlayer functionality";
+}
+
+void NewGame::enableNextPlayerButton()
+{
+    if(text_field->text() == "")
+    {
+        next_player_button->setEnabled(false);
+    }
+    else
+    {
+        next_player_button->setEnabled(true);
+    }
+}
+
+void NewGame::enableSelectPlayerButton()
+{
+    select_player_button->setEnabled(true);
 }
 
 void NewGame::uiElementSetup()
@@ -79,6 +139,9 @@ void NewGame::uiElementSetup()
     next_player_button = new QPushButton(QString("Next Player"));
     start_button = new QPushButton(QString("Start Game"));
     back_button = new QPushButton(QString("Cancel"));
+
+    select_player_button->setEnabled(false);
+    next_player_button->setEnabled(false);
 
     list_layout->addWidget(player_list);
     list_layout->addWidget(select_player_button);
@@ -99,6 +162,8 @@ void NewGame::uiElementSetup()
     QObject::connect(select_player_button, SIGNAL(clicked()), this, SLOT(selectPlayer()));
     QObject::connect(next_player_button, SIGNAL(clicked()), this, SLOT(nextPlayer()));
     QObject::connect(back_button, SIGNAL(clicked()), this, SLOT(goBack()));
+    QObject::connect(text_field, SIGNAL(textChanged(QString)), this, SLOT(enableNextPlayerButton()));
+    QObject::connect(player_list, SIGNAL(clicked(QModelIndex)), this, SLOT(enableSelectPlayerButton()));
 
 
     layout->addLayout(list_layout);

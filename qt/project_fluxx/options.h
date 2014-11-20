@@ -29,7 +29,7 @@ private:
     MainMenu* parent2;
 
     bool profileExist(const QString&) const;
-    void profileMessage(const QString&) const;
+    void message(const QString&, const QString&) const;
     void connectSignals();
     void uiElements();
 
