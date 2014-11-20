@@ -33,6 +33,10 @@ public:
 	{
 		return _id;
 	}
+	const CardContainerID getContainerID() const
+	{
+		return _cid;
+	}
 
 private:
 	const PlayerID _id;

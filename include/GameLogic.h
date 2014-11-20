@@ -35,7 +35,12 @@ public:
 	CardManager*		  getCM();
 	RuleManager*		  getRM();
 	PlayerManager*		  getPM();
-
+	//Not sure
+	void 			playCard(const PlayerID, const CardID);
+	void			drawCard(const PlayerID);
+	void 			checkRules(RuleTriggerType);
+	bool 			resolveEffects();
+	const PlayerID 	getNextPlayer();
 
 private:
 	CardContainerManager *_ccm;

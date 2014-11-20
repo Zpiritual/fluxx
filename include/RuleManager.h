@@ -1,3 +1,5 @@
+
+//NOT COMPLETE AND NEEDS ATTENTION
 #ifndef RULEMANAGER_H
 #define RULEMANAGER_H
 #include "Effect.h"
@@ -6,6 +8,13 @@ enum Direction
 {
 	CW = 1,
 	CCW = 2
+};
+
+enum RuleTriggerType
+{
+	PRE_DRAW = 0,
+	POST_DRAW = 1,
+	END_TURN = 2
 };
 class Effect;
 class RuleManager
@@ -27,14 +36,13 @@ public:
 	const int 		getPlay() 			const;
 	const Direction getPlayOrder()  	const;
 
-	void setHandLimit(const int l);
-	void setKeeperLimit(const int l);
-	void setGoalLimmit(const int l);
-	void setInflation(const int l);
-	void setDraw(const int l);
-	void setPlay(const int l);
-	void setPlayOrder(const Direction l);
-
+	void setHandLimit(const int);
+	void setKeeperLimit(const int);
+	void setGoalLimmit(const int);
+	void setInflation(const int);
+	void setDraw(const int);
+	void setPlay(const int);
+	void setPlayOrder(const Direction);
 private:
 	int _hand_limmit 	= 0;
 	int _keeper_limit	= 0;
