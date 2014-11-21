@@ -4,6 +4,15 @@ INCLUDE	= -Iinclude -Iinclude/Effects
 ##DEPS 	= CardID.h Card.h CardContainer.h CardContainerManager.h CardContainerID.h CardManager.h Deck.h GameLogic.h Player.h PlayerID.h PlayerManager.h RuleManager.h SessionData.h Stock.h TirggeredRule.h Effect.h Draw.h BoardSnapshot.h
 ##%.o: %.cc
 ##	$(CCC) $(CCFLAGS) $(INCLUDE)  src/$<
+all: Card_test CardContainer_test CardID_test CardManager_test Deck_test GameLogic_test DeckParser_test
+	./Card_test
+	./CardContainer_test
+	./CardID_test
+	./CardManager_test
+	./Deck_test
+	./GameLogic_test
+	./DeckParser_test
+
 %.o: %.cc
 	echo Compiling $<...
 	$(CCC) $(CCFLAGS) $(INCLUDE) $@
@@ -65,6 +74,7 @@ Deck_test: Deck_test.o Deck.o Card.o
 
 GameLogic_test: GameLogic_test.o GameLogic.o CardManager.o CardContainer.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o RuleManager.o
 	$(CCC) -o GameLogic_test GameLogic_test.o GameLogic.o CardContainer.o CardManager.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o RuleManager.o
+
 DeckParser_test: DeckParser_test.o DeckParser.o Card.o Deck.o
 	$(CCC) -o DeckParser_test DeckParser_test.o DeckParser.o Card.o Deck.o
 clean:
