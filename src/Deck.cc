@@ -25,7 +25,6 @@
 	{
 		try
 		{
-
 			return _cards.at(id);
 		}
 		catch(...)

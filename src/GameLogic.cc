@@ -60,18 +60,22 @@
 		if(getCM()->getCard(cid)->getType() == "KEEPER")
 		{
 			getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID(pid.val + "_keepers"),cid);
+			std::cout << "Played a KEEPER \nID: " << cid.val << std::endl;
 		}
 		else if(getCM()->getCard(cid)->getType() == "RULE")
 		{
 			getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Rules"),cid);
+			std::cout << "Played a RULE \nID: " << cid.val << std::endl;
 		}
 		else if(getCM()->getCard(cid)->getType() == "ACTION")
 		{
 			getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Trash"), cid);
+			std::cout << "Played a ACTION \nID: " << cid.val << std::endl;
 		}
 		else if(getCM()->getCard(cid)->getType() == "GOAL")
 		{
 			getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Goals"),cid);
+			std::cout << "Played a GOAL \nID: " << cid.val << std::endl;
 		}
 		
 	}

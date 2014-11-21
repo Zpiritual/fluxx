@@ -19,7 +19,7 @@ int main()
 	for(int i =  0; i < 10; i++)
 	{
 		effects.push_back(new Draw(1,i,1));
-		cards.push_back(new Card(CardID(i+1), "ACTION", "NUMERIC", "The card is a placeholder...", effects));
+		cards.push_back(new Card(CardID(i+1), (i < 8)?"ACTION":"RULE", "NUMERIC", "The card is a placeholder...", effects));
 	}
 	Deck *deck = new Deck(cards);
 	vector<Player> players;
@@ -27,12 +27,17 @@ int main()
 	players.push_back(Player(PlayerID("player1"), CardContainerID("Player1_hand")));
 
 	GameLogic *logic = new GameLogic(deck,players);
-	cout << logic->getCCM()->getSize(CardContainerID("Trash")) << endl;
-	cout << logic->getCCM()->getSize(CardContainerID("Player1_hand")) << endl;
+	cout << "SIZE OF Trash: " << logic->getCCM()->getSize(CardContainerID("Trash")) << endl;
+	cout << "SIZE OF PLAYER 1 HAND: "<< logic->getCCM()->getSize(CardContainerID("Player1_hand")) << endl;
+	logic->playCard(players.at(0).getID(), CardID(10));
 	logic->playCard(players.at(0).getID(), CardID(9));
-	cout << logic->getCCM()->getSize(CardContainerID("Player1_hand")) << endl;
-	cout << logic->getCCM()->getSize(CardContainerID("Trash")) << endl;
+	logic->playCard(players.at(0).getID(), CardID(8));
+	cout << "SIZE OF PLAYER 1 HAND: " << logic->getCCM()->getSize(CardContainerID("Player1_hand")) << endl;
+	cout << "SIZE OF Trash: " << logic->getCCM()->getSize(CardContainerID("Trash")) << endl;
 	logic->drawCard(players.at(0).getID());
-	logic->playCard(players.at(0).getID(), CardID(6));
+	logic->drawCard(players.at(0).getID());
+	logic->drawCard(players.at(0).getID());
+
+	logic->playCard(players.at(0).getID(), CardID(7));
 	return 0;
 }
