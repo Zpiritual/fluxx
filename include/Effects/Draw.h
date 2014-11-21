@@ -19,10 +19,10 @@ public:
 
 	~Draw() 						= default;
 
-	virtual void execute(GameLoop * game)
-	{
-		std::cout << "Draw: " << _draw << "Play: " << _play << "Discard: " << _discard << "Inflation: " << _inflation << "\n";
-	}
+	//virtual void execute(GameLoop * game)
+	//{
+	//	std::cout << "Draw: " << _draw << "Play: " << _play << "Discard: " << _discard << "Inflation: " << _inflation << "\n";
+	//}
 };
 
 #endif

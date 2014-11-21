@@ -1,7 +1,7 @@
 #ifndef EFFECT_H
 #define EFFECT_H
-#include "GameLogic.h"
-class GameLogic;
+//#include "GameLogic.h"
+//class GameLogic;
 class Effect {
 private:
 
@@ -15,7 +15,7 @@ public:
 
 	~Effect() 							= default;
 
-	virtual void execute(GameLogic *) = 0;
+	//virtual void execute(GameLogic *) = 0;
 };
 
 #endif
