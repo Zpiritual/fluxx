@@ -1,11 +1,19 @@
 	#include "GameLogic.h"
-
+#include <iostream>
 	GameLogic::GameLogic(const Deck * deck, const std::vector<Player> players)
 	{
 		_ccm = new CardContainerManager(deck);
 		_cm = new CardManager(deck);
 		_rm = new RuleManager();
 		_pm = new PlayerManager(players);
+
+		for(auto p:players)
+		{
+			drawCard(p.getID());
+			drawCard(p.getID());
+			drawCard(p.getID());
+		}
+
 	}
 
 	GameLogic::~GameLogic()
@@ -26,22 +34,22 @@
 		effect_queue.push_front(effect);
 	}
 
-	CardContainerManager* GameLogic::getCCM()
+	 CardContainerManager* GameLogic::getCCM()
 	{
 		return _ccm;
 	}
 
-	CardManager* GameLogic::getCM()
+	 CardManager* GameLogic::getCM()
 	{
 		return _cm;
 	}
 
-	RuleManager* GameLogic::getRM()
+	 RuleManager* GameLogic::getRM()
 	{
 		return _rm;
 	}
 
-	PlayerManager* GameLogic::getPM()
+	 PlayerManager* GameLogic::getPM()
 	{
 		return _pm;
 	}
@@ -51,26 +59,26 @@
 		
 		if(getCM()->getCard(cid)->getType() == "KEEPER")
 		{
-			//getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID(pid + "_keepers"));
+			getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID(pid.val + "_keepers"),cid);
 		}
 		else if(getCM()->getCard(cid)->getType() == "RULE")
 		{
-			//getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("active_rules"));
+			getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Rules"),cid);
 		}
 		else if(getCM()->getCard(cid)->getType() == "ACTION")
 		{
-			getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("trash_heap"), cid);
+			getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Trash"), cid);
 		}
 		else if(getCM()->getCard(cid)->getType() == "GOAL")
 		{
-			//getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID(pid + "goals"));
+			getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Goals"),cid);
 		}
-
 		
 	}
 
 	void GameLogic::drawCard(const PlayerID pid)
 	{
+		//std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
 		getCCM()->drawCard(getPM()->getPlayer(pid).getContainerID());
 	}
 

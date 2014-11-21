@@ -27,7 +27,8 @@ GameLogic.o: src/GameLogic.cc
 	$(CCC) $(CCFLAGS) $(INCLUDE) src/GameLogic.cc
 Stock.o: src/Stock.cc 
 	$(CCC) $(CCFLAGS) $(INCLUDE) src/Stock.cc
-
+RuleManager.o: src/RuleManager.cc
+	$(CCC) $(CCFLAGS) $(INCLUDE) src/RuleManager.cc
 ##TEST .o files##
 Card_test.o: test/Card_test.cc
 	$(CCC) $(CCFLAGS) $(INCLUDE) test/Card_test.cc
@@ -58,8 +59,8 @@ CardManager_test: CardManager_test.o Deck.o Card.o
 Deck_test: Deck_test.o Deck.o Card.o
 	$(CCC) -o Deck_test Deck_test.o Deck.o Card.o
 
-GameLogic_test: GameLogic_test.o GameLogic.o CardManager.o CardContainer.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o
-	$(CCC) -o GameLogic_test GameLogic_test.o GameLogic.o CardContainer.o CardManager.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o
+GameLogic_test: GameLogic_test.o GameLogic.o CardManager.o CardContainer.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o RuleManager.o
+	$(CCC) -o GameLogic_test GameLogic_test.o GameLogic.o CardContainer.o CardManager.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o RuleManager.o
 
 clean:
 	@ \rm -rf *.o *.gch

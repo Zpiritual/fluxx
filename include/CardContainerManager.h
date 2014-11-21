@@ -16,12 +16,10 @@
 #include <map>
 #include <string>
 
-class Deck; 
-class Stock;
 
 class CardContainerManager {
 public:
-	CardContainerManager(const Deck* const d);
+	CardContainerManager(const Deck* const);
 
 	CardContainerManager() 											= delete;
 	CardContainerManager(const CardContainerManager&) 				= delete;

@@ -1,12 +1,4 @@
 #include "Stock.h"
-	Stock::Stock(const Deck  * deck , const CardContainerID id):_id{id}
-	{
-		for(auto i: deck->getCardIDList())
-		{
-			push(i);
-		}
-	}
-
 	Stock::Stock(const CardContainerID id): _id{id}
 	{}
 

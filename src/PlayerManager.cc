@@ -21,7 +21,7 @@ const Player PlayerManager::getPlayer(const PlayerID pid) const
 
 	void PlayerManager::setCurrentPlayer(const PlayerID pid)
 	{	
-		for(int i = 0; i < _players.size(); i++)
+		for(unsigned int i = 0; i < _players.size(); i++)
 		{
 			if(_players.at(i).getID() == pid) _current_player = i;
 		}	

@@ -31,10 +31,10 @@ public:
 	void nextEffect();
 	void addEffect(Effect*);
 
-	CardContainerManager* getCCM();
-	CardManager*		  getCM();
-	RuleManager*		  getRM();
-	PlayerManager*		  getPM();
+	 CardContainerManager* getCCM();
+	 CardManager*		  getCM();
+	 RuleManager*		  getRM();
+	 PlayerManager*		  getPM();
 	//Not sure
 	void 			playCard(const PlayerID, const CardID);
 	void			drawCard(const PlayerID);

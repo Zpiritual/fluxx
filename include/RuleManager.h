@@ -11,7 +11,7 @@ enum class Direction
 	CW,
 	CCW 
 };
-class Effect;
+
 class RuleManager
 {
 public:
