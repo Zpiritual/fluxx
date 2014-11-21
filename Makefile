@@ -29,6 +29,9 @@ Stock.o: src/Stock.cc
 	$(CCC) $(CCFLAGS) $(INCLUDE) src/Stock.cc
 RuleManager.o: src/RuleManager.cc
 	$(CCC) $(CCFLAGS) $(INCLUDE) src/RuleManager.cc
+##TEMP##
+DeckParser.o: src/DeckParser.cc
+	$(CCC) $(CCFLAGS) $(INCLUDE) src/DeckParser.cc
 ##TEST .o files##
 Card_test.o: test/Card_test.cc
 	$(CCC) $(CCFLAGS) $(INCLUDE) test/Card_test.cc
@@ -42,7 +45,8 @@ Deck_test.o: test/Deck_test.cc
 	$(CCC) $(CCFLAGS) $(INCLUDE) test/Deck_test.cc
 GameLogic_test.o: test/GameLogic_test.cc  
 	$(CCC) $(CCFLAGS) $(INCLUDE) test/GameLogic_test.cc
-
+DeckParser_test.o: test/DeckParser_test.cc
+	$(CCC) $(CCFLAGS) $(INCLUDE) test/DeckParser_test.cc
 ##TEST###
 Card_test: Card_test.o Card.o
 	$(CCC) -o Card_test Card_test.o Card.o
@@ -61,7 +65,8 @@ Deck_test: Deck_test.o Deck.o Card.o
 
 GameLogic_test: GameLogic_test.o GameLogic.o CardManager.o CardContainer.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o RuleManager.o
 	$(CCC) -o GameLogic_test GameLogic_test.o GameLogic.o CardContainer.o CardManager.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o RuleManager.o
-
+DeckParser_test: DeckParser_test.o DeckParser.o Card.o Deck.o
+	$(CCC) -o DeckParser_test DeckParser_test.o DeckParser.o Card.o Deck.o
 clean:
 	@ \rm -rf *.o *.gch
 
