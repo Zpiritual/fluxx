@@ -18,7 +18,6 @@
 
 	void GameLogic::nextEffect()
 	{
-	effect_queue.front()->execute(this);
 	effect_queue.pop_front();	 
 	}
 

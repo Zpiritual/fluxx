@@ -24,6 +24,9 @@ Card c5(CardID(000), "type2", "subtype1", "description2", e1);
 	assert(c2.getID() != c3.getID());
 	assert(!(c3.getID() == c4.getID()));
 	assert(c1.getID() == c5.getID());
+
 	cout << "\nSanty check: IDs equ/neq works \n";
+	for(Effect* e: e1)
+		delete e;
 	return 0;
 }

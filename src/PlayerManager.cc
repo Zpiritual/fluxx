@@ -1,7 +1,7 @@
 #include "PlayerManager.h"
 	PlayerManager::PlayerManager(const std::vector<Player> players): _players{players}
 	{}
-const Player Player::getPlayer(const PlayerID pid) const	
+const Player PlayerManager::getPlayer(const PlayerID pid) const	
 	{
 		for(auto a: _players)
 		{
@@ -9,17 +9,17 @@ const Player Player::getPlayer(const PlayerID pid) const
 		}
 	}
 	
-	void Player::addPlayer(Player p)				
+	void PlayerManager::addPlayer(Player p)				
 	{
 		_players.push_back(p);
 	}
 
-	const Player  Player::getCurrentPlayer() const 
+	const Player  PlayerManager::getCurrentPlayer() const 
 	{	
 		return _players.at(_current_player);	
 	}
 
-	void Player::setCurrentPlayer(const PlayerID pid)
+	void PlayerManager::setCurrentPlayer(const PlayerID pid)
 	{	
 		for(int i = 0; i < _players.size(); i++)
 		{
@@ -27,7 +27,7 @@ const Player Player::getPlayer(const PlayerID pid) const
 		}	
 	}
 
-	void Player::nextPlayer()
+	void PlayerManager::nextPlayer()
 	{
 		_current_player = (_current_player + 1) % _players.size();
 	}

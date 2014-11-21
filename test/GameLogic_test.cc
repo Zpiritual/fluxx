@@ -23,12 +23,10 @@ int main()
 	Deck *deck = new Deck(cards);
 	vector<Player> players;
 
-	players.push_back(Player(PlayerID("player1"), CardContainerID("player1_hand"),"joe"));
+	players.push_back(Player(PlayerID("player1"), CardContainerID("player1_hand")));
 
 	GameLogic *logic = new GameLogic(deck,players);
 	//logic->drawCard(players.at(0).getID());
 	//logic->playCard(players.at(0).getID(), CardID(3));
-	logic->addEffect(effects.at(0));
-	logic->nextEffect();
 	return 0;
 }

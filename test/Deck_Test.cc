@@ -30,6 +30,6 @@ int main()
 	{
 		assert(deck.getCardIDList().at(i) == cards.at(i)->getID());
 	}
-	cout << "Sanity check list size OK" << endl;
+	cout << "Sanity check list size OK\n";
 	return 0;
 }

@@ -4,6 +4,12 @@
 		for(auto a: cards)
 			_cards.insert(std::pair<const CardID, const Card * >(a->getID(), a));
 	}
+	
+	Deck::~Deck()
+	{
+		for(auto c: _cards)
+			delete c.second;
+	}
 
 	const std::vector<CardID> Deck::getCardIDList() const 
 	{

@@ -8,3 +8,9 @@ Card::~Card()
 		for (Effect* i : _effects)
 			delete i;
 }
+
+	const CardID 		  Card::getID() 			const	{ return _id; }
+	const string 		  Card::getType() 			const	{ return _type; }
+	const string 		  Card::getSubtype() 		const	{ return _subtype; }
+	const string 		  Card::getDescription() 	const	{ return _description; }
+	const vector<Effect*> Card::getEffects()		const	{ return _effects; }
