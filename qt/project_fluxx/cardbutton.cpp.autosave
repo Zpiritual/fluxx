@@ -18,7 +18,6 @@ CardButton::CardButton(CardID id, QWidget *parent) :
 
     this->setIconSize(QSize(170,259));
 
-
 }
 
 CardButton::~CardButton()

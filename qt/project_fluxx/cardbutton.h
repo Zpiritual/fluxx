@@ -12,11 +12,13 @@ public:
     ~CardButton();
     unsigned getCardId() const;
 
-
+protected:
+    void mouseReleaseEvent(QMouseEvent *e);
 private:
     unsigned card_id;
+    QIcon* icon;
 signals:
-
+    void rightClicked();
 public slots:
 
 };

@@ -26,6 +26,7 @@ Gui::Gui(std::vector<PlayerID> players, QWidget *parent) :
     mid_column->addWidget(active_player_widget);
 
     mid_column->setAlignment(active_player_widget, Qt::AlignBottom);
+    mid_column->setAlignment(mid_column_top, Qt::AlignTop|Qt::AlignCenter);
 
     this->setMinimumHeight(600);
     this->setMinimumWidth(1280);

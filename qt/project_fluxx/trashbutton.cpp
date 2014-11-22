@@ -11,10 +11,10 @@ TrashButton::TrashButton(QWidget *parent) :
     this->setIcon(*icon);
 
 
-    this->setMinimumSize(156,259);
-    this->setMaximumSize(156,259);
+    this->setMinimumSize(170,259);
+    this->setMaximumSize(170,259);
 
-    this->setIconSize(QSize(156,259));
+    this->setIconSize(QSize(170,259));
 }
 
 TrashButton::~TrashButton()

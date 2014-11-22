@@ -13,11 +13,16 @@ public:
     void updateCards(const std::vector<CardID>&);
     ~DeckButton();
 
+protected:
+    void mouseReleaseEvent(QMouseEvent *e);
+
+
 private:
       std::vector<CardID> cards;
       QIcon* icon;
 
 signals:
+      void rightClicked();
 
 public slots:
 

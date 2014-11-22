@@ -7,6 +7,15 @@ RulesGridWidget::RulesGridWidget(QWidget *parent) :
     QWidget(parent)
 {
     layout = new QGridLayout();
+    for(int i = 0; i<= 3; ++i)
+        layout->setColumnMinimumWidth(i,170);
+
+    for(int i =  1; i <= 5; ++i)
+    {
+        QLayoutItem* temp();
+                layout->addWidget(new CardButton(i), i/4,(i-1)%4);
+
+    }
 
     this->setLayout(layout);
 }
