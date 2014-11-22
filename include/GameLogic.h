@@ -40,6 +40,8 @@ public:
 	void			drawCard(const PlayerID);
 	//void 			checkRules(RuleTriggerType);
 	void 			resolveEffects();
+	void 			checkRules();
+	bool 			checkGoal();
 	const PlayerID 	getNextPlayer();
 
 private:
