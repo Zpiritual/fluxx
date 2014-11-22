@@ -31,7 +31,8 @@ SOURCES += main.cpp \
     playerlistitem.cpp \
     trashbutton.cpp \
     deckbutton.cpp \
-    goalbuttons.cpp
+    goalbuttons.cpp \
+    bigcard.cpp
 
 HEADERS += \
     mainmenu.h \
@@ -49,7 +50,8 @@ HEADERS += \
     playerlistitem.h \
     trashbutton.h \
     deckbutton.h \
-    goalbuttons.h
+    goalbuttons.h \
+    bigcard.h
 
 QMAKE_CXXFLAGS += -std=c++11
 

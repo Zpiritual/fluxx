@@ -12,11 +12,11 @@ class PlayerListItem : public QWidget
 public:
     explicit PlayerListItem(const PlayerID&, QWidget *parent = 0);
     int getHandCount() const;
-    void updateCards(const std::vector<CardID>&, const std::vector<CardID>&);
+    void updateCards(const std::vector<CardID*>&, const std::vector<CardID*>&);
 
 private:
-    std::vector<CardID> hand;
-    std::vector<CardID> keepers_id;
+    std::vector<CardID*> hand;
+    std::vector<CardID*> keepers_id;
     PlayerID player_name;
 
     QVBoxLayout* vertical_layout;

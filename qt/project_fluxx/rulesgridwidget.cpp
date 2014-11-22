@@ -13,7 +13,7 @@ RulesGridWidget::RulesGridWidget(QWidget *parent) :
     for(int i =  1; i <= 5; ++i)
     {
         QLayoutItem* temp();
-                layout->addWidget(new CardButton(i), i/4,(i-1)%4);
+                layout->addWidget(new CardButton(new CardID(i)), i/4,(i-1)%4);
 
     }
 
