@@ -1,8 +1,5 @@
 #include "cardbutton.h"
-#include "../../include/CardID.h"
-#include <QMouseEvent>
-#include <QDebug>
-#include <QMessageBox>
+
 
 CardButton::CardButton(CardID* id, QWidget *parent) :
     QPushButton(parent)

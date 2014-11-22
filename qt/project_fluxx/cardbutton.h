@@ -4,6 +4,8 @@
 #include <QPushButton>
 #include <../../include/CardID.h>
 #include <bigcard.h>
+#include <QMouseEvent>
+#include <QDebug>
 
 class CardButton : public QPushButton
 {
