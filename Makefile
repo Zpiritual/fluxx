@@ -12,35 +12,8 @@ all: Card_test CardContainer_test CardID_test CardManager_test Deck_test GameLog
 	./Deck_test
 	./GameLogic_test
 	./DeckParser_test
-
-%.o: %.cc
-	echo Compiling $<...
-	$(CCC) $(CCFLAGS) $(INCLUDE) $@
-
-##.o files##
-Card.o: src/Card.cc
-	$(CCC) $(CCFLAGS) $(INCLUDE) src/Card.cc
-CardContainer.o: src/CardContainer.cc
-	$(CCC) $(CCFLAGS) $(INCLUDE) src/CardContainer.cc
-CardContainerManager.o: src/CardContainerManager.cc
-	$(CCC) $(CCFLAGS) $(INCLUDE) src/CardContainerManager.cc
-CardManager.o: src/CardManager.cc
-	$(CCC) $(CCFLAGS) $(INCLUDE) src/CardManager.cc
-Deck.o: src/Deck.cc 
-	$(CCC) $(CCFLAGS) $(INCLUDE) src/Deck.cc
-Player.o: src/Player.cc
-	$(CCC) $(CCFLAGS) $(INCLUDE) src/Player.cc
-PlayerManager.o: src/PlayerManager.cc
-	$(CCC) $(CCFLAGS) $(INCLUDE) src/PlayerManager.cc
-GameLogic.o: src/GameLogic.cc
-	$(CCC) $(CCFLAGS) $(INCLUDE) src/GameLogic.cc
-Stock.o: src/Stock.cc 
-	$(CCC) $(CCFLAGS) $(INCLUDE) src/Stock.cc
-RuleManager.o: src/RuleManager.cc
-	$(CCC) $(CCFLAGS) $(INCLUDE) src/RuleManager.cc
-##TEMP##
-DeckParser.o: src/DeckParser.cc
-	$(CCC) $(CCFLAGS) $(INCLUDE) src/DeckParser.cc
+%.o: src/%.cc
+	$(CCC) $(CCFLAGS) $(INCLUDE) $<
 ##TEST .o files##
 Card_test.o: test/Card_test.cc
 	$(CCC) $(CCFLAGS) $(INCLUDE) test/Card_test.cc
