@@ -21,7 +21,6 @@ Gui::Gui(std::vector<PlayerID> players, QWidget *parent) :
     mid_column_top->addWidget(goals_widget);
 
     mid_column->addLayout(mid_column_top);
-
     mid_column->addWidget(rules_widget);
     mid_column->addWidget(active_player_widget);
 
