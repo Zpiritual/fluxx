@@ -16,7 +16,6 @@
 #include <map>
 #include <string>
 
-
 class CardContainerManager {
 public:
 	CardContainerManager(const Deck* const);

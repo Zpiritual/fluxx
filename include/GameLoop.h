@@ -1,13 +1,16 @@
 #ifndef GAMELOOP_H
 #define GAMELOOP_H
+
 #include "Deck.h"
 #include "Player.h"
 #include "GameLogic.h"
 #include "PlayerID.h"
 #include "CardID.h"
 #include "RuleManager.h"
+#include "SessionData.h"
 #include <vector>
 #include <string>
+
 class GameLoop
 {
 public:
@@ -27,7 +30,7 @@ public:
 	const int 		getDrawNO() const;
 	const int 		getPlayNO() const;
 	void 			sendLog(std::string);
-	void 			run();
+	SessionData		run();
 
 private:
 	GameLogic * _game_logic;
@@ -35,4 +38,5 @@ private:
 	void 	sendBoardState();
 	CardID 	requestInput();
 };
+
 #endif

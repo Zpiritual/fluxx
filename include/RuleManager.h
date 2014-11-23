@@ -11,12 +11,14 @@ enum class Direction
 	CW,
 	CCW 
 };
+
 enum class RuleTrigger
 {
 	PRE_DRAW,
 	POST_DRA,
 	END_TURN
 };
+
 class RuleManager
 {
 public:
@@ -48,6 +50,7 @@ public:
 	void addRule();
 	void removeRule();
 	void clearRules();
+
 private:
 	int _hand_limmit 	= 0;
 	int _keeper_limit	= 0;
@@ -58,4 +61,5 @@ private:
 	Direction _play_direction = Direction::CW;
 	std::vector<Effect> _tiggered_rules;
 };
+
 #endif

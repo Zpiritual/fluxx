@@ -2,8 +2,10 @@
 //==========
 //2014-11-06
 //Made copy and move accessable
+
 #ifndef CARDID_H
 #define CARDID_H
+
 struct CardID
 {
 	int val;
@@ -34,4 +36,5 @@ struct CardID
 		return val < p.val;
 	}
 };
+
 #endif

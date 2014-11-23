@@ -6,12 +6,16 @@
 //moved constructor and destructor to .cc
 //added forward declarations
 //==========
+
 #ifndef CARDMANAGER_H
 #define CARDMANAGER_H
+
 #include "Deck.h"
 #include "Card.h"
 #include "CardID.h"
-class CardManager {
+
+class CardManager
+{
 public:
 	CardManager(const Deck* const d);
 	CardManager() 								= delete;

@@ -3,8 +3,10 @@
 //moved constructor and destructor to .cc
 //added forward declarations
 //=========
+
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
+
 #include "Deck.h"
 #include "Effect.h"
 #include <vector>
@@ -16,7 +18,6 @@
 #include "PlayerManager.h"
 
 class GameLogic
-
 {
 public:
 	GameLogic(const Deck * deck, const std::vector<Player> players);
@@ -55,4 +56,5 @@ private:
 	//Diverse effekt-funktioner, ex:
 	//Draw(int draw, int play, int discard, bool inflation = true);
 };
+
 #endif

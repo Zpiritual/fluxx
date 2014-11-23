@@ -4,6 +4,7 @@
 //Added const to getters
 //2014-11-14
 //Changed copy and move constructor/operators to default
+
 #ifndef CARD_H
 #define CARD_H
 

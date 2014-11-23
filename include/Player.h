@@ -4,11 +4,14 @@
 //Added const to getters
 //2014-11-19
 //Added ID to Container
+
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include <string>
 #include "PlayerID.h"
 #include "CardContainerID.h"
+
 class Player
 {
 public:

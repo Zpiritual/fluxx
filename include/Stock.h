@@ -7,6 +7,7 @@
 //2014--11-20
 //moved constructor and destructor to .cc
 //added forward declaration
+
 #ifndef STOCK_H
 #define STOCK_H
 
@@ -15,6 +16,7 @@
 #include "CardID.h"
 #include "CardContainerID.h"
 #include "Deck.h"
+
 class Stock
 {
 private:
@@ -39,4 +41,5 @@ public:
 	const CardContainerID 			getID() 	const;
 	void 							shuffle();
 };
+
 #endif
