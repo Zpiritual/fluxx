@@ -1,0 +1,20 @@
+profile Rasmus
+games 0
+wins 0
+playedcards 0
+
+PROFILE Fredrik
+GAMES 0
+WINS 0
+playedcards 0
+
+Profile Martin
+Games 0
+Wins 0
+PlayedCards 0
+
+PrOfIlE Johannes
+GaMeS 0
+Wins 0
+PlAyEdCaRdS 0
+

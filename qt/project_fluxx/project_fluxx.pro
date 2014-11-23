@@ -28,7 +28,15 @@ SOURCES += main.cpp \
     rulesgridwidget.cpp \
     activeplayer.cpp \
     cardbutton.cpp \
-    playerlistitem.cpp
+    playerlistitem.cpp \
+    trashbutton.cpp \
+    deckbutton.cpp \
+    goalbuttons.cpp \
+    bigcard.cpp \
+    activehand.cpp \
+    profile.cpp \
+    activekeepers.cpp \
+    switchplayer.cpp
 
 HEADERS += \
     mainmenu.h \
@@ -43,11 +51,20 @@ HEADERS += \
     ../../include/BoardSnapshot.h \
     ../../include/CardID.h \
     cardbutton.h \
-    playerlistitem.h
+    playerlistitem.h \
+    trashbutton.h \
+    deckbutton.h \
+    goalbuttons.h \
+    bigcard.h \
+    activehand.h \
+    profile.h \
+    activekeepers.h \
+    switchplayer.h
 
 QMAKE_CXXFLAGS += -std=c++11
 
 OTHER_FILES +=
 
 RESOURCES += \
-    images.qrc
+    images.qrc \
+    textfiles.qrc

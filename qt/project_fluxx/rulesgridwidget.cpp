@@ -7,16 +7,31 @@ RulesGridWidget::RulesGridWidget(QWidget *parent) :
     QWidget(parent)
 {
     layout = new QGridLayout();
-    card_1 = new CardButton(CardID{1});
+    for(int i = 0; i<= 3; ++i)
+        layout->setColumnMinimumWidth(i,170);
 
-    card_1->setMinimumSize(156,239);
-
-    layout->addWidget(card_1);
-    card_1->setIconSize(QSize(156,239));
-    card_1->setMaximumSize(156,239);
+    for(int i =  1; i <= 5; ++i)
+    {
+        layout->addWidget(new CardButton(new CardID(i)), i/4,(i-1)%4);
+    }
 
     this->setLayout(layout);
 }
 
 RulesGridWidget::~RulesGridWidget(){
+}
+
+void RulesGridWidget::updateCards(const CardContainer & container)
+{
+//    cards = container.getCards();
+
+//    while(!(layout->isEmpty()))
+//    {
+//        QLayoutItem* temp = layout->itemAt(0);
+//        layout->removeItem(temp);
+//    }
+//    for(auto val : cards)
+//    {
+//        layout->addWidget(new CardButton(val));
+//    }
 }

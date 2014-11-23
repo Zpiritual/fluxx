@@ -30,7 +30,8 @@ private:
     MainMenu* parent2;
 
     void uiElementSetup();
-
+    void message(const QString&, const QString&) const;
+    bool existPlayer(const QString&) const;
 
 signals:
 
@@ -39,6 +40,8 @@ public slots:
     void nextPlayer();
     void goBack();
     void selectPlayer();
+    void enableNextPlayerButton();
+    void enableSelectPlayerButton();
 };
 
 #endif // NEWGAME_H

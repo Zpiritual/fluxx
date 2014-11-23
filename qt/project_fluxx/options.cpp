@@ -1,10 +1,15 @@
 #include "options.h"
 
-Options::Options(QWidget *parent) :
+Options::Options(const std::vector<Profile>& profiles, QWidget *parent) :
     QWidget(parent)
 {
     uiElements();
     parent2 = dynamic_cast<MainMenu*>(parent);
+
+    for(int i = 0; i < profiles.size(); i++)
+    {
+        user_profiles->addItem(QString::fromStdString(profiles.at(i).getName()));
+    }
 }
 
 void Options::addProfile()
@@ -17,11 +22,11 @@ void Options::addProfile()
     {
         if(profile_text->text() != "")
         {
-            profileMessage(QString(profile_text->text() + QString(" does already exist.")));
+            message(QString("Options"), QString(profile_text->text() + QString(" does already exist.")));
         }
         else
         {
-            profileMessage(QString("Empty profilename."));
+            message(QString("Options"), QString("Empty profilename."));
         }
 
     }
@@ -34,6 +39,9 @@ void Options::removeProfile()
     int index = user_profiles->currentRow();
     selected_item = user_profiles->takeItem(index);
     delete selected_item;
+
+    user_profiles->clearSelection();
+    remove_profile_button->setEnabled(false);
 }
 
 void Options::enableRemoveButton()
@@ -41,18 +49,45 @@ void Options::enableRemoveButton()
     remove_profile_button->setEnabled(true);
 }
 
+void Options::enableAddButton()
+{
+    if(profile_text->text() == "")
+    {
+        add_profile_button->setEnabled(false);
+    }
+    else
+    {
+        add_profile_button->setEnabled(true);
+    }
+}
+
 void Options::ok()
 {
     qDebug() << "Add ok functionality.";
     // TODO: Add functionality
-    parent2->optionsBack();
+    if(parent2 != nullptr)
+    {
+        parent2->optionsBack();
+    }
+    else
+    {
+        message(QString("Error"), QString("parent2 does not exist"));
+    }
 }
 
 void Options::cancel()
 {
     qDebug() << "Add cancel functionality.";
     // TODO: Add functionality
-    parent2->optionsBack();
+    if(parent2 != nullptr)
+    {
+        parent2->optionsBack();
+    }
+    else
+    {
+        message(QString("Error"), QString("parent2 does not exist"));
+    }
+
 }
 
 bool Options::profileExist(const QString& profile_name) const
@@ -66,13 +101,13 @@ bool Options::profileExist(const QString& profile_name) const
     return false;
 }
 
-void Options::profileMessage(const QString& message) const
+void Options::message(const QString& title, const QString& message) const
 {
     // Display a message box
-    QMessageBox* message_dialog = new QMessageBox();
-    message_dialog->setWindowTitle(QString("Profile"));
-    message_dialog->setText(message);
-    message_dialog->show();
+    QMessageBox message_dialog;
+    message_dialog.setWindowTitle(title);
+    message_dialog.setText(message);
+    message_dialog.exec();
 }
 
 void Options::connectSignals()
@@ -82,6 +117,7 @@ void Options::connectSignals()
     QObject::connect(user_profiles, SIGNAL(clicked(QModelIndex)), this, SLOT(enableRemoveButton()));
     QObject::connect(ok_button, SIGNAL(clicked()), this, SLOT(ok()));
     QObject::connect(cancel_button, SIGNAL(clicked()), this, SLOT(cancel()));
+    QObject::connect(profile_text, SIGNAL(textChanged(QString)), this, SLOT(enableAddButton()));
 }
 
 void Options::uiElements()
@@ -100,6 +136,7 @@ void Options::uiElements()
     cancel_button = new QPushButton(QString("Cancel"));
 
     remove_profile_button->setEnabled(false);
+    add_profile_button->setEnabled(false);
 
     profile_layout->addWidget(user_profiles);
     vertical_profile_layout->addWidget(profile_text);

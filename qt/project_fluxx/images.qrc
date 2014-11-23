@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>Images/0.png</file>
         <file>Images/1.png</file>
         <file>Images/2.png</file>
         <file>Images/3.png</file>
@@ -7,5 +8,80 @@
         <file>Images/5.png</file>
         <file>Images/6.png</file>
         <file>Images/7.png</file>
+        <file>Images/8.png</file>
+        <file>Images/9.png</file>
+        <file>Images/10.png</file>
+        <file>Images/11.png</file>
+        <file>Images/12.png</file>
+        <file>Images/13.png</file>
+        <file>Images/14.png</file>
+        <file>Images/15.png</file>
+        <file>Images/16.png</file>
+        <file>Images/17.png</file>
+        <file>Images/18.png</file>
+        <file>Images/19.png</file>
+        <file>Images/20.png</file>
+        <file>Images/21.png</file>
+        <file>Images/22.png</file>
+        <file>Images/23.png</file>
+        <file>Images/24.png</file>
+        <file>Images/25.png</file>
+        <file>Images/26.png</file>
+        <file>Images/27.png</file>
+        <file>Images/28.png</file>
+        <file>Images/29.png</file>
+        <file>Images/30.png</file>
+        <file>Images/31.png</file>
+        <file>Images/32.png</file>
+        <file>Images/33.png</file>
+        <file>Images/34.png</file>
+        <file>Images/35.png</file>
+        <file>Images/36.png</file>
+        <file>Images/37.png</file>
+        <file>Images/38.png</file>
+        <file>Images/39.png</file>
+        <file>Images/40.png</file>
+        <file>Images/41.png</file>
+        <file>Images/42.png</file>
+        <file>Images/43.png</file>
+        <file>Images/44.png</file>
+        <file>Images/45.png</file>
+        <file>Images/46.png</file>
+        <file>Images/47.png</file>
+        <file>Images/48.png</file>
+        <file>Images/49.png</file>
+        <file>Images/50.png</file>
+        <file>Images/51.png</file>
+        <file>Images/52.png</file>
+        <file>Images/53.png</file>
+        <file>Images/54.png</file>
+        <file>Images/55.png</file>
+        <file>Images/56.png</file>
+        <file>Images/57.png</file>
+        <file>Images/58.png</file>
+        <file>Images/59.png</file>
+        <file>Images/60.png</file>
+        <file>Images/61.png</file>
+        <file>Images/62.png</file>
+        <file>Images/63.png</file>
+        <file>Images/64.png</file>
+        <file>Images/65.png</file>
+        <file>Images/66.png</file>
+        <file>Images/67.png</file>
+        <file>Images/68.png</file>
+        <file>Images/69.png</file>
+        <file>Images/70.png</file>
+        <file>Images/71.png</file>
+        <file>Images/72.png</file>
+        <file>Images/73.png</file>
+        <file>Images/74.png</file>
+        <file>Images/75.png</file>
+        <file>Images/76.png</file>
+        <file>Images/77.png</file>
+        <file>Images/78.png</file>
+        <file>Images/79.png</file>
+        <file>Images/80.png</file>
+        <file>Images/81.png</file>
+        <file>Images/82.png</file>
     </qresource>
 </RCC>

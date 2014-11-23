@@ -3,18 +3,36 @@
 #include "start.h"
 #include "options.h"
 
+#include <fstream>
+
 MainMenu::MainMenu(QWidget *parent) :
     QWidget(parent)
 {
-   main_layout = new QVBoxLayout();
-   start_widget = new Start(this);
+    main_layout = new QVBoxLayout();
+    start_widget = new Start(this);
 
-   this->setWindowTitle(QString("Main Menu"));
-   this->setMinimumWidth(640);
-   this->setMinimumHeight(480);
+    this->setWindowTitle(QString("Main Menu"));
+    this->setMinimumWidth(640);
+    this->setMinimumHeight(480);
 
-   main_layout->addWidget(start_widget);
-   this->setLayout(main_layout);
+    main_layout->addWidget(start_widget);
+    this->setLayout(main_layout);
+
+
+    // BEHÖVER ANVÄNDA ABSOLUTA SÖKVÄGEN FÖR ATT ÖPPNA FILEN
+    // /home/namn/...  fungerar
+    std::ifstream file("qrc:/text/profiles.txt");
+    Profile p;
+
+    if(file)
+    {
+        while(file >> p)
+        {
+            profiles.push_back(p);
+        }
+    }
+
+    file.close();
 }
 
 MainMenu::~MainMenu()
@@ -43,7 +61,7 @@ void MainMenu::newGameBack()
 
 void MainMenu::options()
 {
-    options_widget = new Options(this);
+    options_widget = new Options(profiles, this);
     main_layout->addWidget(options_widget);
     main_layout->removeWidget(start_widget);
     this->setWindowTitle(QString("Options"));

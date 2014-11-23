@@ -5,18 +5,24 @@
 #include <QtWidgets>
 #include <vector>
 #include "../../include/PlayerID.h"
+#include "activehand.h"
+#include "activekeepers.h"
 
 class ActivePlayer : public QWidget
 {
     Q_OBJECT
 public:
     explicit ActivePlayer(QWidget *parent = 0);
+    void update();
     ~ActivePlayer();
 
 private:
-    QListWidget* hand_list;
-    QHBoxLayout* layout;
-    std::vector<QListWidgetItem*> hand_list_items;
+    QVBoxLayout* layout;
+    QScrollArea* scroll_area_hand;
+    QScrollArea* scroll_area_keepers;
+    PlayerID* active_player;
+    ActiveHand* active_hand;
+    ActiveKeepers* active_keepers;
 
 signals:
 

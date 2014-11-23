@@ -15,7 +15,14 @@ Start::~Start()
 void Start::new_game()
 {
    // parent2->hideWidgets();
-    parent2->newGame();
+    if(parent2 != nullptr)
+    {
+        parent2->newGame();
+    }
+    else
+    {
+        message(QString("Error"), QString("parent2 does not exist"));
+    }
     qDebug() << "Add new_game functionality";
     // TODO: Add functionality
 }
@@ -28,7 +35,14 @@ void Start::continue_game()
 
 void Start::options()
 {
-    parent2->options();
+    if(parent2 != nullptr)
+    {
+        parent2->options();
+    }
+    else
+    {
+        message(QString("Error"), QString("parent2 does not exist"));
+    }
     qDebug() << "Add options functionality";
     // TODO: Add functionality
 }
@@ -38,7 +52,14 @@ void Start::exit()
     qDebug() << "Add exit functionality";
     // TODO: Add functionality
 
-    parent2->close();
+    if(parent2 != nullptr)
+    {
+        parent2->close();
+    }
+    else
+    {
+        message(QString("Error"), QString("parent2 does not exist"));
+    }
 }
 
 
@@ -100,4 +121,13 @@ void Start::uiElements()
     connectSignals();
 
     this->setLayout(layout);
+}
+
+void Start::message(const QString& title, const QString& message) const
+{
+    // Display a message box
+    QMessageBox message_dialog;
+    message_dialog.setWindowTitle(title);
+    message_dialog.setText(message);
+    message_dialog.exec();
 }
