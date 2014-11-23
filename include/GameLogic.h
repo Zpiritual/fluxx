@@ -5,8 +5,8 @@
 //=========
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
-#include "Effect.h"
 #include "Deck.h"
+#include "Effect.h"
 #include <vector>
 #include <deque>
 #include "Player.h"
@@ -14,8 +14,9 @@
 #include "CardManager.h"
 #include "RuleManager.h"
 #include "PlayerManager.h"
-class Effect;
+
 class GameLogic
+
 {
 public:
 	GameLogic(const Deck * deck, const std::vector<Player> players);
@@ -28,13 +29,13 @@ public:
 
 	~GameLogic();
 
-	void nextEffect();
-	void addEffect(Effect*);
+	void executeNextEffect();
+	void addEffect(Effect);
 
-	 CardContainerManager* getCCM();
-	 CardManager*		  getCM();
-	 RuleManager*		  getRM();
-	 PlayerManager*		  getPM();
+	CardContainerManager* getCCM();
+	CardManager*		  getCM();
+	RuleManager*		  getRM();
+	PlayerManager*		  getPM();
 	//Not sure
 	void 			playCard(const PlayerID, const CardID);
 	void			drawCard(const PlayerID);
@@ -49,6 +50,9 @@ private:
 	CardManager *_cm;
 	RuleManager *_rm;
 	PlayerManager *_pm;
-	std::deque<Effect*> effect_queue;
+	std::deque<Effect> effect_queue;
+
+	//Diverse effekt-funktioner, ex:
+	//Draw(int draw, int play, int discard, bool inflation = true);
 };
 #endif

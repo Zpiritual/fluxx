@@ -2,7 +2,6 @@
 #include "Card.h"
 #include "CardID.h"
 #include "Effect.h"
-#include "Draw.h"
 #include "GameLogic.h"
 #include "Player.h"
 #include <vector>
@@ -14,11 +13,11 @@ using namespace std;
 int main()
 {
 	vector<const Card *> cards;
-	vector<Effect*> effects;
+	vector<Effect> effects;
 
 	for(int i =  0; i < 10; i++)
 	{
-		effects.push_back(new Draw(1,i,1));
+		effects.push_back(Effect{"test string"});
 		cards.push_back(new Card(CardID(i+1), (i < 8)?"ACTION":"RULE", "NUMERIC", "The card is a placeholder...", effects));
 	}
 	Deck *deck = new Deck(cards);

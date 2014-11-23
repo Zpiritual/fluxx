@@ -26,7 +26,7 @@ Deck* DeckParser::deck_to_game(std::string filename)
 		string name;
 		string type;
 		string description;
-		vector<Effect*> effects;
+		vector<Effect> effects;
 		while(getline(ifs, line) && !line.empty())
 		{	
 			stringstream ss{line};

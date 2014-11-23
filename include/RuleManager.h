@@ -43,7 +43,7 @@ public:
 	void setDraw(const int);
 	void setPlay(const int);
 	void setPlayOrder(const Direction);
-	std::vector<Effect*> checkRules(const RuleTrigger);
+	std::vector<Effect> checkRules(const RuleTrigger);
 	//Placeholders?
 	void addRule();
 	void removeRule();
@@ -56,6 +56,6 @@ private:
 	int _draw			= 0;
 	int _play 			= 0;
 	Direction _play_direction = Direction::CW;
-	std::vector<Effect*> _tiggered_rules;
+	std::vector<Effect> _tiggered_rules;
 };
 #endif

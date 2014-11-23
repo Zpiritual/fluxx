@@ -3,17 +3,14 @@
 //2014-11-06
 //Included more tests and added return 0
 #include "Card.h"
-#include "Draw.h"
-#include "ManipulateKeeper.h"
-#include "TrashCards.h"
-#include "TrashRules.h"
+#include "Effect.h"
 #include <cassert>
 #include <iostream>
 
 int main()
 {
-	vector<Effect*> e1;
-	e1.push_back(new Draw);
+	vector<Effect> e1;
+	e1.push_back(Effect{"test string"});
 	Card c1(CardID(000), "type1", "subtype1", "description1", e1);
 
 	cout << "\nCardID: " 	  << c1.getID().val
@@ -32,7 +29,6 @@ int main()
 	assert(c1.getID() == c5.getID());
 
 	cout << "\nSanty check: IDs equ/neq works \n";
-	for(Effect* e: e1)
-		delete e;
+	
 	return 0;
 }
