@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "../../include/CardID.h"
+#include "CardID.h"
 
 class GoalButtons : public QWidget
 {

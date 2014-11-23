@@ -12,11 +12,10 @@
 #include "activeplayer.h"
 #include "goalbuttons.h"
 #include "trashbutton.h"
-#include "../../include/BoardSnapshot.h"
-#include "../../include/CardID.h"
-#include "../../include/ContainerID.h"
-#include "../../include/PlayerID.h"
-#include "../../include/ContainerID.h"
+#include "BoardSnapshot.h"
+#include "CardID.h"
+#include "CardContainerID.h"
+#include "PlayerID.h"
 
 class Gui : public QWidget
 {
@@ -25,7 +24,7 @@ public:
     explicit Gui(std::vector<PlayerID> players, QWidget *parent = 0);
     ~Gui();
     const PlayerID pickPlayer(const BoardSnapshot);
-    const CardID pickCard(BoardSnapshot, ContainerID);
+    const CardID pickCard(BoardSnapshot, CardContainerID);
     void update(const BoardSnapshot&);
     void nextPlayer();
 

@@ -50,7 +50,7 @@ const PlayerID Gui::pickPlayer(const BoardSnapshot snapshot)
     //return player_list_widget->pickPlayer();
 }
 
-const CardID Gui::pickCard(BoardSnapshot snapshot, ContainerID containerid)
+const CardID Gui::pickCard(BoardSnapshot snapshot, CardContainerID containerid)
 {
     //update(snapshot);
 

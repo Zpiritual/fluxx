@@ -16,6 +16,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+INCLUDEPATH += $$PWD/../../include
 
 SOURCES += main.cpp \
     mainmenu.cpp \

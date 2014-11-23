@@ -3,7 +3,7 @@
 
 #include <QPushButton>
 #include <vector>
-#include "../../include/CardID.h"
+#include "CardID.h"
 
 class DeckButton : public QPushButton
 {

@@ -2,7 +2,7 @@
 #define CARD_H
 
 #include <QPushButton>
-#include <../../include/CardID.h>
+#include "CardID.h"
 #include <bigcard.h>
 #include <QMouseEvent>
 #include <QDebug>

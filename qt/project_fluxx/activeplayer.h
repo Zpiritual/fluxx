@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <vector>
-#include "../../include/PlayerID.h"
+#include "PlayerID.h"
 #include "activehand.h"
 #include "activekeepers.h"
 

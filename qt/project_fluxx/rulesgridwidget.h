@@ -5,7 +5,7 @@
 #include <QtWidgets>
 #include "cardbutton.h"
 #include <vector>
-#include "../../include/CardContainer.h"
+#include "CardContainer.h"
 
 
 class RulesGridWidget : public QWidget

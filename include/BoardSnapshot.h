@@ -23,6 +23,6 @@ Direction dir;
 	BoardSnapshot& operator= (BoardSnapshot&&) = delete;
 
 	~BoardSnapshot() = default;
-	CardContainer getContainer(const ContainerID id);
+    CardContainer getContainer(const CardContainerID id);
 };
 #endif

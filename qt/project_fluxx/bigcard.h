@@ -2,7 +2,7 @@
 #define BIGCARD_H
 
 #include <QWidget>
-#include "../../include/CardID.h"
+#include "CardID.h"
 #include <QtWidgets>
 
 class BigCard : public QWidget

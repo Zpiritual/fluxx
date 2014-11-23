@@ -2,8 +2,8 @@
 #define PLAYERLIST_H
 
 #include <QWidget>
-#include "../../include/PlayerID.h"
-#include "../../include/BoardSnapshot.h"
+#include "PlayerID.h"
+#include "BoardSnapshot.h"
 #include "playerlistitem.h"
 
 class PlayerList : public QWidget
