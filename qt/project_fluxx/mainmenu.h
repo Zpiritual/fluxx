@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include "profile.h"
 
 class MainMenu : public QWidget
 {
@@ -22,6 +23,8 @@ private:
     QWidget* start_widget; //The widget that run at start
     QWidget* options_widget; //The options menu widget
     QWidget* newgame_widget; //The newgame menu widget
+
+    std::vector<Profile> profiles;
 
 signals:
 

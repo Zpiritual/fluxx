@@ -27,6 +27,8 @@ private:
     void connectSignals();
     void uiElements();
 
+    void message(const QString&, const QString&) const;
+
 signals:
 
 public slots:

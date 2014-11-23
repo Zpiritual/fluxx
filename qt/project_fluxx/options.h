@@ -9,7 +9,7 @@ class Options : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Options(QWidget *parent = 0);
+    explicit Options(const std::vector<Profile>&, QWidget *parent = 0);
 
 private:
     QVBoxLayout* main_layout;
@@ -39,6 +39,7 @@ public slots:
     void addProfile();
     void removeProfile();
     void enableRemoveButton();
+    void enableAddButton();
     void ok();
     void cancel();
 };

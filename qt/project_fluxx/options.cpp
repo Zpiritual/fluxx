@@ -1,10 +1,15 @@
 #include "options.h"
 
-Options::Options(QWidget *parent) :
+Options::Options(const std::vector<Profile>& profiles, QWidget *parent) :
     QWidget(parent)
 {
     uiElements();
     parent2 = dynamic_cast<MainMenu*>(parent);
+
+    for(int i = 0; i < profiles.size(); i++)
+    {
+        user_profiles->addItem(QString::fromStdString(profiles.at(i).getName()));
+    }
 }
 
 void Options::addProfile()
@@ -42,6 +47,18 @@ void Options::removeProfile()
 void Options::enableRemoveButton()
 {
     remove_profile_button->setEnabled(true);
+}
+
+void Options::enableAddButton()
+{
+    if(profile_text->text() == "")
+    {
+        add_profile_button->setEnabled(false);
+    }
+    else
+    {
+        add_profile_button->setEnabled(true);
+    }
 }
 
 void Options::ok()
@@ -100,6 +117,7 @@ void Options::connectSignals()
     QObject::connect(user_profiles, SIGNAL(clicked(QModelIndex)), this, SLOT(enableRemoveButton()));
     QObject::connect(ok_button, SIGNAL(clicked()), this, SLOT(ok()));
     QObject::connect(cancel_button, SIGNAL(clicked()), this, SLOT(cancel()));
+    QObject::connect(profile_text, SIGNAL(textChanged(QString)), this, SLOT(enableAddButton()));
 }
 
 void Options::uiElements()
@@ -118,6 +136,7 @@ void Options::uiElements()
     cancel_button = new QPushButton(QString("Cancel"));
 
     remove_profile_button->setEnabled(false);
+    add_profile_button->setEnabled(false);
 
     profile_layout->addWidget(user_profiles);
     vertical_profile_layout->addWidget(profile_text);
