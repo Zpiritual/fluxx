@@ -34,7 +34,9 @@ SOURCES += main.cpp \
     goalbuttons.cpp \
     bigcard.cpp \
     activehand.cpp \
-    activekeepers.cpp
+    profile.cpp \
+    activekeepers.cpp \
+    switchplayer.cpp
 
 HEADERS += \
     mainmenu.h \
@@ -55,11 +57,14 @@ HEADERS += \
     goalbuttons.h \
     bigcard.h \
     activehand.h \
-    activekeepers.h
+    profile.h \
+    activekeepers.h \
+    switchplayer.h
 
 QMAKE_CXXFLAGS += -std=c++11
 
 OTHER_FILES +=
 
 RESOURCES += \
-    images.qrc
+    images.qrc \
+    textfiles.qrc

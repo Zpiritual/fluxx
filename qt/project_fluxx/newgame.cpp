@@ -165,7 +165,6 @@ void NewGame::uiElementSetup()
     QObject::connect(text_field, SIGNAL(textChanged(QString)), this, SLOT(enableNextPlayerButton()));
     QObject::connect(player_list, SIGNAL(clicked(QModelIndex)), this, SLOT(enableSelectPlayerButton()));
 
-
     layout->addLayout(list_layout);
     layout->addLayout(others_layout);
 

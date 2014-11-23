@@ -98,7 +98,7 @@ void Profile::checkStat(std::istringstream& is, const std::string& stat)
 
 std::ostream& operator<<(std::ostream& os, const Profile& profile)
 {
-    os << profile.getName() << "\n"
+    os << "profile " << profile.getName() << "\n"
        << "wins " << profile.getWins() << "\n"
        << "games " << profile.getGames() << "\n"
        << "playedcards " << profile.getPlayedCards() << "\n\n";

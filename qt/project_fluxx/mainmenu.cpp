@@ -21,7 +21,7 @@ MainMenu::MainMenu(QWidget *parent) :
 
     // BEHÖVER ANVÄNDA ABSOLUTA SÖKVÄGEN FÖR ATT ÖPPNA FILEN
     // /home/namn/...  fungerar
-    std::ifstream file("/profiles.txt");
+    std::ifstream file("qrc:/text/profiles.txt");
     Profile p;
 
     if(file)

@@ -64,7 +64,7 @@ void Gui::nextPlayer()
 void Gui::update(const BoardSnapshot& snapshot) //Lägg till i alla klasser
 {
 
-//    rules_widget->updateCards(snapshot.getContainer(ContainerID("Rules")));
+    //rules_widget->updateCards(snapshot.getContainer(ContainerID("Rules")));
 
 
 }

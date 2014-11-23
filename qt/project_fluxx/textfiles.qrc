@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/text">
+        <file>profiles.txt</file>
+    </qresource>
+</RCC>
