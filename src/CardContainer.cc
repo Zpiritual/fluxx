@@ -1,28 +1,28 @@
 #include <algorithm>
 #include "CardContainer.h"
 
-	void CardContainer::addCard(const CardID c)
-	{
-		if(std::find(_cards.begin(), _cards.end(),c) == _cards.end())	//Guard for duplicates
-		_cards.push_back(c);
-	}
+void CardContainer::addCard(const CardID c)
+{
+	if(std::find(_cards.begin(), _cards.end(),c) == _cards.end())	//Guard for duplicates
+	_cards.push_back(c);
+}
 
-	void CardContainer::removeCard(const CardID c)
-	{
-		_cards.erase(std::find(_cards.begin(), _cards.end(),c));	//Does not need a guard given std::find() has it's own.
-	}
+void CardContainer::removeCard(const CardID c)
+{
+	_cards.erase(std::find(_cards.begin(), _cards.end(),c));	//Does not need a guard given std::find() has it's own.
+}
 
-	const int CardContainer::getSize() const
-	{
-		return _cards.size();
-	}
+const int CardContainer::getSize() const
+{
+	return _cards.size();
+}
 
-	const std::vector<CardID> CardContainer::getCards() const
-	{
-		return _cards;
-	}
+const std::vector<CardID> CardContainer::getCards() const
+{
+	return _cards;
+}
 
-	const CardContainerID CardContainer::getID() const
-	{
-		return _id;
-	}
+const CardContainerID CardContainer::getID() const
+{
+	return _id;
+}

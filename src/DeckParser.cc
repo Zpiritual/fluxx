@@ -1,6 +1,7 @@
 #include "DeckParser.h"
 #include "Card.h"
 #include <iostream>
+
 Deck* DeckParser::deck_to_game(std::string filename)
 {
 	ifstream ifs{filename};
