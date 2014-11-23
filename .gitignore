@@ -4,3 +4,4 @@
 *.user
 *.ppm
 *.ppm#
+*.o

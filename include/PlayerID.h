@@ -13,7 +13,7 @@ struct PlayerID
 {
 	std::string val;
 	
-	PlayerID(std::string val):val{val}
+	PlayerID(std::string val) : val{val}
 	{}
 
 	PlayerID() = delete;

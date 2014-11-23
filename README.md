@@ -29,7 +29,6 @@ Project Organisation
 
 HOW TO RUN TESTS
 ================
-```cmd
-g++ -std=c++11 -o [testfile] -I include test/[testfile].cc
-[testfile].exe
+```Makefile
+make 'Class_test'
 ```

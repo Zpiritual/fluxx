@@ -8,17 +8,12 @@
 //==========
 #ifndef CARDMANAGER_H
 #define CARDMANAGER_H
-
 #include "Deck.h"
 #include "Card.h"
 #include "CardID.h"
-class Card;
-class Deck;
 class CardManager {
 public:
-	CardManager(const Deck* const d) : _deck{d}
-	{}
-
+	CardManager(const Deck* const d);
 	CardManager() 								= delete;
 	CardManager(const CardManager&) 			= delete;
 	CardManager (CardManager&&) 				= delete;

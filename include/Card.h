@@ -6,18 +6,18 @@
 //Changed copy and move constructor/operators to default
 #ifndef CARD_H
 #define CARD_H
+
 #include "CardID.h"
 #include "Effect.h"
 #include <vector>
 #include <string>
+
 using namespace std;
 
 class Card
 {
 public:
-	Card(const CardID id, const string type, const string subtype, const string description, const vector<Effect*> effects)
-	: _id{id}, _type{type}, _subtype{subtype}, _description{description}, _effects{effects}
-	{}
+	Card(const CardID id, const string type, const string subtype, const string description, const vector<Effect> effects);
 
 	Card() 							= delete;
 	Card(const Card&) 				= default;
@@ -26,23 +26,20 @@ public:
 	Card& operator= (const Card&)	= default;
 	Card& operator= (Card&&)		= default;
 
-	~Card() {
-		for (auto i : _effects)
-			delete i;
-	}
+	~Card() 						= default;
 
-	const CardID 		  getID() 			const	{ return _id; }
-	const string 		  getType() 		const	{ return _type; }
-	const string 		  getSubtype() 		const	{ return _subtype; }
-	const string 		  getDescription() 	const	{ return _description; }
-	const vector<Effect*> getEffects()		const	{ return _effects; }
+	const CardID 		  getID() 			const;
+	const string 		  getType() 		const;
+	const string 		  getSubtype() 		const;
+	const string 		  getDescription() 	const;
+	const vector<Effect>  getEffects()		const;
 
 private:
 	const CardID _id;
 	const string _type;
 	const string _subtype;
 	const string _description;
-	const vector<Effect*> _effects;
+	const vector<Effect> _effects;
 };
 
 #endif

@@ -2,21 +2,21 @@
 //NOT COMPLETE AND NEEDS ATTENTION
 #ifndef RULEMANAGER_H
 #define RULEMANAGER_H
+
 #include "Effect.h"
 #include <vector>
-enum Direction
-{
-	CW = 1,
-	CCW = 2
-};
 
-enum RuleTriggerType
+enum class Direction
 {
-	PRE_DRAW = 0,
-	POST_DRAW = 1,
-	END_TURN = 2
+	CW,
+	CCW 
 };
-class Effect;
+enum class RuleTrigger
+{
+	PRE_DRAW,
+	POST_DRA,
+	END_TURN
+};
 class RuleManager
 {
 public:
@@ -43,6 +43,11 @@ public:
 	void setDraw(const int);
 	void setPlay(const int);
 	void setPlayOrder(const Direction);
+	std::vector<Effect> checkRules(const RuleTrigger);
+	//Placeholders?
+	void addRule();
+	void removeRule();
+	void clearRules();
 private:
 	int _hand_limmit 	= 0;
 	int _keeper_limit	= 0;
@@ -50,7 +55,7 @@ private:
 	int _inflation		= 0;
 	int _draw			= 0;
 	int _play 			= 0;
-	Direction _play_direction = CW;
-	std::vector<Effect*> _tiggered_rules;
+	Direction _play_direction = Direction::CW;
+	std::vector<Effect> _tiggered_rules;
 };
 #endif

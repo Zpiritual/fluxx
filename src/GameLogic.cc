@@ -1,92 +1,117 @@
-	#include "GameLogic.h"
+#include "GameLogic.h"
+#include <iostream>
 
-	GameLogic::GameLogic(const Deck * deck, const std::vector<Player> players)
+GameLogic::GameLogic(const Deck* deck, const std::vector<Player> players)
+{
+	_ccm = new CardContainerManager(deck);
+	_cm = new CardManager(deck);
+	_rm = new RuleManager();
+	_pm = new PlayerManager(players);
+
+	for(auto p:players)
 	{
-		_ccm = new CardContainerManager(deck);
-		_cm = new CardManager(deck);
-		_rm = new RuleManager();
-		_pm = new PlayerManager(players);
+		drawCard(p.getID());
+		drawCard(p.getID());
+		drawCard(p.getID());
 	}
 
-	GameLogic::~GameLogic()
-	{
-		delete	_ccm;
-		delete	_cm;
-		delete	_rm;
-		delete	_pm;
-	}
+}
 
-	void GameLogic::nextEffect()
-	{
-	effect_queue.front()->execute(this);
-	effect_queue.pop_front();	 
-	}
+GameLogic::~GameLogic()
+{
+	delete	_ccm;
+	delete	_cm;
+	delete	_rm;
+	delete	_pm;
+}
 
-	void GameLogic::addEffect(Effect * effect)
-	{
-		effect_queue.push_front(effect);
-	}
+void GameLogic::executeNextEffect()
+{
+	effect_queue.pop_front();
+}
 
-	CardContainerManager* GameLogic::getCCM()
-	{
-		return _ccm;
-	}
+void GameLogic::addEffect(Effect effect)
+{
+	effect_queue.push_front(effect);
+}
 
-	CardManager* GameLogic::getCM()
-	{
-		return _cm;
-	}
+ CardContainerManager* GameLogic::getCCM()
+{
+	return _ccm;
+}
 
-	RuleManager* GameLogic::getRM()
-	{
-		return _rm;
-	}
+ CardManager* GameLogic::getCM()
+{
+	return _cm;
+}
 
-	PlayerManager* GameLogic::getPM()
-	{
-		return _pm;
-	}
+ RuleManager* GameLogic::getRM()
+{
+	return _rm;
+}
 
-	void GameLogic::playCard(const PlayerID pid, const CardID cid)
-	{
-		if(getCM()->getCard(cid)->getType() == "KEEPER")
-		{
-			getCCM()->moveCard(getPM()->getPlayer(pid)->getContainerID(), CardContainerID(pid + "_keepers"));
-		}
-		else if(getCM()->getCard(cid)->getType() == "RULE")
-		{
-			getCCM()->moveCard(getPM()->getPlayer(pid)->getContainerID(), CardContainerID("active_rules"));
-		}
-		else if(getCM()->getCard(cid)->getType() == "ACTION")
-		{
-			getCCM()->moveCard(getPM()->getPlayer(pid)->getContainerID(), CardContainerID(pid + "trash_heap"));
-		}
-		else if(getCM()->getCard(cid)->getType() == "GOAL")
-		{
-			getCCM()->moveCard(getPM()->getPlayer(pid)->getContainerID(), CardContainerID(pid + "goals"));
-		}
-	}
+ PlayerManager* GameLogic::getPM()
+{
+	return _pm;
+}
 
-	void GameLogic::drawCard(const PlayerID pid)
+void GameLogic::playCard(const PlayerID pid, const CardID cid)
+{
+	
+	if(getCM()->getCard(cid)->getType() == "KEEPER")
 	{
-		getCCM()->drawCard(getPM()->getPlayer(pid)->getContainerID());
+		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID(pid.val + "_keepers"),cid);
+		std::cout << "Played a KEEPER \nID: " << cid.val << std::endl;
 	}
+	else if(getCM()->getCard(cid)->getType() == "RULE")
+	{
+		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Rules"),cid);
+		std::cout << "Played a RULE \nID: " << cid.val << std::endl;
+	}
+	else if(getCM()->getCard(cid)->getType() == "ACTION")
+	{
+		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Trash"), cid);
+		std::cout << "Played a ACTION \nID: " << cid.val << std::endl;
+	}
+	else if(getCM()->getCard(cid)->getType() == "GOAL")
+	{
+		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Goals"),cid);
+		std::cout << "Played a GOAL \nID: " << cid.val << std::endl;
+	}
+	
+}
 
-	void GameLogic::checkRules(RuleTriggerType)
-	{
-		//TODO - waiting for RuleManager to be completed
-	}
+void GameLogic::drawCard(const PlayerID pid)
+{
+	//std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
+	getCCM()->drawCard(getPM()->getPlayer(pid).getContainerID());
+}
 
-	void GameLogic::resolveEffects()
+/*	void GameLogic::checkRules(RuleTriggerType)
+{
+	//TODO - waiting for RuleManager to be completed
+}
+*/
+void GameLogic::resolveEffects()
+{
+	while(!effect_queue.empty())
 	{
-		while(!effect_queue.empy())
-		{
-			nextEffect();
-		}
+		executeNextEffect();
 	}
+}
+//Works?
+//void 			GameLogic::checkRules()
+//{
+//	_rm->clearRules();
+//	for(CardID i: _ccm->getCards(CardContainerID("Rules")))
+//	{
+//		_rm->addRule(_cm->getCard(i));
+//	}
+//	_rm->checkRules();
+//}
 
-	const PlayerID GameLogic::getNextPlayer()
-	{
-		getPM()->nextPlayer();
-	return getPM()->getCurrentPlayer()->getID();
-	}
+const PlayerID GameLogic::getNextPlayer()
+{
+	getPM()->nextPlayer();
+return getPM()->getCurrentPlayer().getID();
+}
