@@ -8,11 +8,11 @@
 #define PLAYER_H
 #include <string>
 #include "PlayerID.h"
-#include "ContainerID.h"
+#include "CardContainerID.h"
 class Player
 {
 public:
-	Player(const PlayerID pid,const ContainerID cid, const std::string name):_id{pid}, _name{name}, _cid{cid}
+	Player(const PlayerID pid,const CardContainerID player_hand) : _id{pid}, _cid{player_hand}
 	{}
 
 	Player() = delete;
@@ -26,17 +26,20 @@ public:
 
 	const std::string getName() const
 	{
-		return _name;
+		return _id.val;
 	}
 
 	const PlayerID getID() const 
 	{
 		return _id;
 	}
+	const CardContainerID getContainerID() const
+	{
+		return _cid;
+	}
 
 private:
 	const PlayerID _id;
-	const ContainerID _cid;
-	const std::string _name;
+	const CardContainerID _cid;
 };
 #endif

@@ -1,16 +1,30 @@
 #include "Stock.h"
-	
-	const int Stock::getSize() const
+	Stock::Stock(const Deck  * deck , const CardContainerID id):_id{id}
+	{
+		for(auto i: deck->getCardIDList())
+		{
+			push(i);
+		}
+	}
+
+	Stock::Stock(const CardContainerID id): _id{id}
+	{}
+
+
+
+
+
+	const int Stock::getSize() 	const
 	{
 		return _cards.size();
 	}
 
-	const std::stack<CardID> Stock::getCards() const
+	const std::stack<CardID> 	Stock::getCards() 	const
 	{
 		return _cards;
 	}
 
-	const ContainerID Stock::getID() const
+	const CardContainerID 	Stock::getID() 	const
 	{
 		return _id;
 	}
@@ -27,7 +41,7 @@
 		_cards.push(id);
 	}
 	
-	const bool Stock::empty() const
+	const bool Stock::empty() 	const
 	{
 		return _cards.empty();
 	}

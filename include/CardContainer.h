@@ -8,18 +8,20 @@
 //Removed CardContainer(vector, id) constructor
 //2014-11-18
 //Changed move constructor and operator to default
+
 #ifndef CARDCONTAINER_H
 #define CARDCONTAINER_H
 #include <vector>
 #include "CardID.h"
-#include "ContainerID.h"
+#include "CardContainerID.h"
+
 class CardContainer
 {
 private:
 	std::vector<CardID> _cards;
-	const ContainerID _id;
+	const CardContainerID _id;
 public:
-	CardContainer(const ContainerID id): _id{id}
+	CardContainer(const CardContainerID id): _id{id}
 	{}
 
 	CardContainer() 					= delete;
@@ -34,8 +36,13 @@ public:
 	void addCard(const CardID);
 	void removeCard(const CardID);
 
+	//bool operator ==(const CardContainer &other) const {return _id == other.getID();}
+	//bool operator !=(const CardContainer &other) const {return !(*this == other);}
+	//bool operator <(const CardContainer &other) const {return _id < other.getID();}
+	//bool operator >(const CardContainer &other) const {return _id < other.getID();}
+
 	const int 					getSize() 	const;
 	const std::vector<CardID> 	getCards() 	const ;
-	const ContainerID 			getID() 	const;
+	const CardContainerID 		getID() 	const;
 };
 #endif

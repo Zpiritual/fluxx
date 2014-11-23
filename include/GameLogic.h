@@ -1,10 +1,24 @@
 //Changelog
+//2014--11-20
+//moved constructor and destructor to .cc
+//added forward declarations
 //=========
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
+#include "Effect.h"
+#include "Deck.h"
+#include <vector>
+#include <deque>
+#include "Player.h"
+#include "CardContainerManager.h"
+#include "CardManager.h"
+#include "RuleManager.h"
+#include "PlayerManager.h"
+class CardContainerManager;
 class GameLogic
 {
 public:
+	GameLogic(const Deck * deck, const std::vector<Player> players);
 	GameLogic()					= delete;
 	GameLogic(const GameLogic&) = default;
 	GameLogic (GameLogic&&) 	= default;
@@ -12,16 +26,21 @@ public:
 	GameLogic& operator= (const GameLogic&) = default;
 	GameLogic& operator= (GameLogic&&) 		= default;
 
-	~GameLogic() = default;
+	~GameLogic();
 
-	void nextEffects();
+	void nextEffect();
 	void addEffect(Effect*);
 
 	CardContainerManager* getCCM();
 	CardManager*		  getCM();
 	RuleManager*		  getRM();
 	PlayerManager*		  getPM();
-
+	//Not sure
+	void 			playCard(const PlayerID, const CardID);
+	void			drawCard(const PlayerID);
+	void 			checkRules(RuleTriggerType);
+	bool 			resolveEffects();
+	const PlayerID 	getNextPlayer();
 
 private:
 	CardContainerManager *_ccm;
