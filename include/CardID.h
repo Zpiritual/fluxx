@@ -9,6 +9,7 @@
 struct CardID
 {
 	int val;
+	
 	CardID(int val):val{val}
 	{}
 

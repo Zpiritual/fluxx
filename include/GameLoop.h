@@ -11,6 +11,8 @@
 #include <vector>
 #include <string>
 
+enum class gameState{CONTINUE, GAME_OVER};
+
 class GameLoop
 {
 public:
@@ -26,7 +28,7 @@ public:
 	~GameLoop();
 	void			playCard(const PlayerID, const CardID);
 	void 			drawCards(const PlayerID, const int);
-	const bool		playerTurn(PlayerID);
+	const bool		executePlayerTurn(PlayerID);
 	const int 		getDrawNO() const;
 	const int 		getPlayNO() const;
 	void 			sendLog(std::string);
