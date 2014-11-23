@@ -20,3 +20,12 @@ TrashButton::TrashButton(QWidget *parent) :
 TrashButton::~TrashButton()
 {
 }
+
+void TrashButton::updateCards(const CardContainer & cards)
+{
+    cards_ = cards.getCards();
+    delete icon;
+    QString temp_string{":Images/"+QString::number(cards_.back().val)+".png"};
+    icon = new QIcon{temp_string};
+    this->setIcon(*icon);
+}

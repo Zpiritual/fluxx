@@ -9,9 +9,19 @@ GoalButtons::GoalButtons(QWidget *parent) :
 
 }
 
-void GoalButtons::updateCards(const std::vector<CardID> &)
+void GoalButtons::updateCards(const CardContainer& cards)
 {
+    cards_ = cards.getCards();
 
+    while(!(layout->isEmpty()))
+    {
+        QLayoutItem* temp = layout->itemAt(0);
+        layout->removeItem(temp);
+    }
+    for(auto card : cards_)
+    {
+        layout->addWidget(new CardButton(card));
+    }
 }
 
 GoalButtons::~GoalButtons()

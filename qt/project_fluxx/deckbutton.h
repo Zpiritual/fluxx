@@ -4,13 +4,14 @@
 #include <QPushButton>
 #include <vector>
 #include "CardID.h"
+#include "CardContainer.h"
 
 class DeckButton : public QPushButton
 {
     Q_OBJECT
 public:
     explicit DeckButton(QWidget *parent = 0);
-    void updateCards(const std::vector<CardID>&);
+    void updateCards(const CardContainer&);
     ~DeckButton();
 
 protected:
@@ -18,7 +19,7 @@ protected:
 
 
 private:
-      std::vector<CardID> cards;
+      std::vector<CardID> cards_;
       QIcon* icon;
 
 signals:

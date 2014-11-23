@@ -8,6 +8,7 @@
 #include "CardContainer.h"
 
 
+
 class RulesGridWidget : public QWidget
 {
     Q_OBJECT
@@ -18,7 +19,7 @@ public:
 
 private:
     QGridLayout* layout;
-    std::vector<CardID> cards;
+    std::vector<CardID> cards_;
 
 signals:
 

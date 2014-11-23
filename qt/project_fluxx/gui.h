@@ -25,10 +25,8 @@ public:
     ~Gui();
     const PlayerID pickPlayer(const BoardSnapshot);
     const CardID pickCard(BoardSnapshot, CardContainerID);
-    void update(const BoardSnapshot&);
+    void update(BoardSnapshot*);
     void nextPlayer();
-
-
 
 private:
     QHBoxLayout* layout;
