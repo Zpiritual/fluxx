@@ -43,6 +43,11 @@ public:
 	void setDraw(const int);
 	void setPlay(const int);
 	void setPlayOrder(const Direction);
+	std::vector<Effect*> checkRules(const RuleTrigger);
+	//Placeholders?
+	void addRule();
+	void removeRule();
+	void clearRules();
 private:
 	int _hand_limmit 	= 0;
 	int _keeper_limit	= 0;

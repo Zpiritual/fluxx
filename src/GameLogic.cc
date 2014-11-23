@@ -26,7 +26,7 @@
 
 	void GameLogic::nextEffect()
 	{
-	effect_queue.pop_front();	 
+	effect_queue.pop_front();
 	}
 
 	void GameLogic::addEffect(Effect * effect)
@@ -98,6 +98,16 @@
 			nextEffect();
 		}
 	}
+	//Works?
+	//void 			GameLogic::checkRules()
+	//{
+	//	_rm->clearRules();
+	//	for(CardID i: _ccm->getCards(CardContainerID("Rules")))
+	//	{
+	//		_rm->addRule(_cm->getCard(i));
+	//	}
+	//	_rm->checkRules();
+	//}
 
 	const PlayerID GameLogic::getNextPlayer()
 	{
