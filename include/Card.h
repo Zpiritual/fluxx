@@ -15,7 +15,7 @@ class Effect;
 class Card
 {
 public:
-Card(const CardID id, const string type, const string subtype, const string description, const vector<Effect*> effects);
+	Card(const CardID id, const string type, const string subtype, const string description, const vector<Effect*> effects);
 
 	Card() 							= delete;
 	Card(const Card&) 				= default;

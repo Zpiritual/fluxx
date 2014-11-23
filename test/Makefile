@@ -2,8 +2,8 @@ CCC		= g++ -std=c++11
 CCFLAGS = -g -Wall -pedantic
 INCLUDE	= -I../include -I../include/Effects -I../src
 
-Card_test: Card_test.cc 
-	$(CCC) $(CCFLAGS) -o Card_test Card_test.cc $(INCLUDE)
+Card_test: Card_test.cc
+	$(CCC) $(CCFLAGS) -o Card_test Card_test.cc Card.h $(INCLUDE)
 
 CardContainer_test: CardContainer_test.cc 
 	$(CCC) $(CCFLAGS) -o CardContainer_test CardContainer_test.cc $(INCLUDE)

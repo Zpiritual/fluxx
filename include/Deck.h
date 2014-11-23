@@ -11,6 +11,9 @@
 #include "CardID.h"
 #include <map>
 #include <vector>
+
+class Card;
+
 class Deck
 {
 public:

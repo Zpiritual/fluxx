@@ -2,8 +2,9 @@
 #define DRAW_H
 
 #include "Effect.h"
+#include "GameLogic.h"
 #include <iostream>
-class Draw: public Effect {
+class Draw : public Effect {
 private:
 	int _draw, _play, _discard;
 	bool _inflation;
@@ -19,7 +20,7 @@ public:
 
 	~Draw() 						= default;
 
-	virtual void execute(GameLoop * game)
+	void execute(GameLogic * game) override
 	{
 		std::cout << "Draw: " << _draw << "Play: " << _play << "Discard: " << _discard << "Inflation: " << _inflation << "\n";
 	}
