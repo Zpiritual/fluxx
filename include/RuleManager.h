@@ -11,7 +11,12 @@ enum class Direction
 	CW,
 	CCW 
 };
-class Effect;
+enum class RuleTrigger
+{
+	PRE_DRAW,
+	POST_DRA,
+	END_TURN
+};
 class RuleManager
 {
 public:
@@ -38,6 +43,11 @@ public:
 	void setDraw(const int);
 	void setPlay(const int);
 	void setPlayOrder(const Direction);
+	std::vector<Effect*> checkRules(const RuleTrigger);
+	//Placeholders?
+	void addRule();
+	void removeRule();
+	void clearRules();
 private:
 	int _hand_limmit 	= 0;
 	int _keeper_limit	= 0;

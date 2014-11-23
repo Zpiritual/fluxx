@@ -15,15 +15,12 @@
 #include "CardID.h"
 #include "CardContainerID.h"
 #include "Deck.h"
-class Deck;
 class Stock
 {
 private:
 	std::stack<CardID> _cards;
 	const CardContainerID _id;
 public:
-	Stock(const Deck  * deck , const CardContainerID id);
-
 	Stock(const CardContainerID id);
 	Stock() 					= delete;
 	Stock(const Stock&) = default;

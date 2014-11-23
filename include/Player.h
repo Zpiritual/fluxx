@@ -12,8 +12,7 @@
 class Player
 {
 public:
-	Player(const PlayerID pid,const CardContainerID player_hand) : _id{pid}, _cid{player_hand}
-	{}
+	Player(const PlayerID pid,const CardContainerID player_hand);
 
 	Player() = delete;
 	Player(const Player&) = default;

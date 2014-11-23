@@ -3,12 +3,15 @@
 #include "Stock.h"
 //#include <map>
 //#include <utility>
-
+//#include <iostream>
 CardContainerManager::CardContainerManager(const Deck* deck)
 // Konstruktorn skall initiera både stock-objektet och vektorn med cardcontainers.
 {
-	_stock = new Stock(deck, CardContainerID("Stock"));
-
+	_stock = new Stock(CardContainerID("Stock"));
+	for(CardID c:deck->getCardIDList())
+		 {
+		 	_stock->push(c);
+		 }
 	const CardContainerID trash("Trash");
 	_containers.insert(std::make_pair(trash, new CardContainer(trash)));
 
@@ -23,12 +26,12 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 	for(int i = 1; i <= 6; i++)
 	{
-		char player_number = i - '0';
 		std::string player_container = "Player";
-		player_container += player_number;
+		player_container += '0'+ i ;
 		player_container += "_hand";
 		const CardContainerID container(player_container);
 		_containers.insert(std::make_pair(container, new CardContainer(container)));
+		//std::cout << "Container: playerID = " << container.val << std::endl;
 	}
 
 	for(int i = 1; i <= 6; i++)
@@ -69,7 +72,7 @@ void CardContainerManager::moveCard(const CardContainerID from, const CardContai
 
 const int CardContainerManager::getSize(const CardContainerID container)
 {
-	getContainer(container)->getSize();
+	return getContainer(container)->getSize();
 }
 
 CardContainer* CardContainerManager::getContainer(const CardContainerID container)

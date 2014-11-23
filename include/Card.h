@@ -11,7 +11,6 @@
 #include <vector>
 #include <string>
 using namespace std;
-class Effect;
 class Card
 {
 public:
@@ -26,11 +25,11 @@ public:
 
 	~Card();
 
-	const CardID 		  getID() 			const	{ return _id; }
-	const string 		  getType() 		const	{ return _type; }
-	const string 		  getSubtype() 		const	{ return _subtype; }
-	const string 		  getDescription() 	const	{ return _description; }
-	const vector<Effect*> getEffects()		const	{ return _effects; }
+	const CardID 		  getID() 			const;
+	const string 		  getType() 		const;
+	const string 		  getSubtype() 		const;
+	const string 		  getDescription() 	const;
+	const vector<Effect*> getEffects()		const;
 
 private:
 	const CardID _id;

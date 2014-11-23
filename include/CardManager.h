@@ -11,7 +11,6 @@
 #include "Deck.h"
 #include "Card.h"
 #include "CardID.h"
-class Card;
 class CardManager {
 public:
 	CardManager(const Deck* const d);

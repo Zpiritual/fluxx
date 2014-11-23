@@ -8,10 +8,10 @@ using namespace std;
 int main()
 {
 	vector<CardContainer> containers;
-	ContainerID id1("Container 1");
-	ContainerID id2("HELLO");
-	ContainerID id3(id1);
-	ContainerID id4(id2);
+	CardContainerID id1("Container 1");
+	CardContainerID id2("HELLO");
+	CardContainerID id3(id1);
+	CardContainerID id4(id2);
 	id4 = id1;
 	CardContainer cc1(id1);
 	CardContainer cc2(id2);
