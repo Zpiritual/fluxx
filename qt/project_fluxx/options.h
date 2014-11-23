@@ -28,10 +28,15 @@ private:
 
     MainMenu* parent2;
 
+    std::vector<Profile> profiles;
+
     bool profileExist(const QString&) const;
     void message(const QString&, const QString&) const;
     void connectSignals();
     void uiElements();
+
+    void addProfile(const Profile&);
+    void removeProfile(const Profile&);
 
 signals:
 

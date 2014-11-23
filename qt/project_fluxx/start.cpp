@@ -54,6 +54,7 @@ void Start::exit()
 
     if(parent2 != nullptr)
     {
+        parent2->writeProfilesToFile();
         parent2->close();
     }
     else
@@ -61,8 +62,6 @@ void Start::exit()
         message(QString("Error"), QString("parent2 does not exist"));
     }
 }
-
-
 
 void Start::adjust_button_height(int height)
 {

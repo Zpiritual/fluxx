@@ -10,9 +10,8 @@ class NewGame : public QWidget
 {
     Q_OBJECT
 public:
-    explicit NewGame(QWidget *parent = 0);
+    explicit NewGame(const std::vector<Profile>& , QWidget *parent = 0);
     ~NewGame();
-    int testing = 78;
 
 private:
     QHBoxLayout* layout;
@@ -21,8 +20,6 @@ private:
     QHBoxLayout* finish_layout;
     QListWidget* player_list;
     QPushButton* select_player_button;
-    QLineEdit* text_field;
-    QPushButton* next_player_button;
     QPushButton* start_button;
     QPushButton* back_button;
     QLabel* view_players;
@@ -37,10 +34,8 @@ signals:
 
 public slots:
     void startGame();
-    void nextPlayer();
     void goBack();
     void selectPlayer();
-    void enableNextPlayerButton();
     void enableSelectPlayerButton();
 };
 

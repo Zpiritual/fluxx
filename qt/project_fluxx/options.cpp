@@ -1,10 +1,12 @@
 #include "options.h"
 
-Options::Options(const std::vector<Profile>& profiles, QWidget *parent) :
+Options::Options(const std::vector<Profile>& prfiles, QWidget *parent) :
     QWidget(parent)
 {
     uiElements();
     parent2 = dynamic_cast<MainMenu*>(parent);
+
+    profiles = prfiles;
 
     for(int i = 0; i < profiles.size(); i++)
     {
@@ -17,6 +19,7 @@ void Options::addProfile()
     if(profile_text->text() != "" && !profileExist(profile_text->text()))
     {
         user_profiles->addItem(profile_text->text());
+        addProfile(Profile(profile_text->text().toStdString()));
     }
     else
     {
@@ -38,6 +41,7 @@ void Options::removeProfile()
     QListWidgetItem* selected_item;
     int index = user_profiles->currentRow();
     selected_item = user_profiles->takeItem(index);
+    removeProfile(Profile(selected_item->text().toStdString()));
     delete selected_item;
 
     user_profiles->clearSelection();
@@ -67,6 +71,10 @@ void Options::ok()
     // TODO: Add functionality
     if(parent2 != nullptr)
     {
+        for(int i = 0; i < profiles.size(); i++)
+        {
+            parent2->setProfiles(profiles);
+        }
         parent2->optionsBack();
     }
     else
@@ -154,4 +162,27 @@ void Options::uiElements()
     connectSignals();
 
     this->setLayout(main_layout);
+}
+
+void Options::addProfile(const Profile& profile)
+{
+    profiles.push_back(profile);
+}
+
+void Options::removeProfile(const Profile& profile)
+{
+    for(auto it = profiles.begin(); it != profiles.end(); ++it)
+    {
+
+        if(it->getName() == profile.getName())
+        {
+            if(it == profiles.end() - 1)
+            {
+                profiles.pop_back();
+                return;
+            }
+            profiles.erase(it);
+            return;
+        }
+    }
 }

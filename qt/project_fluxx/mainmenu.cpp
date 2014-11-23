@@ -18,12 +18,8 @@ MainMenu::MainMenu(QWidget *parent) :
     main_layout->addWidget(start_widget);
     this->setLayout(main_layout);
 
-
-    // BEHÖVER ANVÄNDA ABSOLUTA SÖKVÄGEN FÖR ATT ÖPPNA FILEN
-    // /home/namn/...  fungerar
-    std::ifstream file("qrc:/text/profiles.txt");
+    std::ifstream file("./profiles.txt");
     Profile p;
-
     if(file)
     {
         while(file >> p)
@@ -31,7 +27,10 @@ MainMenu::MainMenu(QWidget *parent) :
             profiles.push_back(p);
         }
     }
-
+    else
+    {
+        std::cout << "Couldn't open profiles.txt!\n";
+    }
     file.close();
 }
 
@@ -41,7 +40,7 @@ MainMenu::~MainMenu()
 
 void MainMenu::newGame()
 {
-    newgame_widget = new NewGame(this);
+    newgame_widget = new NewGame(profiles, this);
     main_layout->addWidget(newgame_widget);
     main_layout->removeWidget(start_widget);
     this->setWindowTitle(QString("New Game"));
@@ -76,5 +75,33 @@ void MainMenu::optionsBack()
     main_layout->removeWidget(options_widget);
     this->setWindowTitle(QString("Main Menu"));
 
-   delete options_widget;
+    delete options_widget;
+}
+
+void MainMenu::addProfile(const Profile& profile)
+{
+    profiles.push_back(profile);
+}
+
+void MainMenu::setProfiles(const std::vector<Profile>& profile_list)
+{
+    profiles = profile_list;
+}
+
+void MainMenu::writeProfilesToFile() const
+{
+    std::ofstream file("./profiles.txt");
+    if(file)
+    {
+        for(int i = 0; i < profiles.size(); i++)
+        {
+            file << profiles.at(i);
+        }
+    }
+    else
+    {
+        std::cout << "Couldn't open profiles.txt!\n";
+    }
+
+    file.close();
 }

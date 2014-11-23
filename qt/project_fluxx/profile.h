@@ -12,8 +12,7 @@
 class Profile
 {
 public:
-    Profile();
-    Profile(const std::string&, int, int, int);
+    Profile(const std::string& n = "tempName", int w = 0, int g = 0, int pc = 0);
     ~Profile();
 
     Profile& operator=(const Player&);
@@ -29,6 +28,8 @@ public:
     void setWins(int);
     void setGames(int);
     void setPlayedCards(int);
+
+    void read_line(const std::string&);
 
 private:
     PlayerID name;

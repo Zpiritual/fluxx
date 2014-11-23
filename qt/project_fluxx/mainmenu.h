@@ -17,6 +17,11 @@ public:
     void options();
     void optionsBack();
 
+    void addProfile(const Profile&);
+    void setProfiles(const std::vector<Profile>&);
+
+    void writeProfilesToFile() const;
+
 private:
     QVBoxLayout* main_layout; //Main window layout
     QStackedWidget* layouts; //Container for the different menues

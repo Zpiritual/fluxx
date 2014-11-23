@@ -1,13 +1,5 @@
 #include "profile.h"
 
-Profile::Profile()
-    : name(std::string{"tempName"})
-{
-    wins = 0;
-    games = 0;
-    played_cards = 0;
-}
-
 Profile::Profile(const std::string& n, int win, int game, int cards)
     : name(n)
 {
@@ -66,6 +58,18 @@ void Profile::setGames(int g)
 void Profile::setPlayedCards(int pg)
 {
     played_cards = pg;
+}
+
+void Profile::read_line(const std::string& text)
+{
+    if(text != "")
+    {
+        std::string stat;
+        std::istringstream iss(text);
+        iss >> stat;
+        std::transform(stat.begin(), stat.end(), stat.begin(), ::tolower);
+        checkStat(iss, stat);
+    }
 }
 
 void Profile::checkStat(std::istringstream& is, const std::string& stat)

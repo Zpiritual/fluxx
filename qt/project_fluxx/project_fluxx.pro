@@ -16,6 +16,8 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+DESTDIR = $$PWD
+
 INCLUDEPATH += $$PWD/../../include
 
 SOURCES += main.cpp \
@@ -49,8 +51,6 @@ HEADERS += \
     playerlist.h \
     rulesgridwidget.h \
     activeplayer.h \
-    ../../include/BoardSnapshot.h \
-    ../../include/CardID.h \
     cardbutton.h \
     playerlistitem.h \
     trashbutton.h \
