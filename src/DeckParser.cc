@@ -1,6 +1,7 @@
 #include "DeckParser.h"
 #include "Card.h"
 #include <iostream>
+
 Deck* DeckParser::deck_to_game(std::string filename)
 {
 	ifstream ifs{filename};
@@ -19,6 +20,7 @@ Deck* DeckParser::deck_to_game(std::string filename)
 	getline(ifs, deck_description);
 	vector<const Card*> cards;
 	string line;
+	
 	for(int i = 0; i < deck_size; i++)
 	{
 		ifs >> ws;
@@ -27,6 +29,7 @@ Deck* DeckParser::deck_to_game(std::string filename)
 		string type;
 		string description;
 		vector<Effect> effects;
+		
 		while(getline(ifs, line) && !line.empty())
 		{	
 			stringstream ss{line};
@@ -55,14 +58,16 @@ Deck* DeckParser::deck_to_game(std::string filename)
 				//cout << "Effect:" << effects.size() << endl;
 			}
 		}
-		cout << "NEW CARD:" << endl;
-		cout << "=========" << endl;
-		cout << "ID: " << id << endl;
-		cout << "NAME: " << name << endl;
-		cout << "Type: " << type << endl;
-		cout << "Description: " << description << endl;
-		cout << "Effect:" << effects.size() << endl;
-		cards.push_back(new Card(id, name, type, description, effects));
+		
+		//debug stuff:
+		//cout << "NEW CARD:" << endl;
+		//cout << "=========" << endl;
+		//cout << "ID: " << id << endl;
+		//cout << "NAME: " << name << endl;
+		//cout << "Type: " << type << endl;
+		//cout << "Description: " << description << endl;
+		//cout << "Effect:" << effects.size() << endl;
+		//cards.push_back(new Card(id, name, type, description, effects));
 	}
 	ifs.close();
 	return new Deck(cards);

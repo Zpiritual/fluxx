@@ -11,6 +11,7 @@
 
 #ifndef CARDCONTAINER_H
 #define CARDCONTAINER_H
+
 #include <vector>
 #include "CardID.h"
 #include "CardContainerID.h"
@@ -45,4 +46,5 @@ public:
 	const std::vector<CardID> 	getCards() 	const ;
 	const CardContainerID 		getID() 	const;
 };
+
 #endif

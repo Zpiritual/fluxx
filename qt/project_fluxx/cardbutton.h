@@ -11,6 +11,7 @@ class CardButton : public QPushButton
 {
     Q_OBJECT
 public:
+    explicit CardButton(CardID, QWidget *parent = 0);
     explicit CardButton(CardID*, QWidget *parent = 0);
     ~CardButton();
     unsigned getCardId() const;

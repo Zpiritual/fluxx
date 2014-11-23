@@ -4,7 +4,8 @@ INCLUDE	= -Iinclude
 ##DEPS 	= CardID.h Card.h CardContainer.h CardContainerManager.h CardContainerID.h CardManager.h Deck.h GameLogic.h Player.h PlayerID.h PlayerManager.h RuleManager.h SessionData.h Stock.h TirggeredRule.h Effect.h BoardSnapshot.h
 ##%.o: %.cc
 ##	$(CCC) $(CCFLAGS) $(INCLUDE)  src/$<
-all: Card_test CardContainer_test CardID_test CardManager_test Deck_test GameLogic_test DeckParser_test
+all: clean Card_test CardContainer_test CardID_test CardManager_test Deck_test GameLogic_test DeckParser_test
+	@echo
 	./Card_test
 	@echo
 	./CardContainer_test
@@ -20,7 +21,7 @@ all: Card_test CardContainer_test CardID_test CardManager_test Deck_test GameLog
 	./DeckParser_test
 
 %.o: src/%.cc
-	$(CCC) $(CCFLAGS) $(INCLUDE) $<
+	$(CCC) $(CCFLAGS) $(INCLUDE) $< -o $@
 
 ##TEST .o files##
 Card_test.o: test/Card_test.cc

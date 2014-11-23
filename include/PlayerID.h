@@ -6,9 +6,12 @@
 //Added < operator
 //2014-11-19
 //Changed val to string
+
 #ifndef PLAYERID_H
 #define PLAYERID_H
+
 #include <string>
+
 struct PlayerID
 {
 	std::string val;
@@ -40,4 +43,5 @@ struct PlayerID
 		return val < p.val;
 	}
 };
+
 #endif

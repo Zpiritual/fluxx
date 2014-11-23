@@ -39,7 +39,21 @@ SOURCES += main.cpp \
     activehand.cpp \
     profile.cpp \
     activekeepers.cpp \
-    switchplayer.cpp
+    switchplayer.cpp \
+    ../../src/BoardSnapshot.cc \
+    ../../src/Card.cc \
+    ../../src/CardContainer.cc \
+    ../../src/CardContainerManager.cc \
+    ../../src/CardManager.cc \
+    ../../src/Deck.cc \
+    ../../src/DeckParser.cc \
+    ../../src/GameLogic.cc \
+    ../../src/GameLoop.cc \
+    ../../src/Player.cc \
+    ../../src/PlayerManager.cc \
+    ../../src/RuleManager.cc \
+    ../../src/SessionData.cc \
+    ../../src/Stock.cc
 
 HEADERS += \
     mainmenu.h \

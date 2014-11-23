@@ -13,7 +13,7 @@ int main()
 	e1.push_back(Effect{"test string"});
 	Card c1(CardID(000), "type1", "subtype1", "description1", e1);
 
-	cout << "\nCardID: " 	  << c1.getID().val
+	cout << "CardID: " 	  << c1.getID().val
 		 << "\nType: " 		  << c1.getType()
 		 << "\nSubtype: "	  << c1.getSubtype()
 		 << "\nDescription: " << c1.getDescription();

@@ -8,12 +8,15 @@
 //Added function getCurrentPlayer()
 //Added member	 currentPlayer
 //Added function nextPlayer;
+
 #ifndef PLAYERMANAGER_H
 #define PLAYERMANAGER_H
+
 #include "Player.h"
 #include "PlayerID.h"
 #include <vector>
 #include <map>
+
 class PlayerManager
 {
 public:
@@ -37,4 +40,5 @@ private:
 	std::vector<Player> _players;
 	int  _current_player;
 };
+
 #endif
