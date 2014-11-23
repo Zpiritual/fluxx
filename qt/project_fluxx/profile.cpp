@@ -23,7 +23,7 @@ Profile::~Profile()
 
 Profile& Profile::operator=(const Player& player)
 {
-    name = player.getID();
+    //name = player.getID();
 
     return *this;
 }

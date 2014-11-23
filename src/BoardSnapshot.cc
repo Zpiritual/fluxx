@@ -4,8 +4,10 @@ BoardSnapshot::BoardSnapshot(std::vector<CardContainer> val, std::vector<Player>
 val{val},play{play}, dir{dir}
 {}
 
-CardContainer BoardSnapshot::getContainer(const ContainerID id)
+CardContainer BoardSnapshot::getContainer(const CardContainerID id)
 {
-for(auto a: val)
-	if(a.getID() == id) return a;
+	for(auto a: val)
+	{
+		if(a.getID() == id) return a;
+	}
 }

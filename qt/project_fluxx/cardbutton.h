@@ -2,7 +2,7 @@
 #define CARD_H
 
 #include <QPushButton>
-#include <../../include/CardID.h>
+#include "CardID.h"
 #include <bigcard.h>
 #include <QMouseEvent>
 #include <QDebug>
@@ -11,6 +11,7 @@ class CardButton : public QPushButton
 {
     Q_OBJECT
 public:
+    explicit CardButton(CardID, QWidget *parent = 0);
     explicit CardButton(CardID*, QWidget *parent = 0);
     ~CardButton();
     unsigned getCardId() const;

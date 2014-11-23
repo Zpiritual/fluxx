@@ -4,7 +4,8 @@
 #include <QPushButton>
 #include <QtWidgets>
 #include <vector>
-#include "../../include/CardID.h"
+#include "CardID.h"
+#include "CardContainer.h"
 
 class TrashButton : public QPushButton
 {
@@ -12,11 +13,11 @@ class TrashButton : public QPushButton
 public:
     explicit TrashButton(QWidget *parent = 0);
     ~TrashButton();
-    void updateCards(std::vector<CardID>);
+    void updateCards(const CardContainer&);
 
 
 private:
-    std::vector<CardID> cards;
+    std::vector<CardID> cards_;
     QIcon* icon;
 
 signals:

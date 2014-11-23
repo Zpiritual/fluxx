@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include <cardbutton.h>
-#include "../../include/PlayerID.h"
+#include "PlayerID.h"
 
 class PlayerListItem : public QWidget
 {

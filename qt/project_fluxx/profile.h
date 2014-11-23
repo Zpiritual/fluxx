@@ -1,8 +1,8 @@
 #ifndef PROFILE_H
 #define PROFILE_H
 
-#include "../../include/PlayerID.h"
-#include "../../include/Player.h"
+#include "PlayerID.h"
+#include "Player.h"
 #include <iostream>
 #include <sstream>
 #include <string>

@@ -12,7 +12,7 @@ RulesGridWidget::RulesGridWidget(QWidget *parent) :
 
     for(int i =  1; i <= 5; ++i)
     {
-        layout->addWidget(new CardButton(new CardID(i)), i/4,(i-1)%4);
+        layout->addWidget(new CardButton(CardID(i)), i/4,(i-1)%4);
     }
 
     this->setLayout(layout);
@@ -23,15 +23,15 @@ RulesGridWidget::~RulesGridWidget(){
 
 void RulesGridWidget::updateCards(const CardContainer & container)
 {
-//    cards = container.getCards();
+    cards_ = container.getCards();
 
-//    while(!(layout->isEmpty()))
-//    {
-//        QLayoutItem* temp = layout->itemAt(0);
-//        layout->removeItem(temp);
-//    }
-//    for(auto val : cards)
-//    {
-//        layout->addWidget(new CardButton(val));
-//    }
+    while(!(layout->isEmpty()))
+    {
+        QLayoutItem* temp = layout->itemAt(0);
+        layout->removeItem(temp);
+    }
+    for(auto card : cards_)
+    {
+        layout->addWidget(new CardButton(card));
+    }
 }

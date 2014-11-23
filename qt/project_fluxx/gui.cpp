@@ -1,4 +1,5 @@
 #include "gui.h"
+#include "BoardSnapshot.h"
 
 Gui::Gui(std::vector<PlayerID> players, QWidget *parent) :
     QWidget(parent)
@@ -50,7 +51,7 @@ const PlayerID Gui::pickPlayer(const BoardSnapshot snapshot)
     //return player_list_widget->pickPlayer();
 }
 
-const CardID Gui::pickCard(BoardSnapshot snapshot, ContainerID containerid)
+const CardID Gui::pickCard(BoardSnapshot snapshot, CardContainerID containerid)
 {
     //update(snapshot);
 
@@ -61,10 +62,14 @@ void Gui::nextPlayer()
 
 }
 
-void Gui::update(const BoardSnapshot& snapshot) //Lägg till i alla klasser
+void Gui::update(BoardSnapshot* snapshot) //Lägg till i alla klasser
 {
 
-    //rules_widget->updateCards(snapshot.getContainer(ContainerID("Rules")));
+    rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
+   // player_list_widget->updatePlayers(snapshot);
+    deck_widget->updateCards(snapshot->getContainer(CardContainerID("Deck")));
+    trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
+    goals_widget->updateCards(snapshot->getContainer(CardContainerID("Goals")));
 
 
 }

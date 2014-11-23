@@ -20,6 +20,11 @@ DeckButton::DeckButton(QWidget *parent) :
     this->setIconSize(QSize(170,259));
 }
 
+void DeckButton::updateCards(const CardContainer& cards)
+{
+    cards_ = cards.getCards();
+}
+
 DeckButton::~DeckButton()
 {
 }
