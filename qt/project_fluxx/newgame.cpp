@@ -46,13 +46,18 @@ bool NewGame::existPlayer(const QString& name) const
 
 void NewGame::startGame()
 {
-    std::vector<PlayerID> pvector{std::string{"Rasmus"}, std::string{"Fredrik"}, std::string{"Martin"}};
+    if(current_player < 2)
+    {
+        message(QString{"New Game"}, QString{"Atleast 2 players needed to start game."});
+    }
+    else
+    {
+        Gui* gui = new Gui(players);
 
-    Gui* gui = new Gui(pvector);
+        gui->move(QApplication::desktop()->screen()->rect().center() - gui->rect().center());
 
-    gui->move(QApplication::desktop()->screen()->rect().center() - gui->rect().center());
-
-    gui->show();
+        gui->show();
+    }
 
     qDebug() << "Add startGame functionality";
 }
@@ -82,6 +87,7 @@ void NewGame::selectPlayer()
         QString temp = view_players->text();
         temp = temp + "\nPlayer " + QString::number(current_player++) + ": " + selected->text();
         view_players->setText(temp);
+        players.push_back(PlayerID{view_players->text().toStdString()});
     }
     else
     {

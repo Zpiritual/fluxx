@@ -13,9 +13,10 @@ public:
     explicit PlayerList(const std::vector<PlayerID>&, QWidget *parent = 0);
     ~PlayerList();
     const PlayerID pickPlayer() const;
-    void updatePlayers(const BoardSnapshot&);
+    void updatePlayers(BoardSnapshot*);
 
 private:
+    QVBoxLayout* vertical_layout;
     std::vector<PlayerID> player_ids;
     std::vector<PlayerListItem*> players;
 

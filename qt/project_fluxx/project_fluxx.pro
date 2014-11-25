@@ -53,7 +53,9 @@ SOURCES += main.cpp \
     ../../src/PlayerManager.cc \
     ../../src/RuleManager.cc \
     ../../src/SessionData.cc \
-    ../../src/Stock.cc
+    ../../src/Stock.cc \
+    bigcardcollection.cpp \
+    cardcollection.cpp
 
 HEADERS += \
     mainmenu.h \
@@ -74,7 +76,9 @@ HEADERS += \
     activehand.h \
     profile.h \
     activekeepers.h \
-    switchplayer.h
+    switchplayer.h \
+    bigcardcollection.h \
+    cardcollection.h
 
 QMAKE_CXXFLAGS += -std=c++11
 
