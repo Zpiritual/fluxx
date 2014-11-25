@@ -8,10 +8,9 @@
 #include "CardID.h"
 #include "RuleManager.h"
 #include "SessionData.h"
+#include "enums.h"
 #include <vector>
 #include <string>
-
-enum class gameState{CONTINUE, GAME_OVER};
 
 class GameLoop
 {

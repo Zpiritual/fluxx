@@ -9,7 +9,7 @@
 class TriggeredRule
 {
 public:
-	TriggeredRule(const CardID, const RuleTrigger, const std::vector<Effect*>);
+	TriggeredRule(const CardID, const RuleTrigger, const std::vector<Effect>);
 	TriggeredRule() = delete;
 	TriggeredRule(const TriggeredRule&) = default;
 	TriggeredRule (TriggeredRule&&) = default;
@@ -18,14 +18,14 @@ public:
 	TriggeredRule& operator= (TriggeredRule&&) = default;
 	~TriggeredRule() = default;
 
-	const std::vector<Effect*> getEffects();
+	const std::vector<Effect> getEffects();
 	const RuleTrigger getType();
 	const CardID getParent();
 
 private:
 	const CardID _parent;
 	const RuleTrigger _type;
-	const std::vector<Effect*> _effects;
+	const std::vector<Effect> _effects;
 };
 
 #endif
