@@ -1,4 +1,5 @@
 #include "RuleManager.h"
+
 const int RuleManager::getHandLimit() const
 {
 	return _hand_limmit;

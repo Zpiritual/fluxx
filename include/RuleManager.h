@@ -1,5 +1,3 @@
-
-//NOT COMPLETE AND NEEDS ATTENTION
 #ifndef RULEMANAGER_H
 #define RULEMANAGER_H
 
@@ -15,7 +13,7 @@ enum class Direction
 enum class RuleTrigger
 {
 	PRE_DRAW,
-	POST_DRA,
+	POST_DRAW,
 	END_TURN
 };
 
@@ -45,7 +43,7 @@ public:
 	void setDraw(const int);
 	void setPlay(const int);
 	void setPlayOrder(const Direction);
-	std::vector<Effect> checkRules(const RuleTrigger);
+	std::vector<Effect> checkTriggeredRules(const RuleTrigger);
 	//Placeholders?
 	void addRule();
 	void removeRule();

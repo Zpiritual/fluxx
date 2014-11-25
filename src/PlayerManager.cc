@@ -19,9 +19,14 @@ void PlayerManager::addPlayer(Player p)
 	_players.push_back(p);
 }
 
-const Player  PlayerManager::getCurrentPlayer() const 
+const Player PlayerManager::getCurrentPlayer() const 
 {	
 	return _players.at(_current_player);	
+}
+
+const PlayerID PlayerManager::getCurrentPlayerID() const
+{
+	return getCurrentPlayer().getID();
 }
 
 void PlayerManager::setCurrentPlayer(const PlayerID pid)

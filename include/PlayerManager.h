@@ -34,6 +34,7 @@ public:
 	const Player 	getPlayer(const PlayerID pid) const;
 	void 			addPlayer(Player p);
 	const Player  	getCurrentPlayer() const;
+	const PlayerID	getCurrentPlayerID() const;
 	void 			setCurrentPlayer(const PlayerID pid);
 	void 			nextPlayer();
 private:

@@ -29,9 +29,11 @@ public:
 	void			playCard(const PlayerID, const CardID);
 	void 			drawCards(const PlayerID, const int);
 	const bool		executePlayerTurn(PlayerID);
+	const PlayerID	getCurrentPlayer() const;
 	const int 		getDrawNO() const;
 	const int 		getPlayNO() const;
 	void 			sendLog(std::string);
+	void			checkTriggeredRules(TriggeredRule) const;
 	SessionData		run();
 
 private:

@@ -1,9 +1,7 @@
 CCC		= g++ -std=c++11
 CCFLAGS = -g -Wall -pedantic -c
 INCLUDE	= -Iinclude
-##DEPS 	= CardID.h Card.h CardContainer.h CardContainerManager.h CardContainerID.h CardManager.h Deck.h GameLogic.h Player.h PlayerID.h PlayerManager.h RuleManager.h SessionData.h Stock.h TirggeredRule.h Effect.h BoardSnapshot.h
-##%.o: %.cc
-##	$(CCC) $(CCFLAGS) $(INCLUDE)  src/$<
+
 all: clean Card_test CardContainer_test CardID_test CardManager_test Deck_test GameLogic_test DeckParser_test
 	@echo
 	./Card_test
