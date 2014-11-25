@@ -10,6 +10,8 @@ QT       -= gui
 
 QT       += widgets
 
+QT      += testlib
+
 TARGET = MainMenu_Test_01
 CONFIG   += console
 CONFIG   -= app_bundle

@@ -5,6 +5,7 @@
 #include <QtWidgets>
 #include <vector>
 #include "cardbutton.h"
+class Gui;
 
 class ActiveHand : public QWidget
 {
@@ -16,10 +17,12 @@ public:
 private:
     std::vector<CardButton> cards;
     QHBoxLayout* layout;
+    Gui* guiptr_;
 signals:
 
 public slots:
 
 };
 
+#include "gui.h"
 #endif // ACTIVEHAND_H

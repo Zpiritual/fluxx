@@ -1,7 +1,6 @@
 #ifndef GUI_H
 #define GUI_H
 
-
 #include <QWidget>
 #include <QtWidgets>
 #include <vector>
@@ -17,15 +16,18 @@
 #include "CardContainerID.h"
 #include "PlayerID.h"
 
+class ActivePlayer;
+
 class Gui : public QWidget
 {
     Q_OBJECT
 public:  
     explicit Gui(std::vector<PlayerID> players, QWidget *parent = 0);
     ~Gui();
-    const PlayerID pickPlayer(const BoardSnapshot);
-    const CardID pickCard(BoardSnapshot, CardContainerID);
+    const PlayerID pickPlayer(BoardSnapshot*);
+    const CardID pickCard(const CardContainerID&);
     void update(BoardSnapshot*);
+    void update(std::vector<CardContainer>*);
     void nextPlayer();
 
 private:
@@ -48,4 +50,5 @@ public slots:
 
 };
 
+#include "activeplayer.h"
 #endif // GUI_H

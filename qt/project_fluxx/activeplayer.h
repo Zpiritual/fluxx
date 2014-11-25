@@ -7,6 +7,7 @@
 #include "PlayerID.h"
 #include "activehand.h"
 #include "activekeepers.h"
+#include "gui.h"
 
 class ActivePlayer : public QWidget
 {
@@ -23,6 +24,7 @@ private:
     PlayerID* active_player;
     ActiveHand* active_hand;
     ActiveKeepers* active_keepers;
+    Gui* parent2;
 
 signals:
 

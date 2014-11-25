@@ -23,7 +23,6 @@ private:
 signals:
 
 public slots:
-
 };
 
 #endif // GOALBUTTONS_H

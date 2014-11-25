@@ -27,3 +27,4 @@ void GoalButtons::updateCards(const CardContainer& cards)
 GoalButtons::~GoalButtons()
 {
 }
+

@@ -4,6 +4,7 @@ ActiveHand::ActiveHand(QWidget *parent) :
     QWidget(parent)
 {
     layout = new QHBoxLayout();
+    guiptr_ = dynamic_cast<Gui*>(parent);
 
     for(int i = 1; i<=12; ++i)
     {

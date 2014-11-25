@@ -1,5 +1,6 @@
 #include "gui.h"
 #include "BoardSnapshot.h"
+ #include <QTest>
 
 Gui::Gui(std::vector<PlayerID> players, QWidget *parent) :
     QWidget(parent)
@@ -45,16 +46,21 @@ Gui::Gui(std::vector<PlayerID> players, QWidget *parent) :
 Gui::~Gui(){
 }
 
-const PlayerID Gui::pickPlayer(const BoardSnapshot snapshot)
+const PlayerID Gui::pickPlayer(BoardSnapshot* snapshot)
 {
-    //update(snapshot);
+    update(snapshot);
     //return player_list_widget->pickPlayer();
 }
 
-const CardID Gui::pickCard(BoardSnapshot snapshot, CardContainerID containerid)
+//BoardSnapshot* snapshot
+const CardID Gui::pickCard(const CardContainerID& containerid)
 {
+    while(true)
+    {
+        QCoreApplication::processEvents(QEventLoop::AllEvents);
+        QTest::qWait(50);
+    }
     //update(snapshot);
-
 }
 
 void Gui::nextPlayer()
@@ -70,6 +76,13 @@ void Gui::update(BoardSnapshot* snapshot) //Lägg till i alla klasser
     deck_widget->updateCards(snapshot->getContainer(CardContainerID("Deck")));
     trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
     goals_widget->updateCards(snapshot->getContainer(CardContainerID("Goals")));
+
+
+}
+
+void Gui::update(std::vector<CardContainer>* cvector)
+{
+    rules_widget->updateCards(cvector->at(2));
 
 
 }
