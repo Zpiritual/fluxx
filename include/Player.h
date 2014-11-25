@@ -33,9 +33,9 @@ public:
 
 	const PlayerID getID() const;
 	const CardContainerID getContainerID() const;
-	const int getPlayedCards() const;
-	void incrementPlayedCards();
-	void resetPlayedCards();
+	const int getCardsPlayed() const;
+	void incrementCardsPlayed();
+	void resetCardsPlayed();
 
 private:
 	const PlayerID _id;

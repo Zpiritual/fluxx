@@ -2,7 +2,14 @@
 #include "RuleManager.h"
 
 void GameLoop::playCard(const PlayerID, const CardID);
-void GameLoop::drawCards(const PlayerID, const int);
+
+void GameLoop::drawCards(const PlayerID pid, const int draw_no);
+{
+	for (int i = 0; i < draw_no; ++i)
+	{
+		_game_logic->drawCard(pid);
+	}
+}
 
 const int GameLoop::getDrawNO() const
 {
@@ -19,6 +26,16 @@ void GameLoop::sendLog(std::string);
 const PlayerID	getCurrentPlayer() const
 {
 	return _game_logic->getRM()->getCurrentPlayerID();
+}
+
+const int getCardsPlayed() const
+{
+	_game_logic->getRM()->getCurrentPlayer()->getCardsPlayed();
+}
+
+void incrementCardsPlayed() const
+{
+	_game_logic->getRM()->getCurrentPlayer()->incrementCardsPlayed();
 }
 
 void GameLoop::nextPlayer()
@@ -44,7 +61,7 @@ const gameState GameLoop::executePlayerTurn(PlayerID)
 	checkTriggeredRules(RuleTrigger::POST_DRAW);
 
  	//spela kort
- 	while (GameLogic->PlayerManager->played_cards < GameLogic->RuleManager->cards_to_play) // played_cards ligger i player.
+ 	while (getPlayNO() < getCardsPlayed()) // played_cards ligger i player.
  	{
  		GameLogic->playCard();
  		++played_cards;

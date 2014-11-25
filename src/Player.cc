@@ -13,17 +13,17 @@ const CardContainerID Player::getContainerID() const
 	return _cid;
 }
 
-const int Player::getPlayedCards() const
+const int Player::getCardsPlayed() const
 {
 	return _played_cards;
 }
 
-void Player::incrementPlayedCards()
+void Player::incrementCardsPlayed()
 {
 	++_played_cards;
 }
 
-void Player::resetPlayedCards()
+void Player::resetCardsPlayed()
 {
 	_played_cards = 0;
 }

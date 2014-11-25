@@ -39,5 +39,6 @@ void PlayerManager::setCurrentPlayer(const PlayerID pid)
 
 void PlayerManager::nextPlayer()
 {
+	_players.at(_current_player).resetCardsPlayed();
 	_current_player = (_current_player + 1) % _players.size();
 }

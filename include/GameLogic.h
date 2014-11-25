@@ -38,7 +38,8 @@ public:
 	RuleManager*		  getRM();
 	PlayerManager*		  getPM();
 	//Not sure
-	void 			playCard(const PlayerID, const CardID);
+	//void 			playCard(const PlayerID, const CardID);
+	void 			playCard(const PlayerID);
 	void			drawCard(const PlayerID);
 	//void 			checkRules(RuleTriggerType);
 	void 			resolveEffects();

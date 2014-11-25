@@ -32,6 +32,8 @@ public:
 	const PlayerID	getCurrentPlayer() const;
 	const int 		getDrawNO() const;
 	const int 		getPlayNO() const;
+	const int 		getCardsPlayed() const;
+	void	 		incrementCardsPlayed() const;
 	void 			sendLog(std::string);
 	void			checkTriggeredRules(TriggeredRule) const;
 	SessionData		run();

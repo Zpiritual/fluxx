@@ -55,31 +55,37 @@ void GameLogic::addEffect(Effect effect)
 	return _pm;
 }
 
-void GameLogic::playCard(const PlayerID pid, const CardID cid)
+void GameLogic::playCard(const PlayerID pid)
 {
-	
-	if(getCM()->getCard(cid)->getType() == "KEEPER")
-	{
-		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID(pid.val + "_keepers"),cid);
-		//std::cout << "Played a KEEPER \nID: " << cid.val << std::endl;
-	}
-	else if(getCM()->getCard(cid)->getType() == "RULE")
-	{
-		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Rules"),cid);
-		//std::cout << "Played a RULE \nID: " << cid.val << std::endl;
-	}
-	else if(getCM()->getCard(cid)->getType() == "ACTION")
-	{
-		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Trash"), cid);
-		//std::cout << "Played an ACTION \nID: " << cid.val << std::endl;
-	}
-	else if(getCM()->getCard(cid)->getType() == "GOAL")
-	{
-		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Goals"),cid);
-		//std::cout << "Played a GOAL \nID: " << cid.val << std::endl;
-	}
-	
+	//Fråga GUI om kort-id osv.
+	//Spela det givna kortet.
 }
+
+// void GameLogic::playCard(const PlayerID pid, const CardID cid)
+// {
+	
+// 	if(getCM()->getCard(cid)->getType() == "KEEPER")
+// 	{
+// 		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID(pid.val + "_keepers"),cid);
+// 		//std::cout << "Played a KEEPER \nID: " << cid.val << std::endl;
+// 	}
+// 	else if(getCM()->getCard(cid)->getType() == "RULE")
+// 	{
+// 		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Rules"),cid);
+// 		//std::cout << "Played a RULE \nID: " << cid.val << std::endl;
+// 	}
+// 	else if(getCM()->getCard(cid)->getType() == "ACTION")
+// 	{
+// 		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Trash"), cid);
+// 		//std::cout << "Played an ACTION \nID: " << cid.val << std::endl;
+// 	}
+// 	else if(getCM()->getCard(cid)->getType() == "GOAL")
+// 	{
+// 		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Goals"),cid);
+// 		//std::cout << "Played a GOAL \nID: " << cid.val << std::endl;
+// 	}
+	
+// }
 
 void GameLogic::drawCard(const PlayerID pid)
 {
