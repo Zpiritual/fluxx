@@ -5,4 +5,5 @@
 *.ppm
 *.ppm#
 *.o
+*.stackdump
 /Card_test

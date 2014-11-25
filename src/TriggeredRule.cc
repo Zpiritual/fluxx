@@ -1,22 +1,25 @@
 #include "TriggeredRule.h"
 
-TriggeredRule::TriggeredRule(const CardID parent, const RuleTrigger type, const std::vector<Effect*> effects):
-_parent{parent},
-_type{type},
-_effects{effects}
+TriggeredRule::TriggeredRule(const CardID parent, const RuleTrigger type, const Effect* effect)
+	: _parent{parent}, _type{type}, _effect{effect}
 {}
 
-const std::vector<Effect*> TriggeredRule::getEffects()
+TriggeredRule::~TriggeredRule()
 {
-	return _effects;
+	delete _effect;
 }
 
-const RuleTrigger TriggeredRule::getType()
+const Effect* TriggeredRule::getEffect() const
+{
+	return _effect;
+}
+
+const RuleTrigger TriggeredRule::getType() const
 {
 	return _type;
 }
 
-const CardID TriggeredRule::getParent()
+const CardID TriggeredRule::getParent() const
 {
 	return _parent;
 }

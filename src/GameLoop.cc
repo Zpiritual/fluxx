@@ -60,6 +60,8 @@ const gameState GameLoop::executePlayerTurn(PlayerID)
 	
 	checkTriggeredRules(RuleTrigger::POST_DRAW);
 
+	checkTriggeredRules(RuleTrigger::PRE_PLAY);
+	
  	//spela kort
  	while (getPlayNO() < getCardsPlayed()) // played_cards ligger i player.
  	{

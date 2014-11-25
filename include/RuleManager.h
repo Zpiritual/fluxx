@@ -32,9 +32,9 @@ public:
 	void setDraw(const int);
 	void setPlay(const int);
 	void setPlayOrder(const Direction);
-	std::vector<Effect*> getTriggeredRules(const RuleTrigger);
+	std::vector<const Effect*> getTriggeredRules(const RuleTrigger);
 	//Placeholders?
-	void addRule(TriggeredRule);
+	void addRule(TriggeredRule*);
 	void removeRule(CardID);
 	void clearRules();
 
@@ -46,7 +46,7 @@ private:
 	int _draw			= 0;
 	int _play 			= 0;
 	Direction _play_direction = Direction::CW;
-	std::vector<TriggeredRule> _triggered_rules;
+	std::vector<TriggeredRule*> _triggered_rules;
 };
 
 #endif

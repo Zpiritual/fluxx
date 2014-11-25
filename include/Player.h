@@ -15,7 +15,7 @@
 class Player
 {
 public:
-	Player(const PlayerID pid,const CardContainerID player_hand);
+	Player(const PlayerID pid, const CardContainerID player_hand);
 
 	Player() = delete;
 	Player(const Player&) = default;
@@ -26,11 +26,7 @@ public:
 
 	~Player() = default;
 
-	const std::string getName() const
-	{
-		return _id.val;
-	}
-
+	const std::string getName() const;
 	const PlayerID getID() const;
 	const CardContainerID getContainerID() const;
 	const int getCardsPlayed() const;

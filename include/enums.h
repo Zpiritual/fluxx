@@ -11,6 +11,7 @@ enum class RuleTrigger
 {
 	PRE_DRAW,
 	POST_DRAW,
+	PRE_PLAY,
 	TURN_END
 };
 
