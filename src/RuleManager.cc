@@ -86,10 +86,10 @@ void RuleManager::clearRules()
 	_triggered_rules.clear();
 }
 
-std::vector<Effect*> RuleManager::checkTriggeredRules(const RuleTrigger type)
+std::vector<Effect*> RuleManager::getTriggeredRules(const RuleTrigger type)
 {
 	std::vector<Effect*> effects;
-	for(TriggeredRule tr: _triggered_rules)
+	for(TriggeredRule tr : _triggered_rules)
 	{
 		if(tr.getType() == type)
 			effects.insert( effects.end(), tr.getEffects().begin(), tr.getEffects().end() );

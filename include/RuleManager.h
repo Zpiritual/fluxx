@@ -5,6 +5,7 @@
 #include "TriggeredRule.h"
 #include "enums.h"
 #include <vector>
+
 class RuleManager
 {
 public:
@@ -31,7 +32,7 @@ public:
 	void setDraw(const int);
 	void setPlay(const int);
 	void setPlayOrder(const Direction);
-	std::vector<Effect*> checkTriggeredRules(const RuleTrigger);
+	std::vector<Effect*> getTriggeredRules(const RuleTrigger);
 	//Placeholders?
 	void addRule(TriggeredRule);
 	void removeRule(CardID);

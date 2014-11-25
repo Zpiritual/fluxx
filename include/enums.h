@@ -10,8 +10,8 @@ enum class Direction
 enum class RuleTrigger
 {
 	PRE_DRAW,
-	POST_DRA,
-	END_TURN
+	POST_DRAW,
+	TURN_END
 };
 
 enum class gameState
@@ -19,4 +19,5 @@ enum class gameState
 	CONTINUE,
 	GAME_OVER
 };
+
 #endif

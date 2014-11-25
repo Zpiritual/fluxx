@@ -37,7 +37,7 @@ public:
 	CardManager*		  getCM();
 	RuleManager*		  getRM();
 	PlayerManager*		  getPM();
-	//Not sure
+
 	//void 			playCard(const PlayerID, const CardID);
 	void 			playCard(const PlayerID);
 	void			drawCard(const PlayerID);

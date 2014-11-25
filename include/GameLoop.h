@@ -29,7 +29,7 @@ public:
 	void			playCard(const PlayerID, const CardID);
 	void 			drawCards(const PlayerID, const int);
 	const bool		executePlayerTurn(PlayerID);
-	const PlayerID	getCurrentPlayer() const;
+	const PlayerID	getCurrentPlayerID() const;
 	const int 		getDrawNO() const;
 	const int 		getPlayNO() const;
 	const int 		getCardsPlayed() const;

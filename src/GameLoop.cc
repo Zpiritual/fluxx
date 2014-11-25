@@ -23,7 +23,7 @@ const int GameLoop::getPlayNO() const
 
 void GameLoop::sendLog(std::string);
 
-const PlayerID	getCurrentPlayer() const
+const PlayerID	getCurrentPlayerID() const
 {
 	return _game_logic->getRM()->getCurrentPlayerID();
 }
@@ -56,14 +56,14 @@ const gameState GameLoop::executePlayerTurn(PlayerID)
 {
 	checkTriggeredRules(RuleTrigger::PRE_DRAW);
 
-	drawCards(getCurrentPlayer(), getDrawNO());
+	drawCards(getCurrentPlayerID(), getDrawNO());
 	
 	checkTriggeredRules(RuleTrigger::POST_DRAW);
 
  	//spela kort
  	while (getPlayNO() < getCardsPlayed()) // played_cards ligger i player.
  	{
- 		GameLogic->playCard();
+ 		GameLogic->playCard(getCurrentPlayerID());
  		++played_cards;
  	}
 
