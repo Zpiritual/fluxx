@@ -5,10 +5,10 @@
 #include <QtWidgets>
 #include <vector>
 #include "PlayerID.h"
-#include "activehand.h"
-#include "activekeepers.h"
 #include "gui.h"
 
+class ActiveHand;
+class ActiveKeepers;
 class ActivePlayer : public QWidget
 {
     Q_OBJECT
@@ -32,4 +32,7 @@ public slots:
 
 };
 
+
+#include "activehand.h"
+#include "activekeepers.h"
 #endif // ACTIVEPLAYER_H

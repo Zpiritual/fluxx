@@ -5,7 +5,7 @@
 #include <QtWidgets>
 #include "CardID.h"
 #include "CardContainer.h"
-#include "cardbutton.h"
+class CardButton;
 
 class GoalButtons : public QWidget
 {
@@ -24,5 +24,6 @@ signals:
 
 public slots:
 };
+#include "cardbutton.h"
 
 #endif // GOALBUTTONS_H

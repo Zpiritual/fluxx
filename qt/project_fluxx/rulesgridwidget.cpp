@@ -1,6 +1,4 @@
 #include "rulesgridwidget.h"
-#include "cardbutton.h"
-#include "../../include/CardID.h"
 
 
 RulesGridWidget::RulesGridWidget(QWidget *parent) :
@@ -29,9 +27,9 @@ void RulesGridWidget::updateCards(const CardContainer & container)
     }
     for(auto card : cards_)
     {
-        CardButton* tempbutton = new CardButton(card);
-        QObject::connect(tempbutton, SIGNAL(clicked()), this,SLOT(buttonpressed()));
-        layout->addWidget(tempbutton);
+        //CardButton* tempbutton = new CardButton(card);
+//        QObject::connect(tempbutton, SIGNAL(clicked()), this,SLOT(buttonpressed()));
+//        layout->addWidget(tempbutton);
 
     }
 }

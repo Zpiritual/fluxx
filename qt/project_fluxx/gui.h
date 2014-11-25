@@ -5,10 +5,9 @@
 #include <QtWidgets>
 #include <vector>
 #include "logwidget.h"
-#include "playerlist.h"
 #include "rulesgridwidget.h"
 #include "deckbutton.h"
-#include "activeplayer.h"
+//#include "activeplayer.h"
 #include "goalbuttons.h"
 #include "trashbutton.h"
 #include "BoardSnapshot.h"
@@ -17,6 +16,7 @@
 #include "PlayerID.h"
 
 class ActivePlayer;
+class PlayerList;
 
 class Gui : public QWidget
 {
@@ -50,5 +50,6 @@ public slots:
 
 };
 
+#include "playerlist.h"
 #include "activeplayer.h"
 #endif // GUI_H

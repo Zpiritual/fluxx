@@ -3,11 +3,11 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "cardbutton.h"
 #include <vector>
 #include "CardContainer.h"
 
 
+class CardButton;
 
 class RulesGridWidget : public QWidget
 {
@@ -26,5 +26,8 @@ signals:
 public slots:
 
 };
+
+#include "cardbutton.h"
+
 
 #endif // RULESGRIDWIDGET_H

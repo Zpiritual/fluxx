@@ -17,7 +17,7 @@ CardButton::CardButton(CardID id, QWidget *parent) :
     this->setIconSize(QSize(170,259));
 }
 
-CardButton::CardButton(CardID* id, QWidget *parent) :
+CardButton::CardButton(CardID* id, Gui*, QWidget *parent) :
     QPushButton(parent)
 {
     QString temp_string{":Images/"+QString::number(id->val)+".png"};
@@ -31,12 +31,15 @@ CardButton::CardButton(CardID* id, QWidget *parent) :
     this->setMaximumSize(170,259);
 
     this->setIconSize(QSize(170,259));
-
-
 }
 
 CardButton::~CardButton()
 {
+}
+
+const CardID& CardButton::getCardId() const
+{
+    return *id_;
 }
 
 void CardButton::mouseReleaseEvent(QMouseEvent *e) {

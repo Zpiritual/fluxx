@@ -3,8 +3,8 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include <cardbutton.h>
 #include "PlayerID.h"
+#include "bigcardcollection.h"
 
 class PlayerListItem : public QWidget
 {
@@ -12,22 +12,26 @@ class PlayerListItem : public QWidget
 public:
     explicit PlayerListItem(const PlayerID&, QWidget *parent = 0);
     int getHandCount() const;
-    void updateCards(const std::vector<CardID*>&, const std::vector<CardID*>&);
+    int getKeeperCount() const;
+    void updateCards(const std::vector<CardID>&, const std::vector<CardID>&);
 
 private:
-    std::vector<CardID*> hand;
-    std::vector<CardID*> keepers_id;
+    std::vector<CardID> hand;
+    std::vector<CardID> keepers_id;
     PlayerID player_name;
+
+    QPushButton* keeper_button;
 
     QVBoxLayout* vertical_layout;
 
-    QLabel name_label;
-    QLabel card_count;
-    std::vector<CardButton*> keepers;
+    QLabel* name_label;
+    QLabel* card_count;
+    QLabel* keeper_count;
 
 signals:
 
 public slots:
+    void showKeepers();
 
 };
 
