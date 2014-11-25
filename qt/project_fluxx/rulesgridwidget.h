@@ -6,7 +6,7 @@
 #include <vector>
 #include "CardContainer.h"
 
-
+class Gui;
 class CardButton;
 
 class RulesGridWidget : public QWidget
@@ -16,10 +16,13 @@ public:
     explicit RulesGridWidget(QWidget *parent = 0);
     ~RulesGridWidget();
     void updateCards(const CardContainer&);
+    void setConnections(QEventLoop&);
 
 private:
     QGridLayout* layout;
     std::vector<CardID> cards_;
+    std::vector<CardButton*> buttons_;
+    Gui* guiptr_;
 
 signals:
 

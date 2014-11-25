@@ -66,3 +66,5 @@ void CardButton::smallButton()
 
     this->setIconSize(QSize(85,135));
 }
+
+

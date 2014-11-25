@@ -55,11 +55,15 @@ const PlayerID Gui::pickPlayer(BoardSnapshot* snapshot)
 //BoardSnapshot* snapshot
 const CardID Gui::pickCard(const CardContainerID& containerid)
 {
-    while(true)
+    QEventLoop loop;
+    if(containerid == CardContainerID("Rules"));
     {
-        QCoreApplication::processEvents(QEventLoop::AllEvents);
-        QTest::qWait(50);
+        rules_widget->setConnections(loop);
     }
+    loop.exec();
+
+    qDebug() << "derpaderpa";
+
     //update(snapshot);
 }
 

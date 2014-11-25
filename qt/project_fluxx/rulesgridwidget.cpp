@@ -11,6 +11,7 @@ RulesGridWidget::RulesGridWidget(QWidget *parent) :
         layout->setColumnStretch(i, 0);
     }
     this->setLayout(layout);
+    guiptr_ = dynamic_cast<Gui*>(parent);
 }
 
 RulesGridWidget::~RulesGridWidget(){
@@ -27,9 +28,14 @@ void RulesGridWidget::updateCards(const CardContainer & container)
     }
     for(auto card : cards_)
     {
-        //CardButton* tempbutton = new CardButton(card);
-//        QObject::connect(tempbutton, SIGNAL(clicked()), this,SLOT(buttonpressed()));
-//        layout->addWidget(tempbutton);
-
+        CardButton* tempbutton = new CardButton(card, guiptr_);
+        layout->addWidget(tempbutton);
+        buttons_.push_back(tempbutton);
     }
+}
+
+void RulesGridWidget::setConnections(QEventLoop & loop)
+{
+    for(auto button : buttons_)
+        QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
 }
