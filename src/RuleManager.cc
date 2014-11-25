@@ -69,3 +69,30 @@ void RuleManager::setPlayOrder(const Direction l)
 {
 	_play_direction = l;
 }
+void RuleManager::addRule(TriggeredRule rule)
+{
+	_triggered_rules.push_back(rule);
+}
+
+void RuleManager::removeRule(CardID cid)
+{
+	for(unsigned int i = 0; i < _triggered_rules.size(); i++)
+		if(_triggered_rules.at(i).getParent() == cid)
+			_triggered_rules.erase(_triggered_rules.begin() + i);
+}
+
+void RuleManager::clearRules()
+{
+	_triggered_rules.clear();
+}
+
+std::vector<Effect*> RuleManager::checkTriggeredRules(const RuleTrigger type)
+{
+	std::vector<Effect*> effects;
+	for(TriggeredRule tr: _triggered_rules)
+	{
+		if(tr.getType() == type)
+			effects.insert( effects.end(), tr.getEffects().begin(), tr.getEffects().end() );
+	}
+	return effects;
+}

@@ -43,6 +43,8 @@ GameLogic_test.o: test/GameLogic_test.cc
 DeckParser_test.o: test/DeckParser_test.cc
 	$(CCC) $(CCFLAGS) $(INCLUDE) test/DeckParser_test.cc
 
+RuleManager_test.o: test/RuleManager_test.cc
+	$(CCC) $(CCFLAGS) $(INCLUDE) test/RuleManager_test.cc
 ##TEST###
 Card_test: Card_test.o Card.o
 	$(CCC) -o Card_test Card_test.o Card.o
@@ -64,6 +66,9 @@ GameLogic_test: GameLogic_test.o GameLogic.o CardManager.o CardContainer.o Playe
 
 DeckParser_test: DeckParser_test.o DeckParser.o Card.o Deck.o
 	$(CCC) -o DeckParser_test DeckParser_test.o DeckParser.o Card.o Deck.o
+
+RuleManager_test: RuleManager_test.o RuleManager.o Card.o TriggeredRule.o
+	$(CCC) -o RuleManager_test RuleManager_test.o RuleManager.o Card.o TriggeredRule.o
 
 clean:
 	@ \rm -rf *.o *.gch

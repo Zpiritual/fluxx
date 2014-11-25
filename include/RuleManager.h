@@ -2,21 +2,9 @@
 #define RULEMANAGER_H
 
 #include "Effect.h"
+#include "TriggeredRule.h"
+#include "enums.h"
 #include <vector>
-
-enum class Direction
-{
-	CW,
-	CCW 
-};
-
-enum class RuleTrigger
-{
-	PRE_DRAW,
-	POST_DRAW,
-	END_TURN
-};
-
 class RuleManager
 {
 public:
@@ -43,10 +31,10 @@ public:
 	void setDraw(const int);
 	void setPlay(const int);
 	void setPlayOrder(const Direction);
-	std::vector<Effect> checkTriggeredRules(const RuleTrigger);
+	std::vector<Effect*> checkTriggeredRules(const RuleTrigger);
 	//Placeholders?
-	void addRule();
-	void removeRule();
+	void addRule(TriggeredRule);
+	void removeRule(CardID);
 	void clearRules();
 
 private:
@@ -57,7 +45,7 @@ private:
 	int _draw			= 0;
 	int _play 			= 0;
 	Direction _play_direction = Direction::CW;
-	std::vector<Effect> _tiggered_rules;
+	std::vector<TriggeredRule> _triggered_rules;
 };
 
 #endif
