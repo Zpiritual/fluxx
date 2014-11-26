@@ -1,5 +1,11 @@
 #include "RuleManager.h"
 
+RuleManager::~RuleManager()
+{
+	for(TriggeredRule* i: _triggered_rules)
+		delete i;
+}
+
 const int RuleManager::getHandLimit()
 {
 	return _hand_limmit;
@@ -78,11 +84,16 @@ void RuleManager::removeRule(CardID cid)
 {
 	for(unsigned int i = 0; i < _triggered_rules.size(); i++)
 		if(_triggered_rules.at(i)->getParent() == cid)
+		{
+			delete _triggered_rules.at(i);
 			_triggered_rules.erase(_triggered_rules.begin() + i);
+		}
 }
 
 void RuleManager::clearRules()
 {
+	for(TriggeredRule* i: _triggered_rules)
+		delete i;
 	_triggered_rules.clear();
 }
 

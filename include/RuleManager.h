@@ -15,7 +15,7 @@ public:
 
 	RuleManager& operator= (const RuleManager&) = default;
 	RuleManager& operator= (RuleManager&&) = default;
-	~RuleManager() = default;
+	~RuleManager();
 
 	const int 		getHandLimit()		;
 	const int 		getKepperLimit() 	;
