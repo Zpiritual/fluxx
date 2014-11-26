@@ -19,11 +19,7 @@ struct BoardSnapshot
 	const PlayerID current_player;
 	const Direction direction;
 	
-<<<<<<< HEAD
 	BoardSnapshot(const std::vector<CardContainer>, const int, const PlayerID, const Direction);
-=======
-	BoardSnapshot(std::vector<CardContainer> val, std::vector<Player> play,int current_player Direction dir);
->>>>>>> removed Binaries
 	BoardSnapshot() = delete;
 	BoardSnapshot(const BoardSnapshot&) = delete;
 	BoardSnapshot (BoardSnapshot&&) = delete;

@@ -1,6 +1,5 @@
 #include "BoardSnapshot.h"
 
-
 BoardSnapshot(const std::vector<CardContainer> containers,
 			  const int players,
 			  const PlayerID current,

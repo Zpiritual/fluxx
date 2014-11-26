@@ -1,5 +1,6 @@
 #include "gui.h"
 #include "BoardSnapshot.h"
+ #include <QTest>
 
 Gui::Gui(std::vector<PlayerID> players, QWidget *parent) :
     QWidget(parent)
@@ -45,16 +46,27 @@ Gui::Gui(std::vector<PlayerID> players, QWidget *parent) :
 Gui::~Gui(){
 }
 
-const PlayerID Gui::pickPlayer(const BoardSnapshot snapshot)
+const PlayerID Gui::pickPlayer(BoardSnapshot* snapshot)
 {
-    //update(snapshot);
+    update(snapshot);
     //return player_list_widget->pickPlayer();
 }
 
-const CardID Gui::pickCard(BoardSnapshot snapshot, CardContainerID containerid)
+//BoardSnapshot* snapshot
+const CardID Gui::pickCard(const CardContainerID& containerid)
 {
-    //update(snapshot);
+    QEventLoop loop;
+    if(containerid == CardContainerID("Rules"))
+        rules_widget->setConnections(loop);
+    else if(containerid == CardContainerID("Goals"))
+        goals_widget->setConnections(loop);
+    else if(containerid == CardContainerID("Trash"))
+        trash_widget->setConnections(loop);
+    loop.exec();
 
+    qDebug() << "derpaderpa";
+
+    //update(snapshot);
 }
 
 void Gui::nextPlayer()
@@ -67,9 +79,16 @@ void Gui::update(BoardSnapshot* snapshot) //Lägg till i alla klasser
 
     rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
    // player_list_widget->updatePlayers(snapshot);
-    deck_widget->updateCards(snapshot->getContainer(CardContainerID("Deck")));
+    //deck_widget->updateCards(snapshot->getContainer(CardContainerID("Deck")));
     trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
-    goals_widget->updateCards(snapshot->getContainer(CardContainerID("Goals")));
+    goals_widget->update(snapshot->getContainer(CardContainerID("Goals")));
+
+
+}
+
+void Gui::update(std::vector<CardContainer>* cvector)
+{
+    rules_widget->updateCards(cvector->at(2));
 
 
 }

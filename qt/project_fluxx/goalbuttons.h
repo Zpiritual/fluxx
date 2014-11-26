@@ -12,18 +12,18 @@ class GoalButtons : public QWidget
     Q_OBJECT
 public:
     explicit GoalButtons(QWidget *parent = 0);
-    void updateCards(const CardContainer&);
+    void update(const CardContainer&);
+    void setConnections(QEventLoop& loop);
     ~GoalButtons();
 
 private:
-    std::vector<CardID> cards_;
+    std::vector<CardButton*> buttons_;
     QHBoxLayout* layout;
 
 
 signals:
 
 public slots:
-
 };
 
 #endif // GOALBUTTONS_H

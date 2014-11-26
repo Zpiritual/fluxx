@@ -26,6 +26,8 @@ private:
     int current_player = 1;
     MainMenu* parent2;
 
+    std::vector<PlayerID> players;
+
     void uiElementSetup();
     void message(const QString&, const QString&) const;
     bool existPlayer(const QString&) const;

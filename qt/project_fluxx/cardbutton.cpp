@@ -15,8 +15,6 @@ CardButton::CardButton(CardID id, QWidget *parent) :
     this->setMaximumSize(170,259);
 
     this->setIconSize(QSize(170,259));
-
-
 }
 
 CardButton::CardButton(CardID* id, QWidget *parent) :
@@ -33,16 +31,19 @@ CardButton::CardButton(CardID* id, QWidget *parent) :
     this->setMaximumSize(170,259);
 
     this->setIconSize(QSize(170,259));
-
-
 }
 
 CardButton::~CardButton()
 {
 }
 
+const CardID& CardButton::getCardId() const
+{
+    return *id_;
+}
+
 void CardButton::mouseReleaseEvent(QMouseEvent *e) {
-    if (e->button() == Qt::RightButton)
+    if (e->button() == Qt::RightButton && !icon->isNull())
     {
      BigCard* big_card_window = new BigCard(id_,this);
 
@@ -52,3 +53,13 @@ void CardButton::mouseReleaseEvent(QMouseEvent *e) {
     }
     QPushButton::mouseReleaseEvent(e);
 }
+
+void CardButton::smallButton()
+{
+    this->setMaximumSize(85,135);
+    this->setMinimumSize(85,135);
+
+    this->setIconSize(QSize(85,135));
+}
+
+

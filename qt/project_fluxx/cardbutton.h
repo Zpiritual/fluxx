@@ -14,7 +14,8 @@ public:
     explicit CardButton(CardID, QWidget *parent = 0);
     explicit CardButton(CardID*, QWidget *parent = 0);
     ~CardButton();
-    unsigned getCardId() const;
+    void smallButton();
+    const CardID& getCardId() const;
 
 protected:
     void mouseReleaseEvent(QMouseEvent *e);
@@ -25,6 +26,7 @@ private:
 signals:
     void rightClicked();
 public slots:
+
 
 };
 

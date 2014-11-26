@@ -1,21 +1,21 @@
 #ifndef GUI_H
 #define GUI_H
 
-
 #include <QWidget>
 #include <QtWidgets>
 #include <vector>
 #include "logwidget.h"
-#include "playerlist.h"
 #include "rulesgridwidget.h"
 #include "deckbutton.h"
-#include "activeplayer.h"
 #include "goalbuttons.h"
 #include "trashbutton.h"
 #include "BoardSnapshot.h"
 #include "CardID.h"
 #include "CardContainerID.h"
 #include "PlayerID.h"
+#include "playerlist.h"
+#include "activeplayer.h"
+
 
 class Gui : public QWidget
 {
@@ -23,9 +23,10 @@ class Gui : public QWidget
 public:  
     explicit Gui(std::vector<PlayerID> players, QWidget *parent = 0);
     ~Gui();
-    const PlayerID pickPlayer(const BoardSnapshot);
-    const CardID pickCard(BoardSnapshot, CardContainerID);
+    const PlayerID pickPlayer(BoardSnapshot*);
+    const CardID pickCard(const CardContainerID&);
     void update(BoardSnapshot*);
+    void update(std::vector<CardContainer>*);
     void nextPlayer();
 
 private:

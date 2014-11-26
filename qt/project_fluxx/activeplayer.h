@@ -7,14 +7,18 @@
 #include "PlayerID.h"
 #include "activehand.h"
 #include "activekeepers.h"
+#include "BoardSnapshot.h"
+#include "CardContainerID.h"
 
 class ActivePlayer : public QWidget
 {
     Q_OBJECT
 public:
     explicit ActivePlayer(QWidget *parent = 0);
-    void update();
+    void update(BoardSnapshot*);
     ~ActivePlayer();
+    void connectActiveKeepers(QEventLoop&);
+    void connectActiveHand(QEventLoop&);
 
 private:
     QVBoxLayout* layout;
@@ -29,5 +33,7 @@ signals:
 public slots:
 
 };
+
+
 
 #endif // ACTIVEPLAYER_H

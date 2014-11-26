@@ -1,6 +1,4 @@
 #include "rulesgridwidget.h"
-#include "cardbutton.h"
-#include "../../include/CardID.h"
 
 
 RulesGridWidget::RulesGridWidget(QWidget *parent) :
@@ -8,13 +6,10 @@ RulesGridWidget::RulesGridWidget(QWidget *parent) :
 {
     layout = new QGridLayout();
     for(int i = 0; i<= 3; ++i)
-        layout->setColumnMinimumWidth(i,170);
-
-    for(int i =  1; i <= 5; ++i)
     {
-        layout->addWidget(new CardButton(CardID(i)), i/4,(i-1)%4);
+        layout->setColumnMinimumWidth(i,170);
+        layout->setColumnStretch(i, 0);
     }
-
     this->setLayout(layout);
 }
 
@@ -32,6 +27,14 @@ void RulesGridWidget::updateCards(const CardContainer & container)
     }
     for(auto card : cards_)
     {
-        layout->addWidget(new CardButton(card));
+        CardButton* tempbutton = new CardButton(card);
+        layout->addWidget(tempbutton);
+        buttons_.push_back(tempbutton);
     }
+}
+
+void RulesGridWidget::setConnections(QEventLoop & loop)
+{
+    for(auto button : buttons_)
+        QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
 }
