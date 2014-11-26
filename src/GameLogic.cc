@@ -9,12 +9,14 @@ GameLogic::GameLogic(const Deck* deck, const int players)
 	_pm = new PlayerManager(players);
 
 // Vi skulle behöva access till "alla spelare" från PlayerManager, så att vi kan iterera över dem.
-	// for(auto p : players)
-	// {
-	// 	drawCard(p.getID());
-	// 	drawCard(p.getID());
-	// 	drawCard(p.getID());
-	// }
+//On it // martin
+
+	 for(Player p : _pm->getPlayers())
+	{
+	 	drawCard(p.getID());
+	 	drawCard(p.getID());
+	 	drawCard(p.getID());
+	}
 
 }
 

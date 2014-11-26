@@ -51,6 +51,10 @@ void PlayerManager::setCurrentPlayer(const PlayerID pid)
 		if(_players.at(i).getID() == pid) _current_player = i;
 	}	
 }
+std::vector<Player> PlayerManager::getPlayers()
+{
+	return _players;
+}
 
 void PlayerManager::nextPlayer()
 {
