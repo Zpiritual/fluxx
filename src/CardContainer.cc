@@ -3,7 +3,7 @@
 
 void CardContainer::addCard(const CardID c)
 {
-	if(std::find(_cards.begin(), _cards.end(),c) == _cards.end())	//Guard for duplicates
+	//if(std::find(_cards.begin(), _cards.end(), c) == _cards.end())	//Guard for duplicates //Nooo, bättre att kasta så vi upptäcker felet.
 	_cards.push_back(c);
 }
 

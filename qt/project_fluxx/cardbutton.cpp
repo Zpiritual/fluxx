@@ -43,7 +43,7 @@ const CardID& CardButton::getCardId() const
 }
 
 void CardButton::mouseReleaseEvent(QMouseEvent *e) {
-    if (e->button() == Qt::RightButton)
+    if (e->button() == Qt::RightButton && !icon->isNull())
     {
      BigCard* big_card_window = new BigCard(id_,this);
 
@@ -52,11 +52,6 @@ void CardButton::mouseReleaseEvent(QMouseEvent *e) {
         qDebug() << "Add right click on button functionality";
     }
     QPushButton::mouseReleaseEvent(e);
-}
-
-void CardButton::buttonpressed()
-{
-    //parent()->
 }
 
 void CardButton::smallButton()

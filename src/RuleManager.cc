@@ -1,35 +1,36 @@
 #include "RuleManager.h"
-const int RuleManager::getHandLimit() const
+
+const int RuleManager::getHandLimit()
 {
 	return _hand_limmit;
 }
 
-const int RuleManager::getKepperLimit() const
+const int RuleManager::getKepperLimit()
 {
 	return _keeper_limit;
 }
 
-const int RuleManager::getGoalLimmit() const
+const int RuleManager::getGoalLimmit()
 {
 	return _goal_limit;
 }
 
-const int RuleManager::getInflation() const
+const int RuleManager::getInflation()
 {
 	return _inflation;
 }
 
-const int RuleManager::getDraw() const
+const int RuleManager::getDraw()
 {
 	return _draw;
 }
 
-const int RuleManager::getPlay() const
+const int RuleManager::getPlay()
 {
 	return _play;
 }
 
-const Direction RuleManager::getPlayOrder() const
+const Direction RuleManager::getPlayOrder()
 {
 	return _play_direction;
 }
@@ -67,4 +68,31 @@ void RuleManager::setPlay(const int l)
 void RuleManager::setPlayOrder(const Direction l)
 {
 	_play_direction = l;
+}
+void RuleManager::addRule(TriggeredRule* rule)
+{
+	_triggered_rules.push_back(rule);
+}
+
+void RuleManager::removeRule(CardID cid)
+{
+	for(unsigned int i = 0; i < _triggered_rules.size(); i++)
+		if(_triggered_rules.at(i)->getParent() == cid)
+			_triggered_rules.erase(_triggered_rules.begin() + i);
+}
+
+void RuleManager::clearRules()
+{
+	_triggered_rules.clear();
+}
+
+std::vector<const Effect*> RuleManager::getTriggeredRules(const RuleTrigger type)
+{
+	std::vector<const Effect*> effects;
+	for(TriggeredRule* tr : _triggered_rules)
+	{
+		if(tr->getType() == type)
+			effects.push_back(tr->getEffect());
+	}
+	return effects;
 }

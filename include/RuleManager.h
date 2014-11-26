@@ -1,23 +1,10 @@
-
-//NOT COMPLETE AND NEEDS ATTENTION
 #ifndef RULEMANAGER_H
 #define RULEMANAGER_H
 
 #include "Effect.h"
+#include "TriggeredRule.h"
+#include "enums.h"
 #include <vector>
-
-enum class Direction
-{
-	CW,
-	CCW 
-};
-
-enum class RuleTrigger
-{
-	PRE_DRAW,
-	POST_DRA,
-	END_TURN
-};
 
 class RuleManager
 {
@@ -30,13 +17,13 @@ public:
 	RuleManager& operator= (RuleManager&&) = default;
 	~RuleManager() = default;
 
-	const int 		getHandLimit()		const;
-	const int 		getKepperLimit() 	const;
-	const int 		getGoalLimmit() 	const;
-	const int 		getInflation() 		const;
-	const int 		getDraw() 			const;
-	const int 		getPlay() 			const;
-	const Direction getPlayOrder()  	const;
+	const int 		getHandLimit()		;
+	const int 		getKepperLimit() 	;
+	const int 		getGoalLimmit() 	;
+	const int 		getInflation() 		;
+	const int 		getDraw() 			;
+	const int 		getPlay() 			;
+	const Direction getPlayOrder()  	;
 
 	void setHandLimit(const int);
 	void setKeeperLimit(const int);
@@ -45,10 +32,10 @@ public:
 	void setDraw(const int);
 	void setPlay(const int);
 	void setPlayOrder(const Direction);
-	std::vector<Effect> checkRules(const RuleTrigger);
+	std::vector<const Effect*> getTriggeredRules(const RuleTrigger);
 	//Placeholders?
-	void addRule();
-	void removeRule();
+	void addRule(TriggeredRule*);
+	void removeRule(CardID);
 	void clearRules();
 
 private:
@@ -58,8 +45,8 @@ private:
 	int _inflation		= 0;
 	int _draw			= 0;
 	int _play 			= 0;
-	Direction _play_direction = Direction::CW;
-	std::vector<Effect> _tiggered_rules;
+	Direction _play_direction = Direction::CLOCKWISE;
+	std::vector<TriggeredRule*> _triggered_rules;
 };
 
 #endif

@@ -23,20 +23,20 @@ int main()
 	Deck *deck = new Deck(cards);
 	vector<Player> players;
 
-	players.push_back(Player(PlayerID("player1"), CardContainerID("Player1_hand")));
+	players.push_back(Player(PlayerID(PlayerIdentifier::Player1)));
 
-	GameLogic *logic = new GameLogic(deck,players);
+	GameLogic *logic = new GameLogic(deck,players.size());
 	cout << "SIZE OF Trash: " << logic->getCCM()->getSize(CardContainerID("Trash")) << endl;
 	cout << "SIZE OF PLAYER 1 HAND: "<< logic->getCCM()->getSize(CardContainerID("Player1_hand")) << endl;
-	logic->playCard(players.at(0).getID(), CardID(10));
-	logic->playCard(players.at(0).getID(), CardID(9));
-	logic->playCard(players.at(0).getID(), CardID(8));
+	// logic->playCard(players.at(0).getID(), CardID(10));
+	// logic->playCard(players.at(0).getID(), CardID(9));
+	// logic->playCard(players.at(0).getID(), CardID(8));
 	cout << "SIZE OF PLAYER 1 HAND: " << logic->getCCM()->getSize(CardContainerID("Player1_hand")) << endl;
 	cout << "SIZE OF Trash: " << logic->getCCM()->getSize(CardContainerID("Trash")) << endl;
-	logic->drawCard(players.at(0).getID());
-	logic->drawCard(players.at(0).getID());
-	logic->drawCard(players.at(0).getID());
+	// logic->drawCard(players.at(0).getID());
+	// logic->drawCard(players.at(0).getID());
+	// logic->drawCard(players.at(0).getID());
 
-	logic->playCard(players.at(0).getID(), CardID(7));
+	// logic->playCard(players.at(0).getID(), CardID(7));
 	return 0;
 }

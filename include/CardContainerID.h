@@ -14,7 +14,7 @@ struct CardContainerID
 {
 	std::string val;
 	
-	CardContainerID(std::string val):val{val}
+	CardContainerID(std::string val) : val{val}
 	{}
 
 	CardContainerID()									= delete;

@@ -56,10 +56,12 @@ const PlayerID Gui::pickPlayer(BoardSnapshot* snapshot)
 const CardID Gui::pickCard(const CardContainerID& containerid)
 {
     QEventLoop loop;
-    if(containerid == CardContainerID("Rules"));
-    {
+    if(containerid == CardContainerID("Rules"))
         rules_widget->setConnections(loop);
-    }
+    else if(containerid == CardContainerID("Goals"))
+        goals_widget->setConnections(loop);
+    else if(containerid == CardContainerID("Trash"))
+        trash_widget->setConnections(loop);
     loop.exec();
 
     qDebug() << "derpaderpa";

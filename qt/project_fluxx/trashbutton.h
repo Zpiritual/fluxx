@@ -15,6 +15,7 @@ public:
     explicit TrashButton(QWidget *parent = 0);
     ~TrashButton();
     void updateCards(const CardContainer&);
+    void setConnections(QEventLoop&);
 private:
     std::vector<CardID> cards_;
     QIcon* icon;

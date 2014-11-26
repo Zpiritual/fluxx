@@ -26,7 +26,6 @@ private:
 signals:
     void rightClicked();
 public slots:
-    void buttonpressed();
 
 
 };

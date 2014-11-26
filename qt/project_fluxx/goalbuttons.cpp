@@ -9,9 +9,10 @@ GoalButtons::GoalButtons(QWidget *parent) :
 
 }
 
-void GoalButtons::connectButtons(QEventLoop &loop)
+void GoalButtons::setConnections(QEventLoop &loop)
 {
-
+    for(auto button : buttons_)
+        QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
 }
 
 void GoalButtons::update(const CardContainer& container)
