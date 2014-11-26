@@ -11,6 +11,7 @@ class PlayerListItem : public QWidget
     Q_OBJECT
 public:
     explicit PlayerListItem(const PlayerID&, QWidget *parent = 0);
+    ~PlayerListItem();
     int getHandCount() const;
     int getKeeperCount() const;
     void updateCards(const std::vector<CardID>&, const std::vector<CardID>&);
@@ -27,6 +28,8 @@ private:
     QLabel* name_label;
     QLabel* card_count;
     QLabel* keeper_count;
+
+    BigCardCollection* big_keepers;
 
 signals:
 

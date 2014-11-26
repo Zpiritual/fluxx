@@ -22,5 +22,8 @@ BigCardCollection::BigCardCollection(const std::vector<CardID>& crds, QWidget *p
 
 BigCardCollection::~BigCardCollection()
 {
+    delete card_collection;
+    delete scroll_area;
+    delete horizontal_layout;
 }
 

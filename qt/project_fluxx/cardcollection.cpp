@@ -20,4 +20,6 @@ CardCollection::~CardCollection()
     {
         delete cards.at(i);
     }
+
+    delete horizontal_layout;
 }

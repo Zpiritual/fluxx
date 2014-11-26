@@ -10,13 +10,18 @@ PlayerList::PlayerList(const std::vector<PlayerID>& plyers, QWidget *parent) :
     {
         players.push_back(new PlayerListItem(player_ids.at(i)));
         vertical_layout->addWidget(players.at(i));
+        vertical_layout->setAlignment(players.at(i), Qt::AlignTop);
     }
 
     this->setLayout(vertical_layout);
-    this->show();
 }
 
-PlayerList::~PlayerList(){
+PlayerList::~PlayerList()
+{
+    for(int i = 0; i < players.size(); i++)
+    {
+        delete players.at(i);
+    }
 }
 
 const PlayerID PlayerList::pickPlayer() const

@@ -132,13 +132,14 @@ void NewGame::selectPlayer()
         QString temp = view_players->text();
         temp = temp + "\nPlayer " + QString::number(current_player++) + ": " + selected->text();
         view_players->setText(temp);
-        players.push_back(PlayerID{view_players->text().toStdString()});
+        players.push_back(PlayerID{selected->text().toStdString()});
     }
     else
     {
         message(QString("New Game"), QString("6 players are the limit."));
     }
     player_list->clearSelection();
+    select_player_button->setEnabled(false);
     qDebug() << "Add selectPlayer functionality";
 }
 
