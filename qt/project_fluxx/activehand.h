@@ -13,8 +13,9 @@ public:
     explicit ActiveHand(QWidget *parent = 0);
     void update(); //Gå till qlistwidget och hämta hand mha gethand(playerID),
     //eventuellt görs detta i activeplayer
+    void connectButtons();
 private:
-    std::vector<CardButton> cards;
+    std::vector<CardButton*> cards;
     QHBoxLayout* layout;
 signals:
 

@@ -20,3 +20,8 @@ void ActiveHand::update()
 {
 
 }
+
+void ActiveHand::connectButtons()
+{
+
+}

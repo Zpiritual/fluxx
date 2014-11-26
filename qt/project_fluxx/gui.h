@@ -16,8 +16,6 @@
 #include "playerlist.h"
 #include "activeplayer.h"
 
-class ActivePlayer;
-class PlayerList;
 
 class Gui : public QWidget
 {

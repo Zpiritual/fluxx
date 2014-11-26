@@ -5,17 +5,19 @@
 #include <QtWidgets>
 #include <vector>
 #include "PlayerID.h"
-#include "gui.h"
 #include "activehand.h"
 #include "activekeepers.h"
+#include "BoardSnapshot.h"
 
 class ActivePlayer : public QWidget
 {
     Q_OBJECT
 public:
     explicit ActivePlayer(QWidget *parent = 0);
-    void update();
+    void update(BoardSnapshot*);
     ~ActivePlayer();
+    void connectActiveKeepers();
+    void connectActiveHand();
 
 private:
     QVBoxLayout* layout;

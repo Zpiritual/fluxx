@@ -31,3 +31,13 @@ ActivePlayer::ActivePlayer(QWidget *parent) :
 
 ActivePlayer::~ActivePlayer(){
 }
+
+void ActivePlayer::connectActiveKeepers()
+{
+    //active_keepers->
+}
+
+void ActivePlayer::connectActiveHand()
+{
+
+}
