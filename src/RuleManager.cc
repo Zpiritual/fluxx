@@ -77,11 +77,7 @@ void RuleManager::addRule(TriggeredRule* rule)
 void RuleManager::removeRule(CardID cid)
 {
 	for(unsigned int i = 0; i < _triggered_rules.size(); i++)
-<<<<<<< HEAD
 		if(_triggered_rules.at(i)->getParent() == cid)
-=======
-		if(_triggered_rules.at(i).getParent() == cid)
->>>>>>> removed Binaries
 			_triggered_rules.erase(_triggered_rules.begin() + i);
 }
 
@@ -90,11 +86,7 @@ void RuleManager::clearRules()
 	_triggered_rules.clear();
 }
 
-<<<<<<< HEAD
 std::vector<const Effect*> RuleManager::getTriggeredRules(const RuleTrigger type)
-=======
-std::vector<Effect> RuleManager::getTriggeredRules(RuleTrigger type)
->>>>>>> removed Binaries
 {
 	std::vector<const Effect*> effects;
 	for(TriggeredRule* tr : _triggered_rules)
