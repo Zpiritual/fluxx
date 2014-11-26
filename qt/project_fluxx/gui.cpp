@@ -77,9 +77,9 @@ void Gui::update(BoardSnapshot* snapshot) //Lägg till i alla klasser
 
     rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
    // player_list_widget->updatePlayers(snapshot);
-    deck_widget->updateCards(snapshot->getContainer(CardContainerID("Deck")));
+    //deck_widget->updateCards(snapshot->getContainer(CardContainerID("Deck")));
     trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
-    goals_widget->updateCards(snapshot->getContainer(CardContainerID("Goals")));
+    goals_widget->update(snapshot->getContainer(CardContainerID("Goals")));
 
 
 }

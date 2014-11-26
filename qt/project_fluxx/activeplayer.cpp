@@ -24,20 +24,24 @@ ActivePlayer::ActivePlayer(QWidget *parent) :
     layout->setAlignment(scroll_area_keepers, Qt::AlignTop);
     scroll_area_keepers->setFrameShape(QFrame::NoFrame);
 
-
-
     this->setLayout(layout);
+}
+
+void ActivePlayer::update(BoardSnapshot* snapshot)
+{
+//    active_hand->update(snapshot->getContainer(CardContainerID(snapshot->current_player+"_hand")));
+//    active_keepers->update(snapshot->getContainer(CardContainerID(snapshot->current_player+"_keepers")));
 }
 
 ActivePlayer::~ActivePlayer(){
 }
 
-void ActivePlayer::connectActiveKeepers()
+void ActivePlayer::connectActiveKeepers(QEventLoop& loop)
 {
-    //active_keepers->
+    active_keepers->connectButtons(loop);
 }
 
-void ActivePlayer::connectActiveHand()
+void ActivePlayer::connectActiveHand(QEventLoop& loop)
 {
-
+    active_hand->connectButtons(loop);
 }

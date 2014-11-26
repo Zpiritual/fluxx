@@ -23,3 +23,8 @@ wins 0
 games 0
 playedcards 0
 
+profile derp
+wins 0
+games 0
+playedcards 0
+

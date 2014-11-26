@@ -5,18 +5,19 @@
 #include <QtWidgets>
 #include "CardID.h"
 #include "CardContainer.h"
-class CardButton;
+#include "cardbutton.h"
 
 class GoalButtons : public QWidget
 {
     Q_OBJECT
 public:
     explicit GoalButtons(QWidget *parent = 0);
-    void updateCards(const CardContainer&);
+    void update(const CardContainer&);
+    void connectButtons(QEventLoop& loop);
     ~GoalButtons();
 
 private:
-    std::vector<CardID> cards_;
+    std::vector<CardButton*> buttons_;
     QHBoxLayout* layout;
 
 
@@ -24,6 +25,5 @@ signals:
 
 public slots:
 };
-#include "cardbutton.h"
 
 #endif // GOALBUTTONS_H

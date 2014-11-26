@@ -6,6 +6,7 @@
 #include <vector>
 #include "CardID.h"
 #include "CardContainer.h"
+#include "bigcardcollection.h"
 
 class TrashButton : public QPushButton
 {
@@ -14,8 +15,6 @@ public:
     explicit TrashButton(QWidget *parent = 0);
     ~TrashButton();
     void updateCards(const CardContainer&);
-
-
 private:
     std::vector<CardID> cards_;
     QIcon* icon;
@@ -23,7 +22,7 @@ private:
 signals:
 
 public slots:
-
+    void clickbutton();
 };
 
 #endif // TRASHBUTTON_H

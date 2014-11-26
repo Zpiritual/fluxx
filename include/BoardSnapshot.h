@@ -17,8 +17,9 @@ struct BoardSnapshot
 	std::vector<CardContainer> val;
 	std::vector<Player> play;
 	Direction dir;
+    int current_player;
 	
-	BoardSnapshot(std::vector<CardContainer> val, std::vector<Player> play, Direction dir);
+    BoardSnapshot(std::vector<CardContainer> val, std::vector<Player> play, Direction dir, int current_player);
 	BoardSnapshot() = delete;
 	BoardSnapshot(const BoardSnapshot&) = delete;
 	BoardSnapshot (BoardSnapshot&&) = delete;

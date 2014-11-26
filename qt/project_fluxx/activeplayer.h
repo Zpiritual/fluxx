@@ -8,6 +8,7 @@
 #include "activehand.h"
 #include "activekeepers.h"
 #include "BoardSnapshot.h"
+#include "CardContainerID.h"
 
 class ActivePlayer : public QWidget
 {
@@ -16,8 +17,8 @@ public:
     explicit ActivePlayer(QWidget *parent = 0);
     void update(BoardSnapshot*);
     ~ActivePlayer();
-    void connectActiveKeepers();
-    void connectActiveHand();
+    void connectActiveKeepers(QEventLoop&);
+    void connectActiveHand(QEventLoop&);
 
 private:
     QVBoxLayout* layout;

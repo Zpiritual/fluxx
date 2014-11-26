@@ -20,19 +20,6 @@ DeckButton::DeckButton(QWidget *parent) :
     this->setIconSize(QSize(170,259));
 }
 
-void DeckButton::updateCards(const CardContainer& cards)
-{
-    cards_ = cards.getCards();
-}
-
 DeckButton::~DeckButton()
 {
-}
-
-void DeckButton::mouseReleaseEvent(QMouseEvent *e) {
-if (e->button() == Qt::RightButton)
-{
-    qDebug() << "Add right click on button functionality";
-}
-QPushButton::mouseReleaseEvent(e);
 }
