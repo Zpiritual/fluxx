@@ -173,16 +173,21 @@ void NewGame::uiElementSetup()
     others_layout->addLayout(finish_layout);
     others_layout->setAlignment(finish_layout, Qt::AlignBottom);
 
-    QObject::connect(start_button, SIGNAL(clicked()), this, SLOT(startGame()));
-    QObject::connect(select_player_button, SIGNAL(clicked()), this, SLOT(selectPlayer()));
-    QObject::connect(back_button, SIGNAL(clicked()), this, SLOT(goBack()));
-    QObject::connect(player_list, SIGNAL(clicked(QModelIndex)), this, SLOT(enableSelectPlayerButton()));
-    QObject::connect(player_list, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(selectPlayer()));
+    connectSignals();
 
     layout->addLayout(list_layout);
     layout->addLayout(others_layout);
 
     this->setLayout(layout);
+}
+
+void NewGame::connectSignals()
+{
+    QObject::connect(start_button, SIGNAL(clicked()), this, SLOT(startGame()));
+    QObject::connect(select_player_button, SIGNAL(clicked()), this, SLOT(selectPlayer()));
+    QObject::connect(back_button, SIGNAL(clicked()), this, SLOT(goBack()));
+    QObject::connect(player_list, SIGNAL(clicked(QModelIndex)), this, SLOT(enableSelectPlayerButton()));
+    QObject::connect(player_list, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(selectPlayer()));
 }
 
 void NewGame::goBack()

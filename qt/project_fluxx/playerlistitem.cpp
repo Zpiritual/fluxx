@@ -13,7 +13,8 @@ PlayerListItem::PlayerListItem(const ProfileName& name, QWidget *parent) :
     card_count->setMaximumSize(140, 20);
     keeper_count->setMaximumSize(140, 20);
 
-    keeper_button->setMaximumSize(140, 20);
+    keeper_button->setMinimumSize(140, 23);
+    keeper_button->setMaximumSize(140, 23);
     keeper_button->setText(QString{"Keepers"});
 
     vertical_layout->addWidget(name_label);

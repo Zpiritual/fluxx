@@ -30,6 +30,7 @@ private:
     std::vector<ProfileName> players;
 
     void uiElementSetup();
+    void connectSignals();
     void message(const QString&, const QString&) const;
     bool existPlayer(const ProfileName&) const;
 
