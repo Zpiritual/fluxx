@@ -1,6 +1,6 @@
 #include "playerlist.h"
 
-PlayerList::PlayerList(const std::vector<PlayerID>& plyers, QWidget *parent) :
+PlayerList::PlayerList(const std::vector<ProfileName>& plyers, QWidget *parent) :
     QWidget(parent)
 {
     vertical_layout = new QVBoxLayout();
@@ -41,48 +41,48 @@ void PlayerList::updatePlayers(BoardSnapshot* board)
         CardContainer hand{board->getContainer(player_hand)};
         CardContainer keepers{board->getContainer(player_hand)};
         players.at(i)->updateCards(hand.getCards(), keepers.getCards());
-//        updatePlayerState(i, board->current_player, board->dir);
+        updatePlayerState(i, board->current_player.getInt() - 1, board->direction);
     }
 }
 
-//void PlayerList::updatePlayerState(int index, const PlayerID& player_id, const Direction& direction)
-//{
-//    if(players.at(index)->getPlayerId() == player_id)
-//    {
-//        current_player = index;
-//        players.at(index)->setActivePlayer();
-//        if(direction == CLOCKWISE)
-//        {
-//            if(index == player_ids.size() - 1)
-//            {
-//                players.at(0)->setNextPlayer();
-//                next_player = 0;
-//            }
-//            else
-//            {
-//                players.at(index+1)->setNextPlayer();
-//                next_player = i+1;
-//            }
-//        }
-//        else
-//        {
-//            if(index == 0)
-//            {
-//                players.at(player_ids.size() - 1)->setNextPlayer();
-//                next_player = player_ids.size() - 1;
-//            }
-//            else
-//            {
-//                players.at(index-1)->setNextPlayer();
-//                next_player = i-1;
-//            }
-//        }
-//    }
-//    else
-//    {
-//        if(index != current_player && index != next_player)
-//        {
-//            players.at(index)->setInactivePlayer();
-//        }
-//    }
-//}
+void PlayerList::updatePlayerState(int index, int player_id, const Direction& direction)
+{
+    if(index == player_id)
+    {
+        current_player = index;
+        players.at(index)->setActivePlayer();
+        if(direction == Direction::CLOCKWISE)
+        {
+            if(index == player_ids.size() - 1)
+            {
+                players.at(0)->setNextPlayer();
+                next_player = 0;
+            }
+            else
+            {
+                players.at(index+1)->setNextPlayer();
+                next_player = index+1;
+            }
+        }
+        else
+        {
+            if(index == 0)
+            {
+                players.at(player_ids.size() - 1)->setNextPlayer();
+                next_player = player_ids.size() - 1;
+            }
+            else
+            {
+                players.at(index-1)->setNextPlayer();
+                next_player = index-1;
+            }
+        }
+    }
+    else
+    {
+        if(index != current_player && index != next_player)
+        {
+            players.at(index)->setInactivePlayer();
+        }
+    }
+}

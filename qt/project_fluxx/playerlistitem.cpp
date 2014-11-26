@@ -1,6 +1,6 @@
 #include "playerlistitem.h"
 
-PlayerListItem::PlayerListItem(const PlayerID& name, QWidget *parent) :
+PlayerListItem::PlayerListItem(const ProfileName& name, QWidget *parent) :
     player_name(name), QWidget(parent)
 {
     vertical_layout = new QVBoxLayout();
@@ -89,7 +89,7 @@ void PlayerListItem::setInactivePlayer()
     this->setAutoFillBackground(false);
 }
 
-const PlayerID PlayerListItem::getPlayerId() const
+const ProfileName PlayerListItem::getPlayerName() const
 {
     return player_name;
 }

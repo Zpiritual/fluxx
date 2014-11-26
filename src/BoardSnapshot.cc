@@ -1,10 +1,10 @@
 #include "BoardSnapshot.h"
 
-BoardSnapshot(const std::vector<CardContainer> containers,
+BoardSnapshot::BoardSnapshot(const std::vector<CardContainer> containers,
 			  const int players,
 			  const PlayerID current,
 			  const int played,
-			  const int to_play
+              const int to_play,
 			  const Direction direction)
 	: containers{containers},
 	players{players},
@@ -16,7 +16,7 @@ BoardSnapshot(const std::vector<CardContainer> containers,
 
 CardContainer BoardSnapshot::getContainer(const CardContainerID id)
 {
-	for(auto a: val)
+    for(auto a: containers)
 	{
 		if(a.getID() == id) return a;
 	}

@@ -3,23 +3,24 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "PlayerID.h"
+#include "profilename.h"
 #include "BoardSnapshot.h"
 #include "playerlistitem.h"
+#include "enums.h"
 
 class PlayerList : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PlayerList(const std::vector<PlayerID>&, QWidget *parent = 0);
+    explicit PlayerList(const std::vector<ProfileName>&, QWidget *parent = 0);
     ~PlayerList();
     const PlayerID pickPlayer() const;
     void updatePlayers(BoardSnapshot*);
-    void updatePlayerState(int, const PlayerID&, const Direction&);
+    void updatePlayerState(int, int, const Direction&);
 
 private:
     QVBoxLayout* vertical_layout;
-    std::vector<PlayerID> player_ids;
+    std::vector<ProfileName> player_ids;
     std::vector<PlayerListItem*> players;
 
     int current_player;

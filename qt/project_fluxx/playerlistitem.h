@@ -3,14 +3,14 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "PlayerID.h"
+#include "profilename.h"
 #include "bigcardcollection.h"
 
 class PlayerListItem : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PlayerListItem(const PlayerID&, QWidget *parent = 0);
+    explicit PlayerListItem(const ProfileName&, QWidget *parent = 0);
     ~PlayerListItem();
     int getHandCount() const;
     int getKeeperCount() const;
@@ -20,12 +20,12 @@ public:
     void setNextPlayer();
     void setInactivePlayer();
 
-    const PlayerID getPlayerId() const;
+    const ProfileName getPlayerName() const;
 
 private:
     std::vector<CardID> hand;
     std::vector<CardID> keepers_id;
-    PlayerID player_name;
+    ProfileName player_name;
 
     QPushButton* keeper_button;
 
