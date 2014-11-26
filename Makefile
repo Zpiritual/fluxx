@@ -2,7 +2,7 @@ CCC		= g++ -std=c++11
 CCFLAGS = -g -Wall -pedantic -c
 INCLUDE	= -Iinclude
 
-all: Card_test CardContainer_test CardID_test CardManager_test Deck_test GameLogic_test DeckParser_test
+all: Card_test CardContainer_test CardID_test CardManager_test Deck_test GameLogic_test GameLoop_test DeckParser_test
 	@echo
 	./Card_test
 	@echo
@@ -15,6 +15,8 @@ all: Card_test CardContainer_test CardID_test CardManager_test Deck_test GameLog
 	./Deck_test
 	@echo
 	./GameLogic_test
+	@echo
+	./GameLoop_test
 	@echo
 	./DeckParser_test
 
@@ -40,6 +42,9 @@ Deck_test.o: test/Deck_test.cc
 GameLogic_test.o: test/GameLogic_test.cc  
 	$(CCC) $(CCFLAGS) $(INCLUDE) test/GameLogic_test.cc
 
+GameLoop_test.o: test/GameLoop_test.cc	
+	$(CCC) $(CCFLAGS) $(INCLUDE) test/GameLoop_test.cc
+
 DeckParser_test.o: test/DeckParser_test.cc
 	$(CCC) $(CCFLAGS) $(INCLUDE) test/DeckParser_test.cc
 
@@ -63,6 +68,9 @@ Deck_test: Deck_test.o Deck.o Card.o
 
 GameLogic_test: GameLogic_test.o GameLogic.o CardManager.o CardContainer.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o RuleManager.o TriggeredRule.o
 	$(CCC) -o GameLogic_test GameLogic_test.o GameLogic.o CardContainer.o CardManager.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o RuleManager.o TriggeredRule.o
+
+GameLoop_test: GameLoop_test.o GameLoop.o GameLogic.o CardManager.o CardContainer.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o RuleManager.o TriggeredRule.o
+	$(CCC) -o GameLoop_test GameLoop_test.o GameLoop.o GameLogic.o CardContainer.o CardManager.o Player.o Card.o Deck.o CardContainerManager.o PlayerManager.o Stock.o RuleManager.o TriggeredRule.o
 
 DeckParser_test: DeckParser_test.o DeckParser.o Card.o Deck.o
 	$(CCC) -o DeckParser_test DeckParser_test.o DeckParser.o Card.o Deck.o

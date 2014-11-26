@@ -1,9 +1,17 @@
 #include "GameLoop.h"
-#include "RuleManager.h"
+#include "enums.h"
 
-void GameLoop::playCard(const PlayerID, const CardID);
+GameLoop::GameLoop(const Deck * deck, const std::vector<PlayerID> players)
+{
 
-void GameLoop::drawCards(const PlayerID pid, const int draw_no);
+}
+
+void GameLoop::playCard(const PlayerID, const CardID)
+{
+
+}
+
+void GameLoop::drawCards(const PlayerID pid, const int draw_no)
 {
 	for (int i = 0; i < draw_no; ++i)
 	{
@@ -21,38 +29,46 @@ const int GameLoop::getPlayNO() const
 	return _game_logic->getRM()->getPlay();
 }
 
-void GameLoop::sendLog(std::string);
-
-const PlayerID	getCurrentPlayerID() const
+const PlayerID	GameLoop::getNextPlayerID()
 {
-	return _game_logic->getRM()->getCurrentPlayerID();
+
 }
 
-const int getCardsPlayed() const
+void GameLoop::sendLog(std::string)
 {
-	_game_logic->getRM()->getCurrentPlayer()->getCardsPlayed();
+
 }
 
-void incrementCardsPlayed() const
+const PlayerID	GameLoop::getCurrentPlayerID() const
 {
-	_game_logic->getRM()->getCurrentPlayer()->incrementCardsPlayed();
+	return _game_logic->getPM()->getCurrentPlayerID();
+}
+
+const int GameLoop::getCardsPlayed() const
+{
+	_game_logic->getPM()->getCurrentPlayer()->getCardsPlayed();
+}
+
+void GameLoop::incrementCardsPlayed()
+{
+	_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
 }
 
 void GameLoop::nextPlayer()
 {
-	_game_logic->getRM()->nextPlayer();
+	_game_logic->getPM()->nextPlayer();
 }
 
 SessionData	GameLoop::run()
 {
-	while (executePlayerTurn(getNextPlayer()) != GAME_OVER)
+	while (executePlayerTurn(getNextPlayerID()) != GameState::GAME_OVER)
 	{
 		//switch screen osv.
 		nextPlayer();
 	}
 }
 
-const gameState GameLoop::executePlayerTurn(PlayerID)
+const GameState GameLoop::executePlayerTurn(PlayerID)
 {
 	checkTriggeredRules(RuleTrigger::PRE_DRAW);
 
@@ -65,12 +81,28 @@ const gameState GameLoop::executePlayerTurn(PlayerID)
  	//spela kort
  	while (getPlayNO() < getCardsPlayed()) // played_cards ligger i player.
  	{
- 		GameLogic->playCard(getCurrentPlayerID());
- 		++played_cards;
+ 		_game_logic->playCard(getCurrentPlayerID());
+ 		_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
  	}
 
 }
 
-void GameLoop::switchScreen();
-void GameLoop::sendBoardState();
-CardID GameLoop::requestInput();
+void GameLoop::checkTriggeredRules(RuleTrigger rule)
+{
+//	_game_logic->checkRules(rule);
+}
+
+void GameLoop::switchScreen()
+{
+
+}
+
+void GameLoop::sendBoardState()
+{
+
+}
+
+CardID GameLoop::requestInput()
+{
+	
+}

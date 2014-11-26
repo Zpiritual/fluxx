@@ -4,13 +4,13 @@
 PlayerManager::PlayerManager(const std::vector<Player> players): _players{players}
 {}
 
-const Player PlayerManager::getPlayer(const PlayerID pid) const	
+Player* PlayerManager::getPlayer(const PlayerID pid)	
 {
-	for(auto a: _players)
+	for(unsigned int i =0; i < _players.size(); i++)
 	{
-		if(a.getID() == pid) return a;
+		if(_players.at(i).getID() == pid) return &_players.at(i);
 	}
-	
+
 	throw std::logic_error("PlayerManager::getPlayer() - Felaktig PlayerID");
 }
 
@@ -19,14 +19,14 @@ void PlayerManager::addPlayer(Player p)
 	_players.push_back(p);
 }
 
-const Player PlayerManager::getCurrentPlayer() const 
+Player* PlayerManager::getCurrentPlayer() 
 {	
-	return _players.at(_current_player);	
+	return &_players.at(_current_player);	
 }
 
-const PlayerID PlayerManager::getCurrentPlayerID() const
+const PlayerID PlayerManager::getCurrentPlayerID()
 {
-	return getCurrentPlayer().getID();
+	return getCurrentPlayer()->getID();
 }
 
 void PlayerManager::setCurrentPlayer(const PlayerID pid)
