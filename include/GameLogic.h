@@ -46,9 +46,9 @@ public:
 	//void 			checkRules(RuleTriggerType);
 	void 			resolveEffects();
 	void 			checkRules(RuleTrigger);
-	bool 			checkGoal();
+	//bool 			checkGoal();
 	const PlayerID 	getNextPlayer();
-
+	const CardID	requestPlayerInput(const CardContainerID) const;
 private:
 	CardContainerManager *_ccm;
 	CardManager *_cm;

@@ -28,6 +28,15 @@ GameLogic::~GameLogic()
 
 void GameLogic::executeNextEffect()
 {
+	//string from effect
+	//stringstream ss (effect)
+	//string temp for identifier
+	//ss >> temp
+	//if(temp == EffectIdentifier)
+	//int t1, t2, t3, .. , tn
+	//ss >> t1, t2, t3, ... , tn
+	//call functions with paramters
+	//end effect
 	effect_queue.pop_front();
 }
 
@@ -46,12 +55,12 @@ void GameLogic::addEffect(Effect effect)
 	return _cm;
 }
 
- RuleManager* GameLogic::getRM()
+RuleManager* GameLogic::getRM()
 {
 	return _rm;
 }
 
- PlayerManager* GameLogic::getPM()
+PlayerManager* GameLogic::getPM()
 {
 	return _pm;
 }
@@ -59,7 +68,46 @@ void GameLogic::addEffect(Effect effect)
 void GameLogic::playCard(const PlayerID pid)
 {
 	//Fråga GUI om kort-id osv.
+	CardID cid = requestPlayerInput(CardContainerID(pid.getString() + "_hand"));
 	//Spela det givna kortet.
+
+	//if a Goal card is placed check if there is room for it
+	//if not ask what card to replace
+	if(_cm->getCard(cid)->getType() == "GOAL")
+	{
+		if(_ccm->getSize(CardContainerID("Goal")) > _rm->getGoalLimmit())
+		{
+			_ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"),requestPlayerInput(CardContainerID("Goal")));
+		}
+			_ccm->moveCard(CardContainerID(pid.getString() + "_hand"), CardContainerID("Goal"),cid);
+			//Add effect
+	}
+	//If a rule is played, execute the first effect, the middle effects handles by the first effect, the last effect eecutes 
+	//when the card is removed
+	else if(_cm->getCard(cid)->getType() == "RULE")
+	{
+		addEffect(_cm->getCard(cid)->getEffects().at(0));
+		executeNextEffect();
+		_ccm->moveCard(CardContainerID(pid.getString() + "_hand"), CardContainerID("Rules"),cid);
+		//Must run last effect when removed
+	}
+	//If a action is played, put all the effects in the effect qeue
+	else if(_cm->getCard(cid)->getType() == "ACTION")
+	{
+		_ccm->moveCard(CardContainerID(pid.getString() + "_hand"), CardContainerID("Trash"),cid);
+		for(Effect e: _cm->getCard(cid)->getEffects())
+			addEffect(e);
+	}
+	//If Keeper is played, do nothing.
+	else if(_cm->getCard(cid)->getType() == "ḰEEPER")
+	{
+		_ccm->moveCard(CardContainerID(pid.getString() + "_hand"), CardContainerID(pid.getString() + "_keepers"),cid);
+
+	}
+	//Else throw exception
+
+	//Execute effects
+	resolveEffects();
 }
 
 // void GameLogic::playCard(const PlayerID pid, const CardID cid)
@@ -87,6 +135,11 @@ void GameLogic::playCard(const PlayerID pid)
 // 	}
 	
 // }
+
+const CardID GameLogic::requestPlayerInput(const CardContainerID conid) const
+{
+	//GUI request
+}
 
 void GameLogic::drawCard(const PlayerID pid)
 {

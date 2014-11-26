@@ -14,6 +14,9 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 		 }
 	const CardContainerID trash("Trash");
 	_containers.insert(std::make_pair(trash, new CardContainer(trash)));
+	
+	const CardContainerID goal("Goal");
+	_containers.insert(std::make_pair(trash, new CardContainer(goal)));
 
 	const CardContainerID rules("Rules");
 	_containers.insert(std::make_pair(rules, new CardContainer(rules)));
