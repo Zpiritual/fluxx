@@ -17,11 +17,12 @@
 #include "CardManager.h"
 #include "RuleManager.h"
 #include "PlayerManager.h"
+#include "enums.h"
 
 class GameLogic
 {
 public:
-	GameLogic(const Deck * deck, const std::vector<Player> players);
+	GameLogic(const Deck * deck, const int players);
 	GameLogic()					= delete;
 	GameLogic(const GameLogic&) = default;
 	GameLogic (GameLogic&&) 	= default;
@@ -44,7 +45,7 @@ public:
 	void			drawCard(const PlayerID);
 	//void 			checkRules(RuleTriggerType);
 	void 			resolveEffects();
-	void 			checkRules();
+	void 			checkRules(RuleTrigger);
 	bool 			checkGoal();
 	const PlayerID 	getNextPlayer();
 

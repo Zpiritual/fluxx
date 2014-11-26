@@ -15,7 +15,7 @@ enum class RuleTrigger
 	TURN_END
 };
 
-enum class gameState
+enum class GameState
 {
 	CONTINUE,
 	GAME_OVER

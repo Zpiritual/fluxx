@@ -1,19 +1,20 @@
 #include "GameLogic.h"
 #include <iostream>
 
-GameLogic::GameLogic(const Deck* deck, const std::vector<Player> players)
+GameLogic::GameLogic(const Deck* deck, const int players)
 {
 	_ccm = new CardContainerManager(deck);
 	_cm = new CardManager(deck);
 	_rm = new RuleManager();
 	_pm = new PlayerManager(players);
 
-	for(auto p:players)
-	{
-		drawCard(p.getID());
-		drawCard(p.getID());
-		drawCard(p.getID());
-	}
+// Vi skulle behöva access till "alla spelare" från PlayerManager, så att vi kan iterera över dem.
+	// for(auto p : players)
+	// {
+	// 	drawCard(p.getID());
+	// 	drawCard(p.getID());
+	// 	drawCard(p.getID());
+	// }
 
 }
 
@@ -90,7 +91,7 @@ void GameLogic::playCard(const PlayerID pid)
 void GameLogic::drawCard(const PlayerID pid)
 {
 	//std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
-	getCCM()->drawCard(getPM()->getPlayer(pid).getContainerID());
+	getCCM()->drawCard(getPM()->getPlayer(pid)->getID().getString()+"_hand");
 }
 
 /*	void GameLogic::checkRules(RuleTriggerType)
@@ -105,19 +106,21 @@ void GameLogic::resolveEffects()
 		executeNextEffect();
 	}
 }
-//Works?
-//void 			GameLogic::checkRules()
-//{
-//	_rm->clearRules();
-//	for(CardID i: _ccm->getCards(CardContainerID("Rules")))
-//	{
-//		_rm->addRule(_cm->getCard(i));
-//	}
-//	_rm->checkRules();
-//}
+
+// void GameLogic::checkRules(RuleTrigger rule)
+// {
+// _rm->clearRules();
+// 	for(CardID i: _ccm->getCards(CardContainerID("Rules")))
+// 	{
+// 		_rm->addRule(_cm->getCard(i));
+// 	}
+// 	std::vector<Effect> effects = _rm->checkRules(rule);
+// 	for(auto i: effects)
+// 		addEffect(i);
+// }
 
 const PlayerID GameLogic::getNextPlayer()
 {
 	getPM()->nextPlayer();
-return getPM()->getCurrentPlayer().getID();
+return getPM()->getCurrentPlayer()->getID();
 }

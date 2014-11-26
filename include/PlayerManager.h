@@ -8,6 +8,8 @@
 //Added function getCurrentPlayer()
 //Added member	 currentPlayer
 //Added function nextPlayer;
+//2014-11-26
+//Changed getCurrentPlayer from const
 
 #ifndef PLAYERMANAGER_H
 #define PLAYERMANAGER_H
@@ -20,7 +22,7 @@
 class PlayerManager
 {
 public:
-	PlayerManager(const std::vector<Player> players);
+	PlayerManager(const int players);
 
 	PlayerManager()						= delete;
 	PlayerManager(const PlayerManager&) = default;
@@ -31,10 +33,10 @@ public:
 
 	~PlayerManager() = default;
 
-	const Player 	getPlayer(const PlayerID pid) const;
+	Player*		 	getPlayer(const PlayerID pid);
 	void 			addPlayer(Player p);
-	const Player  	getCurrentPlayer() const;
-	const PlayerID	getCurrentPlayerID() const;
+	Player*		  	getCurrentPlayer();
+	const PlayerID	getCurrentPlayerID();
 	void 			setCurrentPlayer(const PlayerID pid);
 	void 			nextPlayer();
 

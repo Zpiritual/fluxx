@@ -1,7 +1,7 @@
 #include "Player.h"
 	
-Player::Player(const PlayerID pid,const CardContainerID cid)
-	: _id{pid}, _cid{cid}
+Player::Player(const PlayerID pid)
+	: _id{pid}
 {}
 
 const std::string Player::getName() const
@@ -12,11 +12,6 @@ const std::string Player::getName() const
 const PlayerID Player::getID() const 
 {
 	return _id;
-}
-
-const CardContainerID Player::getContainerID() const
-{
-	return _cid;
 }
 
 const int Player::getCardsPlayed() const

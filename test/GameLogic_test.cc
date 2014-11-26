@@ -23,9 +23,9 @@ int main()
 	Deck *deck = new Deck(cards);
 	vector<Player> players;
 
-	players.push_back(Player(PlayerID(PlayerIdentifier::Player1), CardContainerID("Player1_hand")));
+	players.push_back(Player(PlayerID(PlayerIdentifier::Player1)));
 
-	GameLogic *logic = new GameLogic(deck,players);
+	GameLogic *logic = new GameLogic(deck,players.size());
 	cout << "SIZE OF Trash: " << logic->getCCM()->getSize(CardContainerID("Trash")) << endl;
 	cout << "SIZE OF PLAYER 1 HAND: "<< logic->getCCM()->getSize(CardContainerID("Player1_hand")) << endl;
 	// logic->playCard(players.at(0).getID(), CardID(10));

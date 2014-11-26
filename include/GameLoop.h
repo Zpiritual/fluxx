@@ -1,3 +1,8 @@
+//Changelog
+//=========
+//2014-11-26
+//CHanged getNextPlayer to getNextPlayerID
+//Changed executePlayerTurn return value from bool to GameState
 #ifndef GAMELOOP_H
 #define GAMELOOP_H
 
@@ -27,15 +32,18 @@ public:
 	~GameLoop();
 	void			playCard(const PlayerID, const CardID);
 	void 			drawCards(const PlayerID, const int);
-	const bool		executePlayerTurn(PlayerID);
+	void 			nextPlayer();
+	const PlayerID	getNextPlayerID();
+	const GameState	executePlayerTurn(PlayerID);
 	const PlayerID	getCurrentPlayerID() const;
 	const int 		getDrawNO() const;
 	const int 		getPlayNO() const;
 	const int 		getCardsPlayed() const;
-	void	 		incrementCardsPlayed() const;
+	void	 		incrementCardsPlayed();
 	void 			sendLog(std::string);
-	void			checkTriggeredRules(TriggeredRule) const;
+	void			checkTriggeredRules(RuleTrigger);
 	SessionData		run();
+
 
 private:
 	GameLogic * _game_logic;
