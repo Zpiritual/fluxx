@@ -17,7 +17,7 @@ CardButton::CardButton(CardID id, QWidget *parent) :
     this->setIconSize(QSize(170,259));
 }
 
-CardButton::CardButton(CardID* id, Gui*, QWidget *parent) :
+CardButton::CardButton(CardID* id, QWidget *parent) :
     QPushButton(parent)
 {
     QString temp_string{":Images/"+QString::number(id->val)+".png"};

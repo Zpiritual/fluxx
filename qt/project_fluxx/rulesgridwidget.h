@@ -5,9 +5,7 @@
 #include <QtWidgets>
 #include <vector>
 #include "CardContainer.h"
-
-class Gui;
-class CardButton;
+#include "cardbutton.h"
 
 class RulesGridWidget : public QWidget
 {
@@ -22,7 +20,6 @@ private:
     QGridLayout* layout;
     std::vector<CardID> cards_;
     std::vector<CardButton*> buttons_;
-    Gui* guiptr_;
 
 signals:
 
@@ -30,7 +27,6 @@ public slots:
 
 };
 
-#include "cardbutton.h"
 
 
 #endif // RULESGRIDWIDGET_H

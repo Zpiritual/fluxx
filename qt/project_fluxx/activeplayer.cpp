@@ -7,10 +7,8 @@ ActivePlayer::ActivePlayer(QWidget *parent) :
     scroll_area_hand = new QScrollArea();
     scroll_area_keepers = new QScrollArea();
 
-    parent2 = dynamic_cast<Gui*>(parent);
-
-    active_hand = new ActiveHand(parent2);
-    active_keepers = new ActiveKeepers(parent2);
+    active_hand = new ActiveHand();
+    active_keepers = new ActiveKeepers();
     layout->addWidget(scroll_area_keepers);
     layout->addWidget(scroll_area_hand);
 

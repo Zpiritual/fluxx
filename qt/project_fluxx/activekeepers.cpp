@@ -4,7 +4,6 @@ ActiveKeepers::ActiveKeepers(QWidget *parent) :
     QWidget(parent)
 {
     layout = new QHBoxLayout();
-    guiptr_ = dynamic_cast<Gui*>(parent);
 
 //    for(int i = 66; i <= 70; ++i)
 //    {

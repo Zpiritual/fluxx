@@ -4,8 +4,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "CardID.h"
-
-class CardButton;
+#include "cardbutton.h"
 
 class CardCollection : public QWidget
 {
@@ -23,5 +22,4 @@ public slots:
 
 };
 
-#include "cardbutton.h"
 #endif // CARDCOLLECTION_H

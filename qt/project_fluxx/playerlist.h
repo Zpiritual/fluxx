@@ -5,7 +5,7 @@
 #include <QtWidgets>
 #include "PlayerID.h"
 #include "BoardSnapshot.h"
-class PlayerListItem;
+#include "playerlistitem.h"
 
 class PlayerList : public QWidget
 {
@@ -28,7 +28,6 @@ public slots:
 
 };
 
-#include "playerlistitem.h"
 
 
 #endif // PLAYERLIST_H

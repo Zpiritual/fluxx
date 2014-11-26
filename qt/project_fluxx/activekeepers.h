@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "cardbutton.h"
-class Gui;
 
 
 class ActiveKeepers : public QWidget
@@ -16,7 +15,6 @@ public:
 
 private:
     QHBoxLayout* layout;
-    Gui* guiptr_;
 
 
 signals:
@@ -26,5 +24,4 @@ public slots:
 };
 
 
-#include "gui.h"
 #endif // ACTIVEKEEPERS_H

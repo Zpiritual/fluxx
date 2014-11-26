@@ -6,9 +6,9 @@
 #include <vector>
 #include "PlayerID.h"
 #include "gui.h"
+#include "activehand.h"
+#include "activekeepers.h"
 
-class ActiveHand;
-class ActiveKeepers;
 class ActivePlayer : public QWidget
 {
     Q_OBJECT
@@ -24,7 +24,6 @@ private:
     PlayerID* active_player;
     ActiveHand* active_hand;
     ActiveKeepers* active_keepers;
-    Gui* parent2;
 
 signals:
 
@@ -33,6 +32,5 @@ public slots:
 };
 
 
-#include "activehand.h"
-#include "activekeepers.h"
+
 #endif // ACTIVEPLAYER_H

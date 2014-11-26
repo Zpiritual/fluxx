@@ -7,13 +7,14 @@
 #include "logwidget.h"
 #include "rulesgridwidget.h"
 #include "deckbutton.h"
-//#include "activeplayer.h"
 #include "goalbuttons.h"
 #include "trashbutton.h"
 #include "BoardSnapshot.h"
 #include "CardID.h"
 #include "CardContainerID.h"
 #include "PlayerID.h"
+#include "playerlist.h"
+#include "activeplayer.h"
 
 class ActivePlayer;
 class PlayerList;
@@ -50,6 +51,4 @@ public slots:
 
 };
 
-#include "playerlist.h"
-#include "activeplayer.h"
 #endif // GUI_H
