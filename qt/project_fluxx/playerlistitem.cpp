@@ -1,6 +1,6 @@
 #include "playerlistitem.h"
 
-PlayerListItem::PlayerListItem(const PlayerID& name, QWidget *parent) :
+PlayerListItem::PlayerListItem(const ProfileName& name, QWidget *parent) :
     player_name(name), QWidget(parent)
 {
     vertical_layout = new QVBoxLayout();
@@ -64,6 +64,34 @@ void PlayerListItem::updateCards(const std::vector<CardID>& hnd, const std::vect
     keepers_id = keeprs;
     card_count->setText(QString{"Hand Count: "} + QString::number(getHandCount()));
     keeper_count->setText(QString{"Keeper Count: "} + QString::number(getKeeperCount()));
+}
+
+void PlayerListItem::setActivePlayer()
+{
+    QPalette Pal(palette());
+    Pal.setColor(QPalette::Background, Qt::green);
+    this->setGeometry(0, 0, 170, 100);
+    this->setAutoFillBackground(true);
+    this->setPalette(Pal);
+}
+
+void PlayerListItem::setNextPlayer()
+{
+    QPalette Pal(palette());
+    Pal.setColor(QPalette::Background, Qt::yellow);
+    this->setGeometry(0, 0, 170, 100);
+    this->setAutoFillBackground(true);
+    this->setPalette(Pal);
+}
+
+void PlayerListItem::setInactivePlayer()
+{
+    this->setAutoFillBackground(false);
+}
+
+const ProfileName PlayerListItem::getPlayerName() const
+{
+    return player_name;
 }
 
 void PlayerListItem::showKeepers()

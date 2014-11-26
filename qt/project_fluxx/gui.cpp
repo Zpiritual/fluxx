@@ -2,7 +2,7 @@
 #include "BoardSnapshot.h"
  #include <QTest>
 
-Gui::Gui(std::vector<PlayerID> players, QWidget *parent) :
+Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
     QWidget(parent)
 {
     player_ids = players;

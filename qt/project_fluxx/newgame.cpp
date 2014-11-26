@@ -30,14 +30,11 @@ void NewGame::message(const QString& title, const QString& message) const
     message_dialog.exec();
 }
 
-bool NewGame::existPlayer(const QString& name) const
+bool NewGame::existPlayer(const ProfileName& player_id) const
 {
-    std::istringstream ss;
-    ss.str(view_players->text().toStdString());
-    std::string temp;
-    while(ss >> temp)
+    for(int i = 0; i < players.size(); i++)
     {
-        if(temp == name.toStdString())
+        if(players.at(i) == player_id)
         {
             return true;
         }
@@ -124,7 +121,7 @@ void NewGame::startGame()
 void NewGame::selectPlayer()
 {
     const QListWidgetItem* selected = player_list->currentItem();
-    if(existPlayer(selected->text()))
+    if(existPlayer(ProfileName(selected->text().toStdString())))
     {
         message(QString("New Game"), QString("Player is already chosen."));
     }
@@ -133,7 +130,7 @@ void NewGame::selectPlayer()
         QString temp = view_players->text();
         temp = temp + "\nPlayer " + QString::number(current_player++) + ": " + selected->text();
         view_players->setText(temp);
-        players.push_back(PlayerID{selected->text().toStdString()});
+        players.push_back(ProfileName{selected->text().toStdString()});
     }
     else
     {

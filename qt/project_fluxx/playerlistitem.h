@@ -3,23 +3,29 @@
 
 #include <QWidget>
 #include <QtWidgets>
-#include "PlayerID.h"
+#include "profilename.h"
 #include "bigcardcollection.h"
 
 class PlayerListItem : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PlayerListItem(const PlayerID&, QWidget *parent = 0);
+    explicit PlayerListItem(const ProfileName&, QWidget *parent = 0);
     ~PlayerListItem();
     int getHandCount() const;
     int getKeeperCount() const;
     void updateCards(const std::vector<CardID>&, const std::vector<CardID>&);
 
+    void setActivePlayer();
+    void setNextPlayer();
+    void setInactivePlayer();
+
+    const ProfileName getPlayerName() const;
+
 private:
     std::vector<CardID> hand;
     std::vector<CardID> keepers_id;
-    PlayerID player_name;
+    ProfileName player_name;
 
     QPushButton* keeper_button;
 

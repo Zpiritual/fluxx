@@ -69,14 +69,14 @@ CardManager_test: bin/CardManager_test.o bin/Deck.o bin/Card.o
 Deck_test: bin/Deck_test.o bin/Deck.o bin/Card.o
 	$(CCC) -o bin/Deck_test bin/Deck_test.o bin/Deck.o bin/Card.o
 
-GameLogic_test: bin/GameLogic_test.o bin/GameLogic.o bin/CardManager.o bin/CardContainer.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o
-	$(CCC) -o bin/GameLogic_test bin/GameLogic_test.o bin/GameLogic.o bin/CardContainer.o bin/CardManager.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o
+GameLogic_test: bin/GameLogic_test.o bin/GameLogic.o bin/CardManager.o bin/CardContainer.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o
+	$(CCC) -o bin/GameLogic_test bin/GameLogic_test.o bin/GameLogic.o bin/CardContainer.o bin/CardManager.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o
 
 DeckParser_test: bin/DeckParser_test.o bin/DeckParser.o bin/Card.o bin/Deck.o
 	$(CCC) -o bin/DeckParser_test bin/DeckParser_test.o bin/DeckParser.o bin/Card.o bin/Deck.o
 
-GameLoop_test: bin/GameLoop_test.o bin/GameLoop.o bin/GameLogic.o bin/CardManager.o bin/CardContainer.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o
-	$(CCC) -o bin/GameLoop_test bin/GameLoop_test.o bin/GameLoop.o bin/GameLogic.o bin/CardContainer.o bin/CardManager.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o
+GameLoop_test: bin/GameLoop_test.o bin/GameLoop.o bin/GameLogic.o bin/CardManager.o bin/CardContainer.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o
+	$(CCC) -o bin/GameLoop_test bin/GameLoop_test.o bin/GameLoop.o bin/GameLogic.o bin/CardContainer.o bin/CardManager.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o
 
 RuleManager_test: bin/RuleManager_test.o bin/RuleManager.o bin/Card.o bin/TriggeredRule.o
 	$(CCC) -o bin/RuleManager_test bin/RuleManager_test.o bin/RuleManager.o bin/Card.o bin/TriggeredRule.o
