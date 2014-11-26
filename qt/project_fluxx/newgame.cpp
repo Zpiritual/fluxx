@@ -82,7 +82,7 @@ void NewGame::startGame()
         else if(i == 22)
        {
             goalscontainer.addCard(CardID(i));
-            qDebug() << "add hand2" << i;
+            qDebug() << "add hand3" << i;
        }
         else if(i > 66 && i < 69)
             player1container_keepers.addCard(CardID(i));
@@ -107,11 +107,12 @@ void NewGame::startGame()
     bcontainer->push_back(player2container_keepers);
     bcontainer->push_back(goalscontainer);
 
-    gui->update(bcontainer);
+   gui->update(bcontainer);
 
     gui->show();
 
     gui->pickCard(CardContainerID("Rules"));
+    gui->pickCard(CardContainerID("Trash"));
 
     qDebug() << "Add startGame functionality";
     }

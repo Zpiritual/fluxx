@@ -31,6 +31,7 @@ CardCollection::CardCollection(const std::vector<CardID>& crds, QEventLoop &loop
     {
         QObject::connect(card,SIGNAL(clicked()), &loop, SLOT(quit()));
     }
+
 }
 
 
