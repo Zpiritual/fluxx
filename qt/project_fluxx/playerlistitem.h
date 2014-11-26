@@ -16,6 +16,10 @@ public:
     int getKeeperCount() const;
     void updateCards(const std::vector<CardID>&, const std::vector<CardID>&);
 
+    void setActivePlayer();
+    void setNextPlayer();
+    void setInactivePlayer();
+
 private:
     std::vector<CardID> hand;
     std::vector<CardID> keepers_id;
