@@ -20,6 +20,8 @@ public:
     void setNextPlayer();
     void setInactivePlayer();
 
+    const PlayerID getPlayerId() const;
+
 private:
     std::vector<CardID> hand;
     std::vector<CardID> keepers_id;

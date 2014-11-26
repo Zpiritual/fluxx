@@ -15,11 +15,15 @@ public:
     ~PlayerList();
     const PlayerID pickPlayer() const;
     void updatePlayers(BoardSnapshot*);
+    void updatePlayerState(int, const PlayerID&, const Direction&);
 
 private:
     QVBoxLayout* vertical_layout;
     std::vector<PlayerID> player_ids;
     std::vector<PlayerListItem*> players;
+
+    int current_player;
+    int next_player;
 
 
 signals:

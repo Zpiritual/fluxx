@@ -89,6 +89,10 @@ void PlayerListItem::setInactivePlayer()
     this->setAutoFillBackground(false);
 }
 
+const PlayerID PlayerListItem::getPlayerId() const
+{
+    return player_name;
+}
 
 void PlayerListItem::showKeepers()
 {

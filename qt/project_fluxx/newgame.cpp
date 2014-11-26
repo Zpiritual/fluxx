@@ -32,12 +32,9 @@ void NewGame::message(const QString& title, const QString& message) const
 
 bool NewGame::existPlayer(const QString& name) const
 {
-    std::istringstream ss;
-    ss.str(view_players->text().toStdString());
-    std::string temp;
-    while(ss >> temp)
+    for(int i = 0; i < players.size(); i++)
     {
-        if(temp == name.toStdString())
+        if(players.at(i).val == name.toStdString())
         {
             return true;
         }
