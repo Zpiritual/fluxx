@@ -6,7 +6,7 @@ Player::Player(const PlayerID pid,const CardContainerID cid)
 
 const std::string Player::getName() const
 {
-	return _id.val;
+	return _id.getString();
 }
 
 const PlayerID Player::getID() const 

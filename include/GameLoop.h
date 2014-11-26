@@ -16,7 +16,7 @@ class GameLoop
 {
 public:
 	//QT referece adding later
-	GameLoop(const Deck * deck, const std::vector<PlayerID> players);
+	GameLoop(const Deck * deck, const int players);
 	GameLoop()					= delete;
 	GameLoop(const GameLoop&) = default;
 	GameLoop (GameLoop&&) 	= default;

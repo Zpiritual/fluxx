@@ -28,7 +28,7 @@ int main()
 	assert(!(c3.getID() == c4.getID()));
 	assert(c1.getID() == c5.getID());
 
-	cout << "\nSanty check: IDs equ/neq works \n";
+	cout << "\nSanity check: IDs equ/neq works \n";
 	
 	return 0;
 }

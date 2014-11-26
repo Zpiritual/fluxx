@@ -23,7 +23,7 @@ int main()
 	Deck *deck = new Deck(cards);
 	vector<Player> players;
 
-	players.push_back(Player(PlayerID("player1"), CardContainerID("Player1_hand")));
+	players.push_back(Player(PlayerID(PlayerIdentifier::Player1), CardContainerID("Player1_hand")));
 
 	GameLogic *logic = new GameLogic(deck,players);
 	cout << "SIZE OF Trash: " << logic->getCCM()->getSize(CardContainerID("Trash")) << endl;

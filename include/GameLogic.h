@@ -12,6 +12,7 @@
 #include <vector>
 #include <deque>
 #include "Player.h"
+#include "PlayerID.h"
 #include "CardContainerManager.h"
 #include "CardManager.h"
 #include "RuleManager.h"

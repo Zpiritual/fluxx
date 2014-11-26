@@ -45,7 +45,7 @@ private:
 	int _inflation		= 0;
 	int _draw			= 0;
 	int _play 			= 0;
-	Direction _play_direction = Direction::CW;
+	Direction _play_direction = Direction::CLOCKWISE;
 	std::vector<TriggeredRule*> _triggered_rules;
 };
 

@@ -37,6 +37,7 @@ public:
 	const PlayerID	getCurrentPlayerID() const;
 	void 			setCurrentPlayer(const PlayerID pid);
 	void 			nextPlayer();
+
 private:
 	std::vector<Player> _players;
 	int  _current_player;
