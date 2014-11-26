@@ -26,7 +26,16 @@ void TrashButton::updateCards(const CardContainer & cards)
 
 void TrashButton::clickbutton()
 {
-    BigCardCollection* bigcollection = new BigCardCollection{cards_};
+    if(cards_.size() != 0)
+    {
+        BigCardCollection* bigcollection = new BigCardCollection{cards_};
+        bigcollection->show();
+    }
+}
+
+void TrashButton::setConnections(QEventLoop& loop)
+{
+    BigCardCollection* bigcollection = new BigCardCollection{cards_, loop};
 
     bigcollection->show();
 }
