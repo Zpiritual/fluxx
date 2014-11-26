@@ -19,8 +19,8 @@ int main()
 	CardID cid1(1);
 	CardID cid2(2);
 	CardID cid3(3);
-	cout<< "Adding Card: " << cid1.val << " to: " << cc1.getID().val << endl;
-	cc1.addCard(cid1); 
+	// cout<< "Adding Card: " << cid1.val << " to: " << cc1.getID().val << endl;
+	// cc1.addCard(cid1); 
 	cout<< "Adding Card: " << cid1.val << " to: " << cc1.getID().val << endl;
 	cc1.addCard(cid1);
 	cout << "Size: " << cc1.getID().val << " is: " << cc1.getSize() << endl;

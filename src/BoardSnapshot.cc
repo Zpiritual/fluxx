@@ -1,7 +1,11 @@
 #include "BoardSnapshot.h"
 
-BoardSnapshot::BoardSnapshot(std::vector<CardContainer> val, std::vector<Player> play, Direction dir):
-val{val},play{play}, dir{dir}
+
+BoardSnapshot(const std::vector<CardContainer> containers,
+			  const int players,
+			  const PlayerID current,
+			  const Direction direction)
+	: containers{containers}, players{players}, current_player{current}, direction{direction}
 {}
 
 CardContainer BoardSnapshot::getContainer(const CardContainerID id)

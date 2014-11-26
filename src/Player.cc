@@ -1,14 +1,30 @@
 #include "Player.h"
 	
-Player::Player(const PlayerID pid,const CardContainerID cid):_id{pid}, _cid{cid}
+Player::Player(const PlayerID pid)
+	: _id{pid}
 {}
+
+const std::string Player::getName() const
+{
+	return _id.getString();
+}
 
 const PlayerID Player::getID() const 
 {
 	return _id;
 }
 
-const CardContainerID Player::getContainerID() const
+const int Player::getCardsPlayed() const
 {
-	return _cid;
+	return _played_cards;
+}
+
+void Player::incrementCardsPlayed()
+{
+	++_played_cards;
+}
+
+void Player::resetCardsPlayed()
+{
+	_played_cards = 0;
 }
