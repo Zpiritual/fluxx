@@ -47,7 +47,7 @@ bool NewGame::existPlayer(const QString& name) const
 
 void NewGame::startGame()
 {
-    if(current_player < 2)
+    if(current_player < 3)
     {
         message(QString{"New Game"}, QString{"Atleast 2 players needed to start game."});
     }
@@ -180,6 +180,7 @@ void NewGame::uiElementSetup()
     QObject::connect(select_player_button, SIGNAL(clicked()), this, SLOT(selectPlayer()));
     QObject::connect(back_button, SIGNAL(clicked()), this, SLOT(goBack()));
     QObject::connect(player_list, SIGNAL(clicked(QModelIndex)), this, SLOT(enableSelectPlayerButton()));
+    QObject::connect(player_list, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(selectPlayer()));
 
     layout->addLayout(list_layout);
     layout->addLayout(others_layout);
