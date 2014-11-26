@@ -29,21 +29,8 @@ struct PlayerID
 
 	~PlayerID() = default;
  
-	std::string getString() const
-	{
-		if (val == PlayerIdentifier::Player1)
-			return "Player1";
-		if (val == PlayerIdentifier::Player2)
-			return "Player2";
-		if (val == PlayerIdentifier::Player3)
-			return "Player3";
-		if (val == PlayerIdentifier::Player4)
-			return "Player4";
-		if (val == PlayerIdentifier::Player5)
-			return "Player5";
-		else
-			return "Player6";
-	}
+	std::string getString() const;
+	int getInt() const;
 
 	bool operator ==(const PlayerID &p) const
 	{
