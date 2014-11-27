@@ -1,6 +1,6 @@
 #include "PlayerManager.h"
 #include <stdexcept>
-
+#include <iostream>
 PlayerManager::PlayerManager(const int players)
 {
 	_players.push_back(PlayerID(PlayerIdentifier::Player1));
@@ -36,6 +36,7 @@ void PlayerManager::addPlayer(Player p)
 
 Player* PlayerManager::getCurrentPlayer() 
 {	
+	std::cout << _current_player << std::endl;
 	return &_players.at(_current_player);	
 }
 

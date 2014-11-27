@@ -43,7 +43,7 @@ public:
 
 private:
 	std::vector<Player> _players;
-	int  _current_player;
+	int  _current_player = 0;
 };
 
 #endif

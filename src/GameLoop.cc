@@ -16,10 +16,10 @@ GameLoop::~GameLoop()
 	std::cout << "\nBefore deletion of _game_logic" << std::endl;
 }
 
-void GameLoop::playCard(const PlayerID, const CardID)
-{
+// void GameLoop::playCard(const PlayerID, const CardID)
+// {
 
-}
+// }
 
 void GameLoop::drawCards(const PlayerID pid, const int draw_no)
 {
@@ -39,10 +39,10 @@ const int GameLoop::getPlayNO() const
 	return _game_logic->getRM()->getPlay();
 }
 
-const PlayerID GameLoop::getNextPlayerID()
-{
-	
-}
+// const PlayerID GameLoop::getNextPlayerID()
+// {
+// 	return _game_logic->getPM()
+// }
 
 void GameLoop::sendLog(std::string)
 {
@@ -71,14 +71,14 @@ void GameLoop::nextPlayer()
 
 SessionData	GameLoop::run()
 {
-	while (executePlayerTurn(getNextPlayerID()) != GameState::GAME_OVER)
+	while (executePlayerTurn(getCurrentPlayerID()) != GameState::GAME_OVER)
 	{
 		//switch screen osv.
 		nextPlayer();
 	}
 }
 
-const GameState GameLoop::executePlayerTurn(PlayerID)
+const GameState GameLoop::executePlayerTurn(PlayerID pid)
 {
 	checkTriggeredRules(RuleTrigger::PRE_DRAW);
 
@@ -100,6 +100,7 @@ const GameState GameLoop::executePlayerTurn(PlayerID)
 void GameLoop::checkTriggeredRules(RuleTrigger rule)
 {
 //	_game_logic->checkRules(rule);
+	std::cout << "Check rules" << std::endl;
 }
 
 void GameLoop::switchScreen()

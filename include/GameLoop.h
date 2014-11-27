@@ -31,11 +31,11 @@ public:
 
 	~GameLoop();
 	
-	void			playCard(const PlayerID, const CardID);
+	// void			playCard(const PlayerID, const CardID);
 	void 			drawCards(const PlayerID, const int);
 	void 			nextPlayer();
 	
-	const PlayerID	getNextPlayerID();
+	//const PlayerID	getNextPlayerID();
 	const GameState	executePlayerTurn(PlayerID);
 	const PlayerID	getCurrentPlayerID() const;
 	const int 		getDrawNO() const;
