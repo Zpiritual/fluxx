@@ -11,6 +11,13 @@ Deck* DeckParser::deck_to_game(std::string filename)
 
 	string temp;
 	ifs >> temp;
+	if(temp.empty())
+	{
+		cout << temp << endl;
+		ifs.close();
+		throw std::logic_error("No Deck Found @" + filename);
+	}
+	
 	ifs >> deck_name;
 
 	ifs >> temp;
@@ -67,8 +74,16 @@ Deck* DeckParser::deck_to_game(std::string filename)
 		//cout << "Type: " << type << endl;
 		//cout << "Description: " << description << endl;
 		//cout << "Effect:" << effects.size() << endl;
-		//cards.push_back(new Card(id, name, type, description, effects));
+		
+		cards.push_back(new Card(id, name, type, description, effects));
 	}
+	if(cards.size() != deck_size)
+	{
+		cout << cards.size() << endl;
+		cout << deck_size << endl;
+		throw std::logic_error("Error in reading from: " +  filename);
+	}
+
 	ifs.close();
 	return new Deck(cards);
 }

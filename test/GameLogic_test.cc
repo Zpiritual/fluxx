@@ -4,6 +4,7 @@
 #include "Effect.h"
 #include "GameLogic.h"
 #include "Player.h"
+#include "DeckParser.h"
 #include <vector>
 #include <iostream>
 #include <cassert>
@@ -12,15 +13,9 @@ using namespace std;
 
 int main()
 {
-	vector<const Card *> cards;
-	vector<Effect> effects;
+	DeckParser p;
 
-	for(int i =  0; i < 10; i++)
-	{
-		effects.push_back(Effect{"test string"});
-		cards.push_back(new Card(CardID(i+1), (i < 8)?"ACTION":"RULE", "NUMERIC", "The card is a placeholder...", effects));
-	}
-	Deck *deck = new Deck(cards);
+	Deck *deck = p.deck_to_game("bin/10keepers.fluxx");
 	vector<Player> players;
 
 	players.push_back(Player(PlayerID(PlayerIdentifier::Player1)));
