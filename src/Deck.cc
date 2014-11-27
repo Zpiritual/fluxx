@@ -1,8 +1,11 @@
 #include "Deck.h"
+
 Deck::Deck(const std::vector< const Card* > &cards)
 {
 	for(auto a: cards)
+	{
 		_cards.insert(std::pair<const CardID, const Card * >(a->getID(), a));
+	}
 }
 
 Deck::~Deck()

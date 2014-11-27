@@ -1,9 +1,20 @@
 #include "GameLoop.h"
 #include "enums.h"
+#include <iostream>
 
 GameLoop::GameLoop(const Deck * deck, const int players)
-	: _game_logic{new GameLogic(deck, players)}
-{}
+{
+	std::cout << "\nBefore assignment to _game_logic" << std::endl;
+	_game_logic = new GameLogic(deck, players);
+	std::cout << "\nAfter assignment to _game_logic" << std::endl;
+}
+
+GameLoop::~GameLoop()
+{
+	std::cout << "\nBefore deletion of _game_logic" << std::endl;
+	delete _game_logic;
+	std::cout << "\nBefore deletion of _game_logic" << std::endl;
+}
 
 void GameLoop::playCard(const PlayerID, const CardID)
 {

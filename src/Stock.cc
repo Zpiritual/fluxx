@@ -1,4 +1,5 @@
 #include "Stock.h"
+#include <stdexcept>
 
 Stock::Stock(const CardContainerID id): _id{id}
 {}
@@ -20,6 +21,10 @@ const CardContainerID 	Stock::getID() 	const
 
 const CardID Stock::pop()
 {
+	if (_cards.empty())
+	{
+		throw std::logic_error("const CardID Stock::pop() - Tom kortlek!");
+	}
 	const CardID tmp = _cards.top();
 	_cards.pop();
 	return tmp;
