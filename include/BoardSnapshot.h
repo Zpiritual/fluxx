@@ -11,6 +11,7 @@
 #include "CardContainer.h"
 #include "RuleManager.h"
 #include "Player.h"
+#include "PlayerID.h"
 
 struct BoardSnapshot
 {
@@ -22,7 +23,7 @@ struct BoardSnapshot
 	const Direction direction;
 
 	
-	BoardSnapshot(const std::vector<CardContainer>, const int, const PlayerID, const int, const Direction);
+	BoardSnapshot(const std::vector<CardContainer>, const int, const PlayerID, const int, const int, const Direction);
 	BoardSnapshot() = delete;
 	BoardSnapshot(const BoardSnapshot&) = delete;
 	BoardSnapshot (BoardSnapshot&&) = delete;

@@ -20,25 +20,28 @@
 class GameLoop
 {
 public:
-	//QT referece adding later
 	GameLoop(const Deck * deck, const int players);
-	GameLoop()					= delete;
-	GameLoop(const GameLoop&) = default;
-	GameLoop (GameLoop&&) 	= default;
+
+	GameLoop()							  = delete;
+	GameLoop(const GameLoop&)			  = default;
+	GameLoop (GameLoop&&)				  = default;
 
 	GameLoop& operator= (const GameLoop&) = default;
-	GameLoop& operator= (GameLoop&&) 		= default;
+	GameLoop& operator= (GameLoop&&) 	  = default;
 
 	~GameLoop();
+	
 	void			playCard(const PlayerID, const CardID);
 	void 			drawCards(const PlayerID, const int);
 	void 			nextPlayer();
+	
 	const PlayerID	getNextPlayerID();
 	const GameState	executePlayerTurn(PlayerID);
 	const PlayerID	getCurrentPlayerID() const;
 	const int 		getDrawNO() const;
 	const int 		getPlayNO() const;
 	const int 		getCardsPlayed() const;
+	
 	void	 		incrementCardsPlayed();
 	void 			sendLog(std::string);
 	void			checkTriggeredRules(RuleTrigger);
