@@ -3,7 +3,9 @@
 #include "gui.h"
 #include "PlayerID.h"
 #include <sstream>
+#include "BoardSnapshot.h"
 #include "Player.h"
+#include "PlayerID.h"
 
 NewGame::NewGame(const std::vector<Profile>& profiles, QWidget *parent) :
     QWidget(parent)
@@ -107,7 +109,9 @@ void NewGame::startGame()
     bcontainer->push_back(player2container_keepers);
     bcontainer->push_back(goalscontainer);
 
-   gui->update(bcontainer);
+    BoardSnapshot* snapshot = new BoardSnapshot(*bcontainer,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
+
+    gui->update(snapshot);
 
     gui->show();
 

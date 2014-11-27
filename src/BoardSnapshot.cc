@@ -14,7 +14,7 @@ BoardSnapshot::BoardSnapshot(const std::vector<CardContainer> containers,
 	direction{direction}
 {}
 
-CardContainer BoardSnapshot::getContainer(const CardContainerID id)
+const CardContainer BoardSnapshot::getContainer(const CardContainerID id) const
 {
     for(auto a: containers)
 	{
