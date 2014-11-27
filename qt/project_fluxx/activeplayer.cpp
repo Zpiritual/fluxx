@@ -29,19 +29,26 @@ ActivePlayer::ActivePlayer(QWidget *parent) :
 
 void ActivePlayer::update(BoardSnapshot* snapshot)
 {
-//    active_hand->update(snapshot->getContainer(CardContainerID(snapshot->current_player+"_hand")));
-//    active_keepers->update(snapshot->getContainer(CardContainerID(snapshot->current_player+"_keepers")));
+
+    if(snapshot->getContainer(CardContainerID("tempB")).getSize() != 0)
+        active_hand->update(snapshot->getContainer(CardContainerID("TempB")));
+    else if(snapshot->getContainer(CardContainerID("tempA")).getSize() != 0)
+        active_hand->update(snapshot->getContainer(CardContainerID("tempA")));
+    else
+        active_hand->update(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_hand")));
+
+    active_keepers->update(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_keepers")));
 }
 
 ActivePlayer::~ActivePlayer(){
 }
 
-void ActivePlayer::connectActiveKeepers(QEventLoop& loop)
+void ActivePlayer::connectActiveKeepers(CardIdLoop& loop)
 {
     active_keepers->connectButtons(loop);
 }
 
-void ActivePlayer::connectActiveHand(QEventLoop& loop)
+void ActivePlayer::connectActiveHand(CardIdLoop& loop)
 {
     active_hand->connectButtons(loop);
 }

@@ -20,7 +20,7 @@ BigCardCollection::BigCardCollection(const std::vector<CardID>& crds, QWidget *p
     this->show();
 }
 
-BigCardCollection::BigCardCollection(const std::vector<CardID>& crds, QEventLoop& loop, QWidget *parent) :
+BigCardCollection::BigCardCollection(const std::vector<CardID>& crds, CardIdLoop& loop, QWidget *parent) :
     QWidget(parent)
 {
     card_collection = new CardCollection(crds, loop);

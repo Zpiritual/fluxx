@@ -6,6 +6,7 @@
 #include "CardID.h"
 #include "CardContainer.h"
 #include "cardbutton.h"
+#include "cardidloop.h"
 
 class GoalButtons : public QWidget
 {
@@ -13,7 +14,7 @@ class GoalButtons : public QWidget
 public:
     explicit GoalButtons(QWidget *parent = 0);
     void update(const CardContainer&);
-    void setConnections(QEventLoop& loop);
+    void setConnections(CardIdLoop& loop);
     ~GoalButtons();
 
 private:

@@ -29,7 +29,7 @@ void ActiveKeepers::update(const CardContainer& container)
 
 }
 
-void ActiveKeepers::connectButtons(QEventLoop &loop)
+void ActiveKeepers::connectButtons(CardIdLoop &loop)
 {
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));

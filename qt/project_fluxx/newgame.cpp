@@ -111,8 +111,8 @@ void NewGame::startGame()
 
     gui->show();
 
-    gui->pickCard(CardContainerID("Rules"));
-    gui->pickCard(CardContainerID("Trash"));
+   //gui->pickCard(CardContainerID("Rules"));
+//    gui->pickCard(CardContainerID("Trash"));
 
     qDebug() << "Add startGame functionality";
     }

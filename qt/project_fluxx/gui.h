@@ -24,9 +24,9 @@ class Gui : public QWidget
 public:  
     explicit Gui(std::vector<ProfileName> players, QWidget *parent = 0);
     ~Gui();
-    const PlayerID pickPlayer(BoardSnapshot*);
-    const CardID pickCard(const CardContainerID&);
-    void update(BoardSnapshot*);
+    const PlayerID pickPlayer(const BoardSnapshot * const);
+    const CardID pickCard(const BoardSnapshot* const, const CardContainerID&);
+    void update(const BoardSnapshot* const);
     void update(std::vector<CardContainer>*);
     void nextPlayer();
 

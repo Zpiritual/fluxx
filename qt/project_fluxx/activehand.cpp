@@ -27,7 +27,7 @@ void ActiveHand::update(const CardContainer& container)
     }
 }
 
-void ActiveHand::connectButtons(QEventLoop& loop)
+void ActiveHand::connectButtons(CardIdLoop& loop)
 {
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));

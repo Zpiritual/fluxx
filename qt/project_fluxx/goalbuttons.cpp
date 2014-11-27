@@ -9,7 +9,7 @@ GoalButtons::GoalButtons(QWidget *parent) :
 
 }
 
-void GoalButtons::setConnections(QEventLoop &loop)
+void GoalButtons::setConnections(CardIdLoop &loop)
 {
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));

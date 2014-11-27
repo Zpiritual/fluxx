@@ -33,7 +33,7 @@ void RulesGridWidget::updateCards(const CardContainer & container)
     }
 }
 
-void RulesGridWidget::setConnections(QEventLoop & loop)
+void RulesGridWidget::setConnections(CardIdLoop & loop)
 {
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));

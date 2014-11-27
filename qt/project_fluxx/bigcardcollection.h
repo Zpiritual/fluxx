@@ -6,6 +6,7 @@
 #include "CardID.h"
 #include "cardcollection.h"
 #include "cardbutton.h"
+#include "cardidloop.h"
 
 
 class BigCardCollection : public QWidget
@@ -14,13 +15,13 @@ class BigCardCollection : public QWidget
 public:
     explicit BigCardCollection(const std::vector<CardID>&, QWidget *parent = 0);
     ~BigCardCollection();
-    explicit BigCardCollection(const std::vector<CardID>&, QEventLoop&, QWidget *parent = 0);
+    explicit BigCardCollection(const std::vector<CardID>&, CardIdLoop&, QWidget *parent = 0);
 
 private:
     QScrollArea* scroll_area;
     QHBoxLayout* horizontal_layout;
     CardCollection* card_collection;
-    void setConnections(QEventLoop&);
+    void setConnections(CardIdLoop&);
 
 signals:
 

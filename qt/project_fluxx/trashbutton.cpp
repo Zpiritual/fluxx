@@ -38,7 +38,7 @@ void TrashButton::clickbutton()
     }
 }
 
-void TrashButton::setConnections(QEventLoop& loop)
+void TrashButton::setConnections(CardIdLoop& loop)
 {
     BigCardCollection* bigcollection = new BigCardCollection{cards_, loop};
 

@@ -1,6 +1,6 @@
 #include "gui.h"
 #include "BoardSnapshot.h"
- #include <QTest>
+ #include "cardidloop.h"
 
 Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
     QWidget(parent)
@@ -46,16 +46,18 @@ Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
 Gui::~Gui(){
 }
 
-const PlayerID Gui::pickPlayer(BoardSnapshot* snapshot)
+const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 {
     update(snapshot);
     //return player_list_widget->pickPlayer();
 }
 
 //BoardSnapshot* snapshot
-const CardID Gui::pickCard(const CardContainerID& containerid)
+const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContainerID& containerid)
 {
-    QEventLoop loop;
+    update(snapshot);
+
+    CardIdLoop loop;
     if(containerid == CardContainerID("Rules"))
     {
         rules_widget->setConnections(loop);
@@ -69,21 +71,41 @@ const CardID Gui::pickCard(const CardContainerID& containerid)
     else if(containerid == CardContainerID("Trash"))
     {
         trash_widget->setConnections(loop);
-        qDebug() << "Herpderp";
+        loop.exec();
     }
+    else if(containerid == CardContainerID(snapshot->current_player.getString()+"_hand") ||
+            containerid == CardContainerID("TempB") ||
+            containerid == CardContainerID("tempA"))
+    {
+         active_player_widget->connectActiveHand(loop);
+         loop.exec();
+    }
+    else if(containerid == CardContainerID(snapshot->current_player.getString()+"_keepers"))
+    {
+        active_player_widget->connectActiveKeepers(loop);
+        loop.exec();
+    }
+//    else if(containerid.val.find("_hand") != std::string::npos &&
+//            containerid.val.find(snapshot->current_player.getString()) != std::string::npos)
+//        player_list_widget->connectKeepers(int(containerid.val.at(6)));
+//    else if(containerid.val.find("_hand") != std::string::npos &&
+//            containerid.val.find(snapshot->current_player.getString() != std::string::npos))
+//        player_list_widget->connectHand(int(containerid.val.at(6)));
 
-
+ //   CardButton sentbutton = dynamic_cast<CardButton*>(loop.sender());
+   // return sentbutton.getCardId().val;
     qDebug() << "derpaderpa";
 
-    //update(snapshot);
+    //
 }
+
 
 void Gui::nextPlayer()
 {
 
 }
 
-void Gui::update(BoardSnapshot* snapshot) //Lägg till i alla klasser
+void Gui::update(const BoardSnapshot* const snapshot) //Lägg till i alla klasser
 {
 
     //rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
