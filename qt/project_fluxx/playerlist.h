@@ -17,6 +17,7 @@ public:
     const PlayerID pickPlayer() const;
     void updatePlayers(BoardSnapshot*);
     void updatePlayerState(int, int, const Direction&);
+    void updatePlayerState(int, const Direction&);
 
 private:
     QVBoxLayout* vertical_layout;
@@ -25,6 +26,8 @@ private:
 
     int current_player;
     int next_player;
+
+    void updatePlayerVariables(int, int, const Direction&);
 
 
 signals:
