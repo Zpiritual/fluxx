@@ -10,6 +10,15 @@ ActiveHand::ActiveHand(QWidget *parent) :
     this->setLayout(layout);
 }
 
+ActiveHand::~ActiveHand()
+{
+    for(int i = 0; i < buttons_.size(); i++)
+    {
+        delete buttons_.at(i);
+    }
+    delete layout;
+}
+
 void ActiveHand::update(const CardContainer& container)
 {
     std::vector<CardID> cards = container.getCards();
@@ -18,6 +27,7 @@ void ActiveHand::update(const CardContainer& container)
     {
         QLayoutItem* temp = layout->itemAt(0);
         layout->removeItem(temp);
+        delete temp;
     }
     for(auto card : cards)
     {

@@ -35,6 +35,8 @@ CardButton::CardButton(CardID* id, QWidget *parent) :
 
 CardButton::~CardButton()
 {
+    delete icon;
+    delete id_;
 }
 
 const CardID& CardButton::getCardId() const
@@ -45,9 +47,7 @@ const CardID& CardButton::getCardId() const
 void CardButton::mouseReleaseEvent(QMouseEvent *e) {
     if (e->button() == Qt::RightButton && !icon->isNull())
     {
-     BigCard* big_card_window = new BigCard(id_,this);
-
-     big_card_window->move(QApplication::desktop()->screen()->rect().center() - big_card_window->rect().center());
+        BigCard big_card_window(id_, this);
 
         qDebug() << "Add right click on button functionality";
     }

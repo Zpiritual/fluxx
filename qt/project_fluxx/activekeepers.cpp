@@ -11,6 +11,15 @@ ActiveKeepers::ActiveKeepers(QWidget *parent) :
     this->setLayout(layout);
 }
 
+ActiveKeepers::~ActiveKeepers()
+{
+     for(int i = 0; i < buttons_.size(); i++)
+     {
+         delete buttons_.at(i);
+     }
+     delete layout;
+}
+
 void ActiveKeepers::update(const CardContainer& container)
 {
     std::vector<CardID> cards = container.getCards();
@@ -19,6 +28,7 @@ void ActiveKeepers::update(const CardContainer& container)
     {
         QLayoutItem* temp = layout->itemAt(0);
         layout->removeItem(temp);
+        delete temp;
     }
     for(auto card : cards)
     {

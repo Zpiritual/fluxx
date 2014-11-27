@@ -13,6 +13,7 @@ class ActiveKeepers : public QWidget
     Q_OBJECT
 public:
     explicit ActiveKeepers(QWidget *parent = 0);
+    ~ActiveKeepers();
     void update(const CardContainer&);
     void connectButtons(CardIdLoop& loop);
 
