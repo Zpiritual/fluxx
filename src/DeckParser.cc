@@ -32,9 +32,10 @@ Deck* DeckParser::deck_to_game(std::string filename)
 	{
 		ifs >> ws;
 		int id;
-		string name;
 		string type;
+		string subType;
 		string description;
+		string effect;
 		vector<Effect> effects;
 		
 		while(getline(ifs, line) && !line.empty())
@@ -46,9 +47,9 @@ Deck* DeckParser::deck_to_game(std::string filename)
 			{
 				ss >> id;
 			}	
-			else if(t == "CARD_NAME")
+			else if(t == "CARD_SUBTYPE")
 			{
-				ss >> name;
+				ss >> subType;
 			}
 			else if(t == "CARD_TYPE")
 			{
@@ -59,10 +60,12 @@ Deck* DeckParser::deck_to_game(std::string filename)
 				ss >> ws;
 				getline(ss,description);
 			}
-			else if(t == "CARD_RULE")
+			else if(t == "CARD_EFFECT")
 			{
-				//ss >> description;
-				//cout << "Effect:" << effects.size() << endl;
+				ss >> ws;
+				getline(ss,effect);
+				effects.push_back(Effect{effect});
+				//cout << "Effect: " << effect << "\t";
 			}
 		}
 		
@@ -70,12 +73,12 @@ Deck* DeckParser::deck_to_game(std::string filename)
 		cout << "NEW CARD:" << endl;
 		cout << "=========" << endl;
 		cout << "ID: " << id << endl;
-		cout << "NAME: " << name << endl;
-		cout << "Type: " << type << endl;
+		cout << "TYPE: " << type << endl;
+		cout << "SubType: " << subType << endl;
 		cout << "Description: " << description << endl;
 		cout << "Effect:" << effects.size() << endl;
 		//TODO make sure it reads SubType
-		cards.push_back(new Card(id, type, name, description, effects));
+		cards.push_back(new Card(id, type, subType, description, effects));
 	}
 	if(cards.size() != deck_size)
 	{
