@@ -1,8 +1,9 @@
 #include "newgame.h"
 #include "mainmenu.h"
 #include "gui.h"
-#include "../../include/PlayerID.h"
+#include "PlayerID.h"
 #include <sstream>
+#include "Player.h"
 
 NewGame::NewGame(const std::vector<Profile>& profiles, QWidget *parent) :
     QWidget(parent)
@@ -10,7 +11,7 @@ NewGame::NewGame(const std::vector<Profile>& profiles, QWidget *parent) :
     uiElementSetup();
     parent2 = dynamic_cast<MainMenu*>(parent);
 
-    for(int i = 0; i < profiles.size(); i++)
+    for(unsigned i = 0; i < profiles.size(); i++)
     {
         player_list->addItem(QString::fromStdString(profiles.at(i).getName()));
     }
@@ -29,14 +30,11 @@ void NewGame::message(const QString& title, const QString& message) const
     message_dialog.exec();
 }
 
-bool NewGame::existPlayer(const QString& name) const
+bool NewGame::existPlayer(const ProfileName& player_id) const
 {
-    std::istringstream ss;
-    ss.str(view_players->text().toStdString());
-    std::string temp;
-    while(ss >> temp)
+    for(int i = 0; i < players.size(); i++)
     {
-        if(temp == name.toStdString())
+        if(players.at(i) == player_id)
         {
             return true;
         }
@@ -46,7 +44,7 @@ bool NewGame::existPlayer(const QString& name) const
 
 void NewGame::startGame()
 {
-    if(current_player < 2)
+    if(current_player < 3)
     {
         message(QString{"New Game"}, QString{"Atleast 2 players needed to start game."});
     }
@@ -56,29 +54,74 @@ void NewGame::startGame()
 
         gui->move(QApplication::desktop()->screen()->rect().center() - gui->rect().center());
 
-        gui->show();
+    //TESTFUNKTION NEDAN
+    CardContainer deckcontainer = CardContainer(CardContainerID("Deck"));
+    CardContainer trashcontainer = CardContainer(CardContainerID("Trash"));
+    CardContainer rulescontainer = CardContainer(CardContainerID("Rules"));
+    CardContainer player1container_hand = CardContainer(CardContainerID("Player1_hand"));
+    CardContainer player2container_hand = CardContainer(CardContainerID("Player2_hand"));
+    CardContainer goalscontainer = CardContainer(CardContainerID("Goals"));
+    CardContainer player1container_keepers = CardContainer(CardContainerID("Player1_keepers"));
+    CardContainer player2container_keepers = CardContainer(CardContainerID("Player2_keepers"));
+
+
+
+    for(unsigned i = 1; i <= 82; ++i)
+    {
+       if(i > 3 && i< 10)
+       {
+            player1container_hand.addCard(CardID(i));
+            qDebug() << "add hand1" << i;
+       }
+
+        else if(i > 9 && i < 13)
+       {
+            player2container_hand.addCard(CardID(i));
+            qDebug() << "add hand2" << i;
+       }
+        else if(i == 22)
+       {
+            goalscontainer.addCard(CardID(i));
+            qDebug() << "add hand3" << i;
+       }
+        else if(i > 66 && i < 69)
+            player1container_keepers.addCard(CardID(i));
+        else if(i == 79 || i ==80)
+            player2container_keepers.addCard(CardID(i));
+        else if(i >= 50 && i <= 55)
+            rulescontainer.addCard(CardID(i));
+        else if(i >= 13 && i < 22)
+            trashcontainer.addCard(CardID(i));
+        else
+            deckcontainer.addCard(CardID(i));
     }
 
+
+    std::vector<CardContainer>* bcontainer = new std::vector<CardContainer>;
+    bcontainer->push_back(deckcontainer);
+    bcontainer->push_back(trashcontainer);
+    bcontainer->push_back(rulescontainer);
+    bcontainer->push_back(player1container_hand);
+    bcontainer->push_back(player1container_keepers);
+    bcontainer->push_back(player2container_hand);
+    bcontainer->push_back(player2container_keepers);
+    bcontainer->push_back(goalscontainer);
+
+   gui->update(bcontainer);
+
+    gui->show();
+
+   //gui->pickCard(CardContainerID("Rules"));
+//    gui->pickCard(CardContainerID("Trash"));
+
     qDebug() << "Add startGame functionality";
-}
-
-void NewGame::goBack(){
-      qDebug() << "Add goBack functionality";
-
-      if(parent2 != nullptr)
-      {
-          parent2->newGameBack();
-      }
-      else
-      {
-          message(QString("Error"), QString("parent2 does not exist"));
-      }
+    }
 }
 
 void NewGame::selectPlayer()
 {
     const QListWidgetItem* selected = player_list->currentItem();
-    if(existPlayer(selected->text()))
+    if(existPlayer(ProfileName(selected->text().toStdString())))
     {
         message(QString("New Game"), QString("Player is already chosen."));
     }
@@ -87,13 +130,14 @@ void NewGame::selectPlayer()
         QString temp = view_players->text();
         temp = temp + "\nPlayer " + QString::number(current_player++) + ": " + selected->text();
         view_players->setText(temp);
-        players.push_back(PlayerID{view_players->text().toStdString()});
+        players.push_back(ProfileName{selected->text().toStdString()});
     }
     else
     {
         message(QString("New Game"), QString("6 players are the limit."));
     }
     player_list->clearSelection();
+    select_player_button->setEnabled(false);
     qDebug() << "Add selectPlayer functionality";
 }
 
@@ -130,14 +174,34 @@ void NewGame::uiElementSetup()
     others_layout->addLayout(finish_layout);
     others_layout->setAlignment(finish_layout, Qt::AlignBottom);
 
-    QObject::connect(start_button, SIGNAL(clicked()), this, SLOT(startGame()));
-    QObject::connect(select_player_button, SIGNAL(clicked()), this, SLOT(selectPlayer()));
-    QObject::connect(back_button, SIGNAL(clicked()), this, SLOT(goBack()));
-    QObject::connect(player_list, SIGNAL(clicked(QModelIndex)), this, SLOT(enableSelectPlayerButton()));
+    connectSignals();
 
     layout->addLayout(list_layout);
     layout->addLayout(others_layout);
 
     this->setLayout(layout);
+}
+
+void NewGame::connectSignals()
+{
+    QObject::connect(start_button, SIGNAL(clicked()), this, SLOT(startGame()));
+    QObject::connect(select_player_button, SIGNAL(clicked()), this, SLOT(selectPlayer()));
+    QObject::connect(back_button, SIGNAL(clicked()), this, SLOT(goBack()));
+    QObject::connect(player_list, SIGNAL(clicked(QModelIndex)), this, SLOT(enableSelectPlayerButton()));
+    QObject::connect(player_list, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(selectPlayer()));
+}
+
+void NewGame::goBack()
+{
+    qDebug() << "Add goBack functionality";
+
+    if(parent2 != nullptr)
+    {
+        parent2->newGameBack();
+    }
+    else
+    {
+        message(QString("Error"), QString("parent2 does not exist"));
+    }
 }
 

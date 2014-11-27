@@ -11,12 +11,13 @@
 #define PLAYERID_H
 
 #include <string>
+#include "enums.h"
 
 struct PlayerID
 {
-	std::string val;
+	PlayerIdentifier val;
 	
-	PlayerID(std::string val) : val{val}
+	PlayerID(PlayerIdentifier val) : val{val}
 	{}
 
 	PlayerID() = delete;
@@ -28,6 +29,9 @@ struct PlayerID
 
 	~PlayerID() = default;
  
+	std::string getString() const;
+	int getInt() const;
+
 	bool operator ==(const PlayerID &p) const
 	{
 		return val == p.val;

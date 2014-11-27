@@ -43,7 +43,7 @@ const CardID& CardButton::getCardId() const
 }
 
 void CardButton::mouseReleaseEvent(QMouseEvent *e) {
-    if (e->button() == Qt::RightButton)
+    if (e->button() == Qt::RightButton && !icon->isNull())
     {
      BigCard* big_card_window = new BigCard(id_,this);
 
@@ -53,3 +53,13 @@ void CardButton::mouseReleaseEvent(QMouseEvent *e) {
     }
     QPushButton::mouseReleaseEvent(e);
 }
+
+void CardButton::smallButton()
+{
+    this->setMaximumSize(85,135);
+    this->setMinimumSize(85,135);
+
+    this->setIconSize(QSize(85,135));
+}
+
+

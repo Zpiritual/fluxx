@@ -10,6 +10,8 @@ QT       -= gui
 
 QT       += widgets
 
+QT      += testlib
+
 TARGET = MainMenu_Test_01
 CONFIG   += console
 CONFIG   -= app_bundle
@@ -54,8 +56,12 @@ SOURCES += main.cpp \
     ../../src/RuleManager.cc \
     ../../src/SessionData.cc \
     ../../src/Stock.cc \
+    ../../src/PlayerID.cc \
+    ../../src/TriggeredRule.cc \
     bigcardcollection.cpp \
-    cardcollection.cpp
+    cardcollection.cpp \
+    cardidloop.cpp
+
 
 HEADERS += \
     mainmenu.h \
@@ -78,7 +84,9 @@ HEADERS += \
     activekeepers.h \
     switchplayer.h \
     bigcardcollection.h \
-    cardcollection.h
+    cardcollection.h \
+    profilename.h \
+    cardidloop.h
 
 QMAKE_CXXFLAGS += -std=c++11
 

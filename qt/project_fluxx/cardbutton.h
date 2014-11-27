@@ -14,6 +14,7 @@ public:
     explicit CardButton(CardID, QWidget *parent = 0);
     explicit CardButton(CardID*, QWidget *parent = 0);
     ~CardButton();
+    void smallButton();
     const CardID& getCardId() const;
 
 protected:
@@ -25,6 +26,7 @@ private:
 signals:
     void rightClicked();
 public slots:
+
 
 };
 

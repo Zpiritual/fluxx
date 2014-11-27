@@ -1,7 +1,8 @@
 #include "gui.h"
 #include "BoardSnapshot.h"
+ #include "cardidloop.h"
 
-Gui::Gui(std::vector<PlayerID> players, QWidget *parent) :
+Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
     QWidget(parent)
 {
     player_ids = players;
@@ -45,31 +46,80 @@ Gui::Gui(std::vector<PlayerID> players, QWidget *parent) :
 Gui::~Gui(){
 }
 
-const PlayerID Gui::pickPlayer(const BoardSnapshot snapshot)
+const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 {
-    //update(snapshot);
+    update(snapshot);
     //return player_list_widget->pickPlayer();
 }
 
-const CardID Gui::pickCard(BoardSnapshot snapshot, CardContainerID containerid)
+//BoardSnapshot* snapshot
+const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContainerID& containerid)
 {
-    //update(snapshot);
+    update(snapshot);
 
+    CardIdLoop loop;
+    if(containerid == CardContainerID("Rules"))
+    {
+        rules_widget->setConnections(loop);
+        loop.exec();
+    }
+    else if(containerid == CardContainerID("Goals"))
+    {
+        goals_widget->setConnections(loop);
+        loop.exec();
+    }
+    else if(containerid == CardContainerID("Trash"))
+    {
+        trash_widget->setConnections(loop);
+        loop.exec();
+    }
+    else if(containerid == CardContainerID(snapshot->current_player.getString()+"_hand") ||
+            containerid == CardContainerID("TempB") ||
+            containerid == CardContainerID("tempA"))
+    {
+         active_player_widget->connectActiveHand(loop);
+         loop.exec();
+    }
+    else if(containerid == CardContainerID(snapshot->current_player.getString()+"_keepers"))
+    {
+        active_player_widget->connectActiveKeepers(loop);
+        loop.exec();
+    }
+//    else if(containerid.val.find("_hand") != std::string::npos &&
+//            containerid.val.find(snapshot->current_player.getString()) != std::string::npos)
+//        player_list_widget->connectKeepers(int(containerid.val.at(6)));
+//    else if(containerid.val.find("_hand") != std::string::npos &&
+//            containerid.val.find(snapshot->current_player.getString() != std::string::npos))
+//        player_list_widget->connectHand(int(containerid.val.at(6)));
+
+ //   CardButton sentbutton = dynamic_cast<CardButton*>(loop.sender());
+   // return sentbutton.getCardId().val;
+    qDebug() << "derpaderpa";
+
+    //
 }
+
 
 void Gui::nextPlayer()
 {
 
 }
 
-void Gui::update(BoardSnapshot* snapshot) //Lägg till i alla klasser
+void Gui::update(const BoardSnapshot* const snapshot) //Lägg till i alla klasser
 {
 
-    rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
+    //rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
    // player_list_widget->updatePlayers(snapshot);
-    deck_widget->updateCards(snapshot->getContainer(CardContainerID("Deck")));
-    trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
-    goals_widget->updateCards(snapshot->getContainer(CardContainerID("Goals")));
+    //deck_widget->updateCards(snapshot->getContainer(CardContainerID("Deck")));
+   // trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
+   // goals_widget->update(snapshot->getContainer(CardContainerID("Goals")));
 
+
+}
+
+void Gui::update(std::vector<CardContainer>* cvector)
+{
+    rules_widget->updateCards(cvector->at(2));
+    trash_widget->updateCards(cvector->at(2));
 
 }

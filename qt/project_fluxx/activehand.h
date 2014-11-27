@@ -5,16 +5,19 @@
 #include <QtWidgets>
 #include <vector>
 #include "cardbutton.h"
+#include "cardidloop.h"
+#include "CardContainer.h"
 
 class ActiveHand : public QWidget
 {
     Q_OBJECT
 public:
     explicit ActiveHand(QWidget *parent = 0);
-    void update(); //Gå till qlistwidget och hämta hand mha gethand(playerID),
+    void update(const CardContainer&); //Gå till qlistwidget och hämta hand mha gethand(playerID),
     //eventuellt görs detta i activeplayer
+    void connectButtons(CardIdLoop &loop);
 private:
-    std::vector<CardButton> cards;
+    std::vector<CardButton*> buttons_;
     QHBoxLayout* layout;
 signals:
 

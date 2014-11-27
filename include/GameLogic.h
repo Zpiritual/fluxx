@@ -12,15 +12,17 @@
 #include <vector>
 #include <deque>
 #include "Player.h"
+#include "PlayerID.h"
 #include "CardContainerManager.h"
 #include "CardManager.h"
 #include "RuleManager.h"
 #include "PlayerManager.h"
+#include "enums.h"
 
 class GameLogic
 {
 public:
-	GameLogic(const Deck * deck, const std::vector<Player> players);
+	GameLogic(const Deck * deck, const int players);
 	GameLogic()					= delete;
 	GameLogic(const GameLogic&) = default;
 	GameLogic (GameLogic&&) 	= default;
@@ -37,12 +39,13 @@ public:
 	CardManager*		  getCM();
 	RuleManager*		  getRM();
 	PlayerManager*		  getPM();
-	//Not sure
-	void 			playCard(const PlayerID, const CardID);
+
+	//void 			playCard(const PlayerID, const CardID);
+	void 			playCard(const PlayerID);
 	void			drawCard(const PlayerID);
 	//void 			checkRules(RuleTriggerType);
 	void 			resolveEffects();
-	void 			checkRules();
+	void 			checkRules(RuleTrigger);
 	bool 			checkGoal();
 	const PlayerID 	getNextPlayer();
 

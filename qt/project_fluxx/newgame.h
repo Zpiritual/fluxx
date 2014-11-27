@@ -5,6 +5,7 @@
 #include <QtWidgets>
 #include "mainmenu.h"
 #include "gui.h"
+#include "profilename.h"
 
 class NewGame : public QWidget
 {
@@ -26,11 +27,12 @@ private:
     int current_player = 1;
     MainMenu* parent2;
 
-    std::vector<PlayerID> players;
+    std::vector<ProfileName> players;
 
     void uiElementSetup();
+    void connectSignals();
     void message(const QString&, const QString&) const;
-    bool existPlayer(const QString&) const;
+    bool existPlayer(const ProfileName&) const;
 
 signals:
 
