@@ -31,16 +31,28 @@ void ActivePlayer::update(const BoardSnapshot* const snapshot)
 {
 
     if(snapshot->getContainer(CardContainerID("tempB")).getSize() != 0)
+    {
         active_hand->update(snapshot->getContainer(CardContainerID("TempB")));
+    }
     else if(snapshot->getContainer(CardContainerID("tempA")).getSize() != 0)
+    {
         active_hand->update(snapshot->getContainer(CardContainerID("tempA")));
+    }
     else
+    {
         active_hand->update(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_hand")));
-
-    active_keepers->update(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_keepers")));
+        active_keepers->update(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_keepers")));
+    }
 }
 
-ActivePlayer::~ActivePlayer(){
+ActivePlayer::~ActivePlayer()
+{
+    delete layout;
+    delete scroll_area_hand;
+    delete scroll_area_keepers;
+    delete active_player;
+    delete active_hand;
+    delete active_keepers;
 }
 
 void ActivePlayer::connectActiveKeepers(CardIdLoop& loop)
