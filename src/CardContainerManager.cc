@@ -3,7 +3,7 @@
 #include "Stock.h"
 //#include <map>
 //#include <utility>
-//#include <iostream>
+#include <iostream>
 CardContainerManager::CardContainerManager(const Deck* deck)
 // Konstruktorn skall initiera både stock-objektet och vektorn med cardcontainers.
 {
@@ -39,7 +39,7 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 	for(int i = 1; i <= 6; i++)
 	{
-		char player_number = i - '0';
+		char player_number = '0' + i;
 		std::string player_container = "Player";
 		player_container += player_number;
 		player_container += "_keepers";
@@ -64,6 +64,14 @@ void CardContainerManager::reshuffle()
 
 void CardContainerManager::drawCard(const CardContainerID container)
 {
+	if(_stock->empty())
+	{
+		for(const CardID id: getCards(CardContainerID("Trash")))
+			{
+				getContainer(CardContainerID("Trash"))->removeCard(id);
+				_stock->push(id);
+			}
+	}
 	getContainer(container)->addCard(_stock->pop());
 }
 

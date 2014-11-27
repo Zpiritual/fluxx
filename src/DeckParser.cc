@@ -67,15 +67,15 @@ Deck* DeckParser::deck_to_game(std::string filename)
 		}
 		
 		//debug stuff:
-		//cout << "NEW CARD:" << endl;
-		//cout << "=========" << endl;
-		//cout << "ID: " << id << endl;
-		//cout << "NAME: " << name << endl;
-		//cout << "Type: " << type << endl;
-		//cout << "Description: " << description << endl;
-		//cout << "Effect:" << effects.size() << endl;
-		
-		cards.push_back(new Card(id, name, type, description, effects));
+		cout << "NEW CARD:" << endl;
+		cout << "=========" << endl;
+		cout << "ID: " << id << endl;
+		cout << "NAME: " << name << endl;
+		cout << "Type: " << type << endl;
+		cout << "Description: " << description << endl;
+		cout << "Effect:" << effects.size() << endl;
+		//TODO make sure it reads SubType
+		cards.push_back(new Card(id, type, name, description, effects));
 	}
 	if(cards.size() != deck_size)
 	{

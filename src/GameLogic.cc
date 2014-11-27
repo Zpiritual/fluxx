@@ -1,5 +1,6 @@
 #include "GameLogic.h"
 #include <iostream>
+#include <string>
 
 GameLogic::GameLogic(const Deck* deck, const int players)
 {
@@ -72,7 +73,7 @@ void GameLogic::playCard(const PlayerID pid)
 	//Fråga GUI om kort-id osv.
 	CardID cid = requestPlayerInput(CardContainerID(pid.getString() + "_hand"));
 	//Spela det givna kortet.
-
+		//std::cout << std::flush <<"|" <<_cm->getCard(cid)->getType() << "|"<< " "<< (_cm->getCard(cid)->getType() == "ḰEEPER") << std::endl;
 	//if a Goal card is placed check if there is room for it
 	//if not ask what card to replace
 	if(_cm->getCard(cid)->getType() == "GOAL")
@@ -101,8 +102,9 @@ void GameLogic::playCard(const PlayerID pid)
 			addEffect(e);
 	}
 	//If Keeper is played, do nothing.
-	else if(_cm->getCard(cid)->getType() == "ḰEEPER")
+	else if(_cm->getCard(cid)->getType().compare("ḰEEPER"))
 	{
+		std::cout << "Playing a Keeper" << std::endl;
 		_ccm->moveCard(CardContainerID(pid.getString() + "_hand"), CardContainerID(pid.getString() + "_keepers"),cid);
 
 	}
@@ -141,6 +143,12 @@ void GameLogic::playCard(const PlayerID pid)
 const CardID GameLogic::requestPlayerInput(const CardContainerID conid) const
 {
 	//GUI request
+	for(const CardID id: _ccm->getCards(conid))
+		std::cout << id.val << ", ";
+	std::cout << std::endl;
+	int tmp;
+	std::cin >> tmp;
+	return CardID(tmp);
 }
 
 void GameLogic::drawCard(const PlayerID pid)
