@@ -15,7 +15,7 @@ int main()
 {
 	DeckParser p;
 
-	Deck *deck = p.deck_to_game("bin/10keepers.fluxx");
+	Deck *deck = p.deck_to_game("docs/10keepers.fluxx");
 	vector<Player> players;
 
 	players.push_back(Player(PlayerID(PlayerIdentifier::Player1)));

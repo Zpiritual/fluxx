@@ -24,7 +24,7 @@ int main()
 	
 	for(int i =  0; i < 20; i++)
 	{
-		assert(i < 10 ? deck.getCard(CardID(i+1)) != nullptr:deck.getCard(CardID(i+1)) == nullptr );
+		assert(i < 10 ? deck.getCard(CardID(i+1)) != nullptr : deck.getCard(CardID(i+1)) == nullptr );
 	}
 	
 	cout << "Sanity check error handling OK" << endl;
