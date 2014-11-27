@@ -8,7 +8,7 @@ RulesGridWidget::RulesGridWidget(QWidget *parent) :
     for(int i = 0; i<= 3; ++i)
     {
         layout->setColumnMinimumWidth(i,170);
-        layout->setColumnStretch(i, 0);
+
     }
     this->setLayout(layout);
 }

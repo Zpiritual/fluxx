@@ -26,7 +26,11 @@ void GoalButtons::update(const CardContainer& container)
     }
     for(auto card : cards_)
     {
-        layout->addWidget(new CardButton(card));
+        CardButton* tempbutton = new CardButton{card};
+        tempbutton->smallButton();
+        layout->addWidget(tempbutton);
+
+
     }
 }
 

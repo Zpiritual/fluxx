@@ -7,7 +7,7 @@ ActiveKeepers::ActiveKeepers(QWidget *parent) :
 
     this->setMaximumHeight(135);
     this->setMinimumHeight(135);
-
+    this->setMinimumWidth(800);
     this->setLayout(layout);
 }
 
@@ -33,10 +33,10 @@ void ActiveKeepers::update(const CardContainer& container)
     for(auto card : cards)
     {
         CardButton* tempbutton = new CardButton(card);
+        tempbutton->smallButton();
         layout->addWidget(tempbutton);
         buttons_.push_back(tempbutton);
     }
-
 }
 
 void ActiveKeepers::connectButtons(CardIdLoop &loop)

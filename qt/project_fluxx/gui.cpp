@@ -17,9 +17,12 @@ Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
     active_player_widget = new ActivePlayer(this);
     mid_column = new QVBoxLayout();
     mid_column_top = new QHBoxLayout();
+    left_column = new QVBoxLayout();
+
+    left_column->addWidget(trash_widget);
+    left_column->addWidget(log_widget);
 
     mid_column_top->addWidget(deck_widget);
-    mid_column_top->addWidget(trash_widget);
     mid_column_top->addWidget(goals_widget);
 
     mid_column->addLayout(mid_column_top);
@@ -33,12 +36,12 @@ Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
     this->setMinimumWidth(1280);
     this->setWindowTitle(QString("Fluxx"));
 
-    layout->addWidget(log_widget);
+    layout->addLayout(left_column);
     layout->addLayout(mid_column);
     layout->addWidget(player_list_widget);
 
 
-    layout->setAlignment(log_widget, Qt::AlignLeft);
+
 
     this->setLayout(layout);
 }

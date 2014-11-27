@@ -42,6 +42,7 @@ private:
     DeckButton* deck_widget;
     GoalButtons* goals_widget;
     TrashButton* trash_widget;
+    QVBoxLayout* left_column;
 
     signals:
 

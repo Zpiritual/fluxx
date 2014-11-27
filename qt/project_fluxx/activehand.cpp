@@ -7,6 +7,7 @@ ActiveHand::ActiveHand(QWidget *parent) :
 
     this->setMaximumHeight(259);
     this->setMinimumHeight(259);
+    this->setMinimumWidth(800);
     this->setLayout(layout);
 }
 

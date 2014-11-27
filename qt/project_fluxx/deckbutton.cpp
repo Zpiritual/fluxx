@@ -14,10 +14,10 @@ DeckButton::DeckButton(QWidget *parent) :
 
     this->setIcon(*icon);
 
-    this->setMinimumSize(170,259);
-    this->setMaximumSize(170,259);
+    this->setMinimumSize(85,130);
+    this->setMaximumSize(85,130);
 
-    this->setIconSize(QSize(170,259));
+    this->setIconSize(QSize(85,130));
 }
 
 DeckButton::~DeckButton()
