@@ -34,8 +34,8 @@ private:
     QLabel* name_label;
     QLabel* card_count;
     QLabel* keeper_count;
-
     BigCardCollection* big_keepers;
+
 
 signals:
 

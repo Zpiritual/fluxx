@@ -8,6 +8,8 @@ PlayerListItem::PlayerListItem(const ProfileName& name, QWidget *parent) :
     card_count = new QLabel(QString{"Hand Count: "} + QString::number(getHandCount()));
     keeper_count = new QLabel(QString{"Keeper Count: "} + QString::number(getKeeperCount()));
     keeper_button = new QPushButton();
+    big_keepers = new BigCardCollection(keepers_id);
+    big_keepers->close();
 
     name_label->setMaximumSize(140, 20);
     card_count->setMaximumSize(140, 20);
@@ -95,6 +97,10 @@ const ProfileName PlayerListItem::getPlayerName() const
 
 void PlayerListItem::showKeepers()
 {
+    if(big_keepers->close())
+    {
+        delete big_keepers;
+    }
     big_keepers = new BigCardCollection(keepers_id);
 
     big_keepers->show();
