@@ -71,7 +71,6 @@ void PlayerListItem::setActivePlayer()
 {
     QPalette Pal(palette());
     Pal.setColor(QPalette::Background, Qt::green);
-    this->setGeometry(0, 0, 170, 100);
     this->setAutoFillBackground(true);
     this->setPalette(Pal);
 }
@@ -80,7 +79,6 @@ void PlayerListItem::setNextPlayer()
 {
     QPalette Pal(palette());
     Pal.setColor(QPalette::Background, Qt::yellow);
-    this->setGeometry(0, 0, 170, 100);
     this->setAutoFillBackground(true);
     this->setPalette(Pal);
 }
