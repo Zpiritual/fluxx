@@ -31,7 +31,8 @@ struct BoardSnapshot
 	BoardSnapshot& operator= (BoardSnapshot&&) = delete;
 
 	~BoardSnapshot() = default;
-    CardContainer getContainer(const CardContainerID id) const;
+
+	const CardContainer getContainer(const CardContainerID id) const;
 };
 
 #endif

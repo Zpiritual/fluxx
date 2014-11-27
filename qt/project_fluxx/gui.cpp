@@ -85,9 +85,11 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
         active_player_widget->connectActiveKeepers(loop);
         loop.exec();
     }
+    //Det är en spelares keepers men inte den aktiva spelarens keepers
 //    else if(containerid.val.find("_hand") != std::string::npos &&
 //            containerid.val.find(snapshot->current_player.getString()) != std::string::npos)
 //        player_list_widget->connectKeepers(int(containerid.val.at(6)));
+    //Det är en spelares hand men inte den aktiva spelarens hand.
 //    else if(containerid.val.find("_hand") != std::string::npos &&
 //            containerid.val.find(snapshot->current_player.getString() != std::string::npos))
 //        player_list_widget->connectHand(int(containerid.val.at(6)));
@@ -95,7 +97,7 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
  //   CardButton sentbutton = dynamic_cast<CardButton*>(loop.sender());
    // return sentbutton.getCardId().val;
     qDebug() << "derpaderpa";
-
+    return loop.getCardId();
     //
 }
 
@@ -107,12 +109,13 @@ void Gui::nextPlayer()
 
 void Gui::update(const BoardSnapshot* const snapshot) //Lägg till i alla klasser
 {
-
-    //rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
-   // player_list_widget->updatePlayers(snapshot);
-    //deck_widget->updateCards(snapshot->getContainer(CardContainerID("Deck")));
-   // trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
-   // goals_widget->update(snapshot->getContainer(CardContainerID("Goals")));
+    CardContainerID("Rules");
+    snapshot->getContainer(CardContainerID("Rules"));
+  //  rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
+    //player_list_widget->updatePlayers(snapshot);
+//    deck_widget->updateCards(snapshot->getContainer(CardContainerID("Deck")));
+//    trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
+//    goals_widget->update(snapshot->getContainer(CardContainerID("Goals")));
 
 
 }
