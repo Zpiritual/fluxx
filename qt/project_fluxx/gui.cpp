@@ -109,14 +109,12 @@ void Gui::nextPlayer()
 
 void Gui::update(const BoardSnapshot* const snapshot) //Lägg till i alla klasser
 {
-    CardContainerID("Rules");
-    snapshot->getContainer(CardContainerID("Rules"));
-  //  rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
+    rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
     //player_list_widget->updatePlayers(snapshot);
-//    deck_widget->updateCards(snapshot->getContainer(CardContainerID("Deck")));
-//    trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
-//    goals_widget->update(snapshot->getContainer(CardContainerID("Goals")));
 
+    trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
+    goals_widget->update(snapshot->getContainer(CardContainerID("Goals")));
+    active_player_widget->update(snapshot);
 
 }
 

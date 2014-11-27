@@ -108,6 +108,8 @@ void NewGame::startGame()
     bcontainer->push_back(player2container_hand);
     bcontainer->push_back(player2container_keepers);
     bcontainer->push_back(goalscontainer);
+    bcontainer->push_back(CardContainer(CardContainerID("tempA")));
+    bcontainer->push_back(CardContainer(CardContainerID("tempB")));
 
     BoardSnapshot* snapshot = new BoardSnapshot(*bcontainer,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
 

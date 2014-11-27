@@ -27,7 +27,7 @@ ActivePlayer::ActivePlayer(QWidget *parent) :
     this->setLayout(layout);
 }
 
-void ActivePlayer::update(BoardSnapshot* snapshot)
+void ActivePlayer::update(const BoardSnapshot* const snapshot)
 {
 
     if(snapshot->getContainer(CardContainerID("tempB")).getSize() != 0)
