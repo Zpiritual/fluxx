@@ -133,7 +133,6 @@ void GameLogic::executeNextEffect()
 	Effect e = effect_queue.front();
 	effect_queue.pop_front();
 	executeEffect(e);
-	cout << "Poping effect" << endl;
 
 }
 //Private Effect function
@@ -179,6 +178,15 @@ void GameLogic::executeEffect(const Effect& effect)
 
 		cout <<"Size of: "<< ccid<<" " <<  getCCM()->getSize(CardContainerID("tempA")) << endl;
 		std::cout << "Executed: " << effect.val << std::endl;
+	}
+	else if(identifier.compare("Redraw") == 0)
+	{
+		cout << "Discard and Draw" << endl;
+		for(CardID i: _ccm->getCards(CardContainerID(_pm->getCurrentPlayer()->getID().getString()  + "_hand")))
+		{
+			_ccm->moveCard(CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"),CardContainerID("Trash"), i);
+			drawCard(_pm->getCurrentPlayer()->getID());
+		}
 	}
 	
 }
