@@ -57,8 +57,20 @@ PlayerManager* GameLogic::getPM()
 
 void GameLogic::playCard(const PlayerID pid)
 {
+	string ccids;
+	//Kollar efter specialiserade containrar
+	if(getCCM()->getSize(CardContainerID("tempB")) > 0)
+		ccids = "tempB";
+	else if(getCCM()->getSize(CardContainerID("tempA")) > 0)
+		ccids = "tempA";
+	else
+		ccids = pid.getString() + "_hand";
+	CardContainerID ccid(ccids);
+	cout << "Container to play from: " << ccids << " size of cotnainer: "<< getCCM()->getSize(ccid) <<  endl;
+
 	//Fråga GUI om kort-id osv.
-	CardID cid = requestPlayerInput(CardContainerID(pid.getString() + "_hand"));
+	CardID cid = requestPlayerInput(ccid);
+
 	//Spela det givna kortet.
 		//std::cout << std::flush <<"|" <<_cm->getCard(cid)->getType() << "|"<< " "<< (_cm->getCard(cid)->getType() == "ḰEEPER") << std::endl;
 	//if a Goal card is placed check if there is room for it
@@ -69,7 +81,7 @@ void GameLogic::playCard(const PlayerID pid)
 		{
 			_ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"),requestPlayerInput(CardContainerID("Goal")));
 		}
-			_ccm->moveCard(CardContainerID(pid.getString() + "_hand"), CardContainerID("Goal"),cid);
+			_ccm->moveCard(ccid, CardContainerID("Goal"),cid);
 			//Add effect
 	}
 	//If a rule is played, execute the first effect, the middle effects handles by the first effect, the last effect eecutes 
@@ -78,14 +90,14 @@ void GameLogic::playCard(const PlayerID pid)
 	{
 		addEffect(_cm->getCard(cid)->getEffects().at(0));
 		executeNextEffect();
-		_ccm->moveCard(CardContainerID(pid.getString() + "_hand"), CardContainerID("Rules"),cid);
+		_ccm->moveCard(ccid, CardContainerID("Rules"),cid);
 		//Must run last effect when removed
 	}
 	//If a action is played, put all the effects in the effect qeue
 	else if(_cm->getCard(cid)->getType().compare("ACTION") == 0)
 	{
 			std::cout << "Playing a Action" << std::endl;
-		_ccm->moveCard(CardContainerID(pid.getString() + "_hand"), CardContainerID("Trash"),cid);
+		_ccm->moveCard(ccid, CardContainerID("Trash"),cid);
 		for(Effect e: _cm->getCard(cid)->getEffects())
 			addEffect(e);
 	}
@@ -93,7 +105,7 @@ void GameLogic::playCard(const PlayerID pid)
 	else if(_cm->getCard(cid)->getType().compare("KEEPER")== 0)
 	{
 		std::cout << "Playing a Keeper" << std::endl;
-		_ccm->moveCard(CardContainerID(pid.getString() + "_hand"), CardContainerID(pid.getString() + "_keepers"),cid);
+		_ccm->moveCard(ccid, CardContainerID(pid.getString() + "_keepers"),cid);
 
 	}
 	//Else throw exception
@@ -102,31 +114,6 @@ void GameLogic::playCard(const PlayerID pid)
 	resolveEffects();
 }
 
-// void GameLogic::playCard(const PlayerID pid, const CardID cid)
-// {
-	
-// 	if(getCM()->getCard(cid)->getType() == "KEEPER")
-// 	{
-// 		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID(pid.val + "_keepers"),cid);
-// 		//std::cout << "Played a KEEPER \nID: " << cid.val << std::endl;
-// 	}
-// 	else if(getCM()->getCard(cid)->getType() == "RULE")
-// 	{
-// 		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Rules"),cid);
-// 		//std::cout << "Played a RULE \nID: " << cid.val << std::endl;
-// 	}
-// 	else if(getCM()->getCard(cid)->getType() == "ACTION")
-// 	{
-// 		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Trash"), cid);
-// 		//std::cout << "Played an ACTION \nID: " << cid.val << std::endl;
-// 	}
-// 	else if(getCM()->getCard(cid)->getType() == "GOAL")
-// 	{
-// 		getCCM()->moveCard(getPM()->getPlayer(pid).getContainerID(), CardContainerID("Goals"),cid);
-// 		//std::cout << "Played a GOAL \nID: " << cid.val << std::endl;
-// 	}
-	
-// }
 
 const CardID GameLogic::requestPlayerInput(const CardContainerID conid) const
 {
@@ -145,6 +132,11 @@ void GameLogic::drawCard(const PlayerID pid)
 	getCCM()->drawCard(getPM()->getPlayer(pid)->getID().getString()+"_hand");
 }
 
+//Used when draw card to other container than player_hand
+void GameLogic::drawCard(const CardContainerID ccid)
+{
+	getCCM()->drawCard(ccid);
+}
 /*	void GameLogic::checkRules(RuleTriggerType)
 {
 	//TODO - waiting for RuleManager to be completed
@@ -179,8 +171,11 @@ return getPM()->getCurrentPlayer()->getID();
 
 void GameLogic::executeNextEffect()
 {
-	executeEffect(effect_queue.front());
+	Effect e = effect_queue.front();
 	effect_queue.pop_front();
+	executeEffect(e);
+	cout << "Poping effect" << endl;
+
 }
 //Private Effect function
 void GameLogic::executeEffect(const Effect& effect)
@@ -188,12 +183,42 @@ void GameLogic::executeEffect(const Effect& effect)
 	std::stringstream ss(effect.val);
 	string identifier;
 	ss >> identifier;
-	if(identifier.compare("Jackpot") == 0)
+	if(identifier.compare("DrawCard") == 0)
 	{
-		int p1;
-		ss >> p1;
+		int p1,p2,p3;
+		ss >> p1 >> p2 >> p3;
+		cout << p1 << " " << p2 << " "  << p3 << endl;
+		string ccid = _pm->getCurrentPlayer()->getID().getString() + "_hand";
+		if(getCCM()->getSize(CardContainerID("tempA")) == 0)
+		{
+			ccid = "tempA";
+		}
+		else if(getCCM()->getSize(CardContainerID("tempB")) == 0)
+		{
+			ccid = "tempB";
+		}
+		cout << "Effect puts cards in: " << ccid << endl;
 		for(int i = 0 ; i < p1 ; i++)
-			drawCard(getPM()->getCurrentPlayer()->getID());
+		{
+			drawCard(CardContainerID(ccid));
+		}
+
+		for(int i = 0 ; i < p2; i++)
+		{
+			playCard(_pm->getCurrentPlayer()->getID());
+		}
+		cout << "trash cards: " << endl;
+		for(int i = 0 ; i < p3; i++)
+		{
+			_ccm->moveCard(CardContainerID(ccid), CardContainerID("Trash"), requestPlayerInput(CardContainerID(ccid)));
+		}
+
+		for(CardID cid: _ccm->getCards(CardContainerID(ccid)))
+		{
+			_ccm->moveCard(CardContainerID(ccid), CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"), cid);
+		}
+
+		cout <<"Size of: "<< ccid<<" " <<  getCCM()->getSize(CardContainerID("tempA")) << endl;
 		std::cout << "Executed: " << effect.val << std::endl;
 	}
 	

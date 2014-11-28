@@ -13,6 +13,7 @@
 #include <deque>
 #include "Player.h"
 #include "PlayerID.h"
+#include "CardContainerID.h"
 #include "CardContainerManager.h"
 #include "CardManager.h"
 #include "RuleManager.h"
@@ -41,8 +42,10 @@ public:
 	PlayerManager*		  getPM();
 
 	//void 			playCard(const PlayerID, const CardID);
-	void 			playCard(const PlayerID);
+	void 			playCard(const PlayerID pid);
 	void			drawCard(const PlayerID);
+	void 			drawCard(const CardContainerID);
+
 	//void 			checkRules(RuleTriggerType);
 	void 			resolveEffects();
 	void 			checkRules(RuleTrigger);
