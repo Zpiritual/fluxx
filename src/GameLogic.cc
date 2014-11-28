@@ -9,10 +9,7 @@ GameLogic::GameLogic(const Deck* deck, const int players)
 	_cm = new CardManager(deck);
 	_rm = new RuleManager();
 	_pm = new PlayerManager(players);
-
-// Vi skulle behöva access till "alla spelare" från PlayerManager, så att vi kan iterera över dem.
-//On it // martin
-
+	
 	 for(Player p : _pm->getPlayers())
 	{
 	 	drawCard(p.getID());
@@ -35,26 +32,6 @@ void GameLogic::addEffect(Effect effect)
 	effect_queue.push_front(effect);
 }
 
- CardContainerManager* GameLogic::getCCM()
-{
-	return _ccm;
-}
-
- CardManager* GameLogic::getCM()
-{
-	return _cm;
-}
-
-RuleManager* GameLogic::getRM()
-{
-	return _rm;
-}
-
-PlayerManager* GameLogic::getPM()
-{
-	return _pm;
-}
-
 void GameLogic::playCard(const PlayerID pid)
 {
 	string ccids;
@@ -65,12 +42,12 @@ void GameLogic::playCard(const PlayerID pid)
 		ccids = "tempA";
 	else
 		ccids = pid.getString() + "_hand";
+
 	CardContainerID ccid(ccids);
 	//Fråga GUI om kort-id osv.
 	CardID cid = requestPlayerInput(ccid);
 
 	//Spela det givna kortet.
-		//std::cout << std::flush <<"|" <<_cm->getCard(cid)->getType() << "|"<< " "<< (_cm->getCard(cid)->getType() == "ḰEEPER") << std::endl;
 	//if a Goal card is placed check if there is room for it
 	//if not ask what card to replace
 	if(_cm->getCard(cid)->getType() == "GOAL")
@@ -112,7 +89,6 @@ void GameLogic::playCard(const PlayerID pid)
 	resolveEffects();
 }
 
-
 const CardID GameLogic::requestPlayerInput(const CardContainerID conid) const
 {
 	//GUI request
@@ -129,11 +105,13 @@ void GameLogic::drawCard(const PlayerID pid)
 	//std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
 	getCCM()->drawCard(getPM()->getPlayer(pid)->getID().getString()+"_hand");
 }
+
 /*	void GameLogic::checkRules(RuleTriggerType)
 {
 	//TODO - waiting for RuleManager to be completed
 }
 */
+
 void GameLogic::resolveEffects()
 {
 	while(!effect_queue.empty())
@@ -203,4 +181,24 @@ void GameLogic::executeEffect(const Effect& effect)
 		std::cout << "Executed: " << effect.val << std::endl;
 	}
 	
+}
+
+CardContainerManager* GameLogic::getCCM()
+{
+	return _ccm;
+}
+
+ CardManager* GameLogic::getCM()
+{
+	return _cm;
+}
+
+RuleManager* GameLogic::getRM()
+{
+	return _rm;
+}
+
+PlayerManager* GameLogic::getPM()
+{
+	return _pm;
 }
