@@ -42,10 +42,8 @@ public:
 	PlayerManager*		  getPM();
 
 	//void 			playCard(const PlayerID, const CardID);
-	void 			playCard(const PlayerID pid);
+	void 			playCard(const PlayerID);
 	void			drawCard(const PlayerID);
-	void 			drawCard(const CardContainerID);
-
 	//void 			checkRules(RuleTriggerType);
 	void 			resolveEffects();
 	void 			checkRules(RuleTrigger);

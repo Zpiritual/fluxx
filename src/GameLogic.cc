@@ -66,8 +66,6 @@ void GameLogic::playCard(const PlayerID pid)
 	else
 		ccids = pid.getString() + "_hand";
 	CardContainerID ccid(ccids);
-	cout << "Container to play from: " << ccids << " size of cotnainer: "<< getCCM()->getSize(ccid) <<  endl;
-
 	//Fråga GUI om kort-id osv.
 	CardID cid = requestPlayerInput(ccid);
 
@@ -131,12 +129,6 @@ void GameLogic::drawCard(const PlayerID pid)
 	//std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
 	getCCM()->drawCard(getPM()->getPlayer(pid)->getID().getString()+"_hand");
 }
-
-//Used when draw card to other container than player_hand
-void GameLogic::drawCard(const CardContainerID ccid)
-{
-	getCCM()->drawCard(ccid);
-}
 /*	void GameLogic::checkRules(RuleTriggerType)
 {
 	//TODO - waiting for RuleManager to be completed
@@ -151,17 +143,6 @@ void GameLogic::resolveEffects()
 	}
 }
 
-// void GameLogic::checkRules(RuleTrigger rule)
-// {
-// _rm->clearRules();
-// 	for(CardID i: _ccm->getCards(CardContainerID("Rules")))
-// 	{
-// 		_rm->addRule(_cm->getCard(i));
-// 	}
-// 	std::vector<Effect> effects = _rm->checkRules(rule);
-// 	for(auto i: effects)
-// 		addEffect(i);
-// }
 
 const PlayerID GameLogic::getNextPlayer()
 {
@@ -200,7 +181,7 @@ void GameLogic::executeEffect(const Effect& effect)
 		cout << "Effect puts cards in: " << ccid << endl;
 		for(int i = 0 ; i < p1 ; i++)
 		{
-			drawCard(CardContainerID(ccid));
+			_ccm->drawCard(CardContainerID(ccid));
 		}
 
 		for(int i = 0 ; i < p2; i++)
