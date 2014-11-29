@@ -103,7 +103,7 @@ const GameState GameLoop::executePlayerTurn(PlayerID pid)
 
 void GameLoop::checkTriggeredRules(RuleTrigger rule)
 {
-//	_game_logic->checkRules(rule);
+	_game_logic->checkRules(rule);
 	//std::cout << "Check rules" << std::endl;
 }
 

@@ -36,6 +36,11 @@ public:
 	void executeNextEffect();
 	void addEffect(Effect);
 
+	//Prototype functions
+	void addRule(const CardID, const Effect*, const RuleTrigger);
+	void removeRule(const CardID);
+	const CardID requestPlayerInput(const PlayerID ,const CardContainerID) const;
+
 	CardContainerManager* getCCM();
 	CardManager*		  getCM();
 	RuleManager*		  getRM();
@@ -49,7 +54,7 @@ public:
 	void 			checkRules(RuleTrigger);
 	//bool 			checkGoal();
 	const PlayerID 	getNextPlayer();
-	const CardID	requestPlayerInput(const CardContainerID) const;
+	//const CardID	requestPlayerInput(const PlayerID ,const CardContainerID) const;
 private:
 	CardContainerManager *_ccm;
 	CardManager *_cm;

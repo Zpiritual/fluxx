@@ -29,7 +29,24 @@ GameLogic::~GameLogic()
 
 void GameLogic::addEffect(Effect effect)
 {
+
 	effect_queue.push_front(effect);
+}
+
+void GameLogic::addRule(const CardID cid, const Effect* effect, const RuleTrigger trigger)
+{
+	//Add rule to RM
+		cout << "Added Rule:" << cid.val << (*effect).val << endl;
+	_rm->addRule(new TriggeredRule(cid,trigger,effect));
+}
+
+void GameLogic::removeRule(const CardID cid)
+{
+	//Move the card from Rules to Trash
+	_ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), cid);
+	//Bypass effect stack and run from executeEffect
+		addEffect(*(_cm->getCard(cid)->getEffects().end()-1));
+		executeNextEffect();
 }
 
 void GameLogic::playCard(const PlayerID pid)
@@ -45,7 +62,7 @@ void GameLogic::playCard(const PlayerID pid)
 
 	CardContainerID ccid(ccids);
 	//Fråga GUI om kort-id osv.
-	CardID cid = requestPlayerInput(ccid);
+	CardID cid = requestPlayerInput(_pm->getCurrentPlayer()->getID(),ccid);
 
 	//Spela det givna kortet.
 	//if a Goal card is placed check if there is room for it
@@ -54,18 +71,24 @@ void GameLogic::playCard(const PlayerID pid)
 	{
 		if(_ccm->getSize(CardContainerID("Goal")) > _rm->getGoalLimmit())
 		{
-			_ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"),requestPlayerInput(CardContainerID("Goal")));
+			_ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"),requestPlayerInput(_pm->getCurrentPlayer()->getID(),CardContainerID("Goal")));
 		}
 			_ccm->moveCard(ccid, CardContainerID("Goal"),cid);
 			//Add effect
 	}
 	//If a rule is played, execute the first effect, the middle effects handles by the first effect, the last effect eecutes 
 	//when the card is removed
-	else if(_cm->getCard(cid)->getType() == "RULE")
+	else if(_cm->getCard(cid)->getType().compare("RULE") == 0)
 	{
 		addEffect(_cm->getCard(cid)->getEffects().at(0));
 		executeNextEffect();
 		_ccm->moveCard(ccid, CardContainerID("Rules"),cid);
+		cout << "===Cards in Rules:===" << endl;
+		for(auto i: _ccm->getCards(CardContainerID("Rules")))
+		{
+			cout << i.val << ", ";
+		}
+		cout << "\n====================" << endl;
 		//Must run last effect when removed
 	}
 	//If a action is played, put all the effects in the effect qeue
@@ -89,7 +112,7 @@ void GameLogic::playCard(const PlayerID pid)
 	resolveEffects();
 }
 
-const CardID GameLogic::requestPlayerInput(const CardContainerID conid) const
+const CardID GameLogic::requestPlayerInput(const PlayerID pid, const CardContainerID conid) const
 {
 	//GUI request
 	for(const CardID id: _ccm->getCards(conid))
@@ -106,11 +129,18 @@ void GameLogic::drawCard(const PlayerID pid)
 	getCCM()->drawCard(getPM()->getPlayer(pid)->getID().getString()+"_hand");
 }
 
-/*	void GameLogic::checkRules(RuleTriggerType)
+void GameLogic::checkRules(RuleTrigger rt)
 {
+	cout << "Check rules" << endl;
 	//TODO - waiting for RuleManager to be completed
+	for(const Effect* e: _rm->getTriggeredRules(rt))
+	{
+		addEffect(*e);
+
+	}
+	resolveEffects();
 }
-*/
+
 
 void GameLogic::resolveEffects()
 {
@@ -168,7 +198,7 @@ void GameLogic::executeEffect(const Effect& effect)
 		cout << "trash cards: " << endl;
 		for(int i = 0 ; i < p3; i++)
 		{
-			_ccm->moveCard(CardContainerID(ccid), CardContainerID("Trash"), requestPlayerInput(CardContainerID(ccid)));
+			_ccm->moveCard(CardContainerID(ccid), CardContainerID("Trash"), requestPlayerInput(_pm->getCurrentPlayer()->getID(),CardContainerID(ccid)));
 		}
 
 		for(CardID cid: _ccm->getCards(CardContainerID(ccid)))
@@ -188,7 +218,59 @@ void GameLogic::executeEffect(const Effect& effect)
 			drawCard(_pm->getCurrentPlayer()->getID());
 		}
 	}
-	
+	else if(identifier.compare("AddTriggeredRule") == 0)
+	{
+		int p1;
+		string p2;
+		ss >> p1 >> p2;
+		RuleTrigger rt;
+		if(identifier.compare("PRE_DRAW"))
+			rt = RuleTrigger::PRE_DRAW;
+		else if(identifier.compare("POST_DRAW"))
+			rt = RuleTrigger::POST_DRAW;
+		else if(identifier.compare("PRE_PLAY"))
+			rt = RuleTrigger::PRE_PLAY;
+		else if(identifier.compare("TURN_END"))
+			rt = RuleTrigger::TURN_END;
+		else
+			throw std::logic_error("Tried to add TriggeredRule without RuleTrigger");
+		addRule(CardID(p1),&(_cm->getCard(CardID(p1))->getEffects().at(1)), rt);
+	}
+	else if(identifier.compare("RemoveTriggeredRule") == 0)
+	{
+		int p1;
+		ss >> p1;
+		removeRule(CardID(p1));
+	}
+	else if(identifier.compare("GameLimitModifier") == 0)
+	{
+		string p1;
+		int p2;
+		ss >> p1 >> p2;
+		cout << "conflict: " << p1 << endl;
+		for(auto i: _ccm->getCards(CardContainerID("Rules")))
+		{ 
+			if(_cm->getCard(i)->getSubtype().compare(p1) == 0)
+				removeRule(i);
+		}
+		if(p1.compare("Play") == 0)
+			_rm->setPlay(p2);
+		if(p1.compare("Draw") == 0)
+			_rm->setDraw(p2);
+		if(p1.compare("Keeper") == 0)
+			_rm->setKeeperLimit(p2);
+		if(p1.compare("Hand") == 0)
+			_rm->setPlay(p2);
+		if(p1.compare("Goal") == 0)
+			_rm->setGoalLimmit(p2);
+		if(p1.compare("Inflation") == 0)
+			_rm->setInflation(p2);
+		if(p1.compare("PlayOrder") == 0)
+			if(p2 == 1) 
+				_rm->setPlayOrder(Direction::CLOCKWISE);
+			else 
+				_rm->setPlayOrder(Direction::COUNTERCLOCKWISE);
+	}
 }
 
 CardContainerManager* GameLogic::getCCM()
