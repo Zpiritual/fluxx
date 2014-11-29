@@ -104,6 +104,12 @@ void GameLogic::playCard(const PlayerID pid)
 	{
 		std::cout << "Playing a Keeper" << std::endl;
 		_ccm->moveCard(ccid, CardContainerID(pid.getString() + "_keepers"),cid);
+		while(_ccm->getSize(CardContainerID(pid.getString() + "_keepers")) > _rm->getKepperLimit())
+		{
+			CardContainerID ccid1(pid.getString() + "_keepers");
+			CardContainerID ccid2("Trash");
+			_ccm->moveCard(ccid1,ccid2,requestPlayerInput(_pm->getCurrentPlayer()->getID(),ccid1));
+		}
 
 	}
 	//Else throw exception
@@ -116,7 +122,7 @@ const CardID GameLogic::requestPlayerInput(const PlayerID pid, const CardContain
 {
 	//GUI request
 	for(const CardID id: _ccm->getCards(conid))
-		std::cout << id.val << ", ";
+		std::cout << _cm->getCard(id)->getDescription() << " (" << id.val << ")" <<  ", ";
 	std::cout << std::endl;
 	int tmp;
 	std::cin >> tmp;
@@ -126,7 +132,15 @@ const CardID GameLogic::requestPlayerInput(const PlayerID pid, const CardContain
 void GameLogic::drawCard(const PlayerID pid)
 {
 	//std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
-	getCCM()->drawCard(getPM()->getPlayer(pid)->getID().getString()+"_hand");
+	_ccm->drawCard(getPM()->getPlayer(pid)->getID().getString()+"_hand");
+	//Hand Limit check
+	while(_ccm->getSize(CardContainerID(_pm->getPlayer(pid)->getID().getString()+"_hand")) > _rm->getHandLimit())
+	{
+		CardContainerID ccid1(getPM()->getPlayer(pid)->getID().getString()+"_hand");
+		CardContainerID ccid2("Trash");
+		_ccm->moveCard(ccid1,ccid2,requestPlayerInput(_pm->getCurrentPlayer()->getID(),ccid1));
+	}
+
 }
 
 void GameLogic::checkRules(RuleTrigger rt)

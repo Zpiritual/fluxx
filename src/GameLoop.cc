@@ -71,6 +71,7 @@ void GameLoop::nextPlayer()
 
 SessionData	GameLoop::run()
 {
+	_game_logic->getCCM()->reshuffle();
 	while (executePlayerTurn(getCurrentPlayerID()) != GameState::GAME_OVER)
 	{
 		//switch screen osv.
@@ -93,6 +94,7 @@ const GameState GameLoop::executePlayerTurn(PlayerID pid)
  	while (getCardsPlayed() < getPlayNO()) // played_cards ligger i player.
  	{
  		std::cout <<"Cards to play: " <<  getPlayNO() << " Cards Played: " << getCardsPlayed() << endl;
+ 		std::cout << "Cards to Draw: " << getDrawNO() << endl;
  		std::cout << "Play cards" + pid.getString() << std::endl;
  		_game_logic->playCard(getCurrentPlayerID());
  		_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
