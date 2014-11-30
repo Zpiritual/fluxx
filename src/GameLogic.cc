@@ -62,7 +62,10 @@ void GameLogic::playCard(const PlayerID pid)
 		ccids = pid.getString() + "_hand";
 
 	CardContainerID ccid(ccids);
+	if(_ccm->getSize(ccid) == 0)
+		throw std::logic_error("Playing from empty Container: " + ccids);
 	//Fråga GUI om kort-id osv.
+
 	CardID cid = requestPlayerInput(_pm->getCurrentPlayer()->getID(),ccid);
 
 	//Spela det givna kortet.
@@ -96,9 +99,14 @@ void GameLogic::playCard(const PlayerID pid)
 	else if(_cm->getCard(cid)->getType().compare("ACTION") == 0)
 	{
 			std::cout << "Playing a Action" << std::endl;
-		_ccm->moveCard(ccid, CardContainerID("Trash"),cid);
+
 		for(Effect e: _cm->getCard(cid)->getEffects())
 			addEffect(e);
+			//Execute effects
+		if(_cm->getCard(cid)->getSubtype().compare("PLAY_PRE_EFFECT"))
+			resolveEffects();
+		_ccm->moveCard(ccid, CardContainerID("Trash"),cid);
+		cout << "Action done!" << endl;
 	}
 	//If Keeper is played, do nothing.
 	else if(_cm->getCard(cid)->getType().compare("KEEPER")== 0)
@@ -116,18 +124,29 @@ void GameLogic::playCard(const PlayerID pid)
 const CardID GameLogic::requestPlayerInput(const PlayerID pid, const CardContainerID conid) const
 {
 	//GUI request
+		bool check = true;
+			int tmp;
+		while(check)
+		{
+
+
 	for(const CardID id: _ccm->getCards(conid))
 		std::cout << _cm->getCard(id)->getDescription() << " (" << id.val << ")" <<  ", ";
 	std::cout << std::endl;
-	int tmp;
+
 	std::cin >> tmp;
+
+	for(const CardID id: _ccm->getCards(conid))
+		if(tmp == id.val)
+		 check = false;
+		}
 	return CardID(tmp);
 }
 
 void GameLogic::drawCard(const PlayerID pid)
 {
 	//std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
-	_ccm->drawCard(getPM()->getPlayer(pid)->getID().getString()+"_hand");
+	_ccm->drawCard(pid.getString()+"_hand");
 
 
 }
@@ -165,6 +184,7 @@ void GameLogic::executeNextEffect()
 {
 	Effect e = effect_queue.front();
 	effect_queue.pop_front();
+	cout << "Effect to Execute: " << e.val << endl; 
 	executeEffect(e);
 
 }
@@ -176,10 +196,11 @@ void GameLogic::executeEffect(const Effect& effect)
 	ss >> identifier;
 	if(identifier.compare("DrawCard") == 0)
 	{
+		cout << "DrawCard Triggered" << endl; 
 		int p1,p2,p3;
 		ss >> p1 >> p2 >> p3;
 		cout << p1 << " " << p2 << " "  << p3 << endl;
-		string ccid = _pm->getCurrentPlayer()->getID().getString() + "_hand";
+		string ccid;
 		if(getCCM()->getSize(CardContainerID("tempA")) == 0)
 		{
 			ccid = "tempA";
@@ -188,6 +209,8 @@ void GameLogic::executeEffect(const Effect& effect)
 		{
 			ccid = "tempB";
 		}
+		else
+			throw std::logic_error("No empty Temp CardCotnainer!");
 		cout << "Effect puts cards in: " << ccid << endl;
 		for(int i = 0 ; i < p1 ; i++)
 		{
@@ -215,11 +238,21 @@ void GameLogic::executeEffect(const Effect& effect)
 	else if(identifier.compare("Redraw") == 0)
 	{
 		cout << "Discard and Draw" << endl;
+		std::vector<CardID> v;
 		for(CardID i: _ccm->getCards(CardContainerID(_pm->getCurrentPlayer()->getID().getString()  + "_hand")))
 		{
-			_ccm->moveCard(CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"),CardContainerID("Trash"), i);
+			v.push_back(i);
+		}
+		for(CardID i: v)
+		{
+		_ccm->moveCard(CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"),CardContainerID("Trash"), i);
+		}
+		for(CardID i: v)
+		{
 			drawCard(_pm->getCurrentPlayer()->getID());
 		}
+		cout << "Size of Hand: " << _ccm->getSize(CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand")) << " Size of Trash: " <<_ccm->getSize(CardContainerID("Trash")) << endl;
+
 	}
 	else if(identifier.compare("AddTriggeredRule") == 0)
 	{
@@ -258,29 +291,49 @@ void GameLogic::executeEffect(const Effect& effect)
 		}
 		if(p1.compare("Play") == 0)
 			_rm->setPlay(p2);
-		if(p1.compare("Draw") == 0)
+		else if(p1.compare("Draw") == 0)
 			_rm->setDraw(p2);
-		if(p1.compare("Keeper") == 0)
+		else if(p1.compare("Keeper") == 0)
 			_rm->setKeeperLimit(p2);
-		if(p1.compare("Hand") == 0)
+		else if(p1.compare("Hand") == 0)
 			_rm->setHandLimit(p2);
-		if(p1.compare("Goal") == 0)
+		else if(p1.compare("Goal") == 0)
 			_rm->setGoalLimmit(p2);
-		if(p1.compare("Inflation") == 0)
+		else if(p1.compare("Inflation") == 0)
 			_rm->setInflation(p2);
-		if(p1.compare("PlayOrder") == 0)
+		else if(p1.compare("PlayOrder") == 0)
 			if(p2 == 1) 
 				_rm->setPlayOrder(Direction::CLOCKWISE);
 			else 
 				_rm->setPlayOrder(Direction::COUNTERCLOCKWISE);
+		else
+			throw std::logic_error("GameLimitModifier missing GameLimit Parameter");
 	}
 	else if(identifier.compare("TakeCard") == 0)
 	{
 		string p1;
-		int p2;
-		ss >> p1 >> p2;
-		_ccm->moveCard(CardContainerID(p1), CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"), requestPlayerInput(_pm->getCurrentPlayer()->getID(),CardContainerID(p1)));
+		int p2, p3;
+		ss >> p1 >> p2 >> p3;
+		string ccid;
+		if(getCCM()->getSize(CardContainerID("tempA")) == 0)
+		{
+			ccid = "tempA";
+		}
+		else if(getCCM()->getSize(CardContainerID("tempB")) == 0)
+		{
+			ccid = "tempB";
+		}
+		else
+			throw std::logic_error("No empty temp container to put card in!");
+		if(_ccm->getSize(CardContainerID(p1)) > 0)
+		for(int i = 0 ; i < p2; i++)
+		{
+		_ccm->moveCard(CardContainerID(p1), CardContainerID(ccid), requestPlayerInput(_pm->getCurrentPlayer()->getID(),CardContainerID(p1)));
+		playCard(_pm->getCurrentPlayer()->getID());
+		}
 	}
+	else
+		throw std::logic_error("Undefined Effect");
 }
 void GameLogic::onNotify(const CardContainerID & cc1, const CardContainerID & cc2 , const Event event)
 {

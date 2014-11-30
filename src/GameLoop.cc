@@ -92,13 +92,15 @@ const GameState GameLoop::executePlayerTurn(PlayerID pid)
 	checkTriggeredRules(RuleTrigger::PRE_PLAY);
 	//std::cout <<"Cards played: " << getCardsPlayed() << std::endl;
  	//spela kort
- 	while (getCardsPlayed() < getPlayNO()) // played_cards ligger i player.
+ 	while (getCardsPlayed() < getPlayNO() && _game_logic->getCCM()->getSize(getCurrentPlayerID().getString() + "_hand") != 0) // played_cards ligger i player.
  	{
  		std::cout <<"Cards to play: " <<  getPlayNO() << " Cards Played: " << getCardsPlayed() << endl;
  		std::cout << "Cards to Draw: " << getDrawNO() << endl;
  		std::cout << "Play cards" + pid.getString() << std::endl;
  		_game_logic->playCard(getCurrentPlayerID());
+ 		 		std::cout << "END OF TURN VARNING 1!" << std::endl;
  		_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
+
  	}
  	std::cout << "END OF TURN\n\n" << std::endl;
 
