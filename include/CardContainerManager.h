@@ -15,8 +15,9 @@
 #include <vector>
 #include <map>
 #include <string>
+#include "Subject.h"
 
-class CardContainerManager {
+class CardContainerManager:public Subject {
 public:
 	CardContainerManager(const Deck* const);
 

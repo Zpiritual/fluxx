@@ -1,6 +1,6 @@
 #include "Stock.h"
 #include <stdexcept>
-
+#include <ctime>
 Stock::Stock(const CardContainerID id): _id{id}
 {}
 
@@ -47,12 +47,12 @@ void Stock::shuffle()
 	{
 		tmp.push_back(pop());
 	}
-		std::default_random_engine generator;
-
+	int i = time(0);
+    std::mt19937 gen(i);
 	while(!tmp.empty())
 	{
 		std::uniform_int_distribution<int> distribution(0,tmp.size()-1);
-		unsigned int i = distribution(generator);
+		unsigned int i = distribution(gen);
 		push(tmp.at(i));
 		tmp.erase(tmp.begin() + i);
 	}

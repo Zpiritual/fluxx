@@ -81,7 +81,8 @@ SessionData	GameLoop::run()
 
 const GameState GameLoop::executePlayerTurn(PlayerID pid)
 {
-	std::cout << pid.getString() << std::endl;
+	std::cout <<"NEW TURN: "<< pid.getString() << std::endl;
+	std::cout <<"==========================" << std::endl;
 	checkTriggeredRules(RuleTrigger::PRE_DRAW);
 
 	drawCards(getCurrentPlayerID(), getDrawNO());

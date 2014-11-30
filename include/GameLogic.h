@@ -19,8 +19,9 @@
 #include "RuleManager.h"
 #include "PlayerManager.h"
 #include "enums.h"
+#include "Observer.h"
 
-class GameLogic
+class GameLogic:public Observer
 {
 public:
 	GameLogic(const Deck * deck, const int players);
@@ -62,6 +63,7 @@ private:
 	PlayerManager *_pm;
 	std::deque<Effect> effect_queue;
 	void executeEffect(const Effect&);
+	void onNotify(const CardContainerID &, const CardContainerID & , const Event);
 	//Diverse effekt-funktioner, ex:
 	//Draw(int draw, int play, int discard, bool inflation = true);
 };

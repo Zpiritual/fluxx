@@ -6,6 +6,7 @@
 GameLogic::GameLogic(const Deck* deck, const int players)
 {
 	_ccm = new CardContainerManager(deck);
+	_ccm->addObserver(this);
 	_cm = new CardManager(deck);
 	_rm = new RuleManager();
 	_pm = new PlayerManager(players);
@@ -104,12 +105,6 @@ void GameLogic::playCard(const PlayerID pid)
 	{
 		std::cout << "Playing a Keeper" << std::endl;
 		_ccm->moveCard(ccid, CardContainerID(pid.getString() + "_keepers"),cid);
-		while(_ccm->getSize(CardContainerID(pid.getString() + "_keepers")) > _rm->getKepperLimit())
-		{
-			CardContainerID ccid1(pid.getString() + "_keepers");
-			CardContainerID ccid2("Trash");
-			_ccm->moveCard(ccid1,ccid2,requestPlayerInput(_pm->getCurrentPlayer()->getID(),ccid1));
-		}
 
 	}
 	//Else throw exception
@@ -133,19 +128,13 @@ void GameLogic::drawCard(const PlayerID pid)
 {
 	//std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
 	_ccm->drawCard(getPM()->getPlayer(pid)->getID().getString()+"_hand");
-	//Hand Limit check
-	while(_ccm->getSize(CardContainerID(_pm->getPlayer(pid)->getID().getString()+"_hand")) > _rm->getHandLimit())
-	{
-		CardContainerID ccid1(getPM()->getPlayer(pid)->getID().getString()+"_hand");
-		CardContainerID ccid2("Trash");
-		_ccm->moveCard(ccid1,ccid2,requestPlayerInput(_pm->getCurrentPlayer()->getID(),ccid1));
-	}
+
 
 }
 
 void GameLogic::checkRules(RuleTrigger rt)
 {
-	cout << "Check rules" << endl;
+	//cout << "Check rules" << endl;
 	//TODO - waiting for RuleManager to be completed
 	for(const Effect* e: _rm->getTriggeredRules(rt))
 	{
@@ -160,7 +149,7 @@ void GameLogic::resolveEffects()
 {
 	while(!effect_queue.empty())
 	{
-		std::cout << "not empty" << std::endl;
+		//std::cout << "not empty" << std::endl;
 		executeNextEffect();
 	}
 }
@@ -221,7 +210,7 @@ void GameLogic::executeEffect(const Effect& effect)
 		}
 
 		cout <<"Size of: "<< ccid<<" " <<  getCCM()->getSize(CardContainerID("tempA")) << endl;
-		std::cout << "Executed: " << effect.val << std::endl;
+		//std::cout << "Executed: " << effect.val << std::endl;
 	}
 	else if(identifier.compare("Redraw") == 0)
 	{
@@ -274,7 +263,7 @@ void GameLogic::executeEffect(const Effect& effect)
 		if(p1.compare("Keeper") == 0)
 			_rm->setKeeperLimit(p2);
 		if(p1.compare("Hand") == 0)
-			_rm->setPlay(p2);
+			_rm->setHandLimit(p2);
 		if(p1.compare("Goal") == 0)
 			_rm->setGoalLimmit(p2);
 		if(p1.compare("Inflation") == 0)
@@ -285,8 +274,49 @@ void GameLogic::executeEffect(const Effect& effect)
 			else 
 				_rm->setPlayOrder(Direction::COUNTERCLOCKWISE);
 	}
+	else if(identifier.compare("TakeCard") == 0)
+	{
+		string p1;
+		int p2;
+		ss >> p1 >> p2;
+		_ccm->moveCard(CardContainerID(p1), CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"), requestPlayerInput(_pm->getCurrentPlayer()->getID(),CardContainerID(p1)));
+	}
 }
+void GameLogic::onNotify(const CardContainerID & cc1, const CardContainerID & cc2 , const Event event)
+{
+	switch(event)
+	{
+		case Event::CARD_MOVED:
 
+		//cout << "Card moved!" << endl;
+		for(Player p: _pm->getPlayers())
+		{
+			if(p.getID() != _pm->getCurrentPlayer()->getID())
+			{
+						cout << cc1.val << " " << cc2.val << endl;
+				//Hand Limit check
+				while(_ccm->getSize(CardContainerID(p.getID().getString() + "_hand")) > _rm->getHandLimit())
+				{
+					cout << "Must remove from hand player: " << p.getID().getString() << ":\t";
+					CardContainerID ccid1(p.getID().getString() + "_hand");
+					CardContainerID ccid2("Trash");
+					_ccm->moveCard(ccid1,ccid2,requestPlayerInput(p.getID(),ccid1));
+					cout << "\n";
+				}
+				//Keeper Limit check
+				while(_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > _rm->getKepperLimit())
+				{
+					cout << "Must remove from keepers player: " << p.getID().getString() << ":\t";
+					CardContainerID ccid1(p.getID().getString() + "_keepers");
+					CardContainerID ccid2("Trash");
+					_ccm->moveCard(ccid1,ccid2,requestPlayerInput(p.getID(),ccid1));
+					cout << "\n";
+				}
+			}
+		}
+		break;
+	}
+}
 CardContainerManager* GameLogic::getCCM()
 {
 	return _ccm;

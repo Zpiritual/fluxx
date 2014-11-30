@@ -1,5 +1,5 @@
 DECK_NAME Default
-CARD_COUNT 34
+CARD_COUNT 35
 DECK_DESCRIPTION This Deck contains all "real" cards implemented 
 			
 CARD_ID 082
@@ -199,3 +199,9 @@ CARD_SUBTYPE Draw
 CARD_DESCRIPTION Draw 5
 CARD_EFFECT GameLimitModifier Draw 5
 CARD_EFFECT GameLimitModifier Draw 1
+
+CARD_ID 005
+CARD_TYPE ACTION
+CARD_SUBTYPE NUMERIC
+CARD_DESCRIPTION Let's Do That Again!
+CARD_EFFECT TakeCard Trash 1
