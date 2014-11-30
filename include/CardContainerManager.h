@@ -35,6 +35,7 @@ public:
 	void reshuffle();
 	void drawCard(const CardContainerID);
 	void moveCard(const CardContainerID, const CardContainerID, const CardID);
+	void clearContainer(const CardContainerID);
 	const int getSize(const CardContainerID);
 	const std::vector<CardID> getCards(const CardContainerID);
 

@@ -95,10 +95,8 @@ const GameState GameLoop::executePlayerTurn(PlayerID pid)
  	while (getCardsPlayed() < getPlayNO() && _game_logic->getCCM()->getSize(getCurrentPlayerID().getString() + "_hand") != 0) // played_cards ligger i player.
  	{
  		std::cout <<"Cards to play: " <<  getPlayNO() << " Cards Played: " << getCardsPlayed() << endl;
- 		std::cout << "Cards to Draw: " << getDrawNO() << endl;
- 		std::cout << "Play cards" + pid.getString() << std::endl;
+ 		std::cout << "Cards to Draw: " << getDrawNO() << " Cards Drawn: " << _game_logic->getPM()->getCurrentPlayer()->getCardsDrawn() << endl;
  		_game_logic->playCard(getCurrentPlayerID());
- 		 		std::cout << "END OF TURN VARNING 1!" << std::endl;
  		_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
 
  	}

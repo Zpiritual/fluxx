@@ -147,7 +147,7 @@ void GameLogic::drawCard(const PlayerID pid)
 {
 	//std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
 	_ccm->drawCard(pid.getString()+"_hand");
-
+	_pm->getCurrentPlayer()->incrementCardsDrawn();
 
 }
 
@@ -292,7 +292,13 @@ void GameLogic::executeEffect(const Effect& effect)
 		if(p1.compare("Play") == 0)
 			_rm->setPlay(p2);
 		else if(p1.compare("Draw") == 0)
+		{
 			_rm->setDraw(p2);
+			while(_pm->getCurrentPlayer()->getCardsDrawn() < _rm->getDraw())
+			{
+				drawCard(_pm->getCurrentPlayer()->getID());
+			}
+		}
 		else if(p1.compare("Keeper") == 0)
 			_rm->setKeeperLimit(p2);
 		else if(p1.compare("Hand") == 0)
@@ -331,6 +337,12 @@ void GameLogic::executeEffect(const Effect& effect)
 		_ccm->moveCard(CardContainerID(p1), CardContainerID(ccid), requestPlayerInput(_pm->getCurrentPlayer()->getID(),CardContainerID(p1)));
 		playCard(_pm->getCurrentPlayer()->getID());
 		}
+	}
+	else if(identifier.compare("EmptyContainer") == 0)
+	{
+		string p1;
+		ss >> p1;
+		_ccm->clearContainer(CardContainerID(p1));
 	}
 	else
 		throw std::logic_error("Undefined Effect");

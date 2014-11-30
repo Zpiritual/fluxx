@@ -60,5 +60,6 @@ std::vector<Player> PlayerManager::getPlayers()
 void PlayerManager::nextPlayer()
 {
 	_players.at(_current_player).resetCardsPlayed();
+	_players.at(_current_player).resetCardsDrawn();
 	_current_player = (_current_player + 1) % _players.size();
 }
