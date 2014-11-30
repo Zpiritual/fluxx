@@ -117,8 +117,67 @@ void NewGame::startGame()
 
     gui->show();
 
-   //gui->pickCard(CardContainerID("Rules"));
-//    gui->pickCard(CardContainerID("Trash"));
+   gui->pickCard(snapshot, CardContainerID("Rules"));
+   gui->pickCard(snapshot, CardContainerID("Trash"));
+
+   CardContainer deckcontainer2 = CardContainer(CardContainerID("Deck"));
+   CardContainer trashcontainer2 = CardContainer(CardContainerID("Trash"));
+   CardContainer rulescontainer2 = CardContainer(CardContainerID("Rules"));
+   CardContainer player1container_hand2 = CardContainer(CardContainerID("Player1_hand"));
+   CardContainer player2container_hand2 = CardContainer(CardContainerID("Player2_hand"));
+   CardContainer goalscontainer2 = CardContainer(CardContainerID("Goals"));
+   CardContainer player1container_keepers2 = CardContainer(CardContainerID("Player1_keepers"));
+   CardContainer player2container_keepers2 = CardContainer(CardContainerID("Player2_keepers"));
+
+
+
+   for(unsigned i = 1; i <= 82; ++i)
+   {
+      if(i > 10 && i< 13)
+      {
+           player1container_hand2.addCard(CardID(i));
+           qDebug() << "add hand1" << i;
+      }
+
+       else if(i > 22 && i < 28)
+      {
+           player2container_hand2.addCard(CardID(i));
+           qDebug() << "add hand2" << i;
+      }
+       else if(i == 45)
+      {
+           goalscontainer2.addCard(CardID(i));
+           qDebug() << "add hand3" << i;
+      }
+       else if(i > 70 && i < 76)
+           player1container_keepers2.addCard(CardID(i));
+       else if(i == 46 || i ==29)
+           player2container_keepers2.addCard(CardID(i));
+       else if(i >= 15 && i <= 22)
+           rulescontainer2.addCard(CardID(i));
+       else if(i >= 76 && i < 29)
+           trashcontainer2.addCard(CardID(i));
+       else
+           deckcontainer2.addCard(CardID(i));
+   }
+
+
+   std::vector<CardContainer>* bcontainer2 = new std::vector<CardContainer>;
+   bcontainer2->push_back(deckcontainer2);
+   bcontainer2->push_back(trashcontainer2);
+   bcontainer2->push_back(rulescontainer2);
+   bcontainer2->push_back(player1container_hand2);
+   bcontainer2->push_back(player1container_keepers2);
+   bcontainer2->push_back(player2container_hand2);
+   bcontainer2->push_back(player2container_keepers2);
+   bcontainer2->push_back(goalscontainer2);
+   bcontainer2->push_back(CardContainer(CardContainerID("tempA")));
+   bcontainer2->push_back(CardContainer(CardContainerID("tempB")));
+
+   BoardSnapshot* snapshot2 = new BoardSnapshot(*bcontainer2,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
+
+   gui->update(snapshot2);
+
 
     qDebug() << "Add startGame functionality";
     }

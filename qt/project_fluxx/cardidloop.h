@@ -9,12 +9,13 @@ class CardIdLoop : public QObject
     Q_OBJECT
 public:
     explicit CardIdLoop(QObject *parent = 0);
-    void quit();
     const CardID getCardId();
     void exec();
 signals:
 
 public slots:
+    void quit();
+
 
 private:
     int card_button_id;
