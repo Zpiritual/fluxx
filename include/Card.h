@@ -18,7 +18,7 @@ using namespace std;
 class Card
 {
 public:
-	Card(const CardID id, const string type, const string subtype, const string description, const vector<Effect> effects);
+    Card(const CardID, const string, const string, const string, const string, const vector<Effect>);
 
 	Card() 							= delete;
 	Card(const Card&) 				= default;
@@ -30,6 +30,7 @@ public:
 	~Card() 						= default;
 
 	const CardID 		  getID() 			const;
+    const string          getName()         const;
 	const string 		  getType() 		const;
 	const string 		  getSubtype() 		const;
 	const string 		  getDescription() 	const;
@@ -37,6 +38,7 @@ public:
 
 private:
 	const CardID _id;
+    const string _name;
 	const string _type;
 	const string _subtype;
 	const string _description;
