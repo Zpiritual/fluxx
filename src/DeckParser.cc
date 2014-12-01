@@ -66,7 +66,6 @@ Deck* DeckParser::deck_to_game(std::string filename)
 			}
 		}
 		
-		//debug stuff:
 		//cout << "NEW CARD:" << endl;
 		//cout << "=========" << endl;
 		//cout << "ID: " << id << endl;
@@ -77,6 +76,7 @@ Deck* DeckParser::deck_to_game(std::string filename)
 		
 		cards.push_back(new Card(id, name, type, description, effects));
 	}
+
 	if(cards.size() != deck_size)
 	{
 		cout << cards.size() << endl;

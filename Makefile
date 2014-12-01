@@ -54,9 +54,9 @@ Deck_test: bin/Deck_test.o bin/Deck.o bin/Card.o
 	$(CCC) -o bin/Deck_test bin/Deck_test.o bin/Deck.o bin/Card.o
 
 DeckParser_test: bin/DeckParser_test.o bin/DeckParser.o bin/Card.o bin/Deck.o
-	$(CCC) -o bin/DeckParser_test bin/DeckParser_test.o bin/DeckParser.o bin/Card.o bin/Deck.o
+	$(CCC) -o bin/DeckParser_test bin/DeckParser_test.o bin/DeckParser.o bin/Card.o bin/Deck.Ej
 
-#Ej klar: Effect_test
+#o klar: Effect_test
 
 GameLogic_test: bin/GameLogic_test.o bin/GameLogic.o bin/CardManager.o bin/CardContainer.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o bin/DeckParser.o
 	$(CCC) -o bin/GameLogic_test bin/GameLogic_test.o bin/GameLogic.o bin/CardContainer.o bin/CardManager.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o bin/DeckParser.o

@@ -35,6 +35,7 @@ const Card* const Deck::getCard(const CardID id) const
 		return nullptr;
 	}
 }
+
 const int Deck::getSize() const 
 {
 	return _cards.size();

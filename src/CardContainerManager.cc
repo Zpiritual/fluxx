@@ -39,7 +39,7 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 	for(int i = 1; i <= 6; i++)
 	{
-		char player_number = i - '0';
+		char player_number = '0' + i;
 		std::string player_container = "Player";
 		player_container += player_number;
 		player_container += "_keepers";

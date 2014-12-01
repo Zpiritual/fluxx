@@ -4,17 +4,17 @@
 Stock::Stock(const CardContainerID id): _id{id}
 {}
 
-const int Stock::getSize() 	const
+const int Stock::getSize() const
 {
 	return _cards.size();
 }
 
-const std::stack<CardID> 	Stock::getCards() 	const
+const std::stack<CardID> Stock::getCards() const
 {
 	return _cards;
 }
 
-const CardContainerID 	Stock::getID() 	const
+const CardContainerID Stock::getID() const
 {
 	return _id;
 }

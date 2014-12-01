@@ -1,7 +1,6 @@
 #include <iostream>
 #include "DeckParser.h"
 #include "Deck.h"
-using namespace std;
 
 int main()
 {
@@ -12,7 +11,9 @@ int main()
 
 	for (auto i : deck->getCardIDList())
 	{
-		cout << i.val << " ";
+		std::cout << i.val << " ";
 	}
+
+	std::cout << endl;
 	return 0;
 }
