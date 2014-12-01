@@ -32,7 +32,7 @@ private:
     int next_player;
 
     void updatePlayerVariables(int, int, const Direction&);
-
+    void uiElements();
 
 signals:
 

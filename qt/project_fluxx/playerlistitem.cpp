@@ -3,44 +3,7 @@
 PlayerListItem::PlayerListItem(const ProfileName& name, QWidget *parent) :
     player_name(name), QWidget(parent)
 {
-    vertical_layout = new QVBoxLayout();
-    name_label = new QLabel(QString{"Player: "} + QString::fromStdString(player_name.val));
-    card_count = new QLabel(QString{"Hand Count: "} + QString::number(getHandCount()));
-    keeper_count = new QLabel(QString{"Keeper Count: "} + QString::number(getKeeperCount()));
-    keeper_button = new QPushButton();
-    big_keepers = new BigCardCollection(keepers_id);
-    big_keepers->close();
-
-    state = false;
-
-    name_label->setMaximumSize(140, 20);
-    card_count->setMaximumSize(140, 20);
-    keeper_count->setMaximumSize(140, 20);
-
-    keeper_button->setMinimumSize(140, 23);
-    keeper_button->setMaximumSize(140, 23);
-    keeper_button->setText(QString{"Keepers"});
-
-    vertical_layout->addWidget(name_label);
-    vertical_layout->addWidget(card_count);
-    vertical_layout->addWidget(keeper_count);
-    vertical_layout->addWidget(keeper_button);
-
-    vertical_layout->setAlignment(name_label, Qt::AlignTop | Qt::AlignCenter);
-    vertical_layout->setAlignment(card_count, Qt::AlignTop | Qt::AlignCenter);
-    vertical_layout->setAlignment(keeper_count, Qt::AlignTop | Qt::AlignCenter);
-    vertical_layout->setAlignment(keeper_button, Qt::AlignTop | Qt::AlignCenter);
-
-    keepers_id.push_back(CardID{1});
-    keepers_id.push_back(CardID{2});
-    keepers_id.push_back(CardID{3});
-
-    this->setMinimumSize(170, 100);
-    this->setMaximumSize(170, 100);
-
-    QObject::connect(keeper_button, SIGNAL(clicked()), this, SLOT(showKeepers()));
-
-    this->setLayout(vertical_layout);
+    uiElements();
 }
 
 PlayerListItem::~PlayerListItem()
@@ -109,6 +72,53 @@ void PlayerListItem::mouseReleaseEvent(QMouseEvent* event)
 const ProfileName PlayerListItem::getPlayerName() const
 {
     return player_name;
+}
+
+void PlayerListItem::uiElements()
+{
+    vertical_layout = new QVBoxLayout();
+    name_label = new QLabel(QString{"Player: "} + QString::fromStdString(player_name.val));
+    card_count = new QLabel(QString{"Hand Count: "} + QString::number(getHandCount()));
+    keeper_count = new QLabel(QString{"Keeper Count: "} + QString::number(getKeeperCount()));
+    keeper_button = new QPushButton();
+    big_keepers = new BigCardCollection(keepers_id);
+    big_keepers->close();
+
+    state = false;
+
+    name_label->setMaximumSize(140, 20);
+    card_count->setMaximumSize(140, 20);
+    keeper_count->setMaximumSize(140, 20);
+
+    keeper_button->setMinimumSize(140, 23);
+    keeper_button->setMaximumSize(140, 23);
+    keeper_button->setText(QString{"Keepers"});
+
+    vertical_layout->addWidget(name_label);
+    vertical_layout->addWidget(card_count);
+    vertical_layout->addWidget(keeper_count);
+    vertical_layout->addWidget(keeper_button);
+
+    vertical_layout->setAlignment(name_label, Qt::AlignTop | Qt::AlignCenter);
+    vertical_layout->setAlignment(card_count, Qt::AlignTop | Qt::AlignCenter);
+    vertical_layout->setAlignment(keeper_count, Qt::AlignTop | Qt::AlignCenter);
+    vertical_layout->setAlignment(keeper_button, Qt::AlignTop | Qt::AlignCenter);
+
+    keepers_id.push_back(CardID{1});
+    keepers_id.push_back(CardID{2});
+    keepers_id.push_back(CardID{3});
+
+    this->setMinimumSize(170, 100);
+    this->setMaximumSize(170, 100);
+
+    connectSignals();
+
+    this->setLayout(vertical_layout);
+}
+
+void PlayerListItem::connectSignals()
+{
+    QObject::connect(keeper_button, SIGNAL(clicked()), this, SLOT(showKeepers()));
 }
 
 void PlayerListItem::showKeepers()
