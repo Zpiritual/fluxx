@@ -19,7 +19,7 @@ class ActivePlayer : public QWidget
     Q_OBJECT
 public:
     explicit ActivePlayer(QWidget *parent = 0);
-    void update(const BoardSnapshot* const);
+    void updateCards(const BoardSnapshot* const);
     ~ActivePlayer();
     void connectActiveKeepers(CardIdLoop&);
     void connectActiveHand(CardIdLoop&);

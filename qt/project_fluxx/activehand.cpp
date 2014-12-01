@@ -20,7 +20,7 @@ ActiveHand::~ActiveHand()
     delete layout;
 }
 
-void ActiveHand::update(const CardContainer& container)
+void ActiveHand::updateCards(const CardContainer container)
 {
     buttons_.clear();
 

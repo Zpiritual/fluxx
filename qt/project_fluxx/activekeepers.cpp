@@ -20,7 +20,7 @@ ActiveKeepers::~ActiveKeepers()
      delete layout;
 }
 
-void ActiveKeepers::update(const CardContainer& container)
+void ActiveKeepers::updateCards(const CardContainer& container)
 {
     buttons_.clear();
 

@@ -1,6 +1,6 @@
 #include "playerlist.h"
 
-PlayerList::PlayerList(const std::vector<ProfileName>& plyers, QWidget *parent) :
+PlayerList::PlayerList(const std::vector<ProfileName> plyers, QWidget *parent) :
     QWidget(parent)
 {
     player_ids = plyers;
@@ -24,20 +24,21 @@ const PlayerID PlayerList::pickPlayer() const
 
 }
 
-void PlayerList::updatePlayers(BoardSnapshot* board)
+void PlayerList::updatePlayers(const BoardSnapshot* const board)
 {
+    qDebug() << "You're in updateplayers in playerlist, congratulations!";
     for(int i = 0; i < player_ids.size(); i++)
     {
         const CardContainerID player_hand{std::string{"Player" + std::to_string(i+1) + "_hand"}};
         const CardContainerID player_keepers{std::string{"Player" + std::to_string(i+1) + "_keepers"}};
         CardContainer hand{board->getContainer(player_hand)};
-        CardContainer keepers{board->getContainer(player_hand)};
+        CardContainer keepers{board->getContainer(player_keepers)};
         players.at(i)->updateCards(hand.getCards(), keepers.getCards());
     }
     updatePlayerState(board->current_player.getInt(), board->direction);
 }
 
-void PlayerList::updatePlayerVariables(int index, int player_id, const Direction& direction)
+void PlayerList::updatePlayerVariables(int index, int player_id, const Direction direction)
 {
     if(index == player_id)
     {
@@ -81,7 +82,7 @@ void PlayerList::uiElements()
     this->setLayout(vertical_layout);
 }
 
-void PlayerList::updatePlayerState(int player_id, const Direction& direction)
+void PlayerList::updatePlayerState(int player_id, const Direction direction)
 {
     for(int i = 0; i < player_ids.size(); i++)
     {
@@ -113,7 +114,7 @@ void PlayerList::setConnections(const PlayerLoop& loop)
     }
 }
 
-const PlayerID PlayerList::getPlayerId(const ProfileName& player_name) const
+const PlayerID PlayerList::getPlayerId(const ProfileName player_name) const
 {
     for(int i = 0; i < players.size(); i++)
     {

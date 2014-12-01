@@ -1,6 +1,6 @@
 #include "playerlistitem.h"
 
-PlayerListItem::PlayerListItem(const ProfileName& name, QWidget *parent) :
+PlayerListItem::PlayerListItem(const ProfileName name, QWidget *parent) :
     player_name(name), QWidget(parent)
 {
     uiElements();
@@ -26,10 +26,11 @@ int PlayerListItem::getKeeperCount() const
     return keepers_id.size();
 }
 
-void PlayerListItem::updateCards(const std::vector<CardID>& hnd, const std::vector<CardID>& keeprs)
+void PlayerListItem::updateCards(const std::vector<CardID> hnd, const std::vector<CardID> keeprs)
 {
     hand = hnd;
     keepers_id = keeprs;
+    qDebug() << "Number of keepers in playerlistitem" + QString::number(keepers_id.size());
     card_count->setText(QString{"Hand Count: "} + QString::number(getHandCount()));
     keeper_count->setText(QString{"Keeper Count: "} + QString::number(getKeeperCount()));
 }
@@ -103,10 +104,6 @@ void PlayerListItem::uiElements()
     vertical_layout->setAlignment(card_count, Qt::AlignTop | Qt::AlignCenter);
     vertical_layout->setAlignment(keeper_count, Qt::AlignTop | Qt::AlignCenter);
     vertical_layout->setAlignment(keeper_button, Qt::AlignTop | Qt::AlignCenter);
-
-    keepers_id.push_back(CardID{1});
-    keepers_id.push_back(CardID{2});
-    keepers_id.push_back(CardID{3});
 
     this->setMinimumSize(170, 100);
     this->setMaximumSize(170, 100);

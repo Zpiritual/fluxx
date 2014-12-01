@@ -29,22 +29,22 @@ ActivePlayer::ActivePlayer(QWidget *parent) :
     this->setLayout(layout);
 }
 
-void ActivePlayer::update(const BoardSnapshot* const snapshot)
+void ActivePlayer::updateCards(const BoardSnapshot* const snapshot)
 {
 
     if(snapshot->getContainer(CardContainerID("tempB")).getSize() != 0)
     {
-        active_hand->update(snapshot->getContainer(CardContainerID("tempB")));
+        active_hand->updateCards(snapshot->getContainer(CardContainerID("TempB")));
     }
     else if(snapshot->getContainer(CardContainerID("tempA")).getSize() != 0)
     {
-        active_hand->update(snapshot->getContainer(CardContainerID("tempA")));
+        active_hand->updateCards(snapshot->getContainer(CardContainerID("tempA")));
     }
     else
     {
-        active_hand->update(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_hand")));
-        active_keepers->update(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_keepers")));
+        active_hand->updateCards(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_hand")));
     }
+    active_keepers->updateCards(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_keepers")));
 }
 
 ActivePlayer::~ActivePlayer()

@@ -151,11 +151,10 @@ void Gui::message(const QString& title, const QString& message) const
 void Gui::update(const BoardSnapshot* const snapshot) //Lägg till i alla klasser
 {
     rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
-    //player_list_widget->updatePlayers(snapshot);
+    player_list_widget->updatePlayers(snapshot);
     trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
-    goals_widget->update(snapshot->getContainer(CardContainerID("Goal")));
-
-    active_player_widget->update(snapshot);
+    goals_widget->updateCards(snapshot->getContainer(CardContainerID("Goal")));
+    active_player_widget->updateCards(snapshot);
 
     qDebug() << "update in gui";
 

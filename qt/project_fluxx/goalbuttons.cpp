@@ -15,7 +15,7 @@ void GoalButtons::setConnections(CardIdLoop &loop)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
 }
 
-void GoalButtons::update(const CardContainer& container)
+void GoalButtons::updateCards(const CardContainer& container)
 {
     std::vector<CardID> cards_ = container.getCards();
     //Fel i cards_ anatagligen container som är dealocated

@@ -13,15 +13,15 @@ class PlayerList : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PlayerList(const std::vector<ProfileName>&, QWidget *parent = 0);
+    explicit PlayerList(const std::vector<ProfileName>, QWidget *parent = 0);
     ~PlayerList();
     const PlayerID pickPlayer() const;
-    void updatePlayers(BoardSnapshot*);
-    void updatePlayerState(int, int, const Direction&);
-    void updatePlayerState(int, const Direction&);
+    void updatePlayers(const BoardSnapshot* const);
+    void updatePlayerState(int, int, const Direction);
+    void updatePlayerState(int, const Direction);
 
     void setConnections(const PlayerLoop&);
-    const PlayerID getPlayerId(const ProfileName&) const;
+    const PlayerID getPlayerId(const ProfileName) const;
 
 private:
     QVBoxLayout* vertical_layout;
@@ -31,7 +31,7 @@ private:
     int current_player;
     int next_player;
 
-    void updatePlayerVariables(int, int, const Direction&);
+    void updatePlayerVariables(int, int, const Direction);
     void uiElements();
 
 signals:

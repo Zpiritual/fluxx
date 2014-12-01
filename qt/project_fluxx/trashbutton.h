@@ -15,7 +15,7 @@ class TrashButton : public QPushButton
 public:
     explicit TrashButton(QWidget *parent = 0);
     ~TrashButton();
-    void updateCards(const CardContainer&);
+    void updateCards(const CardContainer);
     void setConnections(CardIdLoop&);
 private:
     std::vector<CardID> cards_;

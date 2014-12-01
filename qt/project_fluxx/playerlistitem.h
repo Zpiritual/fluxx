@@ -10,11 +10,11 @@ class PlayerListItem : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PlayerListItem(const ProfileName&, QWidget *parent = 0);
+    explicit PlayerListItem(const ProfileName, QWidget *parent = 0);
     ~PlayerListItem();
     int getHandCount() const;
     int getKeeperCount() const;
-    void updateCards(const std::vector<CardID>&, const std::vector<CardID>&);
+    void updateCards(const std::vector<CardID>, const std::vector<CardID>);
 
     void setActivePlayer();
     void setNextPlayer();

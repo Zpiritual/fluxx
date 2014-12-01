@@ -15,7 +15,7 @@ TrashButton::~TrashButton()
 {
 }
 
-void TrashButton::updateCards(const CardContainer & cards)
+void TrashButton::updateCards(const CardContainer cards)
 {
     cards_ = cards.getCards();
 

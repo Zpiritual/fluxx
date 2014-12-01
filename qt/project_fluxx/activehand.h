@@ -14,7 +14,7 @@ class ActiveHand : public QWidget
 public:
     explicit ActiveHand(QWidget *parent = 0);
     ~ActiveHand();
-    void update(const CardContainer&); //Gå till qlistwidget och hämta hand mha gethand(playerID),
+    void updateCards(const CardContainer); //Gå till qlistwidget och hämta hand mha gethand(playerID),
     //eventuellt görs detta i activeplayer
     void connectButtons(CardIdLoop &loop);
 private:

@@ -14,7 +14,7 @@ class RulesGridWidget : public QWidget
 public:
     explicit RulesGridWidget(QWidget *parent = 0);
     ~RulesGridWidget();
-    void updateCards(const CardContainer&);
+    void updateCards(const CardContainer);
     void setConnections(CardIdLoop&);
 
 private:

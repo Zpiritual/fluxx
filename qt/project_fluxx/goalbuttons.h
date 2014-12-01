@@ -13,7 +13,7 @@ class GoalButtons : public QWidget
     Q_OBJECT
 public:
     explicit GoalButtons(QWidget *parent = 0);
-    void update(const CardContainer&);
+    void updateCards(const CardContainer&);
     void setConnections(CardIdLoop& loop);
     ~GoalButtons();
 

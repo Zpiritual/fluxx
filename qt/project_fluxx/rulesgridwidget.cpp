@@ -19,7 +19,7 @@ RulesGridWidget::RulesGridWidget(QWidget *parent) :
 RulesGridWidget::~RulesGridWidget(){
 }
 
-void RulesGridWidget::updateCards(const CardContainer & container)
+void RulesGridWidget::updateCards(const CardContainer container)
 {
     buttons_.clear();
 
