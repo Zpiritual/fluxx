@@ -6,6 +6,7 @@
 #include <vector>
 #include "CardContainer.h"
 #include "cardbutton.h"
+#include "cardidloop.h"
 
 class RulesGridWidget : public QWidget
 {
@@ -14,11 +15,10 @@ public:
     explicit RulesGridWidget(QWidget *parent = 0);
     ~RulesGridWidget();
     void updateCards(const CardContainer&);
-    void setConnections(QEventLoop&);
+    void setConnections(CardIdLoop&);
 
 private:
     QGridLayout* layout;
-    std::vector<CardID> cards_;
     std::vector<CardButton*> buttons_;
 
 signals:

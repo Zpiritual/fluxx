@@ -10,17 +10,17 @@ BigCardCollection::BigCardCollection(const std::vector<CardID>& crds, QWidget *p
     horizontal_layout->addWidget(scroll_area);
 
     scroll_area->setWidget(card_collection);
-    scroll_area->setMaximumHeight(265);
+    scroll_area->setMaximumHeight(300);
 
-    this->setMinimumSize(340,270);
-    this->setMaximumSize(340,270);
+    this->setMinimumSize(550,320);
+    this->setMaximumSize(550,320);
 
     this->setWindowTitle("Card Collection");
     this->setLayout(horizontal_layout);
     this->show();
 }
 
-BigCardCollection::BigCardCollection(const std::vector<CardID>& crds, QEventLoop& loop, QWidget *parent) :
+BigCardCollection::BigCardCollection(const std::vector<CardID>& crds, CardIdLoop& loop, QWidget *parent) :
     QWidget(parent)
 {
     card_collection = new CardCollection(crds, loop);
@@ -30,10 +30,10 @@ BigCardCollection::BigCardCollection(const std::vector<CardID>& crds, QEventLoop
     horizontal_layout->addWidget(scroll_area);
 
     scroll_area->setWidget(card_collection);
-    scroll_area->setMaximumHeight(265);
+    scroll_area->setMaximumHeight(300);
 
-    this->setMinimumSize(340,270);
-    this->setMaximumSize(340,270);
+    this->setMinimumSize(550,320);
+    this->setMaximumSize(550,320);
 
     this->setWindowTitle("Card Collection");
     this->setLayout(horizontal_layout);

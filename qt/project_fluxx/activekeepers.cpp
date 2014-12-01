@@ -7,29 +7,54 @@ ActiveKeepers::ActiveKeepers(QWidget *parent) :
 
     this->setMaximumHeight(135);
     this->setMinimumHeight(135);
-
+    this->setMinimumWidth(800);
     this->setLayout(layout);
+}
+
+ActiveKeepers::~ActiveKeepers()
+{
+     for(int i = 0; i < buttons_.size(); i++)
+     {
+         delete buttons_.at(i);
+     }
+     delete layout;
 }
 
 void ActiveKeepers::update(const CardContainer& container)
 {
-    std::vector<CardID> cards = container.getCards();
+    buttons_.clear();
 
-    while(!(layout->isEmpty()))
+   // delete layout;
+
+    if (layout->layout() != NULL)
     {
-        QLayoutItem* temp = layout->itemAt(0);
-        layout->removeItem(temp);
+        QLayoutItem* item;
+        while ((item = layout->takeAt(0)) != NULL)
+        {
+            delete item->widget();
+            delete item;
+        }
+       // delete layout->layout();
     }
-    for(auto card : cards)
+
+    std::vector<CardID> cards_{container.getCards()};
+
+    qDebug() << "number of cards to add in rules: " + QString::number(cards_.size());
+
+    for(CardID card : cards_)
     {
         CardButton* tempbutton = new CardButton(card);
+        tempbutton->smallButton();
         layout->addWidget(tempbutton);
+
+
+        qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
     }
-
+    std::vector<CardID> cards = container.getCards();
 }
 
-void ActiveKeepers::connectButtons(QEventLoop &loop)
+void ActiveKeepers::connectButtons(CardIdLoop &loop)
 {
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));

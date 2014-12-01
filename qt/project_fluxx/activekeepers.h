@@ -5,6 +5,7 @@
 #include <QtWidgets>
 #include "cardbutton.h"
 #include "CardContainer.h"
+#include "cardidloop.h"
 #include <vector>
 
 class ActiveKeepers : public QWidget
@@ -12,8 +13,9 @@ class ActiveKeepers : public QWidget
     Q_OBJECT
 public:
     explicit ActiveKeepers(QWidget *parent = 0);
+    ~ActiveKeepers();
     void update(const CardContainer&);
-    void connectButtons(QEventLoop& loop);
+    void connectButtons(CardIdLoop& loop);
 
 private:
     QHBoxLayout* layout;

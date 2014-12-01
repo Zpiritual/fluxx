@@ -1,6 +1,6 @@
 #include "playerlistitem.h"
 
-PlayerListItem::PlayerListItem(const PlayerID& name, QWidget *parent) :
+PlayerListItem::PlayerListItem(const ProfileName& name, QWidget *parent) :
     player_name(name), QWidget(parent)
 {
     vertical_layout = new QVBoxLayout();
@@ -8,12 +8,17 @@ PlayerListItem::PlayerListItem(const PlayerID& name, QWidget *parent) :
     card_count = new QLabel(QString{"Hand Count: "} + QString::number(getHandCount()));
     keeper_count = new QLabel(QString{"Keeper Count: "} + QString::number(getKeeperCount()));
     keeper_button = new QPushButton();
+    big_keepers = new BigCardCollection(keepers_id);
+    big_keepers->close();
+
+    state = false;
 
     name_label->setMaximumSize(140, 20);
     card_count->setMaximumSize(140, 20);
     keeper_count->setMaximumSize(140, 20);
 
-    keeper_button->setMaximumSize(140, 20);
+    keeper_button->setMinimumSize(140, 23);
+    keeper_button->setMaximumSize(140, 23);
     keeper_button->setText(QString{"Keepers"});
 
     vertical_layout->addWidget(name_label);
@@ -66,8 +71,52 @@ void PlayerListItem::updateCards(const std::vector<CardID>& hnd, const std::vect
     keeper_count->setText(QString{"Keeper Count: "} + QString::number(getKeeperCount()));
 }
 
+void PlayerListItem::setActivePlayer()
+{
+    QPalette Pal(palette());
+    Pal.setColor(QPalette::Background, Qt::green);
+    this->setAutoFillBackground(true);
+    this->setPalette(Pal);
+}
+
+void PlayerListItem::setNextPlayer()
+{
+    QPalette Pal(palette());
+    Pal.setColor(QPalette::Background, Qt::yellow);
+    this->setAutoFillBackground(true);
+    this->setPalette(Pal);
+}
+
+void PlayerListItem::setInactivePlayer()
+{
+    this->setAutoFillBackground(false);
+}
+
+void PlayerListItem::mousePressEvent(QMouseEvent* event)
+{
+    qDebug() << QString::fromStdString(this->getPlayerName().val);
+    qDebug() << event->pos().x() << event->pos().y();
+    state = true;
+    emit clicked();
+}
+
+void PlayerListItem::mouseReleaseEvent(QMouseEvent* event)
+{
+    state = false;
+    emit clicked();
+}
+
+const ProfileName PlayerListItem::getPlayerName() const
+{
+    return player_name;
+}
+
 void PlayerListItem::showKeepers()
 {
+    if(big_keepers->close())
+    {
+        delete big_keepers;
+    }
     big_keepers = new BigCardCollection(keepers_id);
 
     big_keepers->show();

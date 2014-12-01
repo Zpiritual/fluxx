@@ -9,7 +9,7 @@ GoalButtons::GoalButtons(QWidget *parent) :
 
 }
 
-void GoalButtons::setConnections(QEventLoop &loop)
+void GoalButtons::setConnections(CardIdLoop &loop)
 {
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
@@ -26,11 +26,18 @@ void GoalButtons::update(const CardContainer& container)
     }
     for(auto card : cards_)
     {
-        layout->addWidget(new CardButton(card));
+        CardButton* tempbutton = new CardButton{card};
+        tempbutton->smallButton();
+        layout->addWidget(tempbutton);
+
+
     }
 }
 
 GoalButtons::~GoalButtons()
 {
+    for(CardButton* button : buttons_)
+        delete button;
+    delete layout;
 }
 

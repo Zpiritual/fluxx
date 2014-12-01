@@ -3,7 +3,9 @@
 #include "gui.h"
 #include "PlayerID.h"
 #include <sstream>
+#include "BoardSnapshot.h"
 #include "Player.h"
+#include "PlayerID.h"
 
 NewGame::NewGame(const std::vector<Profile>& profiles, QWidget *parent) :
     QWidget(parent)
@@ -30,14 +32,11 @@ void NewGame::message(const QString& title, const QString& message) const
     message_dialog.exec();
 }
 
-bool NewGame::existPlayer(const QString& name) const
+bool NewGame::existPlayer(const ProfileName& player_id) const
 {
-    std::istringstream ss;
-    ss.str(view_players->text().toStdString());
-    std::string temp;
-    while(ss >> temp)
+    for(int i = 0; i < players.size(); i++)
     {
-        if(temp == name.toStdString())
+        if(players.at(i) == player_id)
         {
             return true;
         }
@@ -85,13 +84,13 @@ void NewGame::startGame()
         else if(i == 22)
        {
             goalscontainer.addCard(CardID(i));
-            qDebug() << "add hand2" << i;
+            qDebug() << "add hand3" << i;
        }
         else if(i > 66 && i < 69)
             player1container_keepers.addCard(CardID(i));
         else if(i == 79 || i ==80)
             player2container_keepers.addCard(CardID(i));
-        else if(i >= 50 && i <= 55)
+        else if(i >= 54 && i <= 55)
             rulescontainer.addCard(CardID(i));
         else if(i >= 13 && i < 22)
             trashcontainer.addCard(CardID(i));
@@ -109,21 +108,88 @@ void NewGame::startGame()
     bcontainer->push_back(player2container_hand);
     bcontainer->push_back(player2container_keepers);
     bcontainer->push_back(goalscontainer);
+    bcontainer->push_back(CardContainer(CardContainerID("tempA")));
+    bcontainer->push_back(CardContainer(CardContainerID("tempB")));
 
-    gui->update(bcontainer);
+    BoardSnapshot* snapshot = new BoardSnapshot(*bcontainer,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
 
     gui->show();
 
-    gui->pickCard(CardContainerID("Rules"));
 
-    qDebug() << "Add startGame functionality";
+    CardID temp = gui->pickCard(snapshot, CardContainerID("Rules"));
+    qDebug() << "You picked card " + QString::number(temp.val);
+
+    temp = gui->pickCard(snapshot, CardContainerID("Trash"));
+    qDebug() << "You picked card " + QString::number(temp.val);
+
+   CardContainer deckcontainer2 = CardContainer(CardContainerID("Deck"));
+   CardContainer trashcontainer2 = CardContainer(CardContainerID("Trash"));
+   CardContainer rulescontainer2 = CardContainer(CardContainerID("Rules"));
+   CardContainer player1container_hand2 = CardContainer(CardContainerID("Player1_hand"));
+   CardContainer player2container_hand2 = CardContainer(CardContainerID("Player2_hand"));
+   CardContainer goalscontainer2 = CardContainer(CardContainerID("Goals"));
+   CardContainer player1container_keepers2 = CardContainer(CardContainerID("Player1_keepers"));
+   CardContainer player2container_keepers2 = CardContainer(CardContainerID("Player2_keepers"));
+
+
+
+   for(unsigned i = 1; i <= 82; ++i)
+   {
+      if(i > 10 && i< 13)
+      {
+           player1container_hand2.addCard(CardID(i));
+           qDebug() << "add hand1" << i;
+      }
+
+       else if(i > 22 && i < 28)
+      {
+           player2container_hand2.addCard(CardID(i));
+           qDebug() << "add hand2" << i;
+      }
+       else if(i == 45)
+      {
+           goalscontainer2.addCard(CardID(i));
+           qDebug() << "add hand3" << i;
+      }
+       else if(i > 70 && i < 76)
+           player1container_keepers2.addCard(CardID(i));
+       else if(i == 46 || i ==29)
+           player2container_keepers2.addCard(CardID(i));
+       else if(i >= 15 && i <= 22)
+           rulescontainer2.addCard(CardID(i));
+       else if(i >= 76 && i < 79)
+           trashcontainer2.addCard(CardID(i));
+       else
+           deckcontainer2.addCard(CardID(i));
+   }
+
+   std::vector<CardContainer>* bcontainer2 = new std::vector<CardContainer>;
+   bcontainer2->push_back(deckcontainer2);
+   bcontainer2->push_back(trashcontainer2);
+   bcontainer2->push_back(rulescontainer2);
+   bcontainer2->push_back(player1container_hand2);
+   bcontainer2->push_back(player1container_keepers2);
+   bcontainer2->push_back(player2container_hand2);
+   bcontainer2->push_back(player2container_keepers2);
+   bcontainer2->push_back(goalscontainer2);
+   bcontainer2->push_back(CardContainer(CardContainerID("tempA")));
+   bcontainer2->push_back(CardContainer(CardContainerID("tempB")));
+
+   BoardSnapshot* snapshot2 = new BoardSnapshot(*bcontainer2,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
+
+   gui->pickCard(snapshot2, CardContainerID("Rules"));
+
+
+
+   qDebug() << "Add startGame functionality";
+
     }
 }
 
 void NewGame::selectPlayer()
 {
     const QListWidgetItem* selected = player_list->currentItem();
-    if(existPlayer(selected->text()))
+    if(existPlayer(ProfileName(selected->text().toStdString())))
     {
         message(QString("New Game"), QString("Player is already chosen."));
     }
@@ -132,7 +198,7 @@ void NewGame::selectPlayer()
         QString temp = view_players->text();
         temp = temp + "\nPlayer " + QString::number(current_player++) + ": " + selected->text();
         view_players->setText(temp);
-        players.push_back(PlayerID{selected->text().toStdString()});
+        players.push_back(ProfileName{selected->text().toStdString()});
     }
     else
     {
@@ -176,16 +242,21 @@ void NewGame::uiElementSetup()
     others_layout->addLayout(finish_layout);
     others_layout->setAlignment(finish_layout, Qt::AlignBottom);
 
-    QObject::connect(start_button, SIGNAL(clicked()), this, SLOT(startGame()));
-    QObject::connect(select_player_button, SIGNAL(clicked()), this, SLOT(selectPlayer()));
-    QObject::connect(back_button, SIGNAL(clicked()), this, SLOT(goBack()));
-    QObject::connect(player_list, SIGNAL(clicked(QModelIndex)), this, SLOT(enableSelectPlayerButton()));
-    QObject::connect(player_list, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(selectPlayer()));
+    connectSignals();
 
     layout->addLayout(list_layout);
     layout->addLayout(others_layout);
 
     this->setLayout(layout);
+}
+
+void NewGame::connectSignals()
+{
+    QObject::connect(start_button, SIGNAL(clicked()), this, SLOT(startGame()));
+    QObject::connect(select_player_button, SIGNAL(clicked()), this, SLOT(selectPlayer()));
+    QObject::connect(back_button, SIGNAL(clicked()), this, SLOT(goBack()));
+    QObject::connect(player_list, SIGNAL(clicked(QModelIndex)), this, SLOT(enableSelectPlayerButton()));
+    QObject::connect(player_list, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(selectPlayer()));
 }
 
 void NewGame::goBack()

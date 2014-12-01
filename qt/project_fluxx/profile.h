@@ -1,7 +1,7 @@
 #ifndef PROFILE_H
 #define PROFILE_H
 
-#include "PlayerID.h"
+#include "profilename.h"
 #include "Player.h"
 #include <iostream>
 #include <sstream>
@@ -32,12 +32,10 @@ public:
     void read_line(const std::string&);
 
 private:
-    PlayerID name;
+    ProfileName name;
     int wins;
     int games;
     int played_cards;
-
-
 };
 
 std::ostream& operator<<(std::ostream&, const Profile&);

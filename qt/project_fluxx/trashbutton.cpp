@@ -18,10 +18,15 @@ TrashButton::~TrashButton()
 void TrashButton::updateCards(const CardContainer & cards)
 {
     cards_ = cards.getCards();
-    delete icon;
-    QString temp_string{":Images/"+QString::number(cards_.back().val)+".png"};
-    icon = new QIcon{temp_string};
-    this->setIcon(*icon);
+
+    if(cards.getSize() != 0)
+    {
+        QString temp_string{":Images/"+QString::number(cards_.back().val)+".png"};
+        icon = QIcon{temp_string};
+        this->setIcon(icon);
+    }
+    qDebug() << "updatecards in trashbutton";
+
 }
 
 void TrashButton::clickbutton()
@@ -33,9 +38,14 @@ void TrashButton::clickbutton()
     }
 }
 
-void TrashButton::setConnections(QEventLoop& loop)
+void TrashButton::setConnections(CardIdLoop& loop)
 {
-    BigCardCollection* bigcollection = new BigCardCollection{cards_, loop};
+    qDebug() << "setConnections in TrashButton";
 
+    BigCardCollection* bigcollection = new BigCardCollection{cards_, loop};
+    qDebug() << "setConnections in TrashButton";
     bigcollection->show();
+    loop.exec();
+    bigcollection->close();
+    delete bigcollection;
 }

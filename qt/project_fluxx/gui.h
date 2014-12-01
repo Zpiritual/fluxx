@@ -15,19 +15,21 @@
 #include "PlayerID.h"
 #include "playerlist.h"
 #include "activeplayer.h"
+#include "profilename.h"
+#include "playerloop.h"
 
 
 class Gui : public QWidget
 {
     Q_OBJECT
 public:  
-    explicit Gui(std::vector<PlayerID> players, QWidget *parent = 0);
+    explicit Gui(std::vector<ProfileName> players, QWidget *parent = 0);
     ~Gui();
-    const PlayerID pickPlayer(BoardSnapshot*);
-    const CardID pickCard(const CardContainerID&);
-    void update(BoardSnapshot*);
+    const PlayerID pickPlayer(const BoardSnapshot * const);
+    const CardID pickCard(const BoardSnapshot* const, const CardContainerID&);
+    void update(const BoardSnapshot* const);
     void update(std::vector<CardContainer>*);
-    void nextPlayer();
+    void nextPlayer();    
 
 private:
     QHBoxLayout* layout;
@@ -37,10 +39,14 @@ private:
     ActivePlayer* active_player_widget;
     QVBoxLayout* mid_column;
     QHBoxLayout* mid_column_top;
-    std::vector<PlayerID> player_ids;
+    std::vector<ProfileName> player_ids;
     DeckButton* deck_widget;
     GoalButtons* goals_widget;
     TrashButton* trash_widget;
+    QVBoxLayout* left_column;
+
+    void message(const QString&, const QString&) const;
+
 
     signals:
 
