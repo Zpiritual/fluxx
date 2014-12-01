@@ -5,7 +5,6 @@ PlayerList::PlayerList(const std::vector<ProfileName>& plyers, QWidget *parent) 
 {
     vertical_layout = new QVBoxLayout();
     player_ids = plyers;
-
     current_player = -1;
     next_player = -1;
 
@@ -25,6 +24,7 @@ PlayerList::~PlayerList()
     {
         delete players.at(i);
     }
+    delete vertical_layout;
 }
 
 const PlayerID PlayerList::pickPlayer() const
@@ -95,6 +95,45 @@ void PlayerList::updatePlayerState(int player_id, const Direction& direction)
         else
         {
             players.at(i)->setInactivePlayer();
+        }
+    }
+}
+
+void PlayerList::setConnections(const PlayerLoop& loop)
+{
+    for(int i = 0; i < players.size(); i++)
+    {
+        QObject::connect(players.at(i), SIGNAL(clicked()), &loop, SLOT(quit()));
+    }
+}
+
+const PlayerID PlayerList::getPlayerId(const ProfileName& player_name) const
+{
+    for(int i = 0; i < players.size(); i++)
+    {
+        if(players.at(i)->getPlayerName() == player_name)
+        {
+            switch(i)
+            {
+                case 0:
+                qDebug() << i;
+                return PlayerID(PlayerIdentifier::Player1);
+                case 1:
+                qDebug() << i;
+                return PlayerID(PlayerIdentifier::Player2);
+                case 2:
+                qDebug() << i;
+                return PlayerID(PlayerIdentifier::Player3);
+                case 3:
+                qDebug() << i;
+                return PlayerID(PlayerIdentifier::Player4);
+                case 4:
+                qDebug() << i;
+                return PlayerID(PlayerIdentifier::Player5);
+                case 5:
+                qDebug() << i;
+                return PlayerID(PlayerIdentifier::Player6);
+            }
         }
     }
 }

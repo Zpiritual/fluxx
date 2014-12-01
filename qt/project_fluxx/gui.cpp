@@ -43,13 +43,28 @@ Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
     this->setLayout(layout);
 }
 
-Gui::~Gui(){
+Gui::~Gui()
+{
+    delete layout;
+    delete log_widget;
+    delete player_list_widget;
+    delete rules_widget;
+    delete active_player_widget;
+    delete mid_column;
+    delete mid_column_top;
+    delete deck_widget;
+    delete goals_widget;
+    delete trash_widget;
+    delete left_column;
 }
 
 const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 {
     update(snapshot);
-    //return player_list_widget->pickPlayer();
+    PlayerLoop loop;
+    player_list_widget->setConnections(loop);
+    loop.exec();
+    return player_list_widget->getPlayerId(loop.getPlayerName());
 }
 
 //BoardSnapshot* snapshot

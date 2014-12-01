@@ -7,6 +7,7 @@
 #include "BoardSnapshot.h"
 #include "playerlistitem.h"
 #include "enums.h"
+#include "playerloop.h"
 
 class PlayerList : public QWidget
 {
@@ -18,6 +19,9 @@ public:
     void updatePlayers(BoardSnapshot*);
     void updatePlayerState(int, int, const Direction&);
     void updatePlayerState(int, const Direction&);
+
+    void setConnections(const PlayerLoop&);
+    const PlayerID getPlayerId(const ProfileName&) const;
 
 private:
     QVBoxLayout* vertical_layout;

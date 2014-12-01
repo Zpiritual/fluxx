@@ -60,7 +60,8 @@ SOURCES += main.cpp \
     ../../src/TriggeredRule.cc \
     bigcardcollection.cpp \
     cardcollection.cpp \
-    cardidloop.cpp
+    cardidloop.cpp \
+    playerloop.cpp
 
 
 HEADERS += \
@@ -86,7 +87,8 @@ HEADERS += \
     bigcardcollection.h \
     cardcollection.h \
     profilename.h \
-    cardidloop.h
+    cardidloop.h \
+    playerloop.h
 
 QMAKE_CXXFLAGS += -std=c++11
 

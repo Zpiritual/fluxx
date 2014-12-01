@@ -16,7 +16,6 @@ signals:
 public slots:
     void quit();
 
-
 private:
     int card_button_id;
     QEventLoop loop_;

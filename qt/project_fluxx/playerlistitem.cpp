@@ -90,6 +90,13 @@ void PlayerListItem::setInactivePlayer()
     this->setAutoFillBackground(false);
 }
 
+void PlayerListItem::mousePressEvent(QMouseEvent* event)
+{
+    qDebug() << QString::fromStdString(this->getPlayerName().val);
+    qDebug() << event->pos().x() << event->pos().y();
+    emit clicked(event->pos());
+}
+
 const ProfileName PlayerListItem::getPlayerName() const
 {
     return player_name;

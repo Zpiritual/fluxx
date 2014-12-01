@@ -16,6 +16,7 @@
 #include "playerlist.h"
 #include "activeplayer.h"
 #include "profilename.h"
+#include "playerloop.h"
 
 
 class Gui : public QWidget
