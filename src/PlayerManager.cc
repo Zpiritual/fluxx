@@ -1,6 +1,6 @@
 #include "PlayerManager.h"
 #include <stdexcept>
-
+//#include <iostream>
 PlayerManager::PlayerManager(const int players)
 {
 	_players.push_back(PlayerID(PlayerIdentifier::Player1));
@@ -36,6 +36,7 @@ void PlayerManager::addPlayer(Player p)
 
 Player* PlayerManager::getCurrentPlayer() 
 {	
+	//std::cout << _current_player << std::endl;
 	return &_players.at(_current_player);	
 }
 
@@ -51,9 +52,14 @@ void PlayerManager::setCurrentPlayer(const PlayerID pid)
 		if(_players.at(i).getID() == pid) _current_player = i;
 	}	
 }
+std::vector<Player> PlayerManager::getPlayers()
+{
+	return _players;
+}
 
 void PlayerManager::nextPlayer()
 {
 	_players.at(_current_player).resetCardsPlayed();
+	_players.at(_current_player).resetCardsDrawn();
 	_current_player = (_current_player + 1) % _players.size();
 }

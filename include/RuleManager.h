@@ -15,7 +15,7 @@ public:
 
 	RuleManager& operator= (const RuleManager&) = default;
 	RuleManager& operator= (RuleManager&&) = default;
-	~RuleManager() = default;
+	~RuleManager();
 
 	const int 		getHandLimit()		;
 	const int 		getKepperLimit() 	;
@@ -39,12 +39,12 @@ public:
 	void clearRules();
 
 private:
-	int _hand_limmit 	= 0;
-	int _keeper_limit	= 0;
-	int _goal_limit		= 0;
+	int _hand_limmit 	= 82;
+	int _keeper_limit	= 82;
+	int _goal_limit		= 1;
 	int _inflation		= 0;
-	int _draw			= 0;
-	int _play 			= 0;
+	int _draw			= 1;
+	int _play 			= 1;
 	Direction _play_direction = Direction::CLOCKWISE;
 	std::vector<TriggeredRule*> _triggered_rules;
 };

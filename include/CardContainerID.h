@@ -28,12 +28,12 @@ struct CardContainerID
 
 	bool operator ==(const CardContainerID &p) const
 	{
-		return val == p.val;
+		return val.compare(p.val) == 0;
 	}
 
 	bool operator !=(const CardContainerID &p) const
 	{
-		return val != p.val;
+		return val.compare(p.val) != 0;
 	}
 
 	bool operator<(const CardContainerID &p) const

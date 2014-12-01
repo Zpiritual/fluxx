@@ -1,14 +1,25 @@
 #include "GameLoop.h"
 #include "enums.h"
+#include <iostream>
 
 GameLoop::GameLoop(const Deck * deck, const int players)
-	: _game_logic{new GameLogic(deck, players)}
-{}
-
-void GameLoop::playCard(const PlayerID, const CardID)
 {
-
+	std::cout << "\nBefore assignment to _game_logic" << std::endl;
+	_game_logic = new GameLogic(deck, players);
+	std::cout << "\nAfter assignment to _game_logic" << std::endl;
 }
+
+GameLoop::~GameLoop()
+{
+	std::cout << "\nBefore deletion of _game_logic" << std::endl;
+	delete _game_logic;
+	std::cout << "\nBefore deletion of _game_logic" << std::endl;
+}
+
+// void GameLoop::playCard(const PlayerID, const CardID)
+// {
+
+// }
 
 void GameLoop::drawCards(const PlayerID pid, const int draw_no)
 {
@@ -28,10 +39,10 @@ const int GameLoop::getPlayNO() const
 	return _game_logic->getRM()->getPlay();
 }
 
-const PlayerID GameLoop::getNextPlayerID()
-{
-	
-}
+// const PlayerID GameLoop::getNextPlayerID()
+// {
+// 	return _game_logic->getPM()
+// }
 
 void GameLoop::sendLog(std::string)
 {
@@ -60,15 +71,18 @@ void GameLoop::nextPlayer()
 
 SessionData	GameLoop::run()
 {
-	while (executePlayerTurn(getNextPlayerID()) != GameState::GAME_OVER)
+	_game_logic->getCCM()->reshuffle();
+	while (executePlayerTurn(getCurrentPlayerID()) != GameState::GAME_OVER)
 	{
 		//switch screen osv.
 		nextPlayer();
 	}
 }
 
-const GameState GameLoop::executePlayerTurn(PlayerID)
+const GameState GameLoop::executePlayerTurn(PlayerID pid)
 {
+	std::cout <<"NEW TURN: "<< pid.getString() << std::endl;
+	std::cout <<"==========================" << std::endl;
 	checkTriggeredRules(RuleTrigger::PRE_DRAW);
 
 	drawCards(getCurrentPlayerID(), getDrawNO());
@@ -76,32 +90,23 @@ const GameState GameLoop::executePlayerTurn(PlayerID)
 	checkTriggeredRules(RuleTrigger::POST_DRAW);
 
 	checkTriggeredRules(RuleTrigger::PRE_PLAY);
-	
+	//std::cout <<"Cards played: " << getCardsPlayed() << std::endl;
  	//spela kort
- 	while (getPlayNO() < getCardsPlayed()) // played_cards ligger i player.
+ 	while (getCardsPlayed() < getPlayNO() && _game_logic->getCCM()->getSize(getCurrentPlayerID().getString() + "_hand") != 0) // played_cards ligger i player.
  	{
+ 		std::cout << "Cards to play: " << getPlayNO() << " Cards Played: " << getCardsPlayed() << endl;
+ 		std::cout << "Cards to Draw: " << getDrawNO() << " Cards Drawn: " << _game_logic->getPM()->getCurrentPlayer()->getCardsDrawn() << endl;
+
  		_game_logic->playCard(getCurrentPlayerID());
  		_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
+
  	}
+ 	std::cout << "END OF TURN\n\n" << std::endl;
 
 }
 
 void GameLoop::checkTriggeredRules(RuleTrigger rule)
 {
-//	_game_logic->checkRules(rule);
-}
-
-void GameLoop::switchScreen()
-{
-
-}
-
-void GameLoop::sendBoardState()
-{
-
-}
-
-CardID GameLoop::requestInput()
-{
-
+	_game_logic->checkRules(rule);
+	//std::cout << "Check rules" << std::endl;
 }

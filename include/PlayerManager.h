@@ -38,11 +38,12 @@ public:
 	Player*		  	getCurrentPlayer();
 	const PlayerID	getCurrentPlayerID();
 	void 			setCurrentPlayer(const PlayerID pid);
+	std::vector<Player> getPlayers();
 	void 			nextPlayer();
 
 private:
 	std::vector<Player> _players;
-	int  _current_player;
+	int  _current_player = 0;
 };
 
 #endif

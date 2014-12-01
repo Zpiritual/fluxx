@@ -3,7 +3,8 @@
 #include "Stock.h"
 //#include <map>
 //#include <utility>
-//#include <iostream>
+#include <iostream>
+#include "enums.h"
 CardContainerManager::CardContainerManager(const Deck* deck)
 // Konstruktorn skall initiera både stock-objektet och vektorn med cardcontainers.
 {
@@ -14,6 +15,9 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 		 }
 	const CardContainerID trash("Trash");
 	_containers.insert(std::make_pair(trash, new CardContainer(trash)));
+	
+	const CardContainerID goal("Goal");
+	_containers.insert(std::make_pair(trash, new CardContainer(goal)));
 
 	const CardContainerID rules("Rules");
 	_containers.insert(std::make_pair(rules, new CardContainer(rules)));
@@ -36,13 +40,22 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 	for(int i = 1; i <= 6; i++)
 	{
-		char player_number = i - '0';
+		char player_number = '0' + i;
 		std::string player_container = "Player";
 		player_container += player_number;
 		player_container += "_keepers";
 		const CardContainerID container(player_container);
 		_containers.insert(std::make_pair(container, new CardContainer(container)));
 	}	
+}
+
+void CardContainerManager::clearContainer(const  CardContainerID ccid)
+{
+		for(const CardID id: getCards(ccid))
+			{
+				getContainer(ccid)->removeCard(id);
+				_stock->push(id);
+			}
 }
 
 CardContainerManager::~CardContainerManager()
@@ -61,13 +74,19 @@ void CardContainerManager::reshuffle()
 
 void CardContainerManager::drawCard(const CardContainerID container)
 {
+	if(_stock->empty())
+	{
+		clearContainer(CardContainerID("Trash"));
+	}
 	getContainer(container)->addCard(_stock->pop());
+	notify(_stock->getID(),container,Event::CARD_MOVED);
 }
 
 void CardContainerManager::moveCard(const CardContainerID from, const CardContainerID to, const CardID card)
 {
 	getContainer(from)->removeCard(card);
 	getContainer(to)->addCard(card);
+	notify(from,to,Event::CARD_MOVED);
 }
 
 const int CardContainerManager::getSize(const CardContainerID container)
@@ -84,4 +103,12 @@ const vector<CardID> CardContainerManager::getCards(const CardContainerID contai
 {
 	return getContainer(container)->getCards();
 }
-
+const std::vector<CardContainer> CardContainerManager::getContainers() const
+{
+	std::vector<CardContainer> cardContainers;
+	for(auto it = _containers.begin(); it != _containers.end(); ++it)
+	{
+		cardContainers.push_back(*(it->second));
+	}
+	return cardContainers;
+}

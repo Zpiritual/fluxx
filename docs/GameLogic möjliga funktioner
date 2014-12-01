@@ -1,0 +1,9 @@
+Rules borde ha sitt egna grännsitt för att försäkra att reglerna exikveras som de ska.
+void addRule()
+void removeRule()
+
+Keepers är triviala och kan förflyttas både genom move och play
+
+Actions -||-
+
+Goals jobbar vi med när de stora delarna är avklarade

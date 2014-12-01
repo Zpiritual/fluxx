@@ -1,25 +1,30 @@
 #include "Stock.h"
-
+#include <stdexcept>
+#include <ctime>
 Stock::Stock(const CardContainerID id): _id{id}
 {}
 
-const int Stock::getSize() 	const
+const int Stock::getSize() const
 {
 	return _cards.size();
 }
 
-const std::stack<CardID> 	Stock::getCards() 	const
+const std::stack<CardID> Stock::getCards() const
 {
 	return _cards;
 }
 
-const CardContainerID 	Stock::getID() 	const
+const CardContainerID Stock::getID() const
 {
 	return _id;
 }
 
 const CardID Stock::pop()
 {
+	if (_cards.empty())
+	{
+		throw std::logic_error("const CardID Stock::pop() - Tom kortlek!");
+	}
 	const CardID tmp = _cards.top();
 	_cards.pop();
 	return tmp;
@@ -42,12 +47,12 @@ void Stock::shuffle()
 	{
 		tmp.push_back(pop());
 	}
-		std::default_random_engine generator;
-
+	int i = time(0);
+    std::mt19937 gen(i);
 	while(!tmp.empty())
 	{
 		std::uniform_int_distribution<int> distribution(0,tmp.size()-1);
-		unsigned int i = distribution(generator);
+		unsigned int i = distribution(gen);
 		push(tmp.at(i));
 		tmp.erase(tmp.begin() + i);
 	}
