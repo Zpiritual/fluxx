@@ -36,6 +36,7 @@ Deck* DeckParser::deck_to_game(std::string filename)
 		string type;
 		string subtype;
 		string description;
+		string effect;
 		vector<Effect> effects;
 		
 		while(getline(ifs, line) && !line.empty())
@@ -66,8 +67,8 @@ Deck* DeckParser::deck_to_game(std::string filename)
 			}
 			else if(t == "CARD_RULE")
 			{
-				//ss >> description;
-				//cout << "Effect:" << effects.size() << endl;
+				getline(ss,effect);
+				effects.push_back(Effect{effect});
 			}
 		}
 		
