@@ -60,6 +60,7 @@ Gui::~Gui()
 
 const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 {
+    qDebug() << "Pick Player: ";
     update(snapshot);
     PlayerLoop loop;
     player_list_widget->setConnections(loop);

@@ -116,22 +116,16 @@ const PlayerID PlayerList::getPlayerId(const ProfileName& player_name) const
             switch(i)
             {
                 case 0:
-                qDebug() << i;
                 return PlayerID(PlayerIdentifier::Player1);
                 case 1:
-                qDebug() << i;
                 return PlayerID(PlayerIdentifier::Player2);
                 case 2:
-                qDebug() << i;
                 return PlayerID(PlayerIdentifier::Player3);
                 case 3:
-                qDebug() << i;
                 return PlayerID(PlayerIdentifier::Player4);
                 case 4:
-                qDebug() << i;
                 return PlayerID(PlayerIdentifier::Player5);
                 case 5:
-                qDebug() << i;
                 return PlayerID(PlayerIdentifier::Player6);
             }
         }
