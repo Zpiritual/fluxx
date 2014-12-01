@@ -29,7 +29,7 @@ public:
     const CardID pickCard(const BoardSnapshot* const, const CardContainerID&);
     void update(const BoardSnapshot* const);
     void update(std::vector<CardContainer>*);
-    void nextPlayer();
+    void nextPlayer();    
 
 private:
     QHBoxLayout* layout;
@@ -44,6 +44,9 @@ private:
     GoalButtons* goals_widget;
     TrashButton* trash_widget;
     QVBoxLayout* left_column;
+
+    void message(const QString&, const QString&) const;
+
 
     signals:
 

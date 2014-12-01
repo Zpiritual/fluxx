@@ -65,6 +65,11 @@ const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
     PlayerLoop loop;
     player_list_widget->setConnections(loop);
     loop.exec();
+    if (player_list_widget->getPlayerId(loop.getPlayerName()) == snapshot->current_player)
+    {
+        message(QString("Pick Player"), QString("Can't pick yourself!"));
+        pickPlayer(snapshot);
+    }
     return player_list_widget->getPlayerId(loop.getPlayerName());
 }
 
@@ -123,6 +128,15 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
 void Gui::nextPlayer()
 {
 
+}
+
+void Gui::message(const QString& title, const QString& message) const
+{
+    // Display a message box
+    QMessageBox message_dialog;
+    message_dialog.setWindowTitle(title);
+    message_dialog.setText(message);
+    message_dialog.exec();
 }
 
 void Gui::update(const BoardSnapshot* const snapshot) //Lägg till i alla klasser
