@@ -61,7 +61,8 @@ SOURCES += main.cpp \
     bigcardcollection.cpp \
     cardcollection.cpp \
     cardidloop.cpp \
-    playerloop.cpp
+    playerloop.cpp \
+    cardpicture.cpp
 
 
 HEADERS += \
@@ -88,7 +89,8 @@ HEADERS += \
     cardcollection.h \
     profilename.h \
     cardidloop.h \
-    playerloop.h
+    playerloop.h \
+    cardpicture.h
 
 QMAKE_CXXFLAGS += -std=c++11
 

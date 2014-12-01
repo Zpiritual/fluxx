@@ -21,6 +21,7 @@ private:
     QScrollArea* scroll_area;
     QHBoxLayout* horizontal_layout;
     CardCollection* card_collection;
+
     void setConnections(CardIdLoop&);
 
 signals:
