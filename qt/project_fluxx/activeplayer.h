@@ -10,6 +10,9 @@
 #include "BoardSnapshot.h"
 #include "CardContainerID.h"
 #include "cardidloop.h"
+#include "BoardSnapshot.h"
+#include "switchplayer.h"
+#include "profilename.h"
 
 class ActivePlayer : public QWidget
 {
@@ -20,6 +23,8 @@ public:
     ~ActivePlayer();
     void connectActiveKeepers(CardIdLoop&);
     void connectActiveHand(CardIdLoop&);
+    void switchPlayer(const ProfileName&);
+
 
 private:
     QVBoxLayout* layout;

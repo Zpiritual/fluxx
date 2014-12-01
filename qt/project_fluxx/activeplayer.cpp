@@ -19,9 +19,10 @@ ActivePlayer::ActivePlayer(QWidget *parent) :
     scroll_area_hand->setMinimumHeight(265);
     scroll_area_hand->setMaximumHeight(265);
 
-    this->setMinimumHeight(500);
-//    layout->setAlignment(scroll_area_hand, Qt::AlignBottom);
-//    layout->setAlignment(scroll_area_keepers, Qt::AlignTop);
+    this->setMinimumHeight(300);
+
+    layout->setAlignment(scroll_area_keepers, Qt::AlignTop);
+    layout->setAlignment(scroll_area_hand, Qt::AlignTop);
     scroll_area_keepers->setFrameShape(QFrame::NoFrame);
     scroll_area_hand->setFrameShape(QFrame::NoFrame);
 
@@ -64,4 +65,17 @@ void ActivePlayer::connectActiveKeepers(CardIdLoop& loop)
 void ActivePlayer::connectActiveHand(CardIdLoop& loop)
 {
     active_hand->connectButtons(loop);
+}
+
+void ActivePlayer::switchPlayer(const ProfileName& next_player)
+{
+    scroll_area_hand->hide();
+    QEventLoop loop;
+    SwitchPlayer* switch_player = new SwitchPlayer(next_player, loop);
+    layout->addWidget(switch_player);
+    loop.exec();
+
+    layout->removeWidget(switch_player);
+    delete switch_player;
+    scroll_area_hand->show();
 }

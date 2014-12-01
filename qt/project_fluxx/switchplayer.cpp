@@ -1,70 +1,42 @@
 #include "switchplayer.h"
 
-SwitchPlayer::SwitchPlayer(QWidget *parent) :
+SwitchPlayer::SwitchPlayer(const ProfileName& next_player, QEventLoop& loop, QWidget *parent) :
     QWidget(parent)
 {
-    uiElements();
-    connectSignals();
+    uiElements(next_player);
+    connectSignals(loop);
 }
 
-void SwitchPlayer::uiElements()
+void SwitchPlayer::uiElements(const ProfileName& next_player)
 {
     main_layout = new QHBoxLayout();
     next_player_layout = new QVBoxLayout();
-    new_player_layout = new QVBoxLayout();
 
     next_player_button = new QPushButton(QString{"Next Player"});
-    new_player_button = new QPushButton(QString{"New Player"});
-    name_field = new QLineEdit();
     next_player_text = new QLabel();
 
-    next_player_text->setText(QString{"NextPlayer: "} + QString{"namn"} + QString{" Previous Player: "} + QString{"namn"});
+    next_player_text->setText(QString("NextPlayer: ") + QString::fromStdString(next_player.val));
     next_player_text->setMinimumHeight(30);
 
-    new_player_button->setEnabled(false);
-    next_player_button->setMinimumWidth(320);
+    next_player_button->setMinimumWidth(100);
     next_player_button->setMinimumHeight(75);
-    new_player_button->setMinimumWidth(320);
-    new_player_button->setMinimumHeight(75);
-    name_field->setMaximumWidth(75);
-
+    this->setMinimumHeight(259);
+    this->setMinimumWidth(500);
     next_player_layout->addWidget(next_player_text);
     next_player_layout->addWidget(next_player_button);
-    new_player_layout->addWidget(name_field);
-    new_player_layout->addWidget(new_player_button);
+
     main_layout->addLayout(next_player_layout);
-    main_layout->addLayout(new_player_layout);
 
-    main_layout->setAlignment(next_player_layout, Qt::AlignLeft);
-    main_layout->setAlignment(new_player_layout, Qt::AlignRight);
-    next_player_layout->setAlignment(next_player_text, Qt::AlignBottom);
+    main_layout->setAlignment(next_player_layout, Qt::AlignTop);
+    next_player_layout->setAlignment(next_player_text, Qt::AlignTop);
     next_player_layout->setAlignment(next_player_button, Qt::AlignTop);
-    new_player_layout->setAlignment(new_player_button, Qt::AlignTop);
-    new_player_layout->setAlignment(name_field, Qt::AlignBottom);
 
-    this->setMinimumWidth(640);
-    this->setMinimumHeight(480);
-    this->setWindowTitle(QString{"Next Player"});
     this->setLayout(main_layout);
 }
 
-void SwitchPlayer::connectSignals()
+void SwitchPlayer::connectSignals(QEventLoop& loop)
 {
-    QObject::connect(name_field, SIGNAL(textChanged(QString)), this, SLOT(enableNewPlayerButton()));
-    QObject::connect(next_player_button, SIGNAL(clicked()), this, SLOT(nextPlayer()));
-    QObject::connect(new_player_button, SIGNAL(clicked()), this, SLOT(newPlayer()));
-}
-
-void SwitchPlayer::enableNewPlayerButton()
-{
-    if(name_field->text() == "")
-    {
-        new_player_button->setEnabled(false);
-    }
-    else
-    {
-        new_player_button->setEnabled(true);
-    }
+    QObject::connect(next_player_button, SIGNAL(clicked()), &loop, SLOT(quit()));
 }
 
 void SwitchPlayer::nextPlayer()
@@ -72,12 +44,4 @@ void SwitchPlayer::nextPlayer()
     qDebug() << "Next Player Functionality";
     // TODO: Add next player functionality
     // Switch player and enter gameboard
-}
-
-void SwitchPlayer::newPlayer()
-{
-    qDebug() << "New Player Functionality";
-    // TODO:: Add new player functionality
-    // Add new player and enter gameboard with new player as current player
-
 }

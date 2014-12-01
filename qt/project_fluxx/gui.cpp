@@ -1,6 +1,4 @@
 #include "gui.h"
-#include "BoardSnapshot.h"
- #include "cardidloop.h"
 
 Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
     QWidget(parent)
@@ -79,22 +77,25 @@ const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContainerID& containerid)
 {
     update(snapshot);
+
     CardIdLoop loop;
 
     if(containerid == CardContainerID("Rules"))
     {
         rules_widget->setConnections(loop);
-        qDebug() << "pickcard in gui";
+        qDebug() << "pickcard rules in gui";
 
         loop.exec();
     }
     else if(containerid == CardContainerID("Goals"))
     {
         goals_widget->setConnections(loop);
+        qDebug() << "pickcard goals in gui";
         loop.exec();
     }
     else if(containerid == CardContainerID("Trash"))
     {
+        qDebug() << "pickcard trash in gui";
         trash_widget->setConnections(loop);
      //   loop.exec();
     }
@@ -103,6 +104,7 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
             containerid == CardContainerID("tempA"))
     {
          active_player_widget->connectActiveHand(loop);
+         qDebug() << "pick active hand in gui";
          loop.exec();
     }
     else if(containerid == CardContainerID(snapshot->current_player.getString()+"_keepers"))
@@ -127,9 +129,14 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
 }
 
 
-void Gui::nextPlayer()
+void Gui::nextPlayer(const BoardSnapshot* const snapshot)
 {
+    update(snapshot);
+    active_player_widget->switchPlayer(player_ids.at(snapshot->current_player.getInt()));
+}
 
+Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
+{
 }
 
 void Gui::message(const QString& title, const QString& message) const

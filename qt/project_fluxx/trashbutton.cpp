@@ -40,12 +40,12 @@ void TrashButton::clickbutton()
 
 void TrashButton::setConnections(CardIdLoop& loop)
 {
-    qDebug() << "setConnections in TrashButton";
 
     BigCardCollection* bigcollection = new BigCardCollection{cards_, loop};
-    qDebug() << "setConnections in TrashButton";
     bigcollection->show();
     loop.exec();
     bigcollection->close();
     delete bigcollection;
+    qDebug() << "setConnections in TrashButton";
+
 }

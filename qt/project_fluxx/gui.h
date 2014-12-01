@@ -11,11 +11,13 @@
 #include "trashbutton.h"
 #include "BoardSnapshot.h"
 #include "CardID.h"
+#include "switchplayer.h"
 #include "CardContainerID.h"
 #include "PlayerID.h"
 #include "playerlist.h"
 #include "activeplayer.h"
 #include "profilename.h"
+#include "cardidloop.h"
 #include "playerloop.h"
 
 
@@ -28,8 +30,8 @@ public:
     const PlayerID pickPlayer(const BoardSnapshot * const);
     const CardID pickCard(const BoardSnapshot* const, const CardContainerID&);
     void update(const BoardSnapshot* const);
-    void update(std::vector<CardContainer>*);
-    void nextPlayer();    
+    void nextPlayer(const BoardSnapshot* const);
+    Direction chooseDirection(const BoardSnapshot * const snapshot);
 
 private:
     QHBoxLayout* layout;

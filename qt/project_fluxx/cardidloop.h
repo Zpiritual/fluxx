@@ -4,6 +4,7 @@
 #include <QEventLoop>
 #include "CardID.h"
 #include "cardbutton.h"
+
 class CardIdLoop : public QObject
 {
     Q_OBJECT

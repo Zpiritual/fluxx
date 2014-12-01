@@ -1,5 +1,5 @@
-#ifndef CARD_H
-#define CARD_H
+#ifndef CARDBUTTON_H
+#define CARDBUTTON_H
 
 #include <QPushButton>
 #include "CardID.h"

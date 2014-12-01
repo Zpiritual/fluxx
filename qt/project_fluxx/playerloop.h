@@ -1,7 +1,6 @@
 #ifndef PLAYERLOOP_H
 #define PLAYERLOOP_H
 
-#include <QObject>
 #include <QEventLoop>
 #include "profilename.h"
 #include "playerlistitem.h"
