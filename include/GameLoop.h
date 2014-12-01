@@ -21,7 +21,7 @@
 class GameLoop
 {
 public:
-    GameLoop(const Gui * gui, const Deck * deck, const int players);
+    GameLoop(Gui * gui, const Deck * deck, const int players);
 
 	GameLoop()							  = delete;
 	GameLoop(const GameLoop&)			  = default;

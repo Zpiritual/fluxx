@@ -3,7 +3,7 @@
 #include <sstream>
 #include <string>
 
-GameLogic::GameLogic(const Gui * gui, const Deck * deck, const int players)
+GameLogic::GameLogic(Gui * gui, const Deck * deck, const int players)
 {
     _gui = gui;
     _ccm = new CardContainerManager(deck);
@@ -121,9 +121,10 @@ void GameLogic::playCard(const PlayerID pid)
     resolveEffects();
 }
 
-const CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID) const
+const CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) const
 {
-	//GUI pickCard
+    BoardSnapshot snapshot(makeBoardSnapshot());
+    return _gui->pickCard(&snapshot, container);
 }
 
 const PlayerID GameLogic::pickPlayer() const

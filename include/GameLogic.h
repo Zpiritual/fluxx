@@ -26,7 +26,7 @@
 class GameLogic:public Observer
 {
 public:
-    GameLogic(const Gui * gui, const Deck * deck, const int players);
+    GameLogic(Gui * gui, const Deck * deck, const int players);
 	GameLogic()					= delete;
 	GameLogic(const GameLogic&) = default;
 	GameLogic (GameLogic&&) 	= default;
@@ -61,7 +61,7 @@ public:
 	const BoardSnapshot makeBoardSnapshot() const;
 
 private:
-    const Gui * _gui;
+    Gui * _gui;
     CardContainerManager *_ccm;
     CardManager *_cm;
 	RuleManager *_rm;
