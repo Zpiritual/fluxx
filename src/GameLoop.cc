@@ -92,7 +92,7 @@ const GameState GameLoop::executePlayerTurn(PlayerID pid)
  	//spela kort
  	while (getCardsPlayed() < getPlayNO()) // played_cards ligger i player.
  	{
- 		std::cout <<"Cards to play: " <<  getPlayNO() << " Cards Played: " << getCardsPlayed() << endl;
+ 		std::cout << "Cards to play: " << getPlayNO() << " Cards Played: " << getCardsPlayed() << endl;
  		std::cout << "Play cards" + pid.getString() << std::endl;
  		_game_logic->playCard(getCurrentPlayerID());
  		_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
