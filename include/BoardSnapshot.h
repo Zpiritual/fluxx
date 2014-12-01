@@ -25,8 +25,8 @@ struct BoardSnapshot
 	
 	BoardSnapshot(const std::vector<CardContainer>, const int, const PlayerID, const int, const int, const Direction);
 	BoardSnapshot() = delete;
-	BoardSnapshot(const BoardSnapshot&) = delete;
-	BoardSnapshot (BoardSnapshot&&) = delete;
+	BoardSnapshot(const BoardSnapshot&) = default;
+	BoardSnapshot (BoardSnapshot&&) = default;
 
 	BoardSnapshot& operator= (const BoardSnapshot&) = delete;
 	BoardSnapshot& operator= (BoardSnapshot&&) = delete;

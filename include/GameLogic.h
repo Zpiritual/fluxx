@@ -41,8 +41,7 @@ public:
 	//Prototype functions
 	void addRule(const CardID, const Effect*, const RuleTrigger);
 	void removeRule(const CardID);
-	const CardID requestPlayerInput(const PlayerID ,const CardContainerID) const;
-	const CardID pickCard(const CardContainerID) const;
+	const CardID pickCard(const PlayerID ,const CardContainerID) const;
 	const PlayerID pickPlayer() const;
 	void switchPlayer();
 
@@ -51,16 +50,15 @@ public:
 	RuleManager*		  getRM();
 	PlayerManager*		  getPM();
 
-	//void 			playCard(const PlayerID, const CardID);
-	void 			playCard(const PlayerID);
-	void			drawCard(const PlayerID);
+	void				 playCard(const PlayerID);
+	void				 drawCard(const PlayerID);
 	//void 			checkRules(RuleTriggerType);
-	void 			resolveEffects();
-	void 			checkRules(RuleTrigger);
+	void				 resolveEffects();
+	void				 checkRules(RuleTrigger);
 	//bool 			checkGoal();
-	const PlayerID 	getNextPlayer();
-	const BoardSnapshot* getBoardSnapshot() const;
-	//const CardID	requestPlayerInput(const PlayerID ,const CardContainerID) const;
+	const PlayerID		 getNextPlayer();
+	const BoardSnapshot makeBoardSnapshot() const;
+
 private:
 	CardContainerManager *_ccm;
 	CardManager *_cm;

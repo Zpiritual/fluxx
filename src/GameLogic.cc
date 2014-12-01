@@ -66,7 +66,7 @@ void GameLogic::playCard(const PlayerID pid)
         throw std::logic_error("Playing from empty Container: " + ccids);
     //Fråga GUI om kort-id osv.
 
-    CardID cid = requestPlayerInput(_pm->getCurrentPlayer()->getID(), ccid);
+    CardID cid = pickCard(_pm->getCurrentPlayer()->getID(), ccid);
 
     //Spela det givna kortet.
     //if a Goal card is placed check if there is room for it
@@ -75,7 +75,7 @@ void GameLogic::playCard(const PlayerID pid)
     {
         if (_ccm->getSize(CardContainerID("Goal")) > _rm->getGoalLimmit())
         {
-            _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), requestPlayerInput(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal")));
+            _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal")));
         }
         _ccm->moveCard(ccid, CardContainerID("Goal"), cid);
         //Add effect
@@ -120,24 +120,20 @@ void GameLogic::playCard(const PlayerID pid)
     resolveEffects();
 }
 
-const CardID GameLogic::requestPlayerInput(const PlayerID pid, const CardContainerID conid) const
+const CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID) const
 {
-    //GUI request
+	//GUI pickCard
 }
-	const CardID GameLogic::pickCard(const CardContainerID) const
-	{
-			//GUI pickCard
-	}
 
-	const PlayerID GameLogic::pickPlayer() const
-	{
-		//GUI pickPlayer
-	}
+const PlayerID GameLogic::pickPlayer() const
+{
+	//GUI pickPlayer
+}
 
-	void GameLogic::switchPlayer()
-	{
-		//GUI Switch player
-	}
+void GameLogic::switchPlayer()
+{
+	//GUI Switch player
+}
 
 void GameLogic::drawCard(const PlayerID pid)
 {
@@ -220,7 +216,7 @@ void GameLogic::executeEffect(const Effect &effect)
         cout << "trash cards: " << endl;
         for (int i = 0 ; i < p3; i++)
         {
-            _ccm->moveCard(CardContainerID(ccid), CardContainerID("Trash"), requestPlayerInput(_pm->getCurrentPlayer()->getID(), CardContainerID(ccid)));
+            _ccm->moveCard(CardContainerID(ccid), CardContainerID("Trash"), pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID(ccid)));
         }
 
         for (CardID cid : _ccm->getCards(CardContainerID(ccid)))
@@ -243,7 +239,7 @@ void GameLogic::executeEffect(const Effect &effect)
         {
             _ccm->moveCard(CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"), CardContainerID("Trash"), i);
         }
-        for (CardID i : v)
+        for (unsigned i = 0; i < v.size(); ++i)
         {
             drawCard(_pm->getCurrentPlayer()->getID());
         }
@@ -330,7 +326,7 @@ void GameLogic::executeEffect(const Effect &effect)
         if (_ccm->getSize(CardContainerID(p1)) > 0)
             for (int i = 0 ; i < p2; i++)
             {
-                _ccm->moveCard(CardContainerID(p1), CardContainerID(ccid), requestPlayerInput(_pm->getCurrentPlayer()->getID(), CardContainerID(p1)));
+                _ccm->moveCard(CardContainerID(p1), CardContainerID(ccid), pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID(p1)));
                 playCard(_pm->getCurrentPlayer()->getID());
             }
     }
@@ -343,6 +339,7 @@ void GameLogic::executeEffect(const Effect &effect)
     else
         throw std::logic_error("Undefined Effect");
 }
+
 void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 , const Event event)
 {
     switch (event)
@@ -361,7 +358,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                     cout << "Must remove from hand player: " << p.getID().getString() << ":\t";
                     CardContainerID ccid1(p.getID().getString() + "_hand");
                     CardContainerID ccid2("Trash");
-                    _ccm->moveCard(ccid1, ccid2, requestPlayerInput(p.getID(), ccid1));
+                    _ccm->moveCard(ccid1, ccid2, pickCard(p.getID(), ccid1));
                     cout << "\n";
                 }
                 //Keeper Limit check
@@ -370,7 +367,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                     cout << "Must remove from keepers player: " << p.getID().getString() << ":\t";
                     CardContainerID ccid1(p.getID().getString() + "_keepers");
                     CardContainerID ccid2("Trash");
-                    _ccm->moveCard(ccid1, ccid2, requestPlayerInput(p.getID(), ccid1));
+                    _ccm->moveCard(ccid1, ccid2, pickCard(p.getID(), ccid1));
                     cout << "\n";
                 }
             }
@@ -378,10 +375,12 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
         break;
     }
 }
-const BoardSnapshot* GameLogic::getBoardSnapshot()const 
+
+const BoardSnapshot GameLogic::makeBoardSnapshot()const 
 {
-	BoardSnapshot * bs = new BoardSnapshot(_ccm->getContainers(), (int)(_pm->getPlayers().size()), _pm->getCurrentPlayer()->getID(), _pm->getCurrentPlayer()->getCardsPlayed(), _rm->getPlay(),_rm->getPlayOrder());
+	return BoardSnapshot(_ccm->getContainers(), (int)(_pm->getPlayers().size()), _pm->getCurrentPlayer()->getID(), _pm->getCurrentPlayer()->getCardsPlayed(), _rm->getPlay(),_rm->getPlayOrder());
 }
+
 CardContainerManager *GameLogic::getCCM()
 {
     return _ccm;

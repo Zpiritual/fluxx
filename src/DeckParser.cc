@@ -6,7 +6,7 @@ Deck* DeckParser::deck_to_game(std::string filename)
 {
 	ifstream ifs{filename};
 	string deck_name;
-	int deck_size;
+	unsigned deck_size;
 	string deck_description;
 
 	string temp;
@@ -28,12 +28,12 @@ Deck* DeckParser::deck_to_game(std::string filename)
 	vector<const Card*> cards;
 	string line;
 	
-	for(int i = 0; i < deck_size; i++)
+	for(unsigned i = 0; i < deck_size; i++)
 	{
 		ifs >> ws;
 		int id;
-		string name;
 		string type;
+		string subtype;
 		string description;
 		vector<Effect> effects;
 		
@@ -46,13 +46,13 @@ Deck* DeckParser::deck_to_game(std::string filename)
 			{
 				ss >> id;
 			}	
-			else if(t == "CARD_NAME")
-			{
-				ss >> name;
-			}
 			else if(t == "CARD_TYPE")
 			{
 				ss >> type;
+			}
+			else if(t == "CARD_SUBTYPE")
+			{
+				ss >> subtype;
 			}
 			else if(t == "CARD_DESCRIPTION")
 			{
@@ -74,7 +74,7 @@ Deck* DeckParser::deck_to_game(std::string filename)
 	//	cout << "SubType: " << subType << endl;
 	//	cout << "Description: " << description << endl;
 	//	cout << "Effect:" << effects.size() << endl;
-		cards.push_back(new Card(id, type, subType, description, effects));
+		cards.push_back(new Card(id, type, subtype, description, effects));
 	}
 
 	if(cards.size() != deck_size)
