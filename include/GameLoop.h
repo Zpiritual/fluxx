@@ -14,13 +14,14 @@
 #include "RuleManager.h"
 #include "SessionData.h"
 #include "enums.h"
+#include "gui.h"
 #include <vector>
 #include <string>
 
 class GameLoop
 {
 public:
-	GameLoop(const Deck * deck, const int players);
+    GameLoop(const Gui * gui, const Deck * deck, const int players);
 
 	GameLoop()							  = delete;
 	GameLoop(const GameLoop&)			  = default;

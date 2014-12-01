@@ -2,10 +2,10 @@
 #include "enums.h"
 #include <iostream>
 
-GameLoop::GameLoop(const Deck * deck, const int players)
+GameLoop::GameLoop(const Gui * gui, const Deck * deck, const int players)
 {
 	std::cout << "\nBefore assignment to _game_logic" << std::endl;
-	_game_logic = new GameLogic(deck, players);
+    _game_logic = new GameLogic(gui, deck, players);
 	std::cout << "\nAfter assignment to _game_logic" << std::endl;
 }
 

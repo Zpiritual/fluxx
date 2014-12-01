@@ -3,8 +3,9 @@
 #include <sstream>
 #include <string>
 
-GameLogic::GameLogic(const Deck *deck, const int players)
+GameLogic::GameLogic(const Gui * gui, const Deck * deck, const int players)
 {
+    _gui = gui;
     _ccm = new CardContainerManager(deck);
     _ccm->addObserver(this);
     _cm = new CardManager(deck);
