@@ -15,6 +15,7 @@
 #include "PlayerID.h"
 #include "CardContainerID.h"
 #include "CardContainerManager.h"
+#include "BoardSnapshot.h"
 #include "CardManager.h"
 #include "RuleManager.h"
 #include "PlayerManager.h"
@@ -41,6 +42,9 @@ public:
 	void addRule(const CardID, const Effect*, const RuleTrigger);
 	void removeRule(const CardID);
 	const CardID requestPlayerInput(const PlayerID ,const CardContainerID) const;
+	const CardID pickCard(const CardContainerID) const;
+	const PlayerID pickPlayer() const;
+	void switchPlayer();
 
 	CardContainerManager* getCCM();
 	CardManager*		  getCM();
@@ -55,6 +59,7 @@ public:
 	void 			checkRules(RuleTrigger);
 	//bool 			checkGoal();
 	const PlayerID 	getNextPlayer();
+	const BoardSnapshot* getBoardSnapshot() const;
 	//const CardID	requestPlayerInput(const PlayerID ,const CardContainerID) const;
 private:
 	CardContainerManager *_ccm;

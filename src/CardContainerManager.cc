@@ -103,4 +103,12 @@ const vector<CardID> CardContainerManager::getCards(const CardContainerID contai
 {
 	return getContainer(container)->getCards();
 }
-
+const std::vector<CardContainer> CardContainerManager::getContainers() const
+{
+	std::vector<CardContainer> cardContainers;
+	for(auto it = _containers.begin(); it != _containers.end(); ++it)
+	{
+		cardContainers.push_back(*(it->second));
+	}
+	return cardContainers;
+}

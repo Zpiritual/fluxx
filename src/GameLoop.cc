@@ -109,18 +109,3 @@ void GameLoop::checkTriggeredRules(RuleTrigger rule)
 	_game_logic->checkRules(rule);
 	//std::cout << "Check rules" << std::endl;
 }
-
-void GameLoop::switchScreen()
-{
-
-}
-
-void GameLoop::sendBoardState()
-{
-
-}
-
-CardID GameLoop::requestInput()
-{
-
-}

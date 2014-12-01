@@ -38,7 +38,7 @@ public:
 	void clearContainer(const CardContainerID);
 	const int getSize(const CardContainerID);
 	const std::vector<CardID> getCards(const CardContainerID);
-
+	const std::vector<CardContainer> getContainers() const;
 private:
 	CardContainer* getContainer(const CardContainerID);
 	Stock* _stock;
