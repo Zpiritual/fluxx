@@ -4,12 +4,14 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "profile.h"
+#include "Deck.h"
+#include "cardpicture.h"
 
 class MainMenu : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainMenu(QWidget *parent = 0);
+    explicit MainMenu(const Deck* const, QWidget *parent = 0);
     ~MainMenu();
 
     void newGame();
@@ -30,6 +32,8 @@ private:
     QWidget* newgame_widget; //The newgame menu widget
 
     std::vector<Profile> profiles;
+
+    const Deck* deck;
 
 signals:
 

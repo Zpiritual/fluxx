@@ -65,11 +65,13 @@ const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
     PlayerLoop loop;
     player_list_widget->setConnections(loop);
     loop.exec();
+
     if (player_list_widget->getPlayerId(loop.getPlayerName()) == snapshot->current_player)
     {
         message(QString("Pick Player"), QString("Can't pick yourself!"));
         pickPlayer(snapshot);
     }
+
     return player_list_widget->getPlayerId(loop.getPlayerName());
 }
 

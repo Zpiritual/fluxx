@@ -6,13 +6,15 @@
 #include "mainmenu.h"
 #include "gui.h"
 #include "profilename.h"
+#include "GameLoop.h"
 
 class NewGame : public QWidget
 {
     Q_OBJECT
 public:
-    explicit NewGame(const std::vector<Profile>& , QWidget *parent = 0);
+    explicit NewGame(const std::vector<Profile>&, const Deck* const, QWidget *parent = 0);
     ~NewGame();
+
 
 private:
     QHBoxLayout* layout;
@@ -26,6 +28,8 @@ private:
     QLabel* view_players;
     int current_player = 1;
     MainMenu* parent2;
+
+    const Deck* deck;
 
     std::vector<ProfileName> players;
 

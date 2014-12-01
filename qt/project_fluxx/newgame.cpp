@@ -7,10 +7,11 @@
 #include "Player.h"
 #include "PlayerID.h"
 
-NewGame::NewGame(const std::vector<Profile>& profiles, QWidget *parent) :
+NewGame::NewGame(const std::vector<Profile>& profiles, const Deck* const dck, QWidget *parent) :
     QWidget(parent)
 {
     uiElementSetup();
+    deck = dck;
     parent2 = dynamic_cast<MainMenu*>(parent);
 
     for(unsigned i = 0; i < profiles.size(); i++)
@@ -56,74 +57,76 @@ void NewGame::startGame()
 
         gui->move(QApplication::desktop()->screen()->rect().center() - gui->rect().center());
 
+        GameLoop* game_loop(gui, deck, players.size());
+
     //TESTFUNKTION NEDAN
-    CardContainer deckcontainer = CardContainer(CardContainerID("Deck"));
-    CardContainer trashcontainer = CardContainer(CardContainerID("Trash"));
-    CardContainer rulescontainer = CardContainer(CardContainerID("Rules"));
-    CardContainer player1container_hand = CardContainer(CardContainerID("Player1_hand"));
-    CardContainer player2container_hand = CardContainer(CardContainerID("Player2_hand"));
-    CardContainer goalscontainer = CardContainer(CardContainerID("Goals"));
-    CardContainer player1container_keepers = CardContainer(CardContainerID("Player1_keepers"));
-    CardContainer player2container_keepers = CardContainer(CardContainerID("Player2_keepers"));
+//    CardContainer deckcontainer = CardContainer(CardContainerID("Deck"));
+//    CardContainer trashcontainer = CardContainer(CardContainerID("Trash"));
+//    CardContainer rulescontainer = CardContainer(CardContainerID("Rules"));
+//    CardContainer player1container_hand = CardContainer(CardContainerID("Player1_hand"));
+//    CardContainer player2container_hand = CardContainer(CardContainerID("Player2_hand"));
+//    CardContainer goalscontainer = CardContainer(CardContainerID("Goals"));
+//    CardContainer player1container_keepers = CardContainer(CardContainerID("Player1_keepers"));
+//    CardContainer player2container_keepers = CardContainer(CardContainerID("Player2_keepers"));
 
 
 
-    for(unsigned i = 1; i <= 82; ++i)
-    {
-       if(i > 3 && i< 10)
-       {
-            player1container_hand.addCard(CardID(i));
-          //  qDebug() << "add hand1" << i;
-       }
+//    for(unsigned i = 1; i <= 82; ++i)
+//    {
+//       if(i > 3 && i< 10)
+//       {
+//            player1container_hand.addCard(CardID(i));
+//          //  qDebug() << "add hand1" << i;
+//       }
 
-        else if(i > 9 && i < 13)
-       {
-            player2container_hand.addCard(CardID(i));
-          //  qDebug() << "add hand2" << i;
-       }
-        else if(i == 22)
-       {
-            goalscontainer.addCard(CardID(i));
-           // qDebug() << "add hand3" << i;
-       }
-        else if(i > 66 && i < 69)
-            player1container_keepers.addCard(CardID(i));
-        else if(i == 79 || i ==80)
-            player2container_keepers.addCard(CardID(i));
-        else if(i >= 54 && i <= 55)
-            rulescontainer.addCard(CardID(i));
-        else if(i >= 13 && i < 22)
-            trashcontainer.addCard(CardID(i));
-        else
-            deckcontainer.addCard(CardID(i));
-    }
-
-
-    std::vector<CardContainer>* bcontainer = new std::vector<CardContainer>;
-    bcontainer->push_back(deckcontainer);
-    bcontainer->push_back(trashcontainer);
-    bcontainer->push_back(rulescontainer);
-    bcontainer->push_back(player1container_hand);
-    bcontainer->push_back(player1container_keepers);
-    bcontainer->push_back(player2container_hand);
-    bcontainer->push_back(player2container_keepers);
-    bcontainer->push_back(goalscontainer);
-    bcontainer->push_back(CardContainer(CardContainerID("tempA")));
-    bcontainer->push_back(CardContainer(CardContainerID("tempB")));
-
-    BoardSnapshot* snapshot = new BoardSnapshot(*bcontainer,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
-
-    gui->show();
+//        else if(i > 9 && i < 13)
+//       {
+//            player2container_hand.addCard(CardID(i));
+//          //  qDebug() << "add hand2" << i;
+//       }
+//        else if(i == 22)
+//       {
+//            goalscontainer.addCard(CardID(i));
+//           // qDebug() << "add hand3" << i;
+//       }
+//        else if(i > 66 && i < 69)
+//            player1container_keepers.addCard(CardID(i));
+//        else if(i == 79 || i ==80)
+//            player2container_keepers.addCard(CardID(i));
+//        else if(i >= 54 && i <= 55)
+//            rulescontainer.addCard(CardID(i));
+//        else if(i >= 13 && i < 22)
+//            trashcontainer.addCard(CardID(i));
+//        else
+//            deckcontainer.addCard(CardID(i));
+//    }
 
 
-    //CardID temp = gui->pickCard(snapshot, CardContainerID("Rules"));
-    //qDebug() << "You picked card " + QString::number(temp.val);
+//    std::vector<CardContainer>* bcontainer = new std::vector<CardContainer>;
+//    bcontainer->push_back(deckcontainer);
+//    bcontainer->push_back(trashcontainer);
+//    bcontainer->push_back(rulescontainer);
+//    bcontainer->push_back(player1container_hand);
+//    bcontainer->push_back(player1container_keepers);
+//    bcontainer->push_back(player2container_hand);
+//    bcontainer->push_back(player2container_keepers);
+//    bcontainer->push_back(goalscontainer);
+//    bcontainer->push_back(CardContainer(CardContainerID("tempA")));
+//    bcontainer->push_back(CardContainer(CardContainerID("tempB")));
 
-    //temp = gui->pickCard(snapshot, CardContainerID("Trash"));
-    //qDebug() << "You picked card " + QString::number(temp.val);
+//    BoardSnapshot* snapshot = new BoardSnapshot(*bcontainer,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
 
-    PlayerID player_id = gui->pickPlayer(snapshot);
-    qDebug() << QString("Player ID: ") << QString::fromStdString(player_id.getString());
+//    gui->show();
+
+
+//    //CardID temp = gui->pickCard(snapshot, CardContainerID("Rules"));
+//    //qDebug() << "You picked card " + QString::number(temp.val);
+
+//    //temp = gui->pickCard(snapshot, CardContainerID("Trash"));
+//    //qDebug() << "You picked card " + QString::number(temp.val);
+
+//    PlayerID player_id = gui->pickPlayer(snapshot);
+//    qDebug() << QString("Player ID: ") << QString::fromStdString(player_id.getString());
 
 //   CardContainer deckcontainer2 = CardContainer(CardContainerID("Deck"));
 //   CardContainer trashcontainer2 = CardContainer(CardContainerID("Trash"));
