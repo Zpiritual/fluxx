@@ -181,8 +181,8 @@ void NewGame::startGame()
     qDebug() << "You're going to switch player";
     gui->nextPlayer(snapshot2);
 
-    PlayerID player_id = gui->pickPlayer(snapshot2);
-    qDebug() << QString("Player ID: ") << QString::fromStdString(player_id.getString());
+//    PlayerID player_id = gui->pickPlayer(snapshot2);
+//    qDebug() << QString("Player ID: ") << QString::fromStdString(player_id.getString());
 
 
 
