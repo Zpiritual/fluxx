@@ -1,7 +1,7 @@
 #include "Player.h"
 	
 Player::Player(const PlayerID pid)
-	: _id{pid}
+	: _id{pid}, _played_cards{0}
 {}
 
 const std::string Player::getName() const

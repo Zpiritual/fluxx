@@ -37,6 +37,6 @@ int main()
 	}
 	
 	cout << "Sanity check list size OK\n";
-	
+
 	return 0;
 }

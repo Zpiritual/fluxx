@@ -55,7 +55,7 @@ private:
 	RuleManager *_rm;
 	PlayerManager *_pm;
 	std::deque<Effect> effect_queue;
-
+	void executeEffect(const Effect&);
 	//Diverse effekt-funktioner, ex:
 	//Draw(int draw, int play, int discard, bool inflation = true);
 };

@@ -1,5 +1,7 @@
 #include "GameLogic.h"
 #include <iostream>
+#include <sstream>
+#include <string>
 
 GameLogic::GameLogic(const Deck* deck, const int players)
 {
@@ -26,20 +28,6 @@ GameLogic::~GameLogic()
 	delete	_cm;
 	delete	_rm;
 	delete	_pm;
-}
-
-void GameLogic::executeNextEffect()
-{
-	//string from effect
-	//stringstream ss (effect)
-	//string temp for identifier
-	//ss >> temp
-	//if(temp == EffectIdentifier)
-	//int t1, t2, t3, .. , tn
-	//ss >> t1, t2, t3, ... , tn
-	//call functions with paramters
-	//end effect
-	effect_queue.pop_front();
 }
 
 void GameLogic::addEffect(Effect effect)
@@ -72,7 +60,7 @@ void GameLogic::playCard(const PlayerID pid)
 	//Fråga GUI om kort-id osv.
 	CardID cid = requestPlayerInput(CardContainerID(pid.getString() + "_hand"));
 	//Spela det givna kortet.
-
+		//std::cout << std::flush <<"|" <<_cm->getCard(cid)->getType() << "|"<< " "<< (_cm->getCard(cid)->getType() == "ḰEEPER") << std::endl;
 	//if a Goal card is placed check if there is room for it
 	//if not ask what card to replace
 	if(_cm->getCard(cid)->getType() == "GOAL")
@@ -94,15 +82,17 @@ void GameLogic::playCard(const PlayerID pid)
 		//Must run last effect when removed
 	}
 	//If a action is played, put all the effects in the effect qeue
-	else if(_cm->getCard(cid)->getType() == "ACTION")
+	else if(_cm->getCard(cid)->getType().compare("ACTION") == 0)
 	{
+			std::cout << "Playing a Action" << std::endl;
 		_ccm->moveCard(CardContainerID(pid.getString() + "_hand"), CardContainerID("Trash"),cid);
 		for(Effect e: _cm->getCard(cid)->getEffects())
 			addEffect(e);
 	}
 	//If Keeper is played, do nothing.
-	else if(_cm->getCard(cid)->getType() == "ḰEEPER")
+	else if(_cm->getCard(cid)->getType().compare("KEEPER")== 0)
 	{
+		std::cout << "Playing a Keeper" << std::endl;
 		_ccm->moveCard(CardContainerID(pid.getString() + "_hand"), CardContainerID(pid.getString() + "_keepers"),cid);
 
 	}
@@ -141,6 +131,12 @@ void GameLogic::playCard(const PlayerID pid)
 const CardID GameLogic::requestPlayerInput(const CardContainerID conid) const
 {
 	//GUI request
+	for(const CardID id: _ccm->getCards(conid))
+		std::cout << id.val << ", ";
+	std::cout << std::endl;
+	int tmp;
+	std::cin >> tmp;
+	return CardID(tmp);
 }
 
 void GameLogic::drawCard(const PlayerID pid)
@@ -158,6 +154,7 @@ void GameLogic::resolveEffects()
 {
 	while(!effect_queue.empty())
 	{
+		std::cout << "not empty" << std::endl;
 		executeNextEffect();
 	}
 }
@@ -178,4 +175,26 @@ const PlayerID GameLogic::getNextPlayer()
 {
 	getPM()->nextPlayer();
 return getPM()->getCurrentPlayer()->getID();
+}
+
+void GameLogic::executeNextEffect()
+{
+	executeEffect(effect_queue.front());
+	effect_queue.pop_front();
+}
+//Private Effect function
+void GameLogic::executeEffect(const Effect& effect)
+{
+	std::stringstream ss(effect.val);
+	string identifier;
+	ss >> identifier;
+	if(identifier.compare("Jackpot") == 0)
+	{
+		int p1;
+		ss >> p1;
+		for(int i = 0 ; i < p1 ; i++)
+			drawCard(getPM()->getCurrentPlayer()->getID());
+		std::cout << "Executed: " << effect.val << std::endl;
+	}
+	
 }

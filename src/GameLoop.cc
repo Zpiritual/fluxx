@@ -80,6 +80,7 @@ SessionData	GameLoop::run()
 
 const GameState GameLoop::executePlayerTurn(PlayerID pid)
 {
+	std::cout << pid.getString() << std::endl;
 	checkTriggeredRules(RuleTrigger::PRE_DRAW);
 
 	drawCards(getCurrentPlayerID(), getDrawNO());
@@ -87,20 +88,23 @@ const GameState GameLoop::executePlayerTurn(PlayerID pid)
 	checkTriggeredRules(RuleTrigger::POST_DRAW);
 
 	checkTriggeredRules(RuleTrigger::PRE_PLAY);
-	
+	//std::cout <<"Cards played: " << getCardsPlayed() << std::endl;
  	//spela kort
- 	while (getPlayNO() < getCardsPlayed()) // played_cards ligger i player.
+ 	while (getCardsPlayed() < getPlayNO()) // played_cards ligger i player.
  	{
+ 		std::cout <<"Cards to play: " <<  getPlayNO() << " Cards Played: " << getCardsPlayed() << endl;
+ 		std::cout << "Play cards" + pid.getString() << std::endl;
  		_game_logic->playCard(getCurrentPlayerID());
  		_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
  	}
+ 	std::cout << "END OF TURN\n\n" << std::endl;
 
 }
 
 void GameLoop::checkTriggeredRules(RuleTrigger rule)
 {
 //	_game_logic->checkRules(rule);
-	std::cout << "Check rules" << std::endl;
+	//std::cout << "Check rules" << std::endl;
 }
 
 void GameLoop::switchScreen()

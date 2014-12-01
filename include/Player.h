@@ -34,6 +34,6 @@ public:
 
 private:
 	const PlayerID _id;
-	int _played_cards;
+	int _played_cards = 0;
 };
 #endif
