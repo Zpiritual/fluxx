@@ -5,11 +5,14 @@ RulesGridWidget::RulesGridWidget(QWidget *parent) :
     QWidget(parent)
 {
     layout = new QGridLayout();
-    for(int i = 0; i<= 3; ++i)
+    for(int i = 0; i<= 5; ++i)
     {
-        layout->setColumnMinimumWidth(i,170);
+        layout->setColumnMinimumWidth(i,175);
 
     }
+    layout->setRowMinimumHeight(0,260);
+    layout->setRowMinimumHeight(1,260);
+    layout->setSpacing(0);
     this->setLayout(layout);
 }
 
@@ -18,18 +21,40 @@ RulesGridWidget::~RulesGridWidget(){
 
 void RulesGridWidget::updateCards(const CardContainer & container)
 {
-    cards_ = container.getCards();
+    buttons_.clear();
 
-    while(!(layout->isEmpty()))
+   // delete layout;
+
+    if ( layout->layout() != NULL )
     {
-        QLayoutItem* temp = layout->itemAt(0);
-        layout->removeItem(temp);
+        QLayoutItem* item;
+        while ( ( item = layout->takeAt( 0 ) ) != NULL )
+        {
+            delete item->widget();
+            delete item;
+        }
+       // delete layout->layout();
     }
-    for(auto card : cards_)
+    std::vector<CardID> cards_{container.getCards()};
+
+    qDebug() << "number of cards to add in rules: " + QString::number(cards_.size());
+
+    int row{};
+    int column{};
+
+    for(CardID card : cards_)
     {
         CardButton* tempbutton = new CardButton(card);
-        layout->addWidget(tempbutton);
+        layout->addWidget(tempbutton,row, column);
+
+        qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
+        ++ column;
+        if(column >=5) //number of columns
+        {
+            column = 0;
+            ++row;
+        }
     }
 }
 

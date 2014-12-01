@@ -22,8 +22,8 @@ ActivePlayer::ActivePlayer(QWidget *parent) :
     this->setMinimumHeight(500);
 //    layout->setAlignment(scroll_area_hand, Qt::AlignBottom);
 //    layout->setAlignment(scroll_area_keepers, Qt::AlignTop);
-//    scroll_area_keepers->setFrameShape(QFrame::NoFrame);
-//    scroll_area_hand->setFrameShape(QFrame::NoFrame);
+    scroll_area_keepers->setFrameShape(QFrame::NoFrame);
+    scroll_area_hand->setFrameShape(QFrame::NoFrame);
 
     this->setLayout(layout);
 }

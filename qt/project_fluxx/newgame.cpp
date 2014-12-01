@@ -90,7 +90,7 @@ void NewGame::startGame()
             player1container_keepers.addCard(CardID(i));
         else if(i == 79 || i ==80)
             player2container_keepers.addCard(CardID(i));
-        else if(i >= 50 && i <= 55)
+        else if(i >= 54 && i <= 55)
             rulescontainer.addCard(CardID(i));
         else if(i >= 13 && i < 22)
             trashcontainer.addCard(CardID(i));
@@ -113,12 +113,14 @@ void NewGame::startGame()
 
     BoardSnapshot* snapshot = new BoardSnapshot(*bcontainer,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
 
-    gui->update(snapshot);
-
     gui->show();
 
-   gui->pickCard(snapshot, CardContainerID("Rules"));
-   gui->pickCard(snapshot, CardContainerID("Trash"));
+
+    CardID temp = gui->pickCard(snapshot, CardContainerID("Rules"));
+    qDebug() << "You picked card " + QString::number(temp.val);
+
+    temp = gui->pickCard(snapshot, CardContainerID("Trash"));
+    qDebug() << "You picked card " + QString::number(temp.val);
 
    CardContainer deckcontainer2 = CardContainer(CardContainerID("Deck"));
    CardContainer trashcontainer2 = CardContainer(CardContainerID("Trash"));
@@ -155,12 +157,11 @@ void NewGame::startGame()
            player2container_keepers2.addCard(CardID(i));
        else if(i >= 15 && i <= 22)
            rulescontainer2.addCard(CardID(i));
-       else if(i >= 76 && i < 29)
+       else if(i >= 76 && i < 79)
            trashcontainer2.addCard(CardID(i));
        else
            deckcontainer2.addCard(CardID(i));
    }
-
 
    std::vector<CardContainer>* bcontainer2 = new std::vector<CardContainer>;
    bcontainer2->push_back(deckcontainer2);
@@ -176,10 +177,12 @@ void NewGame::startGame()
 
    BoardSnapshot* snapshot2 = new BoardSnapshot(*bcontainer2,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
 
-   gui->update(snapshot2);
+   gui->pickCard(snapshot2, CardContainerID("Rules"));
 
 
-    qDebug() << "Add startGame functionality";
+
+   qDebug() << "Add startGame functionality";
+
     }
 }
 

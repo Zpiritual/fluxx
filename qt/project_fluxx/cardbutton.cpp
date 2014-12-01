@@ -35,7 +35,8 @@ CardButton::CardButton(CardID* id, QWidget *parent) :
 
 CardButton::~CardButton()
 {
-    delete icon;
+    if(icon != nullptr)
+        delete icon;
     delete id_;
 }
 

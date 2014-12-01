@@ -19,7 +19,7 @@ public:
     void setConnections(CardIdLoop&);
 private:
     std::vector<CardID> cards_;
-    QIcon* icon;
+    QIcon icon;
 
 signals:
 

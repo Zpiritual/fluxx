@@ -22,21 +22,36 @@ ActiveKeepers::~ActiveKeepers()
 
 void ActiveKeepers::update(const CardContainer& container)
 {
-    std::vector<CardID> cards = container.getCards();
+    buttons_.clear();
 
-    while(!(layout->isEmpty()))
+   // delete layout;
+
+    if (layout->layout() != NULL)
     {
-        QLayoutItem* temp = layout->itemAt(0);
-        layout->removeItem(temp);
-        delete temp;
+        QLayoutItem* item;
+        while ((item = layout->takeAt(0)) != NULL)
+        {
+            delete item->widget();
+            delete item;
+        }
+       // delete layout->layout();
     }
-    for(auto card : cards)
+
+    std::vector<CardID> cards_{container.getCards()};
+
+    qDebug() << "number of cards to add in rules: " + QString::number(cards_.size());
+
+    for(CardID card : cards_)
     {
         CardButton* tempbutton = new CardButton(card);
         tempbutton->smallButton();
         layout->addWidget(tempbutton);
+
+
+        qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
     }
+    std::vector<CardID> cards = container.getCards();
 }
 
 void ActiveKeepers::connectButtons(CardIdLoop &loop)

@@ -22,4 +22,5 @@ DeckButton::DeckButton(QWidget *parent) :
 
 DeckButton::~DeckButton()
 {
+    delete icon;
 }

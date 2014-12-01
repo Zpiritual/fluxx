@@ -36,5 +36,8 @@ void GoalButtons::update(const CardContainer& container)
 
 GoalButtons::~GoalButtons()
 {
+    for(CardButton* button : buttons_)
+        delete button;
+    delete layout;
 }
 

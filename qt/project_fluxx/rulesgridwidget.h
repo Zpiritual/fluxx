@@ -19,7 +19,6 @@ public:
 
 private:
     QGridLayout* layout;
-    std::vector<CardID> cards_;
     std::vector<CardButton*> buttons_;
 
 signals:

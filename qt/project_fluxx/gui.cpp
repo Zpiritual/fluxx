@@ -40,9 +40,6 @@ Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
     layout->addLayout(mid_column);
     layout->addWidget(player_list_widget);
 
-
-
-
     this->setLayout(layout);
 }
 
@@ -59,11 +56,13 @@ const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContainerID& containerid)
 {
     update(snapshot);
-
     CardIdLoop loop;
+
     if(containerid == CardContainerID("Rules"))
     {
         rules_widget->setConnections(loop);
+        qDebug() << "pickcard in gui";
+
         loop.exec();
     }
     else if(containerid == CardContainerID("Goals"))
@@ -74,7 +73,7 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
     else if(containerid == CardContainerID("Trash"))
     {
         trash_widget->setConnections(loop);
-        loop.exec();
+     //   loop.exec();
     }
     else if(containerid == CardContainerID(snapshot->current_player.getString()+"_hand") ||
             containerid == CardContainerID("TempB") ||
@@ -99,7 +98,7 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
 
  //   CardButton sentbutton = dynamic_cast<CardButton*>(loop.sender());
    // return sentbutton.getCardId().val;
-    qDebug() << "derpaderpa";
+    qDebug() << "pickcard in gui";
     return loop.getCardId();
     //
 }
@@ -114,16 +113,10 @@ void Gui::update(const BoardSnapshot* const snapshot) //Lägg till i alla klasse
 {
     rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
     //player_list_widget->updatePlayers(snapshot);
-
     trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
     goals_widget->update(snapshot->getContainer(CardContainerID("Goals")));
     active_player_widget->update(snapshot);
 
-}
-
-void Gui::update(std::vector<CardContainer>* cvector)
-{
-    rules_widget->updateCards(cvector->at(2));
-    trash_widget->updateCards(cvector->at(2));
+    qDebug() << "update in gui";
 
 }
