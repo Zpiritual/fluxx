@@ -15,7 +15,7 @@
 #include <vector>
 #include "CardID.h"
 #include "CardContainerID.h"
-
+#include <iostream>
 class CardContainer
 {
 private:
@@ -32,7 +32,7 @@ public:
 	CardContainer& operator= (const CardContainer&) = default;
 	CardContainer& operator= (CardContainer&&) 		= default;
 
-	~CardContainer() = default;
+    ~CardContainer() = default;
 
 	void addCard(const CardID);
 	void removeCard(const CardID);

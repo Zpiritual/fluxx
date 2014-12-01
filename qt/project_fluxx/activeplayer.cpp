@@ -34,7 +34,7 @@ void ActivePlayer::update(const BoardSnapshot* const snapshot)
 
     if(snapshot->getContainer(CardContainerID("tempB")).getSize() != 0)
     {
-        active_hand->update(snapshot->getContainer(CardContainerID("TempB")));
+        active_hand->update(snapshot->getContainer(CardContainerID("tempB")));
     }
     else if(snapshot->getContainer(CardContainerID("tempA")).getSize() != 0)
     {

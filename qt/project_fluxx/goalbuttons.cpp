@@ -18,20 +18,20 @@ void GoalButtons::setConnections(CardIdLoop &loop)
 void GoalButtons::update(const CardContainer& container)
 {
     std::vector<CardID> cards_ = container.getCards();
-
+    //Fel i cards_ anatagligen container som är dealocated
     while(!(layout->isEmpty()))
     {
         QLayoutItem* temp = layout->itemAt(0);
         layout->removeItem(temp);
     }
+
     for(auto card : cards_)
     {
         CardButton* tempbutton = new CardButton{card};
         tempbutton->smallButton();
         layout->addWidget(tempbutton);
-
-
     }
+
 }
 
 GoalButtons::~GoalButtons()

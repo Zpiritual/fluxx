@@ -123,8 +123,11 @@ void GameLogic::playCard(const PlayerID pid)
 
 const CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) const
 {
+    cout << "PICK CARD:==========================" << endl;
     BoardSnapshot snapshot(makeBoardSnapshot());
-    return _gui->pickCard(&snapshot, container);
+    CardID id = _gui->pickCard(&snapshot, container);
+    cout << "==========================" << endl;
+    return id;
 }
 
 const PlayerID GameLogic::pickPlayer() const

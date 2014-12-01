@@ -153,7 +153,8 @@ void Gui::update(const BoardSnapshot* const snapshot) //Lägg till i alla klasse
     rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
     //player_list_widget->updatePlayers(snapshot);
     trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
-    goals_widget->update(snapshot->getContainer(CardContainerID("Goals")));
+    goals_widget->update(snapshot->getContainer(CardContainerID("Goal")));
+
     active_player_widget->update(snapshot);
 
     qDebug() << "update in gui";
