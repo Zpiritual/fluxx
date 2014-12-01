@@ -5,7 +5,7 @@ CardPicture::CardPicture(const Card& card, QWidget *parent) :
 {
     layout = new QVBoxLayout();
     card_type = new QLabel(QString::fromStdString(card.getType()));
-    //card_name = new QLabel(QString::fromStdString(card.getName()));
+    card_name = new QLabel(QString::fromStdString(card.getName()));
     card_description = new QLabel(QString::fromStdString(card.getDescription()));
     card_id = card.getID();
 
