@@ -5,7 +5,7 @@ CardPicture::CardPicture(const Card& card, QWidget *parent) :
 {
     layout = new QVBoxLayout();
     card_type = new QLabel(QString::fromStdString(card.getType()));
-    card_name = new QLabel(QString::fromStdString(card.getName()));
+    //card_name = new QLabel(QString::fromStdString(card.getName()));
     card_description = new QLabel(QString::fromStdString(card.getDescription()));
     card_id = card.getID();
 
@@ -29,12 +29,12 @@ CardPicture::~CardPicture()
     delete card_description;
 }
 
-void CardPicture::render() const
+void CardPicture::renderPicture()
 {
     QString file_name{":Images/" + QString::number(card_id.val) + ".png"};
     QImage image;
 
-    if(image.load(file_name))
+    if(!image.load(file_name))
     {
         QPixmap pixmap(this->rect().size());
 

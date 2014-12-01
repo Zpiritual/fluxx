@@ -12,7 +12,7 @@ public:
     explicit CardPicture(const Card&, QWidget *parent = 0);
     ~CardPicture();
 
-    void render() const;
+    void renderPicture();
 
 private:
     QVBoxLayout* layout;
@@ -20,7 +20,7 @@ private:
     QLabel* card_name;
     QLabel* card_description;
 
-    CardID card_id;
+    CardID card_id{-1};
 
 
 signals:
