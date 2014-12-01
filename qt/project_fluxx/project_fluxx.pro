@@ -86,7 +86,27 @@ HEADERS += \
     bigcardcollection.h \
     cardcollection.h \
     profilename.h \
-    cardidloop.h
+    cardidloop.h \
+    ../../include/BoardSnapshot.h \
+    ../../include/Card.h \
+    ../../include/CardContainer.h \
+    ../../include/CardContainerID.h \
+    ../../include/CardContainerManager.h \
+    ../../include/CardID.h \
+    ../../include/CardManager.h \
+    ../../include/Deck.h \
+    ../../include/DeckParser.h \
+    ../../include/Effect.h \
+    ../../include/enums.h \
+    ../../include/GameLogic.h \
+    ../../include/GameLoop.h \
+    ../../include/Player.h \
+    ../../include/PlayerID.h \
+    ../../include/PlayerManager.h \
+    ../../include/RuleManager.h \
+    ../../include/SessionData.h \
+    ../../include/Stock.h \
+    ../../include/TriggeredRule.h
 
 QMAKE_CXXFLAGS += -std=c++11
 

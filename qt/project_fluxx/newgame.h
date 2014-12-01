@@ -6,6 +6,7 @@
 #include "mainmenu.h"
 #include "gui.h"
 #include "profilename.h"
+//#include "GameLoop.h"
 
 class NewGame : public QWidget
 {

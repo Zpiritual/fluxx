@@ -113,8 +113,10 @@ void NewGame::startGame()
 
     BoardSnapshot* snapshot = new BoardSnapshot(*bcontainer,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
 
-    gui->show();
+  //  GameLoop* game_loop = new GameLoop(gui);
 
+    gui->show();
+//    game_loop->run();
 
     CardID temp = gui->pickCard(snapshot, CardContainerID("Rules"));
     qDebug() << "You picked card " + QString::number(temp.val);
@@ -178,8 +180,7 @@ void NewGame::startGame()
    BoardSnapshot* snapshot2 = new BoardSnapshot(*bcontainer2,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
 
    gui->pickCard(snapshot2, CardContainerID("Rules"));
-
-
+    gui->nextPlayer(snapshot2);
 
    qDebug() << "Add startGame functionality";
 

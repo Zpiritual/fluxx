@@ -1,6 +1,4 @@
 #include "gui.h"
-#include "BoardSnapshot.h"
- #include "cardidloop.h"
 
 Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
     QWidget(parent)
@@ -56,6 +54,7 @@ const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContainerID& containerid)
 {
     update(snapshot);
+
     CardIdLoop loop;
 
     if(containerid == CardContainerID("Rules"))
@@ -104,9 +103,14 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
 }
 
 
-void Gui::nextPlayer()
+void Gui::nextPlayer(const BoardSnapshot* const snapshot)
 {
+    update(snapshot);
+    active_player_widget->switchPlayer(player_ids.at(snapshot->current_player.getInt()));
+}
 
+Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
+{
 }
 
 void Gui::update(const BoardSnapshot* const snapshot) //Lägg till i alla klasser
