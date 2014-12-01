@@ -4,6 +4,7 @@
 #include <QEventLoop>
 #include "CardID.h"
 #include "cardbutton.h"
+
 class CardIdLoop : public QObject
 {
     Q_OBJECT
@@ -15,7 +16,6 @@ signals:
 
 public slots:
     void quit();
-
 
 private:
     int card_button_id;

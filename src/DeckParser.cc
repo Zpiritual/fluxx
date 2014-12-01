@@ -6,11 +6,18 @@ Deck* DeckParser::deck_to_game(std::string filename)
 {
 	ifstream ifs{filename};
 	string deck_name;
-	int deck_size;
+	unsigned deck_size;
 	string deck_description;
 
 	string temp;
 	ifs >> temp;
+	if(temp.empty())
+	{
+		cout << temp << endl;
+		ifs.close();
+		throw std::logic_error("No Deck Found @" + filename);
+	}
+	
 	ifs >> deck_name;
 
 	ifs >> temp;
@@ -21,12 +28,12 @@ Deck* DeckParser::deck_to_game(std::string filename)
 	vector<const Card*> cards;
 	string line;
 	
-	for(int i = 0; i < deck_size; i++)
+	for(unsigned i = 0; i < deck_size; i++)
 	{
 		ifs >> ws;
 		int id;
-		string name;
 		string type;
+		string subtype;
 		string description;
 		vector<Effect> effects;
 		
@@ -39,13 +46,13 @@ Deck* DeckParser::deck_to_game(std::string filename)
 			{
 				ss >> id;
 			}	
-			else if(t == "CARD_NAME")
-			{
-				ss >> name;
-			}
 			else if(t == "CARD_TYPE")
 			{
 				ss >> type;
+			}
+			else if(t == "CARD_SUBTYPE")
+			{
+				ss >> subtype;
 			}
 			else if(t == "CARD_DESCRIPTION")
 			{
@@ -59,16 +66,24 @@ Deck* DeckParser::deck_to_game(std::string filename)
 			}
 		}
 		
-		//debug stuff:
-		//cout << "NEW CARD:" << endl;
-		//cout << "=========" << endl;
-		//cout << "ID: " << id << endl;
-		//cout << "NAME: " << name << endl;
-		//cout << "Type: " << type << endl;
-		//cout << "Description: " << description << endl;
-		//cout << "Effect:" << effects.size() << endl;
-		//cards.push_back(new Card(id, name, type, description, effects));
+	//debug stuff:
+	//	cout << "NEW CARD:" << endl;
+	//	cout << "=========" << endl;
+	//	cout << "ID: " << id << endl;
+	//	cout << "TYPE: " << type << endl;
+	//	cout << "SubType: " << subType << endl;
+	//	cout << "Description: " << description << endl;
+	//	cout << "Effect:" << effects.size() << endl;
+		cards.push_back(new Card(id, type, subtype, description, effects));
 	}
+
+	if(cards.size() != deck_size)
+	{
+		cout << cards.size() << endl;
+		cout << deck_size << endl;
+		throw std::logic_error("Error in reading from: " +  filename);
+	}
+
 	ifs.close();
 	return new Deck(cards);
 }

@@ -20,5 +20,4 @@ const CardID CardIdLoop::getCardId()
 void CardIdLoop::exec()
 {
     loop_.exec();
-
 }

@@ -30,5 +30,8 @@ enum class PlayerIdentifier
 	Player5,
 	Player6
 };
-
+enum class Event
+{
+	CARD_MOVED
+};
 #endif

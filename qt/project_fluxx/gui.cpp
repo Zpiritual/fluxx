@@ -41,13 +41,34 @@ Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
     this->setLayout(layout);
 }
 
-Gui::~Gui(){
+Gui::~Gui()
+{
+    delete layout;
+    delete log_widget;
+    delete player_list_widget;
+    delete rules_widget;
+    delete active_player_widget;
+    delete mid_column;
+    delete mid_column_top;
+    delete deck_widget;
+    delete goals_widget;
+    delete trash_widget;
+    delete left_column;
 }
 
 const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 {
+    qDebug() << "Pick Player: ";
     update(snapshot);
-    //return player_list_widget->pickPlayer();
+    PlayerLoop loop;
+    player_list_widget->setConnections(loop);
+    loop.exec();
+    if (player_list_widget->getPlayerId(loop.getPlayerName()) == snapshot->current_player)
+    {
+        message(QString("Pick Player"), QString("Can't pick yourself!"));
+        pickPlayer(snapshot);
+    }
+    return player_list_widget->getPlayerId(loop.getPlayerName());
 }
 
 //BoardSnapshot* snapshot
@@ -111,6 +132,15 @@ void Gui::nextPlayer(const BoardSnapshot* const snapshot)
 
 Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
 {
+}
+
+void Gui::message(const QString& title, const QString& message) const
+{
+    // Display a message box
+    QMessageBox message_dialog;
+    message_dialog.setWindowTitle(title);
+    message_dialog.setText(message);
+    message_dialog.exec();
 }
 
 void Gui::update(const BoardSnapshot* const snapshot) //Lägg till i alla klasser

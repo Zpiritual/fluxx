@@ -18,6 +18,7 @@
 #include "activeplayer.h"
 #include "profilename.h"
 #include "cardidloop.h"
+#include "playerloop.h"
 
 
 class Gui : public QWidget
@@ -29,7 +30,6 @@ public:
     const PlayerID pickPlayer(const BoardSnapshot * const);
     const CardID pickCard(const BoardSnapshot* const, const CardContainerID&);
     void update(const BoardSnapshot* const);
-    void update(std::vector<CardContainer>*);
     void nextPlayer(const BoardSnapshot* const);
     Direction chooseDirection(const BoardSnapshot * const snapshot);
 
@@ -46,6 +46,9 @@ private:
     GoalButtons* goals_widget;
     TrashButton* trash_widget;
     QVBoxLayout* left_column;
+
+    void message(const QString&, const QString&) const;
+
 
     signals:
 

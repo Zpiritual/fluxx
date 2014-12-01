@@ -11,6 +11,8 @@ PlayerListItem::PlayerListItem(const ProfileName& name, QWidget *parent) :
     big_keepers = new BigCardCollection(keepers_id);
     big_keepers->close();
 
+    state = false;
+
     name_label->setMaximumSize(140, 20);
     card_count->setMaximumSize(140, 20);
     keeper_count->setMaximumSize(140, 20);
@@ -88,6 +90,20 @@ void PlayerListItem::setNextPlayer()
 void PlayerListItem::setInactivePlayer()
 {
     this->setAutoFillBackground(false);
+}
+
+void PlayerListItem::mousePressEvent(QMouseEvent* event)
+{
+    qDebug() << QString::fromStdString(this->getPlayerName().val);
+    qDebug() << event->pos().x() << event->pos().y();
+    state = true;
+    emit clicked();
+}
+
+void PlayerListItem::mouseReleaseEvent(QMouseEvent* event)
+{
+    state = false;
+    emit clicked();
 }
 
 const ProfileName PlayerListItem::getPlayerName() const

@@ -20,6 +20,9 @@ public:
     void setNextPlayer();
     void setInactivePlayer();
 
+    void mousePressEvent(QMouseEvent*);
+    void mouseReleaseEvent(QMouseEvent*);
+
     const ProfileName getPlayerName() const;
 
 private:
@@ -36,8 +39,10 @@ private:
     QLabel* keeper_count;
     BigCardCollection* big_keepers;
 
+    bool state;
 
 signals:
+    void clicked();
 
 public slots:
     void showKeepers();

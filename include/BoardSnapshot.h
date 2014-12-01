@@ -11,6 +11,7 @@
 #include "CardContainer.h"
 #include "RuleManager.h"
 #include "Player.h"
+#include "PlayerID.h"
 
 struct BoardSnapshot
 {
@@ -21,11 +22,10 @@ struct BoardSnapshot
 	const int cards_to_play;
 	const Direction direction;
 
-	
     BoardSnapshot(const std::vector<CardContainer>, const int, const PlayerID, const int, const int, const Direction);
 	BoardSnapshot() = delete;
-	BoardSnapshot(const BoardSnapshot&) = delete;
-	BoardSnapshot (BoardSnapshot&&) = delete;
+	BoardSnapshot(const BoardSnapshot&) = default;
+	BoardSnapshot (BoardSnapshot&&) = default;
 
 	BoardSnapshot& operator= (const BoardSnapshot&) = delete;
 	BoardSnapshot& operator= (BoardSnapshot&&) = delete;
