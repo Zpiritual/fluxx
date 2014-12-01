@@ -41,6 +41,9 @@ private:
 
     bool state;
 
+    void uiElements();
+    void connectSignals();
+
 signals:
     void clicked();
 

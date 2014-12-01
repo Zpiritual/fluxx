@@ -3,19 +3,11 @@
 PlayerList::PlayerList(const std::vector<ProfileName>& plyers, QWidget *parent) :
     QWidget(parent)
 {
-    vertical_layout = new QVBoxLayout();
     player_ids = plyers;
     current_player = -1;
     next_player = -1;
 
-    for(int i = 0; i < player_ids.size(); i++)
-    {
-        players.push_back(new PlayerListItem(player_ids.at(i)));
-        vertical_layout->addWidget(players.at(i));
-        vertical_layout->setAlignment(players.at(i), Qt::AlignTop);
-    }
-
-    this->setLayout(vertical_layout);
+    uiElements();
 }
 
 PlayerList::~PlayerList()
@@ -73,6 +65,20 @@ void PlayerList::updatePlayerVariables(int index, int player_id, const Direction
             }
         }
     }
+}
+
+void PlayerList::uiElements()
+{
+    vertical_layout = new QVBoxLayout();
+
+    for(int i = 0; i < player_ids.size(); i++)
+    {
+        players.push_back(new PlayerListItem(player_ids.at(i)));
+        vertical_layout->addWidget(players.at(i));
+        vertical_layout->setAlignment(players.at(i), Qt::AlignTop);
+    }
+
+    this->setLayout(vertical_layout);
 }
 
 void PlayerList::updatePlayerState(int player_id, const Direction& direction)

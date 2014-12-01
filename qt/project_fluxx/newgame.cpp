@@ -73,18 +73,18 @@ void NewGame::startGame()
        if(i > 3 && i< 10)
        {
             player1container_hand.addCard(CardID(i));
-            qDebug() << "add hand1" << i;
+          //  qDebug() << "add hand1" << i;
        }
 
         else if(i > 9 && i < 13)
        {
             player2container_hand.addCard(CardID(i));
-            qDebug() << "add hand2" << i;
+          //  qDebug() << "add hand2" << i;
        }
         else if(i == 22)
        {
             goalscontainer.addCard(CardID(i));
-            qDebug() << "add hand3" << i;
+           // qDebug() << "add hand3" << i;
        }
         else if(i > 66 && i < 69)
             player1container_keepers.addCard(CardID(i));
@@ -178,9 +178,13 @@ void NewGame::startGame()
    bcontainer2->push_back(CardContainer(CardContainerID("tempB")));
 
    BoardSnapshot* snapshot2 = new BoardSnapshot(*bcontainer2,2,PlayerID(PlayerIdentifier::Player1),2,1, Direction::CLOCKWISE);
-
-   gui->pickCard(snapshot2, CardContainerID("Rules"));
+    qDebug() << "You're going to switch player";
     gui->nextPlayer(snapshot2);
+
+    PlayerID player_id = gui->pickPlayer(snapshot2);
+    qDebug() << QString("Player ID: ") << QString::fromStdString(player_id.getString());
+
+
 
    qDebug() << "Add startGame functionality";
 

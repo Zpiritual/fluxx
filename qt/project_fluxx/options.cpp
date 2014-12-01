@@ -95,7 +95,6 @@ void Options::cancel()
     {
         message(QString("Error"), QString("parent2 does not exist"));
     }
-
 }
 
 bool Options::profileExist(const QString& profile_name) const

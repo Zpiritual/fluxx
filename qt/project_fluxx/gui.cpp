@@ -81,17 +81,19 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
     if(containerid == CardContainerID("Rules"))
     {
         rules_widget->setConnections(loop);
-        qDebug() << "pickcard in gui";
+        qDebug() << "pickcard rules in gui";
 
         loop.exec();
     }
     else if(containerid == CardContainerID("Goals"))
     {
         goals_widget->setConnections(loop);
+        qDebug() << "pickcard goals in gui";
         loop.exec();
     }
     else if(containerid == CardContainerID("Trash"))
     {
+        qDebug() << "pickcard trash in gui";
         trash_widget->setConnections(loop);
      //   loop.exec();
     }
@@ -100,6 +102,7 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
             containerid == CardContainerID("tempA"))
     {
          active_player_widget->connectActiveHand(loop);
+         qDebug() << "pick active hand in gui";
          loop.exec();
     }
     else if(containerid == CardContainerID(snapshot->current_player.getString()+"_keepers"))

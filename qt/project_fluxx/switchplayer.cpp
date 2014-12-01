@@ -4,7 +4,7 @@ SwitchPlayer::SwitchPlayer(const ProfileName& next_player, QEventLoop& loop, QWi
     QWidget(parent)
 {
     uiElements(next_player);
-   // connectSignals(loop);
+    connectSignals(loop);
 }
 
 void SwitchPlayer::uiElements(const ProfileName& next_player)
@@ -27,9 +27,9 @@ void SwitchPlayer::uiElements(const ProfileName& next_player)
 
     main_layout->addLayout(next_player_layout);
 
-    main_layout->setAlignment(next_player_layout, Qt::AlignLeft);
+    main_layout->setAlignment(next_player_layout, Qt::AlignTop);
     next_player_layout->setAlignment(next_player_text, Qt::AlignTop);
-    next_player_layout->setAlignment(next_player_button, Qt::AlignCenter);
+    next_player_layout->setAlignment(next_player_button, Qt::AlignTop);
 
     this->setLayout(main_layout);
 }
