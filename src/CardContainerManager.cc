@@ -4,6 +4,7 @@
 //#include <map>
 //#include <utility>
 #include <iostream>
+#include "enums.h"
 CardContainerManager::CardContainerManager(const Deck* deck)
 // Konstruktorn skall initiera både stock-objektet och vektorn med cardcontainers.
 {
@@ -48,6 +49,15 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 	}	
 }
 
+void CardContainerManager::clearContainer(const  CardContainerID ccid)
+{
+		for(const CardID id: getCards(ccid))
+			{
+				getContainer(ccid)->removeCard(id);
+				_stock->push(id);
+			}
+}
+
 CardContainerManager::~CardContainerManager()
 {
 	for(std::pair<CardContainerID, CardContainer*> i : _containers)
@@ -66,19 +76,17 @@ void CardContainerManager::drawCard(const CardContainerID container)
 {
 	if(_stock->empty())
 	{
-		for(const CardID id: getCards(CardContainerID("Trash")))
-			{
-				getContainer(CardContainerID("Trash"))->removeCard(id);
-				_stock->push(id);
-			}
+		clearContainer(CardContainerID("Trash"));
 	}
 	getContainer(container)->addCard(_stock->pop());
+	notify(_stock->getID(),container,Event::CARD_MOVED);
 }
 
 void CardContainerManager::moveCard(const CardContainerID from, const CardContainerID to, const CardID card)
 {
 	getContainer(from)->removeCard(card);
 	getContainer(to)->addCard(card);
+	notify(from,to,Event::CARD_MOVED);
 }
 
 const int CardContainerManager::getSize(const CardContainerID container)
@@ -95,4 +103,12 @@ const vector<CardID> CardContainerManager::getCards(const CardContainerID contai
 {
 	return getContainer(container)->getCards();
 }
-
+const std::vector<CardContainer> CardContainerManager::getContainers() const
+{
+	std::vector<CardContainer> cardContainers;
+	for(auto it = _containers.begin(); it != _containers.end(); ++it)
+	{
+		cardContainers.push_back(*(it->second));
+	}
+	return cardContainers;
+}

@@ -15,8 +15,9 @@
 #include <vector>
 #include <map>
 #include <string>
+#include "Subject.h"
 
-class CardContainerManager {
+class CardContainerManager:public Subject {
 public:
 	CardContainerManager(const Deck* const);
 
@@ -34,9 +35,10 @@ public:
 	void reshuffle();
 	void drawCard(const CardContainerID);
 	void moveCard(const CardContainerID, const CardContainerID, const CardID);
+	void clearContainer(const CardContainerID);
 	const int getSize(const CardContainerID);
 	const std::vector<CardID> getCards(const CardContainerID);
-
+	const std::vector<CardContainer> getContainers() const;
 private:
 	CardContainer* getContainer(const CardContainerID);
 	Stock* _stock;

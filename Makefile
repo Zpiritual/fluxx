@@ -61,8 +61,8 @@ DeckParser_test: bin/DeckParser_test.o bin/DeckParser.o bin/Card.o bin/Deck.o
 GameLogic_test: bin/GameLogic_test.o bin/GameLogic.o bin/CardManager.o bin/CardContainer.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o bin/DeckParser.o
 	$(CCC) -o bin/GameLogic_test bin/GameLogic_test.o bin/GameLogic.o bin/CardContainer.o bin/CardManager.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o bin/DeckParser.o
 
-GameLoop_test: bin/GameLoop_test.o bin/GameLoop.o bin/GameLogic.o bin/CardManager.o bin/CardContainer.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o bin/DeckParser.o
-	$(CCC) -o bin/GameLoop_test bin/GameLoop_test.o bin/GameLoop.o bin/GameLogic.o bin/CardContainer.o bin/CardManager.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o bin/DeckParser.o
+GameLoop_test: bin/GameLoop_test.o bin/GameLoop.o bin/GameLogic.o bin/CardManager.o bin/CardContainer.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o bin/DeckParser.o bin/BoardSnapshot.o
+	$(CCC) -o bin/GameLoop_test bin/GameLoop_test.o bin/GameLoop.o bin/GameLogic.o bin/CardContainer.o bin/CardManager.o bin/Player.o bin/Card.o bin/Deck.o bin/CardContainerManager.o bin/PlayerManager.o bin/Stock.o bin/RuleManager.o bin/TriggeredRule.o bin/PlayerID.o bin/DeckParser.o bin/BoardSnapshot.o
 
 #Ej klar: Player_test
 

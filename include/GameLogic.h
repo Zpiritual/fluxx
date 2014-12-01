@@ -13,13 +13,16 @@
 #include <deque>
 #include "Player.h"
 #include "PlayerID.h"
+#include "CardContainerID.h"
 #include "CardContainerManager.h"
+#include "BoardSnapshot.h"
 #include "CardManager.h"
 #include "RuleManager.h"
 #include "PlayerManager.h"
 #include "enums.h"
+#include "Observer.h"
 
-class GameLogic
+class GameLogic:public Observer
 {
 public:
 	GameLogic(const Deck * deck, const int players);
@@ -35,6 +38,14 @@ public:
 	void executeNextEffect();
 	void addEffect(Effect);
 
+	//Prototype functions
+	void addRule(const CardID, const Effect*, const RuleTrigger);
+	void removeRule(const CardID);
+	const CardID requestPlayerInput(const PlayerID ,const CardContainerID) const;
+	const CardID pickCard(const CardContainerID) const;
+	const PlayerID pickPlayer() const;
+	void switchPlayer();
+
 	CardContainerManager* getCCM();
 	CardManager*		  getCM();
 	RuleManager*		  getRM();
@@ -48,7 +59,8 @@ public:
 	void 			checkRules(RuleTrigger);
 	//bool 			checkGoal();
 	const PlayerID 	getNextPlayer();
-	const CardID	requestPlayerInput(const CardContainerID) const;
+	const BoardSnapshot* getBoardSnapshot() const;
+	//const CardID	requestPlayerInput(const PlayerID ,const CardContainerID) const;
 private:
 	CardContainerManager *_ccm;
 	CardManager *_cm;
@@ -56,6 +68,7 @@ private:
 	PlayerManager *_pm;
 	std::deque<Effect> effect_queue;
 	void executeEffect(const Effect&);
+	void onNotify(const CardContainerID &, const CardContainerID & , const Event);
 	//Diverse effekt-funktioner, ex:
 	//Draw(int draw, int play, int discard, bool inflation = true);
 };

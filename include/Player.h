@@ -31,9 +31,12 @@ public:
 	const int getCardsPlayed() const;
 	void incrementCardsPlayed();
 	void resetCardsPlayed();
-
+	const int getCardsDrawn() const;
+	void incrementCardsDrawn();
+	void resetCardsDrawn();
 private:
 	const PlayerID _id;
 	int _played_cards = 0;
+	int _drawn_cards = 0;
 };
 #endif
