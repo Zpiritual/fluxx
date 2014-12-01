@@ -16,7 +16,7 @@ int main()
 	
 	for(int i =  0; i < 10; i++)
 	{
-		cards.push_back(new Card(CardID(i+1), "ACTION", "NUMERIC", "The card is a placeholder...", effects));
+		cards.push_back(new Card(CardID(i+1), "TEST CARD", "ACTION", "NUMERIC", "The card is a placeholder...", effects));
 	}
 	
 	Deck deck(cards);
