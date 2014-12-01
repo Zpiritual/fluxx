@@ -32,7 +32,7 @@ Deck* DeckParser::deck_to_game(std::string filename)
 	{
 		ifs >> ws;
 		int id;
-        string name;
+        string name = "";
 		string type;
 		string subtype;
 		string description;
@@ -44,43 +44,44 @@ Deck* DeckParser::deck_to_game(std::string filename)
 			stringstream ss{line};
 			string t;
 			ss >> t;
-			if(t == "CARD_ID")
+			if(t.compare("CARD_ID") == 0)
 			{
 				ss >> id;
             }
-            else if(t == "CARD_NAME")
+            else if(t.compare("CARD_NAME") == 0)
             {
-                ss >> name;
+               getline(ss,name);
             }
-			else if(t == "CARD_TYPE")
+            else if(t.compare("CARD_TYPE") == 0)
 			{
 				ss >> type;
 			}
-			else if(t == "CARD_SUBTYPE")
+            else if(t.compare("CARD_SUBTYPE") == 0)
 			{
 				ss >> subtype;
 			}
-			else if(t == "CARD_DESCRIPTION")
+            else if(t.compare("CARD_DESCRIPTION") == 0)
 			{
 				ss >> ws;
 				getline(ss,description);
 			}
-			else if(t == "CARD_RULE")
+            else if(t.compare( "CARD_EFFECT") == 0)
 			{
 				getline(ss,effect);
-				effects.push_back(Effect{effect});
+				Effect e{effect};
+				effects.push_back(e);
 			}
 		}
 		
 	//debug stuff:
-	//	cout << "NEW CARD:" << endl;
-	//	cout << "=========" << endl;
-	//	cout << "ID: " << id << endl;
-    // cout << "NAME: " << name << endl;
-	//	cout << "TYPE: " << type << endl;
-	//	cout << "SubType: " << subType << endl;
-	//	cout << "Description: " << description << endl;
-	//	cout << "Effect:" << effects.size() << endl;
+		cout << "NEW CARD:" << endl;
+		cout << "=========" << endl;
+		cout << "ID: " << id << endl;
+    	 cout << "NAME: " << name << endl;
+		cout << "TYPE: " << type << endl;
+		cout << "SubType: " << subtype << endl;
+		cout << "Description: " << description << endl;
+		cout << "Effect:" << effects.size() << endl;
         cards.push_back(new Card(id, name, type, subtype, description, effects));
 	}
 

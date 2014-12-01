@@ -68,7 +68,7 @@ void GameLogic::playCard(const PlayerID pid)
     //Fråga GUI om kort-id osv.
 
     CardID cid = pickCard(_pm->getCurrentPlayer()->getID(), ccid);
-
+    cout << "CARD PICKED: " << cid.val << endl;
     //Spela det givna kortet.
     //if a Goal card is placed check if there is room for it
     //if not ask what card to replace
