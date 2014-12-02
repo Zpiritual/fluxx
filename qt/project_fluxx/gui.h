@@ -28,10 +28,10 @@ public:
     explicit Gui(std::vector<ProfileName> players, QWidget *parent = 0);
     ~Gui();
     const PlayerID pickPlayer(const BoardSnapshot * const);
-    const CardID pickCard(const BoardSnapshot* const, const CardContainerID&);
+    const CardID pickCard(const BoardSnapshot* const, const CardContainerID);
     void update(const BoardSnapshot* const);
     void nextPlayer(const BoardSnapshot* const);
-    Direction chooseDirection(const BoardSnapshot * const snapshot);
+    const Direction chooseDirection(const BoardSnapshot * const snapshot);
 
 private:
     QHBoxLayout* layout;

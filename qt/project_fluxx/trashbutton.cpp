@@ -19,11 +19,14 @@ void TrashButton::updateCards(const CardContainer cards)
 {
     cards_ = cards.getCards();
 
+    for(const CardID card : cards_)
+        qDebug() << QString::number(card.val) + QString(" is in trash.");
     if(cards.getSize() != 0)
     {
         QString temp_string{":Images/"+QString::number(cards_.back().val)+".png"};
         icon = QIcon{temp_string};
         this->setIcon(icon);
+
     }
     qDebug() << "updatecards in trashbutton";
 

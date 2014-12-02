@@ -4,7 +4,7 @@
 CardButton::CardButton(CardID id, QWidget *parent) :
     QPushButton(parent)
 {
-    QString temp_string{":Images/"+QString::number(id.val)+".png"};
+    QString temp_string{"./Images/"+QString::number(id.val)+".png"};
 
     icon = new QIcon(temp_string);
     id_ = new CardID(id.val);
@@ -20,7 +20,7 @@ CardButton::CardButton(CardID id, QWidget *parent) :
 CardButton::CardButton(CardID* id, QWidget *parent) :
     QPushButton(parent)
 {
-    QString temp_string{":Images/"+QString::number(id->val)+".png"};
+    QString temp_string{"./Images/"+QString::number(id->val)+".png"};
 
     icon = new QIcon(temp_string);
     id_ = new CardID(id->val);
