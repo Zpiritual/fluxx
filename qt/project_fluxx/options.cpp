@@ -16,15 +16,15 @@ Options::Options(const std::vector<Profile>& prfiles, QWidget *parent) :
 
 Options::~Options()
 {
-    delete main_layout;
-    delete profile_layout;
-    delete vertical_profile_layout;
-    delete finish_layout;
     delete user_profiles;
     delete add_profile_button;
     delete remove_profile_button;
     delete ok_button;
     delete cancel_button;
+    delete vertical_profile_layout;
+    delete profile_layout;
+    delete finish_layout;
+    delete main_layout;
 }
 
 void Options::addProfile()

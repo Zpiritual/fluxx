@@ -16,15 +16,15 @@ NewGame::NewGame(const std::vector<Profile>& profiles, const Deck* const dck, QW
 
 NewGame::~NewGame()
 {
-    delete layout;
-    delete list_layout;
-    delete others_layout;
-    delete finish_layout;
     delete player_list;
     delete select_player_button;
     delete start_button;
     delete back_button;
     delete view_players;
+    delete finish_layout;
+    delete list_layout;
+    delete others_layout;
+    delete layout;
 }
 
 void NewGame::message(const QString& title, const QString& message) const
