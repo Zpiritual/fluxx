@@ -28,7 +28,6 @@ public:
 
 private:
     QVBoxLayout* main_layout; //Main window layout
-    QStackedWidget* layouts; //Container for the different menues
     QWidget* start_widget; //The widget that run at start
     QWidget* options_widget; //The options menu widget
     QWidget* newgame_widget; //The newgame menu widget
