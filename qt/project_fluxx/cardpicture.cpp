@@ -28,10 +28,10 @@ CardPicture::CardPicture(const Card& card, QWidget *parent) :
 
 CardPicture::~CardPicture()
 {
-    delete layout;
     delete card_type;
     delete card_name;
     delete card_description;
+    delete layout;
 }
 
 void CardPicture::renderPicture()

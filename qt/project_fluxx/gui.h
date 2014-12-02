@@ -33,6 +33,7 @@ public:
     void nextPlayer(const BoardSnapshot* const);
     const Direction chooseDirection(const BoardSnapshot * const snapshot);
 
+    void closeEvent(QCloseEvent*);
 
 private:
     void update(const BoardSnapshot* const);
