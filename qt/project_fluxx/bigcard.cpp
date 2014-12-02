@@ -1,13 +1,24 @@
 #include "bigcard.h"
 
-BigCard::BigCard(CardID* id, QWidget *parent) :
-    QWidget(parent)
+BigCard::BigCard(CardID* id, QWidget* parent) :
+    QGraphicsView(parent)
 {
-    QGraphicsScene* scene = new QGraphicsScene();
-    QGraphicsView* view = new QGraphicsView(scene);
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("./Images/"+QString::number(id->val)+".png")));
+    scene = new QGraphicsScene(parent);
+    item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("./Images/"+QString::number(id->val)+".png")));
     scene->addItem(item);
 
-    view->setWindowTitle(QString("Big Card"));
-    view->show();
+    this->setWindowTitle(QString("Big Card"));
+    this->setScene(scene);
+}
+
+BigCard::~BigCard()
+{
+    delete item;
+    delete scene;
+}
+
+void BigCard::closeEvent(QCloseEvent* event)
+{
+    event->accept();
+    delete this;
 }

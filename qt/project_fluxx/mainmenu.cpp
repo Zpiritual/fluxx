@@ -47,8 +47,6 @@ MainMenu::MainMenu(const Deck* const dck, QWidget *parent) :
 MainMenu::~MainMenu()
 {
     delete start_widget;
-    delete options_widget;
-    delete newgame_widget;
     delete main_layout;
 }
 

@@ -28,7 +28,6 @@ void TrashButton::updateCards(const CardContainer cards)
 
     }
     qDebug() << "updatecards in trashbutton";
-
 }
 
 void TrashButton::clickbutton()
