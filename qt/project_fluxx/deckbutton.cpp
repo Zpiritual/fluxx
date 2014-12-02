@@ -6,11 +6,9 @@
 DeckButton::DeckButton(QWidget *parent) :
     QPushButton(parent)
 {
-
     QString temp_string{":Images/"+QString::number(0)+".png"};
 
     icon = new QIcon(temp_string);
-
 
     this->setIcon(*icon);
 

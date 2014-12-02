@@ -12,22 +12,17 @@ PlayerList::PlayerList(const std::vector<ProfileName> plyers, QWidget *parent) :
 
 PlayerList::~PlayerList()
 {
-    for(int i = 0; i < players.size(); i++)
+    for(unsigned int i = 0; i < players.size(); i++)
     {
         delete players.at(i);
     }
     delete vertical_layout;
 }
 
-const PlayerID PlayerList::pickPlayer() const
-{
-
-}
-
 void PlayerList::updatePlayers(const BoardSnapshot* const board)
 {
     qDebug() << "You're in updateplayers in playerlist, congratulations!";
-    for(int i = 0; i < player_ids.size(); i++)
+    for(unsigned int i = 0; i < player_ids.size(); i++)
     {
         const CardContainerID player_hand{std::string{"Player" + std::to_string(i+1) + "_hand"}};
         const CardContainerID player_keepers{std::string{"Player" + std::to_string(i+1) + "_keepers"}};
@@ -65,7 +60,7 @@ void PlayerList::uiElements()
 {
     vertical_layout = new QVBoxLayout();
 
-    for(int i = 0; i < player_ids.size(); i++)
+    for(unsigned int i = 0; i < player_ids.size(); i++)
     {
         players.push_back(new PlayerListItem(player_ids.at(i)));
         vertical_layout->addWidget(players.at(i));
@@ -77,12 +72,12 @@ void PlayerList::uiElements()
 
 void PlayerList::updatePlayerState(int player_id, const Direction direction)
 {
-    for(int i = 0; i < player_ids.size(); i++)
+    for(unsigned int i = 0; i < player_ids.size(); i++)
     {
         updatePlayerVariables(i, player_id, direction);
     }
 
-    for(int i = 0; i < player_ids.size(); i++)
+    for(unsigned int i = 0; i < player_ids.size(); i++)
     {
         if (i == current_player)
         {
@@ -101,7 +96,7 @@ void PlayerList::updatePlayerState(int player_id, const Direction direction)
 
 void PlayerList::setConnections(const PlayerLoop& loop)
 {
-    for(int i = 0; i < players.size(); i++)
+    for(unsigned int i = 0; i < players.size(); i++)
     {
         QObject::connect(players.at(i), SIGNAL(clicked()), &loop, SLOT(quit()));
     }
@@ -109,7 +104,7 @@ void PlayerList::setConnections(const PlayerLoop& loop)
 
 const PlayerID PlayerList::getPlayerId(const ProfileName player_name) const
 {
-    for(int i = 0; i < players.size(); i++)
+    for(unsigned int i = 0; i < players.size(); i++)
     {
         if(players.at(i)->getPlayerName() == player_name)
         {

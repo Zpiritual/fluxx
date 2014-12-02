@@ -23,7 +23,7 @@ MainMenu::MainMenu(const Deck* const dck, QWidget *parent) :
 
     // Create card pictures if needed
     std::vector<CardID> card_ids = deck->getCardIDList();
-    for(int i = 0; i < card_ids.size(); i++)
+    for(unsigned int i = 0; i < card_ids.size(); i++)
     {
         CardPicture card_picture(*(deck->getCard(card_ids.at(i))));
         card_picture.renderPicture();

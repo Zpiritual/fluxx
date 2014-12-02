@@ -18,14 +18,9 @@ RulesGridWidget::RulesGridWidget(QWidget *parent) :
 
 RulesGridWidget::~RulesGridWidget()
 {
-    if ( layout->layout() != NULL )
+    for(unsigned int i = 0; i < buttons_.size(); i++)
     {
-        QLayoutItem* item;
-        while ( ( item = layout->takeAt( 0 ) ) != NULL )
-        {
-            delete item->widget();
-            delete item;
-        }
+        delete buttons_.at(i);
     }
     delete layout;
 }
