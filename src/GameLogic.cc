@@ -198,6 +198,7 @@ void GameLogic::executeEffect(const Effect &effect)
         ss >> p1 >> p2 >> p3;
         cout << p1 << " " << p2 << " "  << p3 << endl;
         string ccid;
+        
         if (getCCM()->getSize(CardContainerID("tempA")) == 0)
         {
             ccid = "tempA";
@@ -207,7 +208,8 @@ void GameLogic::executeEffect(const Effect &effect)
             ccid = "tempB";
         }
         else
-            throw std::logic_error("No empty Temp CardCotnainer!");
+            throw std::logic_error("No empty Temp CardContainer!");
+
         cout << "Effect puts cards in: " << ccid << endl;
         for (int i = 0 ; i < p1 ; i++)
         {
@@ -218,6 +220,7 @@ void GameLogic::executeEffect(const Effect &effect)
         {
             playCard(_pm->getCurrentPlayer()->getID());
         }
+
         cout << "trash cards: " << endl;
         for (int i = 0 ; i < p3; i++)
         {
@@ -367,7 +370,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                     cout << "\n";
                 }
                 //Keeper Limit check
-                while (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > _rm->getKepperLimit())
+                while (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > _rm->getKeeperLimit())
                 {
                     cout << "Must remove from keepers player: " << p.getID().getString() << ":\t";
                     CardContainerID ccid1(p.getID().getString() + "_keepers");
