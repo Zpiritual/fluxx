@@ -72,14 +72,21 @@ void GameLogic::playCard(const PlayerID pid)
     //Spela det givna kortet.
     //if a Goal card is placed check if there is room for it
     //if not ask what card to replace
-    if (_cm->getCard(cid)->getType() == "GOAL")
+    if (_cm->getCard(cid)->getType().compare("GOAL") == 0)
     {
         if (_ccm->getSize(CardContainerID("Goal")) > _rm->getGoalLimmit())
         {
             _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal")));
         }
+        addEffect(_cm->getCard(cid)->getEffects().at(0));
+        executeNextEffect();
         _ccm->moveCard(ccid, CardContainerID("Goal"), cid);
-        //Add effect
+        cout << "==Cards in Goals:===" << endl;
+        for (auto i : _ccm->getCards(CardContainerID("Goal")))
+        {
+            cout << i.val << ", ";
+        }
+        cout << "\n====================" << endl;
     }
     //If a rule is played, execute the first effect, the middle effects handles by the first effect, the last effect eecutes
     //when the card is removed
@@ -353,7 +360,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
     switch (event)
     {
     case Event::CARD_MOVED:
-
+        checkRules(RuleTrigger::GOAL);
         //cout << "Card moved!" << endl;
         for (Player p : _pm->getPlayers())
         {
