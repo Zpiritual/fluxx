@@ -17,7 +17,6 @@ BigCardCollection::BigCardCollection(const std::vector<CardID> crds, QWidget *pa
 
     this->setWindowTitle("Card Collection");
     this->setLayout(horizontal_layout);
-   // this->show();
 }
 
 BigCardCollection::BigCardCollection(const std::vector<CardID> crds, CardIdLoop& loop, QWidget *parent) :
@@ -37,7 +36,6 @@ BigCardCollection::BigCardCollection(const std::vector<CardID> crds, CardIdLoop&
 
     this->setWindowTitle("Card Collection");
     this->setLayout(horizontal_layout);
- //   this->show();
 }
 
 void BigCardCollection::closeEvent(QCloseEvent* event)
