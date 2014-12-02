@@ -37,10 +37,10 @@ public:
 	void drawCard(const CardContainerID);
 	void moveCard(const CardContainerID, const CardContainerID, const CardID);
 	void clearContainer(const CardContainerID);
-	const int getSize(const CardContainerID);
-	const std::vector<CardID> getCards(const CardContainerID);
-	const std::vector<CardContainer> getContainers() const;
-    const CardID getRandomCard(const CardContainerID);
+	int getSize(const CardContainerID);
+	std::vector<CardID> getCards(const CardContainerID);
+	std::vector<CardContainer> getContainers() const;
+    CardID getRandomCard(const CardContainerID);
 	void unSuspendCard(const CardContainerID& ccid);
 	void suspendCard(const CardContainerID& ccid, const CardID& cid);
 

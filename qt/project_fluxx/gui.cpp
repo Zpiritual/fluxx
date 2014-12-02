@@ -192,7 +192,7 @@ void Gui::nextPlayer(const BoardSnapshot* const snapshot)
     active_player_widget->switchPlayer(player_ids.at(snapshot->current_player.getInt()));
 }
 
-const Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
+Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
 {
     update(snapshot);
     QMessageBox directionpicker;

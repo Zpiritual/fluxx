@@ -27,10 +27,10 @@ public:
 
 	~Deck();
 
-	const int getSize() const;
-	const std::vector<CardID> getCardIDList() const ;
+	int getSize() const;
+	std::vector<CardID> getCardIDList() const ;
 
-	const Card* const getCard(const CardID id) const;
+	const Card* getCard(const CardID id) const;
 
 private:
 	std::map<const CardID, const Card* > _cards;

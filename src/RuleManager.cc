@@ -6,37 +6,37 @@ RuleManager::~RuleManager()
 		delete i;
 }
 
-const int RuleManager::getHandLimit()
+int RuleManager::getHandLimit()
 {
 	return _hand_limmit;
 }
 
-const int RuleManager::getKeeperLimit()
+int RuleManager::getKeeperLimit()
 {
 	return _keeper_limit;
 }
 
-const int RuleManager::getGoalLimmit()
+int RuleManager::getGoalLimmit()
 {
 	return _goal_limit;
 }
 
-const int RuleManager::getInflation()
+int RuleManager::getInflation()
 {
 	return _inflation;
 }
 
-const int RuleManager::getDraw()
+int RuleManager::getDraw()
 {
 	return _draw;
 }
 
-const int RuleManager::getPlay()
+int RuleManager::getPlay()
 {
 	return _play;
 }
 
-const Direction RuleManager::getPlayOrder()
+Direction RuleManager::getPlayOrder()
 {
 	return _play_direction;
 }

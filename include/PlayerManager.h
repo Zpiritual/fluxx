@@ -36,7 +36,7 @@ public:
 	Player*		 	getPlayer(const PlayerID pid);
 	void 			addPlayer(Player p);
 	Player*		  	getCurrentPlayer();
-	const PlayerID	getCurrentPlayerID();
+	PlayerID		getCurrentPlayerID();
 	void 			setCurrentPlayer(const PlayerID pid);
 	std::vector<Player> getPlayers();
     void 			nextPlayer(Direction);

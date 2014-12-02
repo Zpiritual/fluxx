@@ -17,13 +17,13 @@ public:
 	RuleManager& operator= (RuleManager&&) = default;
 	~RuleManager();
 
-	const int 		getHandLimit()		;
-	const int 		getKeeperLimit() 	;
-	const int 		getGoalLimmit() 	;
-	const int 		getInflation() 		;
-	const int 		getDraw() 			;
-	const int 		getPlay() 			;
-	const Direction getPlayOrder()  	;
+	int 		getHandLimit()		;
+	int 		getKeeperLimit() 	;
+	int 		getGoalLimmit() 	;
+	int 		getInflation() 		;
+	int 		getDraw() 			;
+	int 		getPlay() 			;
+	Direction	getPlayOrder()  	;
 
 	void setHandLimit(const int);
 	void setKeeperLimit(const int);

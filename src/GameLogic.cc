@@ -129,7 +129,7 @@ void GameLogic::playCard(const PlayerID pid)
     resolveEffects();
 }
 
-const CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) const
+CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) const
 {
     BoardSnapshot snapshot(makeBoardSnapshot());
 
@@ -142,7 +142,7 @@ const CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID conta
     return id;
 }
 
-const PlayerID GameLogic::pickPlayer() const
+PlayerID GameLogic::pickPlayer() const
 {
     BoardSnapshot snapshot(makeBoardSnapshot());
     const PlayerID id = _gui->pickPlayer(&snapshot);
@@ -312,12 +312,12 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
         break;
     }
 }
-const GameState GameLogic::getCurrentGameState() const
+GameState GameLogic::getCurrentGameState() const
 {
     return _currentGameState;
 }
 
-const BoardSnapshot GameLogic::makeBoardSnapshot()const 
+BoardSnapshot GameLogic::makeBoardSnapshot()const 
 {
 	return BoardSnapshot(_ccm->getContainers(), (int)(_pm->getPlayers().size()), _pm->getCurrentPlayer()->getID(), _pm->getCurrentPlayer()->getCardsPlayed(), _rm->getPlay(),_rm->getPlayOrder());
 }

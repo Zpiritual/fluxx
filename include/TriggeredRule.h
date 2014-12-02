@@ -19,9 +19,9 @@ public:
 	TriggeredRule& operator=(TriggeredRule&&)	   = delete;
 	~TriggeredRule();
 
-	const Effect* getEffect() const;
-	const RuleTrigger getType() const;
-	const CardID getParent() const;
+    const Effect* getEffect() const;
+	RuleTrigger getType() const;
+	CardID getParent() const;
 
 private:
 	const CardID _parent;

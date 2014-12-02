@@ -4,10 +4,13 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+
 using namespace std;
+
 class DeckParser
 {
 public:
-Deck* deck_to_game(string filename);
+	Deck* deck_to_game(string filename);
 };
+
 #endif

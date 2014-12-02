@@ -6,6 +6,7 @@
 #include <iostream>
 #include "enums.h"
 #include <exception>
+
 CardContainerManager::CardContainerManager(const Deck* deck)
 // Konstruktorn skall initiera både stock-objektet och vektorn med cardcontainers.
   	{
@@ -90,7 +91,7 @@ void CardContainerManager::moveCard(const CardContainerID from, const CardContai
 	notify(from,to,Event::CARD_MOVED);
 }
 
-const int CardContainerManager::getSize(const CardContainerID container)
+int CardContainerManager::getSize(const CardContainerID container)
 {
 	return getContainer(container)->getSize();
 }
@@ -100,12 +101,12 @@ CardContainer* CardContainerManager::getContainer(const CardContainerID containe
 	return _containers.at(container);
 }
 
-const vector<CardID> CardContainerManager::getCards(const CardContainerID container)
+vector<CardID> CardContainerManager::getCards(const CardContainerID container)
 {
 	return getContainer(container)->getCards();
 }
 
-const std::vector<CardContainer> CardContainerManager::getContainers() const
+std::vector<CardContainer> CardContainerManager::getContainers() const
 {
 	std::vector<CardContainer> cardContainers;
 	for(auto it = _containers.begin(); it != _containers.end(); ++it)
@@ -115,7 +116,7 @@ const std::vector<CardContainer> CardContainerManager::getContainers() const
 	return cardContainers;
 }
 
-const CardID CardContainerManager::getRandomCard(const CardContainerID container)
+CardID CardContainerManager::getRandomCard(const CardContainerID container)
 {
 	return getContainer(container)->getRandomCard();
 }

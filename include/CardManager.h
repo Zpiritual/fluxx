@@ -27,7 +27,7 @@ public:
 
 	~CardManager() 								= default;
 
-	const Card* const getCard(const CardID) const;
+	const Card* getCard(const CardID) const;
 
 private:
 	const Deck* const _deck;
