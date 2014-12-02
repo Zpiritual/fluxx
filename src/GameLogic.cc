@@ -2,8 +2,10 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-
+#include <algorithm>
 GameLogic::GameLogic(Gui * gui, const Deck * deck, const int players)
+:
+_currentGameState{GameState::CONTINUE}
 {
     _gui = gui;
     _ccm = new CardContainerManager(deck);
@@ -240,6 +242,26 @@ void GameLogic::executeEffect(const Effect &effect)
         ss >> container;
         effect_EmptyContainer(container);
     }
+    else if (identifier.compare("BooleanKeeperCheck") == 0)
+    {
+        vector<int> AKeepers;
+        vector<int> NKeepers;
+        int tmp;
+        int AKeepers_size;
+        int NKeepers_size;
+        ss >> AKeepers_size;
+        ss >> NKeepers_size;
+        for(int i = 0; i < AKeepers_size;i++)
+        {
+            ss >> tmp;
+            AKeepers.push_back(tmp);
+        }
+        for(int i = 0; i < NKeepers_size;i++)
+        {
+            ss >> tmp;
+            NKeepers.push_back(tmp);
+        }
+    }
     else
     {
         throw std::logic_error("GameLogic::executeEffect() - Undefined Effect");
@@ -280,6 +302,10 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
         }
         break;
     }
+}
+const GameState GameLogic::getCurrentGameState() const
+{
+    return _currentGameState;
 }
 
 const BoardSnapshot GameLogic::makeBoardSnapshot()const 
@@ -503,4 +529,43 @@ void GameLogic::effect_TakeAndPlay(int take, int play, int trash)
 void GameLogic::effect_EmptyContainer(string container)
 {
     _ccm->clearContainer(CardContainerID(container));
+}
+
+void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers,vector<int> &NKeepers)
+{
+    bool firstCheck = false;
+    string winningPlayer;
+    for(Player i: _pm->getPlayers())
+    {
+        CardContainerID cpkid(i.getID().getString() + "_keepers");
+        int icheck = 0;
+        for(int j: AKeepers)
+        {
+            if(find(_ccm->getCards(cpkid).begin(),_ccm->getCards(cpkid).end(), CardID(j)) != _ccm->getCards(cpkid).end())
+                icheck++;
+        }
+        if(icheck == AKeepers.size())
+        {
+             firstCheck = true;
+             winningPlayer = i.getID().getString();
+        }
+    }
+    bool secondCheck = false;
+    int icheck = 0;
+    for(Player i: _pm->getPlayers())
+    {
+        CardContainerID cpkid(i.getID().getString() + "_keepers");
+        for(int j: NKeepers)
+        {
+            if(find(_ccm->getCards(cpkid).begin(),_ccm->getCards(cpkid).end(), CardID(j)) != _ccm->getCards(cpkid).end())
+                icheck++;
+        }
+    }
+    if(icheck == NKeepers.size())
+    secondCheck = true;
+    if(firstCheck && secondCheck)
+    {
+        _currentGameState = GameState::GAME_OVER;
+        cout << "GAME OVER!! WINNIGN PLAYER: " << winningPlayer << " It's finaly over!" << endl;
+    }
 }

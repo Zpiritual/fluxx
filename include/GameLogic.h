@@ -66,7 +66,9 @@ public:
     void effect_ModifyRule(string rule_type, int value);
     void effect_TakeAndPlay(int take, int play, int trash);
 	void effect_EmptyContainer(string container);
+    void effect_BooleanKeeperCheck(vector<int> &,vector<int> &);
 
+	const GameState getCurrentGameState() const;
 private:
     Gui * _gui;
     CardContainerManager *_ccm;
@@ -74,6 +76,7 @@ private:
 	RuleManager *_rm;
 	PlayerManager *_pm;
 	std::deque<Effect> effect_queue;
+    GameState _currentGameState;
 	void executeEffect(const Effect&);
 	void onNotify(const CardContainerID &, const CardContainerID & , const Event);
 	//Diverse effekt-funktioner, ex:
