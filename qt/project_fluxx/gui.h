@@ -29,11 +29,13 @@ public:
     ~Gui();
     const PlayerID pickPlayer(const BoardSnapshot * const);
     const CardID pickCard(const BoardSnapshot* const, const CardContainerID);
-    void update(const BoardSnapshot* const);
+    const CardID pickCard(const BoardSnapshot* const, const CardContainerID, const PlayerID);
     void nextPlayer(const BoardSnapshot* const);
     const Direction chooseDirection(const BoardSnapshot * const snapshot);
 
+
 private:
+    void update(const BoardSnapshot* const);
     QHBoxLayout* layout;
     LogWidget* log_widget;
     PlayerList* player_list_widget;
