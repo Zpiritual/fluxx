@@ -15,6 +15,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <stack>
 #include "Subject.h"
 
 class CardContainerManager:public Subject {
@@ -46,7 +47,7 @@ private:
 	Stock* _stock;
 	//vector<CardContainer> _containers;
 	std::map<const CardContainerID, CardContainer*> _containers;
-	bool _hasSuspendedCard;
+    std::stack<CardID> _suspendedCards;
 };
 
 #endif

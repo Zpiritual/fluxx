@@ -8,8 +8,7 @@
 #include <exception>
 CardContainerManager::CardContainerManager(const Deck* deck)
 // Konstruktorn skall initiera både stock-objektet och vektorn med cardcontainers.
-    :_hasSuspendedCard{false}
-{
+  	{
 	_stock = new Stock(CardContainerID("Stock"));
 
 	for(CardID c:deck->getCardIDList())
@@ -30,10 +29,6 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 	const CardContainerID temp_b("tempB");
 	_containers.insert(std::make_pair(temp_b, new CardContainer(temp_b)));
-
-	const CardContainerID suspendedCardContainer("SuspendedCardContainer");
-	_containers.insert(std::make_pair(suspendedCardContainer, new CardContainer(suspendedCardContainer)));
-
 	for(int i = 1; i <= 6; i++)
 	{
 		std::string player_container = "Player";
@@ -120,22 +115,20 @@ const std::vector<CardContainer> CardContainerManager::getContainers() const
 }
     void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 	{
-        if(_hasSuspendedCard)
+        if(!_suspendedCards.empty())
 		{
-           moveCard(CardContainerID("SuspendedCardContainer"),ccid, getCards(CardContainerID("SuspendedCardContainer")).at(0));
-           _hasSuspendedCard = false;
+			getContainer(ccid)->addCard(_suspendedCards.top());
+			_suspendedCards.pop();
+            notify(CardContainerID("SuspendedCards"), ccid,Event::CARD_MOVED);
+
 		}
         else
-            throw std::logic_error("No Card is suspended");
+            throw std::logic_error("No Cards are suspended");
 	}
 
     void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID& cid)
 	{
-        if(!_hasSuspendedCard)
-		{	
-           moveCard(ccid,CardContainerID("SuspendedCardContainer"), cid);
-           _hasSuspendedCard = true;
-		}
-		else
-			throw std::logic_error("Already in use: " + cid.val);
+		getContainer(ccid)->removeCard(cid);
+        _suspendedCards.push(cid);
+        notify(ccid, CardContainerID("SuspendedCards"),Event::CARD_MOVED);
 	}
