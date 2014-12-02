@@ -40,30 +40,31 @@ void CardPicture::renderPicture()
     {
         QPixmap pixmap(this->rect().size());
 
+        QPalette Pal(palette());
+
         if(card_type->text().toLower() == QString("keeper"))
         {
-            pixmap.fill(Qt::green);
+            Pal.setColor(QPalette::Background, QColor(100, 255, 75));
         }
         else if(card_type->text().toLower() == QString("action"))
         {
-            pixmap.fill(Qt::blue);
+            Pal.setColor(QPalette::Background, QColor(130, 130, 255));
         }
         else if(card_type->text().toLower() == QString("goal"))
         {
-            pixmap.fill(Qt::red);
+            Pal.setColor(QPalette::Background, QColor(255, 100, 100));
         }
         else if(card_type->text().toLower() == QString("rule"))
         {
-            pixmap.fill(Qt::yellow);
+            Pal.setColor(QPalette::Background, QColor(220, 255, 100));
         }
+
+        this->setAutoFillBackground(true);
+        this->setPalette(Pal);
 
         this->render(&pixmap, QPoint(), QRegion(this->rect()));
 
-        pixmap.save(":Images/" + QString::number(card_id.val) + ".png");
+        pixmap.save("./Images/" + QString::number(card_id.val) + ".png");
         qDebug() << "New CardPicture created.";
-    }
-    else
-    {
-       // qDebug() << "CardPicture already exists.";
     }
 }
