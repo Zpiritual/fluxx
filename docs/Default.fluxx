@@ -1,5 +1,5 @@
 DECK_NAME Default
-CARD_COUNT 36
+CARD_COUNT 38
 DECK_DESCRIPTION This Deck contains all "real" cards implemented 
 			
 CARD_ID 082
@@ -231,3 +231,21 @@ CARD_DESCRIPTION The player with Milk and Cookies on the table wins.
 CARD_EFFECT AddTriggeredRule 023 GOAL
 CARD_EFFECT BooleanKeeperCheck 2 0 077 079
 CARD_EFFECT RemoveTriggeredRule 023
+
+CARD_ID 044
+CARD_NAME Rocket Science
+CARD_TYPE GOAL
+CARD_SUBTYPE None
+CARD_DESCRIPTION The player with the Rocket and the Brain on the table wins.
+CARD_EFFECT AddTriggeredRule 044 GOAL
+CARD_EFFECT BooleanKeeperCheck 2 0 073 078
+CARD_EFFECT RemoveTriggeredRule 044
+
+CARD_ID 028
+CARD_NAME The Brain (No TV)
+CARD_TYPE GOAL
+CARD_SUBTYPE None
+CARD_DESCRIPTION If no one has Television on the table, the player with  Brain on the table wins.
+CARD_EFFECT AddTriggeredRule 028 GOAL
+CARD_EFFECT BooleanKeeperCheck 1 1 078 035
+CARD_EFFECT RemoveTriggeredRule 028

@@ -40,7 +40,7 @@ public:
 	void addEffect(Effect);
 
 	//Prototype functions
-	void addRule(const CardID, const Effect*, const RuleTrigger);
+    void addRule(const CardID, Effect*, const RuleTrigger);
 	void removeRule(const CardID);
     CardID pickCard(const PlayerID, const CardContainerID) const;
     PlayerID pickPlayer() const;
@@ -69,10 +69,6 @@ public:
     void effect_BooleanKeeperCheck(vector<int> &,vector<int> &);
 
 	GameState getCurrentGameState() const;
-<<<<<<< HEAD
-=======
-
->>>>>>> 1f0dd573ff8c3eed06bd2b2b59671dbd3b71af90
 private:
     Gui * _gui;
     CardContainerManager *_ccm;

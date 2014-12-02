@@ -9,7 +9,7 @@
 class TriggeredRule
 {
 public:
-	TriggeredRule(const CardID, const RuleTrigger, const Effect*);
+	TriggeredRule(const CardID, const RuleTrigger, Effect);
 
 	TriggeredRule()								   = delete;
 	TriggeredRule(const TriggeredRule&)			   = default;
@@ -17,16 +17,16 @@ public:
 
 	TriggeredRule& operator=(const TriggeredRule&) = delete;
 	TriggeredRule& operator=(TriggeredRule&&)	   = delete;
-	~TriggeredRule();
+    ~TriggeredRule() = default;
 
-    const Effect* getEffect() const;
+    Effect getEffect() const;
 	RuleTrigger getType() const;
 	CardID getParent() const;
 
 private:
 	const CardID _parent;
 	const RuleTrigger _type;
-	const Effect* _effect;
+	Effect _effect;
 };
 
 #endif

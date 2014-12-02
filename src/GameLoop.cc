@@ -80,12 +80,7 @@ SessionData	GameLoop::run()
 	{
 		nextPlayer();
 	}
-<<<<<<< HEAD
-	std::cout << "GAME OVER AND EXITED GAME LOOP" << std::endl;
-=======
-
     return SessionData(_game_logic->getPM()->getPlayers(), PlayerIdentifier::Player1);
->>>>>>> 1f0dd573ff8c3eed06bd2b2b59671dbd3b71af90
 }
 
 GameState GameLoop::executePlayerTurn(PlayerID pid)

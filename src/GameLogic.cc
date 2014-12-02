@@ -33,14 +33,13 @@ GameLogic::~GameLogic()
 
 void GameLogic::addEffect(Effect effect)
 {
-
     effect_queue.push_front(effect);
 }
 
-void GameLogic::addRule(const CardID cid, const Effect *effect, const RuleTrigger trigger)
+void GameLogic::addRule(const CardID cid, Effect *effect, const RuleTrigger trigger)
 {
     cerr << "Added Rule:" << cid.val << (*effect).val << endl;
-    _rm->addRule(new TriggeredRule(cid, trigger, effect));
+    _rm->addRule(new TriggeredRule(cid, trigger, *effect));
 }
 
 void GameLogic::removeRule(const CardID cid)
@@ -82,13 +81,14 @@ void GameLogic::playCard(const PlayerID pid)
          _ccm->suspendCard(ccid, cid);
         addEffect(_cm->getCard(cid)->getEffects().at(0));
         executeNextEffect();
-        _ccm->unSuspendCard(CardContainerID("Goal"));
+         _ccm->unSuspendCard(CardContainerID("Goal"));
         cout << "==Cards in Goals:===" << endl;
         for (auto i : _ccm->getCards(CardContainerID("Goal")))
         {
             cout << i.val << ", ";
         }
         cout << "\n====================" << endl;
+     
     }
     //If a rule is played, execute the first effect, the middle effects handles by the first effect, the last effect eecutes
     //when the card is removed
@@ -165,12 +165,12 @@ void GameLogic::drawCard(const PlayerID pid)
 
 void GameLogic::checkRules(RuleTrigger rt)
 {
-    //cout << "Check rules" << endl;
+    cout << "Check rules" << endl;
     //TODO - waiting for RuleManager to be completed
-    for (const Effect *e : _rm->getTriggeredRules(rt))
+    vector<Effect> effects = _rm->getTriggeredRules(rt);
+    for (unsigned int i = 0; i < effects.size();i++ )
     {
-        addEffect(*e);
-        cout << "Effects -- " << e->val << endl;
+            addEffect((effects.at(i)));
 
     }
     resolveEffects();
@@ -181,7 +181,6 @@ void GameLogic::resolveEffects()
 {
     while (!effect_queue.empty())
     {
-        //std::cout << "not empty" << std::endl;
         executeNextEffect();
     }
 }
@@ -283,6 +282,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
     switch (event)
     {
     case Event::CARD_MOVED:
+    cout << "CARD_MOVED!" << endl;
         checkRules(RuleTrigger::GOAL);
         //cout << "Card moved!" << endl;
         for (Player p : _pm->getPlayers())
@@ -406,21 +406,25 @@ void GameLogic::effect_AddTriggeredRule(int card_id, string trigger)
 {
     RuleTrigger rt;
 
-    if (trigger.compare("PRE_DRAW"))
+    if (trigger.compare("PRE_DRAW") == 0)
     {
         rt = RuleTrigger::PRE_DRAW;
     }
-    else if (trigger.compare("POST_DRAW"))
+    else if (trigger.compare("POST_DRAW")== 0)
     {
         rt = RuleTrigger::POST_DRAW;
     }
-    else if (trigger.compare("PRE_PLAY"))
+    else if (trigger.compare("PRE_PLAY")== 0)
     {
         rt = RuleTrigger::PRE_PLAY;
     }
-    else if (trigger.compare("TURN_END"))
+    else if (trigger.compare("TURN_END")== 0)
     {
         rt = RuleTrigger::TURN_END;
+    }
+    else if (trigger.compare("GOAL")== 0)
+    {
+           rt = RuleTrigger::GOAL;
     }
     else
     {
@@ -550,13 +554,24 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers,vector<int> &NKe
         int icheck = 0;
         for(int j: AKeepers)
         {
-            if(find(_ccm->getCards(cpkid).begin(),_ccm->getCards(cpkid).end(), CardID(j)) != _ccm->getCards(cpkid).end())
-                icheck++;
+            vector<CardID> vid = _ccm->getCards(cpkid);
+            if(find(vid.begin(),vid.end(), CardID(j)) != vid.end())
+               {
+                cout << "Keeper: " << j << " found in: " << cpkid.val << endl;
+                for(CardID id: vid)
+                {
+                    cout << "Contains: " << id.val << ",";
+                }
+                cout << endl;
+                 icheck++;
+               }
         }
+        cout << "Icheck::\t" << icheck << endl;
         if(icheck == AKeepers.size())
         {
              firstCheck = true;
              winningPlayer = i.getID().getString();
+             break;
         }
     }
     cout << "Check one" << firstCheck << endl;
@@ -571,8 +586,8 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers,vector<int> &NKe
                 icheck++;
         }
     }
-    if(icheck == NKeepers.size())
-    secondCheck = true;
+    if(icheck == 0)
+         secondCheck = true;
 cout << "Check two:  " << secondCheck << endl;
     if(firstCheck && secondCheck)
     {

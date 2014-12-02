@@ -1,15 +1,10 @@
 #include "TriggeredRule.h"
 
-TriggeredRule::TriggeredRule(const CardID parent, const RuleTrigger type, const Effect* effect)
-	: _parent{parent}, _type{type}, _effect{effect}
+TriggeredRule::TriggeredRule(const CardID parent, const RuleTrigger type, Effect effect)
+    : _parent{parent}, _type{type}, _effect(effect)
 {}
 
-TriggeredRule::~TriggeredRule()
-{
-	delete _effect;
-}
-
-const Effect* TriggeredRule::getEffect() const
+Effect TriggeredRule::getEffect() const
 {
 	return _effect;
 }

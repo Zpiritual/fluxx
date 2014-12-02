@@ -1,5 +1,5 @@
 #include "RuleManager.h"
-
+#include <iostream>
 RuleManager::~RuleManager()
 {
 	for(TriggeredRule* i: _triggered_rules)
@@ -97,13 +97,16 @@ void RuleManager::clearRules()
 	_triggered_rules.clear();
 }
 
-std::vector<const Effect*> RuleManager::getTriggeredRules(const RuleTrigger type)
+std::vector<Effect> RuleManager::getTriggeredRules(const RuleTrigger type)
 {
-	std::vector<const Effect*> effects;
+	std::vector<Effect> effects;
 	for(TriggeredRule* tr : _triggered_rules)
 	{
 		if(tr->getType() == type)
+		{
+            std::cout << tr->getEffect().val << std::endl;
 			effects.push_back(tr->getEffect());
+		}
 	}
 	return effects;
 }
