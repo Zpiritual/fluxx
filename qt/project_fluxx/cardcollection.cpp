@@ -1,6 +1,6 @@
 #include "cardcollection.h"
 
-CardCollection::CardCollection(const std::vector<CardID>& crds, QWidget *parent) :
+CardCollection::CardCollection(const std::vector<CardID> crds, QWidget *parent) :
     QWidget(parent)
 {
     horizontal_layout = new QHBoxLayout();
@@ -14,7 +14,7 @@ CardCollection::CardCollection(const std::vector<CardID>& crds, QWidget *parent)
     this->setLayout(horizontal_layout);
 }
 
-CardCollection::CardCollection(const std::vector<CardID>& crds, CardIdLoop &loop, QWidget *parent) :
+CardCollection::CardCollection(const std::vector<CardID> crds, CardIdLoop &loop, QWidget *parent) :
     QWidget(parent)
 {
     horizontal_layout = new QHBoxLayout();

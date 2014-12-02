@@ -74,7 +74,7 @@ const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 }
 
 //BoardSnapshot* snapshot
-const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContainerID& containerid)
+const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContainerID containerid)
 {
     update(snapshot);
 
@@ -113,17 +113,18 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
         loop.exec();
     }
     //Det är en spelares keepers men inte den aktiva spelarens keepers
-//    else if(containerid.val.find("_hand") != std::string::npos &&
-//            containerid.val.find(snapshot->current_player.getString()) != std::string::npos)
-//        player_list_widget->connectKeepers(int(containerid.val.at(6)));
-    //Det är en spelares hand men inte den aktiva spelarens hand.
-//    else if(containerid.val.find("_hand") != std::string::npos &&
-//            containerid.val.find(snapshot->current_player.getString() != std::string::npos))
-//        player_list_widget->connectHand(int(containerid.val.at(6)));
+    else if(((containerid.val.find("_hand") != std::string::npos) ||
+            (containerid.val.find("_keepers") != std::string::npos)) &&
+            containerid.val.find(snapshot->current_player.getString()) != std::string::npos)
+    {
+        BigCardCollection* bigcollection = new BigCardCollection(snapshot->getContainer(containerid).getCards(),loop);
+        bigcollection->show();
+        loop.exec();
+        bigcollection->close();
+        delete bigcollection;
+    }
 
- //   CardButton sentbutton = dynamic_cast<CardButton*>(loop.sender());
-   // return sentbutton.getCardId().val;
-    qDebug() << "pickcard in gui";
+    qDebug() << "You picked card: " + QString::number(loop.getCardId().val);
     return loop.getCardId();
     //
 }
@@ -135,8 +136,19 @@ void Gui::nextPlayer(const BoardSnapshot* const snapshot)
     active_player_widget->switchPlayer(player_ids.at(snapshot->current_player.getInt()));
 }
 
-Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
+const Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
 {
+    QMessageBox::StandardButton directionpicker;
+    directionpicker = QMessageBox::question(this, "Clockwise", "Anticlockwise",
+                                  QMessageBox::Yes|QMessageBox::No);
+    if (directionpicker == QMessageBox::Yes) {
+        qDebug() << "You picked clockwise";
+        return Direction::CLOCKWISE;
+
+    } else {
+        qDebug() << "You picked counterclock";
+        return Direction::COUNTERCLOCKWISE;
+    }
 }
 
 void Gui::message(const QString& title, const QString& message) const
