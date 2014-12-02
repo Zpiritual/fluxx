@@ -21,29 +21,8 @@ MainMenu::MainMenu(const Deck* const dck, QWidget *parent) :
     main_layout->addWidget(start_widget);
     this->setLayout(main_layout);
 
-    // Create card pictures if needed
-    std::vector<CardID> card_ids = deck->getCardIDList();
-    for(unsigned int i = 0; i < card_ids.size(); i++)
-    {
-        CardPicture card_picture(*(deck->getCard(card_ids.at(i))));
-        card_picture.renderPicture();
-    }
-
-    // Read in profiles
-    std::ifstream file("./profiles.txt");
-    Profile p;
-    if(file)
-    {
-        while(file >> p)
-        {
-            profiles.push_back(p);
-        }
-    }
-    else
-    {
-        qDebug() << "Couldn't open profiles.txt!\n";
-    }
-    file.close();
+    createPictures();
+    readProfiles();
 }
 
 MainMenu::~MainMenu()
@@ -131,4 +110,34 @@ void MainMenu::closeEvent(QCloseEvent* event)
     writeProfilesToFile();
     event->accept();
     delete this;
+}
+
+void MainMenu::readProfiles()
+{
+    // Read in profiles
+    std::ifstream file("./profiles.txt");
+    Profile p;
+    if(file)
+    {
+        while(file >> p)
+        {
+            profiles.push_back(p);
+        }
+    }
+    else
+    {
+        qDebug() << "Couldn't open profiles.txt!\n";
+    }
+    file.close();
+}
+
+void MainMenu::createPictures() const
+{
+    // Create card pictures if needed
+    std::vector<CardID> card_ids = deck->getCardIDList();
+    for(unsigned int i = 0; i < card_ids.size(); i++)
+    {
+        CardPicture card_picture(*(deck->getCard(card_ids.at(i))));
+        card_picture.renderPicture();
+    }
 }

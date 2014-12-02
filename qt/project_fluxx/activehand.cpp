@@ -3,12 +3,7 @@
 ActiveHand::ActiveHand(QWidget *parent) :
     QWidget(parent)
 {
-    layout = new QHBoxLayout();
-
-    this->setMaximumHeight(260);
-    this->setMinimumHeight(260);
-   // this->setMinimumWidth(800);
-    this->setLayout(layout);
+    uiElements();
 }
 
 ActiveHand::~ActiveHand()
@@ -57,4 +52,13 @@ void ActiveHand::connectButtons(CardIdLoop& loop)
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
 
+}
+
+void ActiveHand::uiElements()
+{
+    layout = new QHBoxLayout();
+
+    this->setMaximumHeight(260);
+    this->setMinimumHeight(260);
+    this->setLayout(layout);
 }

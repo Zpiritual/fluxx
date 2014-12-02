@@ -18,6 +18,7 @@ private:
       std::vector<CardID> cards_;
       QIcon* icon;
 
+      void uiElements();
 signals:
 public slots:
 

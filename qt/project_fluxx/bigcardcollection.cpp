@@ -1,7 +1,25 @@
 #include "bigcardcollection.h"
 
-BigCardCollection::BigCardCollection(const std::vector<CardID> crds, QWidget *parent) :
+BigCardCollection::BigCardCollection(const std::vector<CardID>& crds, QWidget *parent) :
     QWidget(parent)
+{
+    uiElements(crds);
+}
+
+BigCardCollection::BigCardCollection(const std::vector<CardID>& crds, CardIdLoop& loop, QWidget *parent) :
+    QWidget(parent)
+{
+    uiElements(crds, loop);
+}
+
+void BigCardCollection::closeEvent(QCloseEvent* event)
+{
+    qDebug() << "Big Card Collection close event";
+    event->accept();
+    delete this;
+}
+
+void BigCardCollection::uiElements(const std::vector<CardID>& crds)
 {
     card_collection = new CardCollection(crds);
     scroll_area = new QScrollArea();
@@ -19,8 +37,7 @@ BigCardCollection::BigCardCollection(const std::vector<CardID> crds, QWidget *pa
     this->setLayout(horizontal_layout);
 }
 
-BigCardCollection::BigCardCollection(const std::vector<CardID> crds, CardIdLoop& loop, QWidget *parent) :
-    QWidget(parent)
+void BigCardCollection::uiElements(const std::vector<CardID>& crds, CardIdLoop& loop)
 {
     card_collection = new CardCollection(crds, loop);
     scroll_area = new QScrollArea();
@@ -36,13 +53,6 @@ BigCardCollection::BigCardCollection(const std::vector<CardID> crds, CardIdLoop&
 
     this->setWindowTitle("Card Collection");
     this->setLayout(horizontal_layout);
-}
-
-void BigCardCollection::closeEvent(QCloseEvent* event)
-{
-    qDebug() << "Big Card Collection close event";
-    event->accept();
-    delete this;
 }
 
 BigCardCollection::~BigCardCollection()

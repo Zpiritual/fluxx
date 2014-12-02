@@ -13,9 +13,9 @@ class BigCardCollection : public QWidget
 {
     Q_OBJECT
 public:
-    explicit BigCardCollection(const std::vector<CardID>, QWidget *parent = 0);
+    explicit BigCardCollection(const std::vector<CardID>&, QWidget *parent = 0);
     ~BigCardCollection();
-    explicit BigCardCollection(const std::vector<CardID>, CardIdLoop&, QWidget *parent = 0);
+    explicit BigCardCollection(const std::vector<CardID>&, CardIdLoop&, QWidget *parent = 0);
 
     void closeEvent(QCloseEvent*);
 
@@ -25,6 +25,9 @@ private:
     CardCollection* card_collection;
 
     void setConnections(CardIdLoop&);
+
+    void uiElements(const std::vector<CardID>&);
+    void uiElements(const std::vector<CardID>&, CardIdLoop&);
 
 signals:
 
