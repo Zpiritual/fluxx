@@ -103,6 +103,7 @@ const vector<CardID> CardContainerManager::getCards(const CardContainerID contai
 {
 	return getContainer(container)->getCards();
 }
+
 const std::vector<CardContainer> CardContainerManager::getContainers() const
 {
 	std::vector<CardContainer> cardContainers;
@@ -111,4 +112,9 @@ const std::vector<CardContainer> CardContainerManager::getContainers() const
 		cardContainers.push_back(*(it->second));
 	}
 	return cardContainers;
+}
+
+const CardID CardContainerManager::getRandomCard(const CardContainerID container)
+{
+	return getContainer(container)->getRandomCard();
 }

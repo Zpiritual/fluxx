@@ -66,6 +66,7 @@ void GameLoop::incrementCardsPlayed()
 
 void GameLoop::nextPlayer()
 {
+	_game_logic->switchPlayer();
 	_game_logic->getPM()->nextPlayer();
 }
 

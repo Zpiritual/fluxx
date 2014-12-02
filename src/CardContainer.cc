@@ -14,7 +14,7 @@ void CardContainer::removeCard(const CardID c)
 
 	if (card == _cards.end())
 	{
-		throw std::logic_error("CardContainer::removeCard(const CardID c) - Kortet existerar inte i denna container.");
+        throw std::logic_error("CardContainer::removeCard(const CardID) - Kortet existerar inte i denna container. CardID: " + c.val);
 	}
 	_cards.erase(card);	//Does not need a guard given std::find() has it's own.
 }
@@ -32,4 +32,9 @@ const std::vector<CardID> CardContainer::getCards() const
 const CardContainerID CardContainer::getID() const
 {
 	return _id;
+}
+
+const CardID CardContainer::getRandomCard() const
+{
+	return _cards.at(_cards.size()-1); //Extremt slumpmässigt :)
 }
