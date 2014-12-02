@@ -6,11 +6,19 @@
 DeckButton::DeckButton(QWidget *parent) :
     QPushButton(parent)
 {
+    uiElements();
+}
 
+DeckButton::~DeckButton()
+{
+    delete icon;
+}
+
+void DeckButton::uiElements()
+{
     QString temp_string{":Images/"+QString::number(0)+".png"};
 
     icon = new QIcon(temp_string);
-
 
     this->setIcon(*icon);
 
@@ -18,9 +26,4 @@ DeckButton::DeckButton(QWidget *parent) :
     this->setMaximumSize(85,130);
 
     this->setIconSize(QSize(85,130));
-}
-
-DeckButton::~DeckButton()
-{
-    delete icon;
 }

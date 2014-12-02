@@ -3,17 +3,12 @@
 ActiveKeepers::ActiveKeepers(QWidget *parent) :
     QWidget(parent)
 {
-    layout = new QHBoxLayout();
-
-    this->setMaximumHeight(135);
-    this->setMinimumHeight(135);
-    this->setMinimumWidth(800);
-    this->setLayout(layout);
+    uiElements();
 }
 
 ActiveKeepers::~ActiveKeepers()
 {
-     for(int i = 0; i < buttons_.size(); i++)
+     for(unsigned int i = 0; i < buttons_.size(); i++)
      {
          delete buttons_.at(i);
      }
@@ -56,4 +51,14 @@ void ActiveKeepers::connectButtons(CardIdLoop &loop)
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
 
+}
+
+void ActiveKeepers::uiElements()
+{
+    layout = new QHBoxLayout();
+
+    this->setMaximumHeight(135);
+    this->setMinimumHeight(135);
+    this->setMinimumWidth(800);
+    this->setLayout(layout);
 }

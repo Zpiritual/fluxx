@@ -3,32 +3,7 @@
 ActivePlayer::ActivePlayer(QWidget *parent) :
     QWidget(parent)
 {
-    layout = new QVBoxLayout();
-    scroll_area_hand = new QScrollArea();
-    scroll_area_keepers = new QScrollArea();
-
-    active_hand = new ActiveHand();
-    active_keepers = new ActiveKeepers();
-    layout->addWidget(scroll_area_keepers);
-    layout->addWidget(scroll_area_hand);
-
-    scroll_area_keepers->setWidget(active_keepers);
-    scroll_area_hand->setWidget(active_hand);
-    scroll_area_keepers->setMaximumHeight(140);
-    scroll_area_keepers->setMinimumHeight(140);
-    scroll_area_hand->setMinimumHeight(270);
-    scroll_area_hand->setMaximumHeight(270);
-    scroll_area_hand->setMinimumWidth(800);
-
-    this->setMinimumHeight(300);
-
-    layout->setAlignment(scroll_area_keepers, Qt::AlignTop);
-    layout->setAlignment(scroll_area_hand, Qt::AlignTop);
-    scroll_area_keepers->setFrameShape(QFrame::NoFrame);
-    scroll_area_hand->setFrameShape(QFrame::NoFrame);
-
-
-    this->setLayout(layout);
+    uiElements();
 }
 
 void ActivePlayer::updateCards(const BoardSnapshot* const snapshot)
@@ -79,4 +54,33 @@ void ActivePlayer::switchPlayer(const ProfileName& next_player)
     layout->removeWidget(switch_player);
     delete switch_player;
     scroll_area_hand->show();
+}
+
+void ActivePlayer::uiElements()
+{
+    layout = new QVBoxLayout();
+    scroll_area_hand = new QScrollArea();
+    scroll_area_keepers = new QScrollArea();
+
+    active_hand = new ActiveHand();
+    active_keepers = new ActiveKeepers();
+    layout->addWidget(scroll_area_keepers);
+    layout->addWidget(scroll_area_hand);
+
+    scroll_area_keepers->setWidget(active_keepers);
+    scroll_area_hand->setWidget(active_hand);
+    scroll_area_keepers->setMaximumHeight(140);
+    scroll_area_keepers->setMinimumHeight(140);
+    scroll_area_hand->setMinimumHeight(270);
+    scroll_area_hand->setMaximumHeight(270);
+    scroll_area_hand->setMinimumWidth(800);
+
+    this->setMinimumHeight(300);
+
+    layout->setAlignment(scroll_area_keepers, Qt::AlignTop);
+    layout->setAlignment(scroll_area_hand, Qt::AlignTop);
+    scroll_area_keepers->setFrameShape(QFrame::NoFrame);
+    scroll_area_hand->setFrameShape(QFrame::NoFrame);
+
+    this->setLayout(layout);
 }

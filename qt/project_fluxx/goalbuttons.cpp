@@ -3,10 +3,7 @@
 GoalButtons::GoalButtons(QWidget *parent) :
     QWidget(parent)
 {
-    layout = new QHBoxLayout();
-
-    this->setLayout(layout);
-
+    uiElements();
 }
 
 void GoalButtons::setConnections(CardIdLoop &loop)
@@ -39,5 +36,12 @@ GoalButtons::~GoalButtons()
     for(CardButton* button : buttons_)
         delete button;
     delete layout;
+}
+
+void GoalButtons::uiElements()
+{
+    layout = new QHBoxLayout();
+
+    this->setLayout(layout);
 }
 

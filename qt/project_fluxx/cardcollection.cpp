@@ -5,7 +5,7 @@ CardCollection::CardCollection(const std::vector<CardID> crds, QWidget *parent) 
 {
     horizontal_layout = new QHBoxLayout();
 
-    for(int i = 0; i < crds.size(); i++)
+    for(unsigned int i = 0; i < crds.size(); i++)
     {
         cards.push_back(new CardButton(crds.at(i)));
         horizontal_layout->addWidget(cards.at(i));
@@ -19,7 +19,7 @@ CardCollection::CardCollection(const std::vector<CardID> crds, CardIdLoop &loop,
 {
     horizontal_layout = new QHBoxLayout();
 
-    for(int i = 0; i < crds.size(); i++)
+    for(unsigned int i = 0; i < crds.size(); i++)
     {
         cards.push_back(new CardButton(crds.at(i)));
         horizontal_layout->addWidget(cards.at(i));
@@ -36,7 +36,7 @@ CardCollection::CardCollection(const std::vector<CardID> crds, CardIdLoop &loop,
 
 CardCollection::~CardCollection()
 {
-    for(int i = 0; i < cards.size(); i++)
+    for(unsigned int i = 0; i < cards.size(); i++)
     {
         delete cards.at(i);
     }

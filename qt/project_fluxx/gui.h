@@ -51,6 +51,7 @@ private:
     QVBoxLayout* left_column;
 
     void message(const QString&, const QString&) const;
+    void uiElements();
 
 
     signals:

@@ -3,27 +3,7 @@
 CardPicture::CardPicture(const Card& card, QWidget *parent) :
     QWidget(parent)
 {
-    layout = new QVBoxLayout();
-    card_type = new QLabel(QString::fromStdString(card.getType()));
-    card_name = new QLabel(QString::fromStdString(card.getName()));
-    card_description = new QTextEdit(QString::fromStdString(card.getDescription()));
-    card_id = card.getID();
-
-    layout->addWidget(card_type);
-    layout->addWidget(card_name);
-    layout->addWidget(card_description);
-
-    layout->setAlignment(card_type, Qt::AlignTop | Qt::AlignCenter);
-    layout->setAlignment(card_name, Qt::AlignTop | Qt::AlignCenter);
-    layout->setAlignment(card_description, Qt::AlignTop | Qt::AlignCenter);
-
-    card_description->setFrameStyle(QFrame::NoFrame);
-    card_description->setFont(QFont("arial", 12));
-
-    this->setMinimumSize(250, 381);
-    this->setMaximumSize(250, 381);
-
-    this->setLayout(layout);
+    uiElements(card);
 }
 
 CardPicture::~CardPicture()
@@ -76,4 +56,29 @@ void CardPicture::renderPicture()
         pixmap.save("./Images/" + QString::number(card_id.val) + ".png");
         qDebug() << "New CardPicture created.";
     }
+}
+
+void CardPicture::uiElements(const Card& card)
+{
+    layout = new QVBoxLayout();
+    card_type = new QLabel(QString::fromStdString(card.getType()));
+    card_name = new QLabel(QString::fromStdString(card.getName()));
+    card_description = new QTextEdit(QString::fromStdString(card.getDescription()));
+    card_id = card.getID();
+
+    layout->addWidget(card_type);
+    layout->addWidget(card_name);
+    layout->addWidget(card_description);
+
+    layout->setAlignment(card_type, Qt::AlignTop | Qt::AlignCenter);
+    layout->setAlignment(card_name, Qt::AlignTop | Qt::AlignCenter);
+    layout->setAlignment(card_description, Qt::AlignTop | Qt::AlignCenter);
+
+    card_description->setFrameStyle(QFrame::NoFrame);
+    card_description->setFont(QFont("arial", 12));
+
+    this->setMinimumSize(250, 381);
+    this->setMaximumSize(250, 381);
+
+    this->setLayout(layout);
 }

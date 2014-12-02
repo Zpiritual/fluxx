@@ -33,6 +33,8 @@ private:
     ActiveHand* active_hand;
     ActiveKeepers* active_keepers;
 
+    void uiElements();
+
 signals:
 
 public slots:

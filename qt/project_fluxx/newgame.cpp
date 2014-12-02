@@ -38,7 +38,7 @@ void NewGame::message(const QString& title, const QString& message) const
 
 bool NewGame::existPlayer(const ProfileName& player_id) const
 {
-    for(int i = 0; i < players.size(); i++)
+    for(unsigned int i = 0; i < players.size(); i++)
     {
         if(players.at(i) == player_id)
         {

@@ -75,11 +75,13 @@ void GameLogic::playCard(const PlayerID pid)
     //if not ask what card to replace
     if (_cm->getCard(cid)->getType().compare("GOAL") == 0)
     {
+        cout << "HELLO" << endl;
         if (_ccm->getSize(CardContainerID("Goal")) > _rm->getGoalLimmit())
         {
             _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal")));
         }
         addEffect(_cm->getCard(cid)->getEffects().at(0));
+        cout << "NAWW" << endl;
         executeNextEffect();
         _ccm->moveCard(ccid, CardContainerID("Goal"), cid);
         cout << "==Cards in Goals:===" << endl;
@@ -134,11 +136,8 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) 
     BoardSnapshot snapshot(makeBoardSnapshot());
 
     cerr << "Querying UI for a card." << endl;
-
     const CardID id = _gui->pickCard(&snapshot, container, pid);
-
     cerr << "Recieved CardID: " << id.val << endl;
-
     return id;
 }
 
@@ -186,7 +185,6 @@ void GameLogic::resolveEffects()
         executeNextEffect();
     }
 }
-
 
 // const PlayerID GameLogic::getNextPlayer()
 // {
@@ -253,6 +251,7 @@ void GameLogic::executeEffect(const Effect &effect)
     }
     else if (identifier.compare("BooleanKeeperCheck") == 0)
     {
+        cout  << "Effect found!" <<endl;
         vector<int> AKeepers;
         vector<int> NKeepers;
         int tmp;
@@ -270,6 +269,8 @@ void GameLogic::executeEffect(const Effect &effect)
             ss >> tmp;
             NKeepers.push_back(tmp);
         }
+        cout << "Checking Effect BooleanKeeperCheck" << endl;
+        effect_BooleanKeeperCheck(AKeepers,NKeepers);
     }
     else
     {

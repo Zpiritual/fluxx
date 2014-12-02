@@ -8,7 +8,7 @@ Options::Options(const std::vector<Profile>& prfiles, QWidget *parent) :
 
     profiles = prfiles;
 
-    for(int i = 0; i < profiles.size(); i++)
+    for(unsigned int i = 0; i < profiles.size(); i++)
     {
         user_profiles->addItem(QString::fromStdString(profiles.at(i).getName()));
     }
@@ -84,7 +84,7 @@ void Options::ok()
     // TODO: Add functionality
     if(parent2 != nullptr)
     {
-        for(int i = 0; i < profiles.size(); i++)
+        for(unsigned int i = 0; i < profiles.size(); i++)
         {
             parent2->setProfiles(profiles);
         }
@@ -113,7 +113,7 @@ void Options::cancel()
 bool Options::profileExist(const QString& profile_name) const
 {
     // Check if player profile already exists
-    for(int i = 0; i < user_profiles->count(); i++)
+    for(unsigned int i = 0; i < user_profiles->count(); i++)
     {
         if(profile_name == user_profiles->item(i)->text())
             return true;

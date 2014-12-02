@@ -20,7 +20,9 @@ private:
     QLabel* card_name;
     QTextEdit* card_description;
 
-    CardID card_id{-1};
+    CardID card_id{0};
+
+    void uiElements(const Card&);
 
 
 signals:
