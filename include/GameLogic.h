@@ -67,7 +67,7 @@ public:
     void effect_TakeAndPlay(int take, int play, int trash);
 	void effect_EmptyContainer(string container);
     void effect_BooleanKeeperCheck(vector<int> &,vector<int> &);
-
+	void effect_ContainerQuantityCheck(string, int);
 	GameState getCurrentGameState() const;
 private:
     Gui * _gui;
