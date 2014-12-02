@@ -21,8 +21,10 @@ public:
 
     void addProfile(const Profile&);
     void setProfiles(const std::vector<Profile>&);
-
     void writeProfilesToFile() const;
+
+    void closeEvent(QCloseEvent*);
+
 
 private:
     QVBoxLayout* main_layout; //Main window layout

@@ -120,3 +120,10 @@ void MainMenu::writeProfilesToFile() const
 
     file.close();
 }
+
+void MainMenu::closeEvent(QCloseEvent* event)
+{
+    writeProfilesToFile();
+    event->accept();
+    delete this;
+}
