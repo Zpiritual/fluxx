@@ -38,7 +38,7 @@ void PlayerListItem::updateCards(const std::vector<CardID> hnd, const std::vecto
 void PlayerListItem::setActivePlayer()
 {
     QPalette Pal(palette());
-    Pal.setColor(QPalette::Background, Qt::green);
+    Pal.setColor(QPalette::Background, QColor(0, 170, 0));
     this->setAutoFillBackground(true);
     this->setPalette(Pal);
 }
@@ -46,7 +46,7 @@ void PlayerListItem::setActivePlayer()
 void PlayerListItem::setNextPlayer()
 {
     QPalette Pal(palette());
-    Pal.setColor(QPalette::Background, Qt::yellow);
+    Pal.setColor(QPalette::Background, QColor(200, 255, 50));
     this->setAutoFillBackground(true);
     this->setPalette(Pal);
 }
