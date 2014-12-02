@@ -19,22 +19,22 @@ void CardContainer::removeCard(const CardID c)
     _cards.erase(card);
 }
 
-const int CardContainer::getSize() const
+int CardContainer::getSize() const
 {
 	return _cards.size();
 }
 
-const std::vector<CardID> CardContainer::getCards() const
+std::vector<CardID> CardContainer::getCards() const
 {
 	return _cards;
 }
 
-const CardContainerID CardContainer::getID() const
+CardContainerID CardContainer::getID() const
 {
 	return _id;
 }
 
-const CardID CardContainer::getRandomCard() const
+CardID CardContainer::getRandomCard() const
 {
 	return _cards.at(_cards.size()-1); //Extremt slumpmässigt :)
 }

@@ -13,7 +13,7 @@ enum class RuleTrigger
 	POST_DRAW,
 	PRE_PLAY,
 	TURN_END,
-	GOAL	//USed for goals
+	GOAL
 };
 
 enum class GameState
@@ -31,8 +31,10 @@ enum class PlayerIdentifier
 	Player5,
 	Player6
 };
+
 enum class Event
 {
 	CARD_MOVED
 };
+
 #endif

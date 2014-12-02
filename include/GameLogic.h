@@ -23,7 +23,7 @@
 #include "Observer.h"
 #include "gui.h"
 
-class GameLogic:public Observer
+class GameLogic : public Observer
 {
 public:
     GameLogic(Gui * gui, const Deck * deck, const int players);
@@ -42,8 +42,8 @@ public:
 	//Prototype functions
 	void addRule(const CardID, const Effect*, const RuleTrigger);
 	void removeRule(const CardID);
-	const CardID pickCard(const PlayerID, const CardContainerID) const;
-	const PlayerID pickPlayer() const;
+    CardID pickCard(const PlayerID, const CardContainerID) const;
+    PlayerID pickPlayer() const;
 	void switchPlayer();
 
 	CardContainerManager* getCCM();
@@ -57,7 +57,7 @@ public:
 	void				resolveEffects();
 	void				checkRules(RuleTrigger);
 	//const PlayerID		getNextPlayer();
-	const BoardSnapshot makeBoardSnapshot() const;
+	BoardSnapshot makeBoardSnapshot() const;
 
     void effect_DrawAndPlay(int draw, int play, int trash);
 	void effect_Redraw();
@@ -69,6 +69,10 @@ public:
     void effect_BooleanKeeperCheck(vector<int> &,vector<int> &);
 
 	GameState getCurrentGameState() const;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1f0dd573ff8c3eed06bd2b2b59671dbd3b71af90
 private:
     Gui * _gui;
     CardContainerManager *_ccm;

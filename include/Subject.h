@@ -1,14 +1,17 @@
 #ifndef SUBJECT_H
 #define SUBJECT_H
+
 #include "Observer.h"
 #include "CardContainerID.h"
 #include <vector>
 #include <algorithm>
 #include "enums.h"
+
 class Subject
 {
 private:
 	std::vector<Observer*> _observers;
+
 protected:
 	void notify(const CardContainerID & cc1, const CardContainerID & cc2, const Event event)
 	{
@@ -17,6 +20,7 @@ protected:
 			o->onNotify(cc1,cc2,event);
 		}
 	}
+
 public:
 	void addObserver(Observer * o)
 	{
@@ -35,4 +39,5 @@ public:
 		}
 	}
 };
+
 #endif

@@ -21,6 +21,8 @@ private:
     std::vector<CardButton*> buttons_;
     QHBoxLayout* layout;
 
+    void uiElements();
+
 
 signals:
 

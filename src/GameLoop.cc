@@ -29,12 +29,12 @@ void GameLoop::drawCards(const PlayerID pid, const int draw_no)
 	}
 }
 
-const int GameLoop::getDrawNO() const
+int GameLoop::getDrawNO() const
 {
 	return _game_logic->getRM()->getDraw();
 }
 
-const int GameLoop::getPlayNO() const
+int GameLoop::getPlayNO() const
 {
 	return _game_logic->getRM()->getPlay();
 }
@@ -49,14 +49,14 @@ void GameLoop::sendLog(std::string)
 
 }
 
-const PlayerID	GameLoop::getCurrentPlayerID() const
+PlayerID GameLoop::getCurrentPlayerID() const
 {
 	return _game_logic->getPM()->getCurrentPlayerID();
 }
 
-const int GameLoop::getCardsPlayed() const
+int GameLoop::getCardsPlayed() const
 {
-	_game_logic->getPM()->getCurrentPlayer()->getCardsPlayed();
+    return _game_logic->getPM()->getCurrentPlayer()->getCardsPlayed();
 }
 
 void GameLoop::incrementCardsPlayed()
@@ -75,15 +75,20 @@ void GameLoop::nextPlayer()
 SessionData	GameLoop::run()
 {
 	_game_logic->getCCM()->reshuffle();
+	
 	while (executePlayerTurn(getCurrentPlayerID()) != GameState::GAME_OVER)
 	{
-		//switch screen osv.
 		nextPlayer();
 	}
+<<<<<<< HEAD
 	std::cout << "GAME OVER AND EXITED GAME LOOP" << std::endl;
+=======
+
+    return SessionData(_game_logic->getPM()->getPlayers(), PlayerIdentifier::Player1);
+>>>>>>> 1f0dd573ff8c3eed06bd2b2b59671dbd3b71af90
 }
 
-const GameState GameLoop::executePlayerTurn(PlayerID pid)
+GameState GameLoop::executePlayerTurn(PlayerID pid)
 {
 	std::cerr <<"NEW TURN: "<< pid.getString() << std::endl;
 	std::cerr <<"==========================" << std::endl;

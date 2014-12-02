@@ -14,12 +14,12 @@ const Effect* TriggeredRule::getEffect() const
 	return _effect;
 }
 
-const RuleTrigger TriggeredRule::getType() const
+RuleTrigger TriggeredRule::getType() const
 {
 	return _type;
 }
 
-const CardID TriggeredRule::getParent() const
+CardID TriggeredRule::getParent() const
 {
 	return _parent;
 }

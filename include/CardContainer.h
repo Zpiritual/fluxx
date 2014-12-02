@@ -19,9 +19,6 @@
 
 class CardContainer
 {
-private:
-	std::vector<CardID> _cards;
-	const CardContainerID _id;
 public:
 	CardContainer(const CardContainerID id): _id{id}
 	{}
@@ -37,16 +34,20 @@ public:
 
 	void addCard(const CardID);
 	void removeCard(const CardID);
-	const CardID getRandomCard() const;
+	CardID getRandomCard() const;
 
 	//bool operator ==(const CardContainer &other) const {return _id == other.getID();}
 	//bool operator !=(const CardContainer &other) const {return !(*this == other);}
 	//bool operator <(const CardContainer &other) const {return _id < other.getID();}
 	//bool operator >(const CardContainer &other) const {return _id < other.getID();}
 
-	const int 					getSize() 	const;
-	const std::vector<CardID> 	getCards() 	const ;
-	const CardContainerID 		getID() 	const;
+	int 					getSize() 	const;
+	std::vector<CardID> 	getCards() 	const ;
+	CardContainerID 		getID() 	const;
+
+private:
+	std::vector<CardID> _cards;
+	const CardContainerID _id;
 };
 
 #endif

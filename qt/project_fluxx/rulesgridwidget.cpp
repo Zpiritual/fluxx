@@ -4,16 +4,7 @@
 RulesGridWidget::RulesGridWidget(QWidget *parent) :
     QWidget(parent)
 {
-    layout = new QGridLayout();
-    for(int i = 0; i<= 5; ++i)
-    {
-        layout->setColumnMinimumWidth(i,175);
-
-    }
-    layout->setRowMinimumHeight(0,260);
-    layout->setRowMinimumHeight(1,260);
-    layout->setSpacing(0);
-    this->setLayout(layout);
+    uiElements();
 }
 
 RulesGridWidget::~RulesGridWidget()
@@ -67,4 +58,18 @@ void RulesGridWidget::setConnections(CardIdLoop & loop)
 {
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
+}
+
+void RulesGridWidget::uiElements()
+{
+    layout = new QGridLayout();
+    for(int i = 0; i<= 5; ++i)
+    {
+        layout->setColumnMinimumWidth(i,175);
+
+    }
+    layout->setRowMinimumHeight(0,260);
+    layout->setRowMinimumHeight(1,260);
+    layout->setSpacing(0);
+    this->setLayout(layout);
 }

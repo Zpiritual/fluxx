@@ -37,11 +37,11 @@ public:
 	void 			nextPlayer();
 	
 	//const PlayerID	getNextPlayerID();
-	const GameState	executePlayerTurn(PlayerID);
-	const PlayerID	getCurrentPlayerID() const;
-	const int 		getDrawNO() const;
-	const int 		getPlayNO() const;
-	const int 		getCardsPlayed() const;
+	GameState	executePlayerTurn(PlayerID);
+	PlayerID	getCurrentPlayerID() const;
+	int 		getDrawNO() const;
+	int 		getPlayNO() const;
+	int 		getCardsPlayed() const;
 	
 	void	 		incrementCardsPlayed();
 	void 			sendLog(std::string);

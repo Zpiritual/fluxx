@@ -29,12 +29,12 @@ public:
 
 	~Card() 						= default;
 
-	const CardID 		  getID() 			const;
-    const string          getName()         const;
-	const string 		  getType() 		const;
-	const string 		  getSubtype() 		const;
-	const string 		  getDescription() 	const;
-	const vector<Effect>  getEffects()		const;
+	CardID 			getID() 			const;
+    string        	getName()         const;
+	string 			getType() 		const;
+	string 			getSubtype() 		const;
+	string 		 	getDescription() 	const;
+	vector<Effect>  getEffects()		const;
 
 private:
 	const CardID _id;

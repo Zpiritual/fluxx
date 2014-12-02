@@ -14,7 +14,7 @@ Deck::~Deck()
 		delete c.second;
 }
 
-const std::vector<CardID> Deck::getCardIDList() const 
+std::vector<CardID> Deck::getCardIDList() const 
 {
 	std::vector<CardID> v;
 	for(auto it=_cards.begin(); it != _cards.end(); ++it)
@@ -24,7 +24,7 @@ const std::vector<CardID> Deck::getCardIDList() const
 	return v;
 }
 
-const Card* const Deck::getCard(const CardID id) const
+const Card* Deck::getCard(const CardID id) const
 {
 	try
 	{
@@ -36,7 +36,7 @@ const Card* const Deck::getCard(const CardID id) const
 	}
 }
 
-const int Deck::getSize() const 
+int Deck::getSize() const 
 {
 	return _cards.size();
 }

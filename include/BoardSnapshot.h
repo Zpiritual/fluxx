@@ -32,7 +32,7 @@ struct BoardSnapshot
 
 	~BoardSnapshot() = default;
 
-	const CardContainer getContainer(const CardContainerID id) const;
+	CardContainer getContainer(const CardContainerID id) const;
 };
 
 #endif

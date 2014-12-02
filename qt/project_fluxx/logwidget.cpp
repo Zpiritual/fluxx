@@ -3,20 +3,7 @@
 LogWidget::LogWidget(QWidget *parent) :
     QWidget(parent)
 {
-   layout = new QVBoxLayout();
-   log_text_edit = new QTextEdit();
-   play_info_label = new QLabel();
-
-   play_info_label->setText(QString("Play Info Here"));
-
-   log_text_edit->setText(QString("Log Text Here"));
-   layout->addWidget(log_text_edit);
-   layout->addWidget(play_info_label);
-
-   log_text_edit->setReadOnly(true);
-   log_text_edit->setTextInteractionFlags(Qt::NoTextInteraction);
-
-    this->setLayout(layout);
+    uiElements();
 }
 
 LogWidget::~LogWidget()
@@ -32,5 +19,23 @@ void LogWidget::update(const BoardSnapshot* const board)
 
     // TODO: Add log from boardsnapshot
     //log_text_edit->setText();
+}
+
+void LogWidget::uiElements()
+{
+    layout = new QVBoxLayout();
+    log_text_edit = new QTextEdit();
+    play_info_label = new QLabel();
+
+    play_info_label->setText(QString("Play Info Here"));
+
+    log_text_edit->setText(QString("Log Text Here"));
+    layout->addWidget(log_text_edit);
+    layout->addWidget(play_info_label);
+
+    log_text_edit->setReadOnly(true);
+    log_text_edit->setTextInteractionFlags(Qt::NoTextInteraction);
+
+     this->setLayout(layout);
 }
 

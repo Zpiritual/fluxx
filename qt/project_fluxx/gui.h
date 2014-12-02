@@ -31,7 +31,7 @@ public:
     const CardID pickCard(const BoardSnapshot* const, const CardContainerID);
     const CardID pickCard(const BoardSnapshot* const, const CardContainerID, const PlayerID);
     void nextPlayer(const BoardSnapshot* const);
-    const Direction chooseDirection(const BoardSnapshot * const snapshot);
+    Direction chooseDirection(const BoardSnapshot * const snapshot);
 
     void closeEvent(QCloseEvent*);
 

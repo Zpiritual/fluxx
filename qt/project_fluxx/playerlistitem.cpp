@@ -60,12 +60,14 @@ void PlayerListItem::mousePressEvent(QMouseEvent* event)
 //    qDebug() << QString::fromStdString(this->getPlayerName().val);
 //    qDebug() << event->pos().x() << event->pos().y();
     state = true;
+    event->accept();
     emit clicked();
 }
 
 void PlayerListItem::mouseReleaseEvent(QMouseEvent* event)
 {
     state = false;
+    event->accept();
     emit clicked();
 }
 

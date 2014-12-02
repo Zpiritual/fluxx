@@ -4,22 +4,22 @@
 Stock::Stock(const CardContainerID id): _id{id}
 {}
 
-const int Stock::getSize() const
+int Stock::getSize() const
 {
 	return _cards.size();
 }
 
-const std::stack<CardID> Stock::getCards() const
+std::stack<CardID> Stock::getCards() const
 {
 	return _cards;
 }
 
-const CardContainerID Stock::getID() const
+CardContainerID Stock::getID() const
 {
 	return _id;
 }
 
-const CardID Stock::pop()
+CardID Stock::pop()
 {
 	if (_cards.empty())
 	{
@@ -35,7 +35,7 @@ void Stock::push(const CardID id)
 	_cards.push(id);
 }
 
-const bool Stock::empty() 	const
+bool Stock::empty() 	const
 {
 	return _cards.empty();
 }

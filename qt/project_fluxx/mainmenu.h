@@ -36,6 +36,9 @@ private:
 
     const Deck* deck;
 
+    void readProfiles();
+    void createPictures() const;
+
 signals:
 
 public slots:

@@ -18,6 +18,8 @@ private:
     QVBoxLayout* layout;
     QTextEdit* log_text_edit;
 
+    void uiElements();
+
 signals:
 
 public slots:
