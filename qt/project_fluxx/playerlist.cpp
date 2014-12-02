@@ -45,14 +45,7 @@ void PlayerList::updatePlayerVariables(int index, int player_id, const Direction
         current_player = index;
         if(direction == Direction::CLOCKWISE)
         {
-            if(index == player_ids.size() - 1)
-            {
-                next_player = 0;
-            }
-            else
-            {
-                next_player = index + 1;
-            }
+            next_player = (current_player + 1) % player_ids.size();
         }
         else
         {
@@ -62,7 +55,7 @@ void PlayerList::updatePlayerVariables(int index, int player_id, const Direction
             }
             else
             {
-                next_player = index-1;
+                next_player = current_player - 1;
             }
         }
     }

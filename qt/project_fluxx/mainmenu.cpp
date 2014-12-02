@@ -10,6 +10,8 @@ MainMenu::MainMenu(const Deck* const dck, QWidget *parent) :
 {
     main_layout = new QVBoxLayout();
     start_widget = new Start(this);
+    options_widget = NULL;
+    newgame_widget = NULL;
     deck = dck;
 
     this->setWindowTitle(QString("Main Menu"));
@@ -47,6 +49,8 @@ MainMenu::MainMenu(const Deck* const dck, QWidget *parent) :
 MainMenu::~MainMenu()
 {
     delete start_widget;
+    delete newgame_widget;
+    delete options_widget;
     delete main_layout;
 }
 
@@ -58,6 +62,7 @@ void MainMenu::newGame()
     this->setWindowTitle(QString("New Game"));
 
     delete start_widget;
+    start_widget = NULL;
 }
 
 void MainMenu::newGameBack()
@@ -67,7 +72,8 @@ void MainMenu::newGameBack()
     main_layout->removeWidget(newgame_widget);
     this->setWindowTitle(QString("Main Menu"));
 
-   delete newgame_widget;
+    delete newgame_widget;
+    newgame_widget = NULL;
 }
 
 void MainMenu::options()
@@ -78,6 +84,7 @@ void MainMenu::options()
     this->setWindowTitle(QString("Options"));
 
     delete start_widget;
+    start_widget = NULL;
 }
 
 void MainMenu::optionsBack()
@@ -88,6 +95,7 @@ void MainMenu::optionsBack()
     this->setWindowTitle(QString("Main Menu"));
 
     delete options_widget;
+    options_widget = NULL;
 }
 
 void MainMenu::addProfile(const Profile& profile)
