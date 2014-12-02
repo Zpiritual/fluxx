@@ -18,7 +18,7 @@ public:
 	~RuleManager();
 
 	const int 		getHandLimit()		;
-	const int 		getKepperLimit() 	;
+	const int 		getKeeperLimit() 	;
 	const int 		getGoalLimmit() 	;
 	const int 		getInflation() 		;
 	const int 		getDraw() 			;
