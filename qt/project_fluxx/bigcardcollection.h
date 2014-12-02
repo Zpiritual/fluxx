@@ -13,9 +13,9 @@ class BigCardCollection : public QWidget
 {
     Q_OBJECT
 public:
-    explicit BigCardCollection(const std::vector<CardID>&, QWidget *parent = 0);
+    explicit BigCardCollection(const std::vector<CardID>, QWidget *parent = 0);
     ~BigCardCollection();
-    explicit BigCardCollection(const std::vector<CardID>&, CardIdLoop&, QWidget *parent = 0);
+    explicit BigCardCollection(const std::vector<CardID>, CardIdLoop&, QWidget *parent = 0);
 
 private:
     QScrollArea* scroll_area;

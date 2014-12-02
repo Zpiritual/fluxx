@@ -5,10 +5,12 @@
 //#include <utility>
 #include <iostream>
 #include "enums.h"
+#include <exception>
 CardContainerManager::CardContainerManager(const Deck* deck)
 // Konstruktorn skall initiera både stock-objektet och vektorn med cardcontainers.
-{
+  	{
 	_stock = new Stock(CardContainerID("Stock"));
+
 	for(CardID c:deck->getCardIDList())
 		 {
 		 	_stock->push(c);
@@ -27,7 +29,6 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 	const CardContainerID temp_b("tempB");
 	_containers.insert(std::make_pair(temp_b, new CardContainer(temp_b)));
-
 	for(int i = 1; i <= 6; i++)
 	{
 		std::string player_container = "Player";
@@ -117,4 +118,24 @@ const std::vector<CardContainer> CardContainerManager::getContainers() const
 const CardID CardContainerManager::getRandomCard(const CardContainerID container)
 {
 	return getContainer(container)->getRandomCard();
+}
+
+void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID& cid)
+{
+	getContainer(ccid)->removeCard(cid);
+    _suspendedCards.push(cid);
+    notify(ccid, CardContainerID("SuspendedCards"),Event::CARD_MOVED);
+}
+
+void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
+{
+    if(!_suspendedCards.empty())
+	{
+		getContainer(ccid)->addCard(_suspendedCards.top());
+		_suspendedCards.pop();
+        notify(CardContainerID("SuspendedCards"), ccid,Event::CARD_MOVED);
+
+	}
+    else
+        throw std::logic_error("No Cards are suspended");
 }

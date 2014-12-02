@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include "BoardSnapshot.h"
 
 class LogWidget : public QWidget
 {
@@ -10,10 +11,12 @@ class LogWidget : public QWidget
 public:
     explicit LogWidget(QWidget *parent = 0);
     ~LogWidget();
+    void update(const BoardSnapshot* const);
 
 private:
-    QLabel* log_label;
+    QLabel* play_info_label;
     QVBoxLayout* layout;
+    QTextEdit* log_text_edit;
 
 signals:
 

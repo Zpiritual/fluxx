@@ -39,16 +39,13 @@ void ActiveKeepers::updateCards(const CardContainer& container)
 
     std::vector<CardID> cards_{container.getCards()};
 
-    qDebug() << "number of cards to add in rules: " + QString::number(cards_.size());
+    qDebug() << "number of cards to add in keepers: " + QString::number(cards_.size());
 
     for(CardID card : cards_)
     {
         CardButton* tempbutton = new CardButton(card);
         tempbutton->smallButton();
         layout->addWidget(tempbutton);
-
-
-        qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
     }
     std::vector<CardID> cards = container.getCards();

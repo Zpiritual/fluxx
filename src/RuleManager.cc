@@ -11,7 +11,7 @@ const int RuleManager::getHandLimit()
 	return _hand_limmit;
 }
 
-const int RuleManager::getKepperLimit()
+const int RuleManager::getKeeperLimit()
 {
 	return _keeper_limit;
 }

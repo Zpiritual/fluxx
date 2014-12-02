@@ -47,7 +47,6 @@ void RulesGridWidget::updateCards(const CardContainer container)
         CardButton* tempbutton = new CardButton(card);
         layout->addWidget(tempbutton,row, column);
 
-        qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
         ++ column;
         if(column >=5) //number of columns
