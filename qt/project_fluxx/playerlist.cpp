@@ -79,11 +79,11 @@ void PlayerList::updatePlayerState(int player_id, const Direction direction)
 
     for(unsigned int i = 0; i < player_ids.size(); i++)
     {
-        if (i == current_player)
+        if (i == (unsigned int) current_player)
         {
             players.at(i)->setActivePlayer();
         }
-        else if(i == next_player)
+        else if(i == (unsigned int) next_player)
         {
             players.at(i)->setNextPlayer();
         }

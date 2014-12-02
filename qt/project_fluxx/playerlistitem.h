@@ -28,7 +28,7 @@ public:
 private:
     std::vector<CardID> hand;
     std::vector<CardID> keepers_id;
-    ProfileName player_name;
+    ProfileName player_name{"tempName"};
 
     QPushButton* keeper_button;
 

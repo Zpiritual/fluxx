@@ -3,7 +3,6 @@
 CardIdLoop::CardIdLoop(QObject *parent) :
     QObject(parent)
 {
-    loop_;
 }
 
 void CardIdLoop::quit()

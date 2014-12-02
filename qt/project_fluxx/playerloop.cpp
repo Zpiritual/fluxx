@@ -3,7 +3,6 @@
 PlayerLoop::PlayerLoop(QObject *parent) :
     QObject(parent)
 {
-    loop;
 }
 
 const ProfileName PlayerLoop::getPlayerName() const
