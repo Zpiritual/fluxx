@@ -18,7 +18,7 @@ private:
     QVBoxLayout* layout;
     QLabel* card_type;
     QLabel* card_name;
-    QLabel* card_description;
+    QTextEdit* card_description;
 
     CardID card_id{-1};
 

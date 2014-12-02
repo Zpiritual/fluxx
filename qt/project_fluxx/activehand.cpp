@@ -5,9 +5,9 @@ ActiveHand::ActiveHand(QWidget *parent) :
 {
     layout = new QHBoxLayout();
 
-    this->setMaximumHeight(259);
-    this->setMinimumHeight(259);
-    this->setMinimumWidth(800);
+    this->setMaximumHeight(260);
+    this->setMinimumHeight(260);
+   // this->setMinimumWidth(800);
     this->setLayout(layout);
 }
 
@@ -36,6 +36,7 @@ void ActiveHand::updateCards(const CardContainer container)
         }
        // delete layout->layout();
     }
+    this->setMinimumWidth(0);
 
     std::vector<CardID> cards_{container.getCards()};
 
@@ -45,7 +46,7 @@ void ActiveHand::updateCards(const CardContainer container)
     {
         CardButton* tempbutton = new CardButton(card);
         layout->addWidget(tempbutton);
-
+        this->setMinimumWidth(this->minimumWidth()+160);
         qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
     }
