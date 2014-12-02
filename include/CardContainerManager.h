@@ -39,11 +39,14 @@ public:
 	const int getSize(const CardContainerID);
 	const std::vector<CardID> getCards(const CardContainerID);
 	const std::vector<CardContainer> getContainers() const;
+	void unSuspendCard(const CardContainerID& ccid);
+	void suspendCard(const CardContainerID& ccid, const CardID& cid);
 private:
 	CardContainer* getContainer(const CardContainerID);
 	Stock* _stock;
 	//vector<CardContainer> _containers;
 	std::map<const CardContainerID, CardContainer*> _containers;
+	bool _hasSuspendedCard;
 };
 
 #endif

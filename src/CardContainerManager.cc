@@ -5,10 +5,13 @@
 //#include <utility>
 #include <iostream>
 #include "enums.h"
+#include <exception>
 CardContainerManager::CardContainerManager(const Deck* deck)
 // Konstruktorn skall initiera både stock-objektet och vektorn med cardcontainers.
+    :_hasSuspendedCard{false}
 {
 	_stock = new Stock(CardContainerID("Stock"));
+
 	for(CardID c:deck->getCardIDList())
 		 {
 		 	_stock->push(c);
@@ -27,6 +30,9 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 	const CardContainerID temp_b("tempB");
 	_containers.insert(std::make_pair(temp_b, new CardContainer(temp_b)));
+
+	const CardContainerID suspendedCardContainer("SuspendedCardContainer");
+	_containers.insert(std::make_pair(suspendedCardContainer, new CardContainer(suspendedCardContainer)));
 
 	for(int i = 1; i <= 6; i++)
 	{
@@ -112,3 +118,24 @@ const std::vector<CardContainer> CardContainerManager::getContainers() const
 	}
 	return cardContainers;
 }
+    void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
+	{
+        if(_hasSuspendedCard)
+		{
+           moveCard(CardContainerID("SuspendedCardContainer"),ccid, getCards(CardContainerID("SuspendedCardContainer")).at(0));
+           _hasSuspendedCard = false;
+		}
+        else
+            throw std::logic_error("No Card is suspended");
+	}
+
+    void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID& cid)
+	{
+        if(!_hasSuspendedCard)
+		{	
+           moveCard(ccid,CardContainerID("SuspendedCardContainer"), cid);
+           _hasSuspendedCard = true;
+		}
+		else
+			throw std::logic_error("Already in use: " + cid.val);
+	}

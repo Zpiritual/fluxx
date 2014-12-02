@@ -100,12 +100,12 @@ void GameLogic::playCard(const PlayerID pid)
     else if (_cm->getCard(cid)->getType().compare("ACTION") == 0)
     {
         std::cout << "Playing a Action" << std::endl;
-
+        _ccm->suspendCard(ccid,cid);
         for (Effect e : _cm->getCard(cid)->getEffects())
             addEffect(e);
         //Execute effects
         resolveEffects();
-        _ccm->moveCard(ccid, CardContainerID("Trash"), cid);
+        _ccm->unSuspendCard(CardContainerID("Trash"));
         cout << "Action done!" << endl;
     }
     //If Keeper is played, do nothing.
