@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <stdexcept>
 #include "CardContainer.h"
 
 void CardContainer::addCard(const CardID c)
@@ -9,7 +10,13 @@ void CardContainer::addCard(const CardID c)
 
 void CardContainer::removeCard(const CardID c)
 {
-	_cards.erase(std::find(_cards.begin(), _cards.end(),c));	//Does not need a guard given std::find() has it's own.
+	auto card = std::find(_cards.begin(), _cards.end(),c);
+
+	if (card == _cards.end())
+	{
+		throw std::logic_error("CardContainer::removeCard(const CardID c) - Kortet existerar inte i denna container.");
+	}
+	_cards.erase(card);	//Does not need a guard given std::find() has it's own.
 }
 
 const int CardContainer::getSize() const
