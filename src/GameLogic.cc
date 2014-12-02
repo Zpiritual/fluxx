@@ -131,13 +131,21 @@ void GameLogic::playCard(const PlayerID pid)
 const CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) const
 {
     BoardSnapshot snapshot(makeBoardSnapshot());
+
+    cerr << "Querying UI for a card." << endl;
+
     const CardID id = _gui->pickCard(&snapshot, container, pid);
+
+    cerr << "Recieved CardID: " << id.val << endl;
+
     return id;
 }
 
 const PlayerID GameLogic::pickPlayer() const
 {
-	//GUI pickPlayer
+    BoardSnapshot snapshot(makeBoardSnapshot());
+    const PlayerID id = _gui->pickPlayer(&snapshot);
+    return id;
 }
 
 void GameLogic::switchPlayer()
@@ -473,8 +481,7 @@ void GameLogic::effect_TakeAndPlay(int take, int play, int trash)
     }
     
     const CardContainerID temp_container(ccid);
-    const BoardSnapshot snapshot(makeBoardSnapshot());
-    const CardContainerID target(_gui->pickPlayer(&snapshot).getString()+"_hand");
+    const CardContainerID target(pickPlayer().getString()+"_hand");
     const PlayerID current_player(_pm->getCurrentPlayer()->getID());
 
     for (int i = 0 ; (i < take) && (_ccm->getSize(target) > 0); ++i)
@@ -489,7 +496,7 @@ void GameLogic::effect_TakeAndPlay(int take, int play, int trash)
 
     for (int i = 0; i < trash; ++i)
     {
-        _ccm->moveCard(temp_container, CardContainerID("Trash"), _gui->pickCard(&snapshot, temp_container, current_player));
+        _ccm->moveCard(temp_container, CardContainerID("Trash"), pickCard(current_player, temp_container));
     }
 
     CardContainerID player_hand(current_player.getString()+"_hand");

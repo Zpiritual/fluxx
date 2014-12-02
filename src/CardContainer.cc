@@ -16,7 +16,7 @@ void CardContainer::removeCard(const CardID c)
 	{
         throw std::logic_error("CardContainer::removeCard(const CardID) - Kortet existerar inte i denna container. CardID: " + c.val);
 	}
-	_cards.erase(card);	//Does not need a guard given std::find() has it's own.
+    _cards.erase(card);
 }
 
 const int CardContainer::getSize() const
