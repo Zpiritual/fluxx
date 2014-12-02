@@ -1,6 +1,6 @@
 #include "PlayerManager.h"
 #include <stdexcept>
-//#include <iostream>
+#include <iostream>
 PlayerManager::PlayerManager(const int players)
 {
 	_players.push_back(PlayerID(PlayerIdentifier::Player1));
