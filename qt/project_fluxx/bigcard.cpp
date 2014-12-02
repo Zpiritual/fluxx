@@ -5,7 +5,7 @@ BigCard::BigCard(CardID* id, QWidget *parent) :
 {
     QGraphicsScene* scene = new QGraphicsScene();
     QGraphicsView* view = new QGraphicsView(scene);
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage(":/Images/"+QString::number(id->val)+".png")));
+    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(QImage("./Images/"+QString::number(id->val)+".png")));
     scene->addItem(item);
 
     view->setWindowTitle(QString("Big Card"));
