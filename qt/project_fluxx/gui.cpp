@@ -4,41 +4,7 @@ Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
     QWidget(parent)
 {
     player_ids = players;
-
-    layout = new QHBoxLayout();
-    log_widget = new LogWidget(this);
-    player_list_widget = new PlayerList(players, this);
-    deck_widget = new DeckButton(this);
-    trash_widget = new TrashButton(this);
-    goals_widget = new GoalButtons(this);
-    rules_widget = new RulesGridWidget(this);
-    active_player_widget = new ActivePlayer(this);
-    mid_column = new QVBoxLayout();
-    mid_column_top = new QHBoxLayout();
-    left_column = new QVBoxLayout();
-
-    left_column->addWidget(trash_widget);
-    left_column->addWidget(log_widget);
-
-    mid_column_top->addWidget(deck_widget);
-    mid_column_top->addWidget(goals_widget);
-
-    mid_column->addLayout(mid_column_top);
-    mid_column->addWidget(rules_widget);
-    mid_column->addWidget(active_player_widget);
-
-    mid_column->setAlignment(active_player_widget, Qt::AlignBottom);
-    mid_column->setAlignment(mid_column_top, Qt::AlignTop|Qt::AlignCenter);
-
-    this->setMinimumHeight(600);
-    this->setMinimumWidth(1280);
-    this->setWindowTitle(QString("Fluxx"));
-
-    layout->addLayout(left_column);
-    layout->addLayout(mid_column);
-    layout->addWidget(player_list_widget);
-
-    this->setLayout(layout);
+    uiElements();
 }
 
 Gui::~Gui()
@@ -126,7 +92,6 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
 
     qDebug() << "You picked card: " + QString::number(loop.getCardId().val);
     return loop.getCardId();
-    //
 }
 
 const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContainerID containerid, const PlayerID)
@@ -184,12 +149,10 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
     //
 }
 
-
-
 void Gui::nextPlayer(const BoardSnapshot* const snapshot)
 {
     update(snapshot);
-    active_player_widget->switchPlayer(player_ids.at(snapshot->current_player.getInt()));
+    active_player_widget->switchPlayer(player_ids.at((snapshot->current_player.getInt() - 1)));
 }
 
 const Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
@@ -223,6 +186,44 @@ void Gui::message(const QString& title, const QString& message) const
     message_dialog.setWindowTitle(title);
     message_dialog.setText(message);
     message_dialog.exec();
+}
+
+void Gui::uiElements()
+{
+    layout = new QHBoxLayout();
+    log_widget = new LogWidget(this);
+    player_list_widget = new PlayerList(player_ids, this);
+    deck_widget = new DeckButton(this);
+    trash_widget = new TrashButton(this);
+    goals_widget = new GoalButtons(this);
+    rules_widget = new RulesGridWidget(this);
+    active_player_widget = new ActivePlayer(this);
+    mid_column = new QVBoxLayout();
+    mid_column_top = new QHBoxLayout();
+    left_column = new QVBoxLayout();
+
+    left_column->addWidget(trash_widget);
+    left_column->addWidget(log_widget);
+
+    mid_column_top->addWidget(deck_widget);
+    mid_column_top->addWidget(goals_widget);
+
+    mid_column->addLayout(mid_column_top);
+    mid_column->addWidget(rules_widget);
+    mid_column->addWidget(active_player_widget);
+
+    mid_column->setAlignment(active_player_widget, Qt::AlignBottom);
+    mid_column->setAlignment(mid_column_top, Qt::AlignTop|Qt::AlignCenter);
+
+    this->setMinimumHeight(600);
+    this->setMinimumWidth(1280);
+    this->setWindowTitle(QString("Fluxx"));
+
+    layout->addLayout(left_column);
+    layout->addLayout(mid_column);
+    layout->addWidget(player_list_widget);
+
+    this->setLayout(layout);
 }
 
 void Gui::update(const BoardSnapshot* const snapshot) //Lägg till i alla klasser

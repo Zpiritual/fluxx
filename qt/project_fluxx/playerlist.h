@@ -15,7 +15,6 @@ class PlayerList : public QWidget
 public:
     explicit PlayerList(const std::vector<ProfileName>, QWidget *parent = 0);
     ~PlayerList();
-    const PlayerID pickPlayer() const;
     void updatePlayers(const BoardSnapshot* const);
     void updatePlayerState(int, int, const Direction);
     void updatePlayerState(int, const Direction);

@@ -13,7 +13,7 @@ ActiveKeepers::ActiveKeepers(QWidget *parent) :
 
 ActiveKeepers::~ActiveKeepers()
 {
-     for(int i = 0; i < buttons_.size(); i++)
+     for(unsigned int i = 0; i < buttons_.size(); i++)
      {
          delete buttons_.at(i);
      }
