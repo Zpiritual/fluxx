@@ -104,6 +104,7 @@ const vector<CardID> CardContainerManager::getCards(const CardContainerID contai
 {
 	return getContainer(container)->getCards();
 }
+
 const std::vector<CardContainer> CardContainerManager::getContainers() const
 {
 	std::vector<CardContainer> cardContainers;
@@ -113,22 +114,28 @@ const std::vector<CardContainer> CardContainerManager::getContainers() const
 	}
 	return cardContainers;
 }
-    void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
-	{
-        if(!_suspendedCards.empty())
-		{
-			getContainer(ccid)->addCard(_suspendedCards.top());
-			_suspendedCards.pop();
-            notify(CardContainerID("SuspendedCards"), ccid,Event::CARD_MOVED);
 
-		}
-        else
-            throw std::logic_error("No Cards are suspended");
-	}
+const CardID CardContainerManager::getRandomCard(const CardContainerID container)
+{
+	return getContainer(container)->getRandomCard();
+}
 
-    void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID& cid)
+void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID& cid)
+{
+	getContainer(ccid)->removeCard(cid);
+    _suspendedCards.push(cid);
+    notify(ccid, CardContainerID("SuspendedCards"),Event::CARD_MOVED);
+}
+
+void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
+{
+    if(!_suspendedCards.empty())
 	{
-		getContainer(ccid)->removeCard(cid);
-        _suspendedCards.push(cid);
-        notify(ccid, CardContainerID("SuspendedCards"),Event::CARD_MOVED);
+		getContainer(ccid)->addCard(_suspendedCards.top());
+		_suspendedCards.pop();
+        notify(CardContainerID("SuspendedCards"), ccid,Event::CARD_MOVED);
+
 	}
+    else
+        throw std::logic_error("No Cards are suspended");
+}

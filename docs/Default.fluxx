@@ -121,85 +121,85 @@ CARD_ID 048
 CARD_TYPE RULE
 CARD_SUBTYPE Play
 CARD_DESCRIPTION Play 4
-CARD_EFFECT GameLimitModifier Play 4
-CARD_EFFECT GameLimitModifier Play 1
+CARD_EFFECT ModifyRule Play 4
+CARD_EFFECT ModifyRule Play 1
 
 CARD_ID 049
 CARD_TYPE RULE
 CARD_SUBTYPE Play
 CARD_DESCRIPTION Play 2
-CARD_EFFECT GameLimitModifier Play 2
-CARD_EFFECT GameLimitModifier Play 1
+CARD_EFFECT ModifyRule Play 2
+CARD_EFFECT ModifyRule Play 1
 
 CARD_ID 050
 CARD_TYPE RULE
 CARD_SUBTYPE Play
 CARD_DESCRIPTION Play 3
-CARD_EFFECT GameLimitModifier Play 3
-CARD_EFFECT GameLimitModifier Play 1
+CARD_EFFECT ModifyRule Play 3
+CARD_EFFECT ModifyRule Play 1
 
 CARD_ID 051
 CARD_TYPE RULE
 CARD_SUBTYPE Keeper
 CARD_DESCRIPTION Keeper Limit 3
-CARD_EFFECT GameLimitModifier Keeper 3
-CARD_EFFECT GameLimitModifier Keeper 1
+CARD_EFFECT ModifyRule Keeper 3
+CARD_EFFECT ModifyRule Keeper 1
 
 CARD_ID 052
 CARD_TYPE RULE
 CARD_SUBTYPE Keeper
 CARD_DESCRIPTION Keeper Limit 4
-CARD_EFFECT GameLimitModifier Keeper 4
-CARD_EFFECT GameLimitModifier Keeper 1
+CARD_EFFECT ModifyRule Keeper 4
+CARD_EFFECT ModifyRule Keeper 1
 
 CARD_ID 053
 CARD_TYPE RULE
 CARD_SUBTYPE Keeper
 CARD_DESCRIPTION Keeper Limit 2
-CARD_EFFECT GameLimitModifier Keeper 2
-CARD_EFFECT GameLimitModifier Keeper 1
+CARD_EFFECT ModifyRule Keeper 2
+CARD_EFFECT ModifyRule Keeper 1
 
 CARD_ID 054
 CARD_TYPE RULE
 CARD_SUBTYPE Goal
 CARD_DESCRIPTION Double Agenda
-CARD_EFFECT GameLimitModifier Goal 2
-CARD_EFFECT GameLimitModifier Goal 1
+CARD_EFFECT ModifyRule Goal 2
+CARD_EFFECT ModifyRule Goal 1
 
 CARD_ID 056
 CARD_TYPE RULE
 CARD_SUBTYPE Hand
 CARD_DESCRIPTION Hand Limit 2
-CARD_EFFECT GameLimitModifier Hand 2
-CARD_EFFECT GameLimitModifier Hand 1
+CARD_EFFECT ModifyRule Hand 2
+CARD_EFFECT ModifyRule Hand 1
 
 CARD_ID 057
 CARD_TYPE RULE
 CARD_SUBTYPE Draw
 CARD_DESCRIPTION Draw 4
-CARD_EFFECT GameLimitModifier Draw 4
-CARD_EFFECT GameLimitModifier Draw 1
+CARD_EFFECT ModifyRule Draw 4
+CARD_EFFECT ModifyRule Draw 1
 
 CARD_ID 058
 CARD_TYPE RULE
 CARD_SUBTYPE Draw
 CARD_DESCRIPTION Draw 3
-CARD_EFFECT GameLimitModifier Draw 3
-CARD_EFFECT GameLimitModifier Draw 1
+CARD_EFFECT ModifyRule Draw 3
+CARD_EFFECT ModifyRule Draw 1
 
 CARD_ID 059
 CARD_TYPE RULE
 CARD_SUBTYPE Draw
 CARD_DESCRIPTION Draw 2
-CARD_EFFECT GameLimitModifier Draw 2
-CARD_EFFECT GameLimitModifier Draw 1
+CARD_EFFECT ModifyRule Draw 2
+CARD_EFFECT ModifyRule Draw 1
 
 CARD_ID 062
 CARD_TYPE RULE
 CARD_SUBTYPE Draw
 CARD_DESCRIPTION Draw 5
-CARD_EFFECT GameLimitModifier Draw 5
-CARD_EFFECT GameLimitModifier Draw 1
+CARD_EFFECT ModifyRule Draw 5
+CARD_EFFECT ModifyRule Draw 1
 
 CARD_ID 005
 CARD_TYPE ACTION

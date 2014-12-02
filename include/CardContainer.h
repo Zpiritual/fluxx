@@ -16,6 +16,7 @@
 #include "CardID.h"
 #include "CardContainerID.h"
 #include <iostream>
+
 class CardContainer
 {
 private:
@@ -36,6 +37,7 @@ public:
 
 	void addCard(const CardID);
 	void removeCard(const CardID);
+	const CardID getRandomCard() const;
 
 	//bool operator ==(const CardContainer &other) const {return _id == other.getID();}
 	//bool operator !=(const CardContainer &other) const {return !(*this == other);}
