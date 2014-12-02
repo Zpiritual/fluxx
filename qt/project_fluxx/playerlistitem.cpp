@@ -12,7 +12,6 @@ PlayerListItem::~PlayerListItem()
     delete card_count;
     delete keeper_count;
     delete keeper_button;
-    delete big_keepers;
     delete vertical_layout;
 }
 
@@ -82,8 +81,6 @@ void PlayerListItem::uiElements()
     card_count = new QLabel(QString{"Hand Count: "} + QString::number(getHandCount()));
     keeper_count = new QLabel(QString{"Keeper Count: "} + QString::number(getKeeperCount()));
     keeper_button = new QPushButton();
-    big_keepers = new BigCardCollection(keepers_id);
-    big_keepers->close();
 
     state = false;
 
@@ -120,11 +117,7 @@ void PlayerListItem::connectSignals()
 
 void PlayerListItem::showKeepers()
 {
-    if(big_keepers->close())
-    {
-        delete big_keepers;
-    }
-    big_keepers = new BigCardCollection(keepers_id);
+    BigCardCollection* big_keepers = new BigCardCollection(keepers_id);
 
     big_keepers->show();
 }

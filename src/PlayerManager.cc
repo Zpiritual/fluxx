@@ -36,7 +36,7 @@ void PlayerManager::addPlayer(Player p)
 
 Player* PlayerManager::getCurrentPlayer() 
 {	
-	//std::cout << _current_player << std::endl;
+	std::cerr << "PlayerManager::getCurrentPlayer() - Before \"return &_players.at(_current_player);\"" << std::endl;
 	return &_players.at(_current_player);	
 }
 
@@ -57,9 +57,22 @@ std::vector<Player> PlayerManager::getPlayers()
 	return _players;
 }
 
-void PlayerManager::nextPlayer()
+void PlayerManager::nextPlayer(Direction direction)
 {
 	_players.at(_current_player).resetCardsPlayed();
-	_players.at(_current_player).resetCardsDrawn();
-	_current_player = (_current_player + 1) % _players.size();
+    _players.at(_current_player).resetCardsDrawn();
+    
+    if (direction == Direction::CLOCKWISE)
+    {
+        _current_player = (_current_player + 1) % _players.size();
+    }
+    else if (direction == Direction::COUNTERCLOCKWISE)
+    {
+        _current_player = (_current_player - 1);
+
+        if (_current_player < 0)
+        {
+            _current_player = int(_players.size()-1);
+        }
+    }
 }

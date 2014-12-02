@@ -3,9 +3,9 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
+
 GameLogic::GameLogic(Gui * gui, const Deck * deck, const int players)
-:
-_currentGameState{GameState::CONTINUE}
+: _currentGameState{GameState::CONTINUE}
 {
     _gui = gui;
     _ccm = new CardContainerManager(deck);
@@ -39,8 +39,7 @@ void GameLogic::addEffect(Effect effect)
 
 void GameLogic::addRule(const CardID cid, const Effect *effect, const RuleTrigger trigger)
 {
-    //Add rule to RM
-    cout << "Added Rule:" << cid.val << (*effect).val << endl;
+    cerr << "Added Rule:" << cid.val << (*effect).val << endl;
     _rm->addRule(new TriggeredRule(cid, trigger, effect));
 }
 
@@ -152,7 +151,9 @@ const PlayerID GameLogic::pickPlayer() const
 void GameLogic::switchPlayer()
 {
     BoardSnapshot snapshot(makeBoardSnapshot());
+    std::cerr << "Entering \"_gui->nextPlayer(&snapshot);\"" << endl;
     _gui->nextPlayer(&snapshot);
+    std::cerr << "Returning from \"_gui->nextPlayer(&snapshot);\"" << endl;
 }
 
 void GameLogic::drawCard(const PlayerID pid)
@@ -185,13 +186,11 @@ void GameLogic::resolveEffects()
     }
 }
 
-
-const PlayerID GameLogic::getNextPlayer()
-{
-    cout << "== SIWTCHING PLAYER:" << endl;
-    getPM()->nextPlayer();
-    return getPM()->getCurrentPlayer()->getID();
-}
+// const PlayerID GameLogic::getNextPlayer()
+// {
+//     getPM()->nextPlayer();
+//     return getPM()->getCurrentPlayer()->getID();
+// }
 
 void GameLogic::executeNextEffect()
 {
