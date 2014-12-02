@@ -13,7 +13,9 @@ CardPicture::CardPicture(const Card& card, QWidget *parent) :
     layout->addWidget(card_name);
     layout->addWidget(card_description);
 
-    layout->setAlignment(card_description, Qt::AlignTop);
+    layout->setAlignment(card_type, Qt::AlignTop | Qt::AlignCenter);
+    layout->setAlignment(card_name, Qt::AlignTop | Qt::AlignCenter);
+    layout->setAlignment(card_description, Qt::AlignTop | Qt::AlignCenter);
 
     this->setMinimumSize(170, 259);
     this->setMaximumSize(170, 259);
@@ -38,19 +40,19 @@ void CardPicture::renderPicture()
     {
         QPixmap pixmap(this->rect().size());
 
-        if(card_type->text() == QString("keeper"))
+        if(card_type->text().toLower() == QString("keeper"))
         {
             pixmap.fill(Qt::green);
         }
-        else if(card_type->text() == QString("action"))
+        else if(card_type->text().toLower() == QString("action"))
         {
             pixmap.fill(Qt::blue);
         }
-        else if(card_type->text() == QString("goal"))
+        else if(card_type->text().toLower() == QString("goal"))
         {
             pixmap.fill(Qt::red);
         }
-        else if(card_type->text() == QString("rule"))
+        else if(card_type->text().toLower() == QString("rule"))
         {
             pixmap.fill(Qt::yellow);
         }
@@ -62,6 +64,6 @@ void CardPicture::renderPicture()
     }
     else
     {
-        qDebug() << "CardPicture already exists.";
+       // qDebug() << "CardPicture already exists.";
     }
 }

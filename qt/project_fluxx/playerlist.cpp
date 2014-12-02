@@ -40,7 +40,7 @@ void PlayerList::updatePlayers(const BoardSnapshot* const board)
 
 void PlayerList::updatePlayerVariables(int index, int player_id, const Direction direction)
 {
-    if(index == player_id)
+    if(index == (player_id - 1))
     {
         current_player = index;
         if(direction == Direction::CLOCKWISE)

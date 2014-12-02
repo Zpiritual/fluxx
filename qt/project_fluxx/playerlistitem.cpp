@@ -30,7 +30,7 @@ void PlayerListItem::updateCards(const std::vector<CardID> hnd, const std::vecto
 {
     hand = hnd;
     keepers_id = keeprs;
-    qDebug() << "Number of keepers in playerlistitem" + QString::number(keepers_id.size());
+//    qDebug() << "Number of keepers in playerlistitem" + QString::number(keepers_id.size());
     card_count->setText(QString{"Hand Count: "} + QString::number(getHandCount()));
     keeper_count->setText(QString{"Keeper Count: "} + QString::number(getKeeperCount()));
 }
@@ -58,8 +58,8 @@ void PlayerListItem::setInactivePlayer()
 
 void PlayerListItem::mousePressEvent(QMouseEvent* event)
 {
-    qDebug() << QString::fromStdString(this->getPlayerName().val);
-    qDebug() << event->pos().x() << event->pos().y();
+//    qDebug() << QString::fromStdString(this->getPlayerName().val);
+//    qDebug() << event->pos().x() << event->pos().y();
     state = true;
     emit clicked();
 }
