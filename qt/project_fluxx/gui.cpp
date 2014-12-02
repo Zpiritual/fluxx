@@ -205,7 +205,7 @@ const Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
         return Direction::CLOCKWISE;
 
     } else {
-        qDebug() << "You picked counterclock";
+        qDebug() << "You picked counterclockwise";
         return Direction::COUNTERCLOCKWISE;
     }
 }
