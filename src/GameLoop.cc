@@ -80,6 +80,7 @@ SessionData	GameLoop::run()
 		//switch screen osv.
 		nextPlayer();
 	}
+	std::cout << "GAME OVER AND EXITED GAME LOOP" << std::endl;
 }
 
 const GameState GameLoop::executePlayerTurn(PlayerID pid)
@@ -104,6 +105,7 @@ const GameState GameLoop::executePlayerTurn(PlayerID pid)
 
  	}
  	std::cerr << "END OF TURN\n\n" << std::endl;
+ 	return _game_logic->getCurrentGameState();
 }
 
 void GameLoop::checkTriggeredRules(RuleTrigger rule)

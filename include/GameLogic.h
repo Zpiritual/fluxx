@@ -68,7 +68,7 @@ public:
 	void effect_EmptyContainer(string container);
     void effect_BooleanKeeperCheck(vector<int> &,vector<int> &);
 
-	const GameState getCurrentGameState() const;
+	GameState getCurrentGameState() const;
 private:
     Gui * _gui;
     CardContainerManager *_ccm;

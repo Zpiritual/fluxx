@@ -75,15 +75,14 @@ void GameLogic::playCard(const PlayerID pid)
     //if not ask what card to replace
     if (_cm->getCard(cid)->getType().compare("GOAL") == 0)
     {
-        cout << "HELLO" << endl;
         if (_ccm->getSize(CardContainerID("Goal")) > _rm->getGoalLimmit())
         {
             _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal")));
         }
+         _ccm->suspendCard(ccid, cid);
         addEffect(_cm->getCard(cid)->getEffects().at(0));
-        cout << "NAWW" << endl;
         executeNextEffect();
-        _ccm->moveCard(ccid, CardContainerID("Goal"), cid);
+        _ccm->unSuspendCard(CardContainerID("Goal"));
         cout << "==Cards in Goals:===" << endl;
         for (auto i : _ccm->getCards(CardContainerID("Goal")))
         {
@@ -171,6 +170,7 @@ void GameLogic::checkRules(RuleTrigger rt)
     for (const Effect *e : _rm->getTriggeredRules(rt))
     {
         addEffect(*e);
+        cout << "Effects -- " << e->val << endl;
 
     }
     resolveEffects();
@@ -313,7 +313,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
         break;
     }
 }
-const GameState GameLogic::getCurrentGameState() const
+GameState GameLogic::getCurrentGameState() const
 {
     return _currentGameState;
 }
@@ -559,6 +559,7 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers,vector<int> &NKe
              winningPlayer = i.getID().getString();
         }
     }
+    cout << "Check one" << firstCheck << endl;
     bool secondCheck = false;
     int icheck = 0;
     for(Player i: _pm->getPlayers())
@@ -572,6 +573,7 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers,vector<int> &NKe
     }
     if(icheck == NKeepers.size())
     secondCheck = true;
+cout << "Check two:  " << secondCheck << endl;
     if(firstCheck && secondCheck)
     {
         _currentGameState = GameState::GAME_OVER;
