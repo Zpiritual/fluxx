@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     DeckParser deck_parser;
-    Deck* deck = deck_parser.deck_to_game("../../docs/Default.fluxx");
+    Deck* deck = deck_parser.deck_to_game("../../docs/GoalEffectTest.fluxx");
 
     MainMenu* main_menu = new MainMenu(deck);
 
