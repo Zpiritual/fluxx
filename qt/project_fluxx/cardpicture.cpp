@@ -33,7 +33,7 @@ CardPicture::~CardPicture()
 
 void CardPicture::renderPicture()
 {
-    QString file_name{":Images/" + QString::number(card_id.val) + ".png"};
+    QString file_name{"./Images/" + QString::number(card_id.val) + ".png"};
     QImage image;
 
     if(!image.load(file_name))
