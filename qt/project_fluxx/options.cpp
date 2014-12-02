@@ -113,7 +113,7 @@ void Options::cancel()
 bool Options::profileExist(const QString& profile_name) const
 {
     // Check if player profile already exists
-    for(unsigned int i = 0; i < user_profiles->count(); i++)
+    for(int i = 0; i < user_profiles->count(); i++)
     {
         if(profile_name == user_profiles->item(i)->text())
             return true;

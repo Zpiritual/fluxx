@@ -92,7 +92,7 @@ void MainMenu::writeProfilesToFile() const
     std::ofstream file("./profiles.txt");
     if(file)
     {
-        for(int i = 0; i < profiles.size(); i++)
+        for(unsigned int i = 0; i < profiles.size(); i++)
         {
             file << profiles.at(i);
         }
