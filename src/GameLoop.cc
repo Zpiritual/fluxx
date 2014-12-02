@@ -81,7 +81,7 @@ SessionData	GameLoop::run()
 		nextPlayer();
 	}
 
-    return SessionData(_game_logic->getPlayerManager()->getPlayers(), PlayerIdentifier::Player1);
+    return SessionData(_game_logic->getPM()->getPlayers(), PlayerIdentifier::Player1);
 }
 
 GameState GameLoop::executePlayerTurn(PlayerID pid)
