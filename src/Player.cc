@@ -9,7 +9,7 @@ const std::string Player::getName() const
 	return _id.getString();
 }
 
-const PlayerID Player::getID() const 
+const PlayerID Player::getID() const
 {
 	return _id;
 }

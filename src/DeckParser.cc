@@ -13,7 +13,6 @@ Deck* DeckParser::deck_to_game(std::string filename)
 	ifs >> temp;
 	if(temp.empty())
 	{
-		cout << temp << endl;
 		ifs.close();
 		throw std::logic_error("No Deck Found @" + filename);
 	}
@@ -74,22 +73,22 @@ Deck* DeckParser::deck_to_game(std::string filename)
 		}
 		
 	//debug stuff:
-		cout << "NEW CARD:" << endl;
-		cout << "=========" << endl;
-		cout << "ID: " << id << endl;
-    	 cout << "NAME: " << name << endl;
-		cout << "TYPE: " << type << endl;
-		cout << "SubType: " << subtype << endl;
-		cout << "Description: " << description << endl;
-		cout << "Effect:" << effects.size() << endl;
+		cerr << "NEW CARD:" << endl;
+		cerr << "=========" << endl;
+		cerr << "ID: " << id << endl;
+    	cerr << "NAME: " << name << endl;
+		cerr << "TYPE: " << type << endl;
+		cerr << "SubType: " << subtype << endl;
+		cerr << "Description: " << description << endl;
+		cerr << "Effect:" << effects.size() << endl;
         cards.push_back(new Card(id, name, type, subtype, description, effects));
 	}
 
 	if(cards.size() != deck_size)
 	{
-		cout << cards.size() << endl;
-		cout << deck_size << endl;
-		throw std::logic_error("Error in reading from: " +  filename);
+        cerr << "Mismatch: Deck size does not correspond to number of cards in file.\nDeck size: "
+             << deck_size << "\nNumber of cards: "<< cards.size() << endl;
+		throw std::logic_error("Invalid deck definition file: " +  filename);
 	}
 
 	ifs.close();
