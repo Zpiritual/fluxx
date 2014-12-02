@@ -31,7 +31,6 @@ CardCollection::CardCollection(const std::vector<CardID> crds, CardIdLoop &loop,
     {
         QObject::connect(card,SIGNAL(clicked()), &loop, SLOT(quit()));
     }
-
 }
 
 
@@ -41,6 +40,5 @@ CardCollection::~CardCollection()
     {
         delete cards.at(i);
     }
-
     delete horizontal_layout;
 }
