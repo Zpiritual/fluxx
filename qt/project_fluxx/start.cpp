@@ -10,6 +10,11 @@ Start::Start(QWidget *parent) :
 
 Start::~Start()
 {
+    delete layout;
+    delete continue_game_button;
+    delete new_game_button;
+    delete options_button;
+    delete exit_button;
 }
 
 void Start::new_game()
@@ -55,7 +60,8 @@ void Start::exit()
     if(parent2 != nullptr)
     {
         parent2->writeProfilesToFile();
-        parent2->close();
+        //parent2->close();
+        delete parent2;
     }
     else
     {

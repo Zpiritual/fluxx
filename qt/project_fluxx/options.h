@@ -10,7 +10,7 @@ class Options : public QWidget
     Q_OBJECT
 public:
     explicit Options(const std::vector<Profile>&, QWidget *parent = 0);
-
+    ~Options();
 private:
     QVBoxLayout* main_layout;
     QHBoxLayout* profile_layout;
