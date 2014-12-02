@@ -43,17 +43,17 @@ Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
 
 Gui::~Gui()
 {
-    delete layout;
+    delete trash_widget;
     delete log_widget;
-    delete player_list_widget;
+    delete left_column;
+    delete deck_widget;
+    delete goals_widget;
+    delete mid_column_top;
     delete rules_widget;
     delete active_player_widget;
     delete mid_column;
-    delete mid_column_top;
-    delete deck_widget;
-    delete goals_widget;
-    delete trash_widget;
-    delete left_column;
+    delete player_list_widget;
+    delete layout;
 }
 
 const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
@@ -208,6 +208,12 @@ const Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
         qDebug() << "You picked counterclockwise";
         return Direction::COUNTERCLOCKWISE;
     }
+}
+
+void Gui::closeEvent(QCloseEvent* event)
+{
+    event->accept();
+    delete this;
 }
 
 void Gui::message(const QString& title, const QString& message) const

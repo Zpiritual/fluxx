@@ -7,6 +7,14 @@ SwitchPlayer::SwitchPlayer(const ProfileName& next_player, QEventLoop& loop, QWi
     connectSignals(loop);
 }
 
+SwitchPlayer::~SwitchPlayer()
+{
+    delete next_player_button;
+    delete next_player_text;
+    delete next_player_layout;
+    delete main_layout;
+}
+
 void SwitchPlayer::uiElements(const ProfileName& next_player)
 {
     main_layout = new QHBoxLayout();

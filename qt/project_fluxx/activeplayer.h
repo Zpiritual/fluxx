@@ -30,7 +30,6 @@ private:
     QVBoxLayout* layout;
     QScrollArea* scroll_area_hand;
     QScrollArea* scroll_area_keepers;
-    PlayerID* active_player;
     ActiveHand* active_hand;
     ActiveKeepers* active_keepers;
 

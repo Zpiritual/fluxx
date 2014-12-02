@@ -10,11 +10,11 @@ Start::Start(QWidget *parent) :
 
 Start::~Start()
 {
-    delete layout;
     delete continue_game_button;
     delete new_game_button;
     delete options_button;
     delete exit_button;
+    delete layout;
 }
 
 void Start::new_game()

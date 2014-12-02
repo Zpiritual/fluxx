@@ -3,7 +3,6 @@
 TrashButton::TrashButton(QWidget *parent) :
     QPushButton(parent)
 {
-
     this->setMinimumSize(170,259);
     this->setMaximumSize(170,259);
 
@@ -29,7 +28,6 @@ void TrashButton::updateCards(const CardContainer cards)
 
     }
     qDebug() << "updatecards in trashbutton";
-
 }
 
 void TrashButton::clickbutton()

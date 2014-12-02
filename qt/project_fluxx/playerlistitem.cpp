@@ -8,12 +8,12 @@ PlayerListItem::PlayerListItem(const ProfileName name, QWidget *parent) :
 
 PlayerListItem::~PlayerListItem()
 {
-    delete vertical_layout;
     delete name_label;
     delete card_count;
     delete keeper_count;
     delete keeper_button;
     delete big_keepers;
+    delete vertical_layout;
 }
 
 int PlayerListItem::getHandCount() const
