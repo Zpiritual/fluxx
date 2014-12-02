@@ -74,7 +74,7 @@ void GameLogic::playCard(const PlayerID pid)
     //if not ask what card to replace
     if (_cm->getCard(cid)->getType().compare("GOAL") == 0)
     {
-        if (_ccm->getSize(CardContainerID("Goal")) > _rm->getGoalLimmit())
+        if (_ccm->getSize(CardContainerID("Goal")) >= _rm->getGoalLimmit())
         {
             _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal")));
         }
