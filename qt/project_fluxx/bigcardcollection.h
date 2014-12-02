@@ -17,6 +17,8 @@ public:
     ~BigCardCollection();
     explicit BigCardCollection(const std::vector<CardID>, CardIdLoop&, QWidget *parent = 0);
 
+    void closeEvent(QCloseEvent*);
+
 private:
     QScrollArea* scroll_area;
     QHBoxLayout* horizontal_layout;
