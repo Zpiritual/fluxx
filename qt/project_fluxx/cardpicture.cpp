@@ -6,7 +6,7 @@ CardPicture::CardPicture(const Card& card, QWidget *parent) :
     layout = new QVBoxLayout();
     card_type = new QLabel(QString::fromStdString(card.getType()));
     card_name = new QLabel(QString::fromStdString(card.getName()));
-    card_description = new QLabel(QString::fromStdString(card.getDescription()));
+    card_description = new QTextEdit(QString::fromStdString(card.getDescription()));
     card_id = card.getID();
 
     layout->addWidget(card_type);
@@ -17,8 +17,11 @@ CardPicture::CardPicture(const Card& card, QWidget *parent) :
     layout->setAlignment(card_name, Qt::AlignTop | Qt::AlignCenter);
     layout->setAlignment(card_description, Qt::AlignTop | Qt::AlignCenter);
 
-    this->setMinimumSize(170, 259);
-    this->setMaximumSize(170, 259);
+    card_description->setFrameStyle(QFrame::NoFrame);
+    card_description->setFont(QFont("arial", 12));
+
+    this->setMinimumSize(250, 381);
+    this->setMaximumSize(250, 381);
 
     this->setLayout(layout);
 }
@@ -40,27 +43,33 @@ void CardPicture::renderPicture()
     {
         QPixmap pixmap(this->rect().size());
 
-        QPalette Pal(palette());
+        QPalette pal(palette());
+        QPalette pal_log(palette());
 
         if(card_type->text().toLower() == QString("keeper"))
         {
-            Pal.setColor(QPalette::Background, QColor(100, 255, 75));
+            pal.setColor(QPalette::Background, QColor(100, 255, 75));
+            pal_log.setColor(QPalette::Base, QColor(100, 255, 75));
         }
         else if(card_type->text().toLower() == QString("action"))
         {
-            Pal.setColor(QPalette::Background, QColor(130, 130, 255));
+            pal.setColor(QPalette::Background, QColor(130, 130, 255));
+            pal_log.setColor(QPalette::Base, QColor(130, 130, 255));
         }
         else if(card_type->text().toLower() == QString("goal"))
         {
-            Pal.setColor(QPalette::Background, QColor(255, 100, 100));
+            pal.setColor(QPalette::Background, QColor(255, 100, 100));
+            pal_log.setColor(QPalette::Base, QColor(255, 100, 100));
         }
         else if(card_type->text().toLower() == QString("rule"))
         {
-            Pal.setColor(QPalette::Background, QColor(220, 255, 100));
+            pal.setColor(QPalette::Background, QColor(220, 255, 100));
+            pal_log.setColor(QPalette::Base, QColor(220, 255, 100));
         }
 
         this->setAutoFillBackground(true);
-        this->setPalette(Pal);
+        this->setPalette(pal);
+        card_description->setPalette(pal_log);
 
         this->render(&pixmap, QPoint(), QRegion(this->rect()));
 
