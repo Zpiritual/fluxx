@@ -12,7 +12,8 @@ enum class RuleTrigger
 	PRE_DRAW,
 	POST_DRAW,
 	PRE_PLAY,
-	TURN_END
+	TURN_END,
+	GOAL	//USed for goals
 };
 
 enum class GameState
