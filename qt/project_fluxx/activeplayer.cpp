@@ -51,12 +51,11 @@ void ActivePlayer::updateCards(const BoardSnapshot* const snapshot)
 
 ActivePlayer::~ActivePlayer()
 {
-    delete layout;
-    delete scroll_area_hand;
-    delete scroll_area_keepers;
-    delete active_player;
     delete active_hand;
     delete active_keepers;
+    delete scroll_area_hand;
+    delete scroll_area_keepers;
+    delete layout;
 }
 
 void ActivePlayer::connectActiveKeepers(CardIdLoop& loop)

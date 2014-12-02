@@ -16,7 +16,18 @@ RulesGridWidget::RulesGridWidget(QWidget *parent) :
     this->setLayout(layout);
 }
 
-RulesGridWidget::~RulesGridWidget(){
+RulesGridWidget::~RulesGridWidget()
+{
+    if ( layout->layout() != NULL )
+    {
+        QLayoutItem* item;
+        while ( ( item = layout->takeAt( 0 ) ) != NULL )
+        {
+            delete item->widget();
+            delete item;
+        }
+    }
+    delete layout;
 }
 
 void RulesGridWidget::updateCards(const CardContainer container)

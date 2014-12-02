@@ -10,6 +10,7 @@ class SwitchPlayer : public QWidget
     Q_OBJECT
 public:
     explicit SwitchPlayer(const ProfileName&, QEventLoop&, QWidget *parent = 0);
+    ~SwitchPlayer();
     void uiElements(const ProfileName&);
     void connectSignals(QEventLoop& loop);
 
