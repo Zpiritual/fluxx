@@ -20,9 +20,9 @@ void SwitchPlayer::uiElements(const ProfileName& next_player, const bool end_tur
     main_layout = new QHBoxLayout();
     next_player_layout = new QVBoxLayout();
     if(end_turn)
-        next_player_button = new QPushButton(QString{"Next Player:"} + QString::fromStdString(next_player.val));
+        next_player_button = new QPushButton(QString{"Next Player: "} + QString::fromStdString(next_player.val));
     else
-        next_player_button = new QPushButton(QString{"Change to player:"} + QString::fromStdString(next_player.val));
+        next_player_button = new QPushButton(QString{"Change to player: "} + QString::fromStdString(next_player.val));
     next_player_text = new QLabel();
 
     if(end_turn)
