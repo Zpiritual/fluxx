@@ -1,150 +1,95 @@
 DECK_NAME Default
-CARD_COUNT 42
-DECK_DESCRIPTION This Deck contains all "real" cards implemented 
-			
-CARD_ID 082
-CARD_NAME The Toaster
-CARD_TYPE KEEPER
-CARD_SUBTYPE NONE
+CARD_COUNT 44
+DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
-CARD_ID 081
-CARD_NAME Peace
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 080
-CARD_NAME The Sun
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 079
-CARD_NAME Cookies
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 078
-CARD_NAME The Brain
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 077
-CARD_NAME Milk
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 076
-CARD_NAME Bread
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 075
-CARD_NAME Chocolate
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 074
-CARD_NAME Death
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 073
-CARD_NAME The Rocket
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 072
-CARD_NAME Sleep
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 071
-CARD_NAME Dreams
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 070
-CARD_NAME The Moon
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 069
-CARD_NAME War
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 068
-CARD_NAME Love
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 067
-CARD_NAME Time
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 066
-CARD_NAME Money
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
-
-CARD_ID 062
-CARD_NAME Draw 5
-CARD_TYPE RULE
-CARD_SUBTYPE Draw
-CARD_DESCRIPTION Draw 5
-CARD_EFFECT ModifyRule Draw 5
-CARD_EFFECT ModifyRule Draw 1
-
-CARD_ID 042
-CARD_NAME Baked Goods
-CARD_TYPE GOAL
-CARD_DESCRIPTION The player with Bread and Cookies on the table wins.
-CARD_EFFECT AddTriggeredRule 042 GOAL
-CARD_EFFECT BooleanKeeperCheck 1 0 076 079
-CARD_EFFECT RemoveTriggeredRule 042
-
-CARD_ID 040
-CARD_NAME Bed Time
-CARD_TYPE GOAL
-CARD_DESCRIPTION The player with Sleep and Time on the table wins.
-CARD_EFFECT AddTriggeredRule 040 GOAL
-CARD_EFFECT BooleanKeeperCheck 1 0 072 067
-CARD_EFFECT RemoveTriggeredRule 040
-
-
-
-CARD_ID 035
-CARD_NAME Television
-CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
+CARD_ID 008
+CARD_NAME Empty the Trash
+CARD_TYPE ACTION
+CARD_DESCRIPTION Start a new discard pile with this card and shuffle the rest of the discard pile back into the draw pile.
+CARD_EFFECT EmptyContainer Trash
 
 CARD_ID 009
 CARD_NAME Discard and Draw
 CARD_TYPE ACTION
-CARD_SUBTYPE PLAY_PRE_EFFECT
 CARD_DESCRIPTION Discard and Draw
 CARD_EFFECT Redraw 009
 
 CARD_ID 010
 CARD_NAME Jackpot
 CARD_TYPE ACTION
-CARD_SUBTYPE NUMERIC
 CARD_DESCRIPTION Jackpot
 CARD_EFFECT DrawAndPlay 3 0 0
 
 CARD_ID 019
 CARD_NAME Draw 2 and Use 'em
 CARD_TYPE ACTION
-CARD_SUBTYPE NUMERIC
 CARD_DESCRIPTION Draw 2 and Use 'em
 CARD_EFFECT DrawAndPlay 2 2 0
 
 CARD_ID 020
 CARD_NAME Draw 3, Play 2 of Them
 CARD_TYPE ACTION
-CARD_SUBTYPE NUMERIC
 CARD_DESCRIPTION Draw 3, play 2 of them
 CARD_EFFECT DrawAndPlay 3 2 0
+
+CARD_ID 021
+CARD_NAME Winning the Lottery
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Dreams and Money on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 071 066
+
+CARD_ID 022
+CARD_NAME War = Death
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with War and Death on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 074 069
+
+CARD_ID 023
+CARD_NAME Milk and Cookies
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Milk and Cookies on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 077 079
+
+CARD_ID 024
+CARD_NAME Toast
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Bread and the Toaster on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 082 076
+
+CARD_ID 028
+CARD_NAME The Brain (No TV)
+CARD_TYPE GOAL
+CARD_DESCRIPTION If no one has Television on the table, the player with  Brain on the table wins.
+CARD_EFFECT BooleanKeeperCheck 1 1 078 035
+
+CARD_ID 032
+CARD_NAME 10 Cards in Hand
+CARD_TYPE GOAL
+CARD_DESCRIPTION If someone has 10 or more cards in his or her hand, the the player with the most cards in hand wins.
+CARD_EFFECT ContainerQuantityCheck hand 10
+
+CARD_ID 035
+CARD_NAME Television
+CARD_TYPE KEEPER
+CARD_SUBTYPE DATA
+
+CARD_ID 040
+CARD_NAME Bed Time
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Sleep and Time on the table wins.
+CARD_EFFECT BooleanKeeperCheck 1 0 072 067
+
+CARD_ID 042
+CARD_NAME Baked Goods
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Bread and Cookies on the table wins.
+CARD_EFFECT BooleanKeeperCheck 1 0 076 079
+
+CARD_ID 044
+CARD_NAME Rocket Science
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with the Rocket and the Brain on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 073 078
 
 CARD_ID 048
 CARD_NAME Play 4
@@ -234,72 +179,78 @@ CARD_DESCRIPTION Draw 2
 CARD_EFFECT ModifyRule Draw 2
 CARD_EFFECT ModifyRule Draw 1
 
-CARD_ID 044
-CARD_NAME Rocket Science
-CARD_TYPE GOAL
-CARD_SUBTYPE None
-CARD_DESCRIPTION The player with the Rocket and the Brain on the table wins.
-CARD_EFFECT AddTriggeredRule 044 GOAL
-CARD_EFFECT BooleanKeeperCheck 2 0 073 078
-CARD_EFFECT RemoveTriggeredRule 044
+CARD_ID 062
+CARD_NAME Draw 5
+CARD_TYPE RULE
+CARD_SUBTYPE Draw
+CARD_DESCRIPTION Draw 5
+CARD_EFFECT ModifyRule Draw 5
+CARD_EFFECT ModifyRule Draw 1
 
-CARD_ID 032
-CARD_NAME 10 Cards in Hand
-CARD_TYPE GOAL
-CARD_SUBTYPE None
-CARD_DESCRIPTION If someone has 10 or more cards in his or her hand, the the player with the most cards in hand wins.
-CARD_EFFECT AddTriggeredRule 032 GOAL
-CARD_EFFECT ContainerQuantityCheck hand 10
-CARD_EFFECT RemoveTriggeredRule 032
+CARD_ID 066
+CARD_NAME Money
+CARD_TYPE KEEPER
 
-CARD_ID 028
-CARD_NAME The Brain (No TV)
-CARD_TYPE GOAL
-CARD_SUBTYPE None
-CARD_DESCRIPTION If no one has Television on the table, the player with  Brain on the table wins.
-CARD_EFFECT AddTriggeredRule 028 GOAL
-CARD_EFFECT BooleanKeeperCheck 1 1 078 035
-CARD_EFFECT RemoveTriggeredRule 028
+CARD_ID 067
+CARD_NAME Time
+CARD_TYPE KEEPER
 
-CARD_ID 024
-CARD_NAME Toast
-CARD_TYPE GOAL
-CARD_SUBTYPE None
-CARD_DESCRIPTION The player with Bread and the Toaster on the table wins.
-CARD_EFFECT AddTriggeredRule 024 GOAL
-CARD_EFFECT BooleanKeeperCheck 2 0 082 076
-CARD_EFFECT RemoveTriggeredRule 024
+CARD_ID 068
+CARD_NAME Love
+CARD_TYPE KEEPER
 
-CARD_ID 023
-CARD_NAME Milk and Cookies
-CARD_TYPE GOAL
-CARD_SUBTYPE None
-CARD_DESCRIPTION The player with Milk and Cookies on the table wins.
-CARD_EFFECT AddTriggeredRule 023 GOAL
-CARD_EFFECT BooleanKeeperCheck 2 0 077 079
-CARD_EFFECT RemoveTriggeredRule 023
+CARD_ID 069
+CARD_NAME War
+CARD_TYPE KEEPER
 
-CARD_ID 022
-CARD_NAME War = Death
-CARD_TYPE GOAL
-CARD_SUBTYPE None
-CARD_DESCRIPTION The player with War and Death on the table wins.
-CARD_EFFECT AddTriggeredRule 022 GOAL
-CARD_EFFECT BooleanKeeperCheck 2 0 074 069
-CARD_EFFECT RemoveTriggeredRule 022
+CARD_ID 070
+CARD_NAME The Moon
+CARD_TYPE KEEPER
 
-CARD_ID 021
-CARD_NAME Winning the Lottery
-CARD_TYPE GOAL
-CARD_SUBTYPE None
-CARD_DESCRIPTION The player with Dreams and Money on the table wins.
-CARD_EFFECT AddTriggeredRule 021 GOAL
-CARD_EFFECT BooleanKeeperCheck 2 0 071 066
-CARD_EFFECT RemoveTriggeredRule 021
+CARD_ID 071
+CARD_NAME Dreams
+CARD_TYPE KEEPER
 
-CARD_ID 008
-CARD_NAME Empty the Trash
-CARD_TYPE ACTION
-CARD_SUBTYPE PLAY_POST_EFFECT
-CARD_DESCRIPTION Empty the Trash
-CARD_EFFECT EmptyContainer Trash
+CARD_ID 072
+CARD_NAME Sleep
+CARD_TYPE KEEPER
+
+CARD_ID 073
+CARD_NAME The Rocket
+CARD_TYPE KEEPER
+
+CARD_ID 074
+CARD_NAME Death
+CARD_TYPE KEEPER
+
+CARD_ID 075
+CARD_NAME Chocolate
+CARD_TYPE KEEPER
+
+CARD_ID 076
+CARD_NAME Bread
+CARD_TYPE KEEPER
+
+CARD_ID 077
+CARD_NAME Milk
+CARD_TYPE KEEPER
+
+CARD_ID 078
+CARD_NAME The Brain
+CARD_TYPE KEEPER
+
+CARD_ID 079
+CARD_NAME Cookies
+CARD_TYPE KEEPER
+
+CARD_ID 080
+CARD_NAME The Sun
+CARD_TYPE KEEPER
+
+CARD_ID 081
+CARD_NAME Peace
+CARD_TYPE KEEPER
+
+CARD_ID 082
+CARD_NAME The Toaster
+CARD_TYPE KEEPER
