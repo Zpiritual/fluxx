@@ -74,8 +74,8 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
         qDebug() << "pickcard trash in gui";
         trash_widget->setConnections(*card_id_loop);
     }
-    else if(snapshot->target_container == CardContainerID(snapshot->current_player.getString()+"_hand") ||
-            snapshot->target_container == CardContainerID("TempB") ||
+    else if(snapshot->target_container == CardContainerID(snapshot->active_player.getString()+"_hand") ||
+            snapshot->target_container == CardContainerID("tempB") ||
             snapshot->target_container == CardContainerID("tempA"))
     {
          active_player_widget->connectActiveHand(*card_id_loop);
@@ -96,7 +96,6 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
         bigcollection->show();
         card_id_loop->exec();
         bigcollection->close();
-        delete bigcollection;
     }
 
     qDebug() << "You picked card: " + QString::number(card_id_loop->getCardId().val);
@@ -187,8 +186,9 @@ void Gui::uiElements()
     mid_column->addLayout(rules_goals_row);
     mid_column->addWidget(active_player_widget);
 
-    mid_column->setAlignment(active_player_widget, Qt::AlignBottom);
-    mid_column->setAlignment(mid_column_right, Qt::AlignTop|Qt::AlignRight);
+    rules_goals_row->setAlignment(rules_widget, Qt::AlignTop);
+    mid_column->setAlignment(active_player_widget, Qt::AlignTop);
+    rules_goals_row->setAlignment(mid_column_right, Qt::AlignRight|Qt::AlignTop);
 
     this->setMinimumHeight(600);
     this->setMinimumWidth(1280);
@@ -198,6 +198,7 @@ void Gui::uiElements()
     active_player_widget->setMinimumHeight(600);
     goals_widget->setMinimumSize(100,280);
     mid_column_right->setAlignment(goals_widget, Qt::AlignTop);
+
 
     layout->addLayout(left_column);
     layout->addLayout(mid_column);
