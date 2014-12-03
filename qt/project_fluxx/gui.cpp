@@ -9,6 +9,7 @@ Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
 
 Gui::~Gui()
 {
+    qDebug() << "Gui Destructor";
     delete trash_widget;
     delete log_widget;
     delete left_column;
@@ -146,7 +147,6 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot, const CardContai
 
     qDebug() << "You picked card: " + QString::number(loop.getCardId().val);
     return loop.getCardId();
-    //
 }
 
 void Gui::nextPlayer(const BoardSnapshot* const snapshot)
@@ -190,8 +190,9 @@ Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
 
 void Gui::closeEvent(QCloseEvent* event)
 {
+    // TODO: Stop evenloops
     event->accept();
-    delete this;
+    this->hide();
 }
 
 void Gui::message(const QString& title, const QString& message) const
