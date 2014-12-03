@@ -26,8 +26,9 @@ void ActivePlayer::updateCards(const BoardSnapshot* const snapshot, const bool c
     }
     else
     {
+
         active_hand->updateCards(snapshot->getContainer(snapshot->active_player.getString()+"_hand"));
-        active_hand->updateCards(snapshot->getContainer(snapshot->active_player.getString()+"_keepers"));
+        active_keepers->updateCards(snapshot->getContainer(snapshot->active_player.getString()+"_keepers"));
     }
 }
 

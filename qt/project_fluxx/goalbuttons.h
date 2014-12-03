@@ -21,8 +21,7 @@ public:
 private:
     std::vector<CardButton*> buttons_;
     std::vector<CardID> cards_;
-    QHBoxLayout* layout;
-    std::vector<CardID> cards_;
+    QVBoxLayout* layout;
 
     void uiElements();
 

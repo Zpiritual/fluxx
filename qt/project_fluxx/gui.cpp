@@ -48,8 +48,10 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 
     if(snapshot->active_player != snapshot->current_player)
     {
+        qDebug() << "JAG SKRIVER HÖGST OCH BÄST i pickcard i gui";
         event_loop = new QEventLoop();
-        active_player_widget->changePlayer(player_ids.at(snapshot->active_player.getInt()), *event_loop);
+        active_player_widget->changePlayer(player_ids.at(snapshot->active_player.getInt()-1), *event_loop);
+
         delete event_loop;
         update(snapshot, true);
     }
@@ -80,7 +82,7 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
          qDebug() << "pick active hand in gui";
          card_id_loop->exec();
     }
-    else if(snapshot->target_container.val == (snapshot->current_player.getString()+"_keepers"))
+    else if(snapshot->target_container.val == (snapshot->active_player.getString()+"_keepers"))
     {
         active_player_widget->connectActiveKeepers(*card_id_loop);
         card_id_loop->exec();
@@ -194,6 +196,8 @@ void Gui::uiElements()
 
     rules_widget->setMinimumHeight(270);
     active_player_widget->setMinimumHeight(600);
+    goals_widget->setMinimumSize(100,280);
+    mid_column_right->setAlignment(goals_widget, Qt::AlignTop);
 
     layout->addLayout(left_column);
     layout->addLayout(mid_column);
