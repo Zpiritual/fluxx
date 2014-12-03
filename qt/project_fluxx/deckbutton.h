@@ -11,7 +11,6 @@ class DeckButton : public QPushButton
     Q_OBJECT
 public:
     explicit DeckButton(QWidget *parent = 0);
-    void updateCards(const CardContainer&);
     ~DeckButton();
 
 private:

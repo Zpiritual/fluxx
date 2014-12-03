@@ -142,3 +142,16 @@ void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
     else
         throw std::logic_error("No Cards are suspended");
 }
+	void CardContainerManager::swapCards(const CardContainerID ccid1, const CardContainerID ccid2)
+	{
+		std::vector<CardID> cardIDList = getCards(ccid1);
+		std::vector<CardID> cardIDList2 = getCards(ccid2);
+		for(CardID id: cardIDList)
+		{
+			moveCard(ccid1, ccid2, id);
+		}
+        for(CardID id : cardIDList2)
+		{
+			moveCard(ccid2,ccid1,id);
+		}
+	}

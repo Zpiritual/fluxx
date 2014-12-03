@@ -11,8 +11,9 @@ GameLoop::GameLoop(Gui * gui, const Deck * deck, const int players)
 
 GameLoop::~GameLoop()
 {
-	std::cerr << "\nBefore deletion of _game_logic" << std::endl;
-	delete _game_logic;
+    std::cerr << "\nBefore deletion of _game_logic @" << _game_logic <<  std::endl;
+	//delete _game_logic;
+	//_game_logic = nullptr;
 	std::cerr << "\nBefore deletion of _game_logic" << std::endl;
 }
 

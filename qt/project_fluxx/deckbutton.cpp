@@ -16,7 +16,7 @@ DeckButton::~DeckButton()
 
 void DeckButton::uiElements()
 {
-    QString temp_string{":Images/"+QString::number(0)+".png"};
+    QString temp_string{"./Images/"+QString::number(0)+".png"};
 
     icon = new QIcon(temp_string);
 

@@ -11,6 +11,7 @@
 #include "Effect.h"
 #include <vector>
 #include <deque>
+#include <iostream>
 #include "Player.h"
 #include "PlayerID.h"
 #include "CardContainerID.h"
@@ -69,6 +70,9 @@ public:
 	void effect_EmptyContainer(string container);
     void effect_BooleanKeeperCheck(vector<int> &,vector<int> &);
 	void effect_ContainerQuantityCheck(string, int);
+	void effect_SwapPlayerContainer(string);
+	void effect_TrashCards(int);
+
 	GameState getCurrentGameState() const;
 private:
     Gui * _gui;
