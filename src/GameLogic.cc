@@ -24,12 +24,12 @@ GameLogic::GameLogic(Gui *gui, const Deck *deck, const int players)
 }
 
 GameLogic::~GameLogic()
-{
-    delete  _ccm;
-    delete  _cm;
-    delete  _rm;
-    delete  _pm;
-}
+ {
+     delete  _ccm;
+     delete  _cm;
+     delete  _rm;
+     delete  _pm;
+ }
 
 void GameLogic::addEffect(Effect effect)
 {
@@ -53,6 +53,7 @@ void GameLogic::removeRule(const CardID cid)
 
 void GameLogic::playCard(const PlayerID pid)
 {
+    if(getCurrentGameState() != GameState::CONTINUE) return;
     string ccids;
     //Kollar efter specialiserade containrar
     if (getCCM()->getSize(CardContainerID("tempB")) > 0)
@@ -79,8 +80,7 @@ void GameLogic::playCard(const PlayerID pid)
             _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal")));
         }
         _ccm->suspendCard(ccid, cid);
-        addEffect(_cm->getCard(cid)->getEffects().at(0));
-        executeNextEffect();
+        effect_AddTriggeredRule(cid.val, (string)("GOAL"));
         _ccm->unSuspendCard(CardContainerID("Goal"));
         cout << "==Cards in Goals:===" << endl;
         for (auto i : _ccm->getCards(CardContainerID("Goal")))
@@ -149,6 +149,7 @@ PlayerID GameLogic::pickPlayer() const
 
 void GameLogic::switchPlayer()
 {
+    if(getCurrentGameState() != GameState::CONTINUE) return;
     BoardSnapshot snapshot(makeBoardSnapshot());
     std::cerr << "Entering \"_gui->nextPlayer(&snapshot);\"" << endl;
     _gui->nextPlayer(&snapshot);
@@ -157,6 +158,7 @@ void GameLogic::switchPlayer()
 
 void GameLogic::drawCard(const PlayerID pid)
 {
+    if(getCurrentGameState() != GameState::CONTINUE) return;
     //std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
     _ccm->drawCard(pid.getString() + "_hand");
     _pm->getCurrentPlayer()->incrementCardsDrawn();
@@ -165,7 +167,9 @@ void GameLogic::drawCard(const PlayerID pid)
 
 void GameLogic::checkRules(RuleTrigger rt)
 {
+
     cout << "Check rules" << endl;
+    if(getCurrentGameState() != GameState::CONTINUE) return;
     //TODO - waiting for RuleManager to be completed
     vector<Effect> effects = _rm->getTriggeredRules(rt);
     for (unsigned int i = 0; i < effects.size(); i++ )
@@ -179,6 +183,7 @@ void GameLogic::checkRules(RuleTrigger rt)
 
 void GameLogic::resolveEffects()
 {
+    if(getCurrentGameState() != GameState::CONTINUE) return;
     while (!effect_queue.empty())
     {
         executeNextEffect();
@@ -202,6 +207,7 @@ void GameLogic::executeNextEffect()
 
 void GameLogic::executeEffect(const Effect &effect)
 {
+    if(getCurrentGameState() != GameState::CONTINUE) return;
     std::stringstream ss(effect.val);
     string identifier;
     ss >> identifier;
@@ -276,6 +282,13 @@ void GameLogic::executeEffect(const Effect &effect)
         int quantity;
         ss >> container >> quantity;
         effect_ContainerQuantityCheck(container, quantity);
+    }
+    else if (identifier.compare("SwapPlayerContainer") == 0)
+    {
+        cout << "SwapPlayerContainer" << endl << endl << endl;
+        string container;
+        ss >> container;
+        effect_SwapPlayerContainer(container);
     }
     else
     {
@@ -638,5 +651,24 @@ void GameLogic::effect_ContainerQuantityCheck(string container, int quantity)
             cout << "GAME OVER: " << endl;
             _currentGameState = GameState::GAME_OVER;   
     }
-       
+}
+
+void GameLogic::effect_SwapPlayerContainer(string container)
+{
+    string id1s,id2s;
+    if(container.compare("hand") == 0)
+    {
+        id1s = _pm->getCurrentPlayer()->getID().getString() + "_hand";
+        id2s = pickPlayer().getString() + "_hand";
+    }
+    else if(container.compare("keeper") == 0)
+    {
+        id1s = _pm->getCurrentPlayer()->getID().getString() + "_keepers";
+        id2s = pickPlayer().getString() + "_keepers";
+    }
+    else
+        throw logic_error("no player related container with name: " + container);
+    cout << "Picked player: " << id2s << " " << id1s << endl;
+    _ccm->swapCards(CardContainerID(id1s),CardContainerID(id2s));
+
 }

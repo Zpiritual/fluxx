@@ -60,11 +60,11 @@ void NewGame::startGame()
 
         gui->move(QApplication::desktop()->screen()->rect().center() - gui->rect().center());
 
-        GameLoop* game_loop = new GameLoop(gui, deck, players.size());
+        GameLoop game_loop(GameLoop(gui, deck, players.size()));
 
         gui->show();
 
-        game_loop->run();
+        game_loop.run();
 
 
         qDebug() << "Add startGame functionality";

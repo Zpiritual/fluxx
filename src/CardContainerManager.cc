@@ -54,20 +54,11 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 void CardContainerManager::clearContainer(const  CardContainerID ccid)
 {
-		for(const CardID id: getCards(ccid))
-			{
-				getContainer(ccid)->removeCard(id);
-				_stock->push(id);
-			}
-}
-
-CardContainerManager::~CardContainerManager()
-{
-	for(std::pair<CardContainerID, CardContainer*> i : _containers)
-	{
-		delete i.second;
-	}
-	delete _stock;
+	for(const CardID id: getCards(ccid))
+		{
+			getContainer(ccid)->removeCard(id);
+			_stock->push(id);
+		}
 }
 
 void CardContainerManager::reshuffle()
@@ -141,3 +132,16 @@ void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
     else
         throw std::logic_error("No Cards are suspended");
 }
+	void CardContainerManager::swapCards(const CardContainerID ccid1, const CardContainerID ccid2)
+	{
+		std::vector<CardID> cardIDList = getCards(ccid1);
+		std::vector<CardID> cardIDList2 = getCards(ccid2);
+		for(CardID id: cardIDList)
+		{
+			moveCard(ccid1, ccid2, id);
+		}
+        for(CardID id : cardIDList2)
+		{
+			moveCard(ccid2,ccid1,id);
+		}
+	}

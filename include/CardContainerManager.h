@@ -17,7 +17,7 @@
 #include <string>
 #include <stack>
 #include "Subject.h"
-
+#include <iostream>
 class CardContainerManager:public Subject {
 public:
 	CardContainerManager(const Deck* const);
@@ -29,7 +29,11 @@ public:
 	CardContainerManager& operator= (const CardContainerManager&)	= delete;
 	CardContainerManager& operator= (CardContainerManager&&)		= delete;
 
-	~CardContainerManager();
+	~CardContainerManager()
+	{
+		std::cout << "HELLO WORLD" << std::endl;
+	//	delete _stock;
+	}
 
 	//const CardID popDeck(); 
 	// Kan nog tas bort helt, verkar överflödig.
@@ -43,7 +47,7 @@ public:
     CardID getRandomCard(const CardContainerID);
 	void unSuspendCard(const CardContainerID& ccid);
 	void suspendCard(const CardContainerID& ccid, const CardID& cid);
-
+	void swapCards(const CardContainerID, const CardContainerID);
 private:
 	CardContainer* getContainer(const CardContainerID);
 	Stock* _stock;

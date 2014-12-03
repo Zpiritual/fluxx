@@ -50,7 +50,7 @@ public:
 
 
 private:
-	GameLogic * _game_logic = nullptr;
+	GameLogic * _game_logic;
 	//void	switchScreen();
 	//void 	sendBoardState();
 	//CardID 	requestInput();
