@@ -6,22 +6,29 @@ ActivePlayer::ActivePlayer(QWidget *parent) :
     uiElements();
 }
 
-void ActivePlayer::updateCards(const BoardSnapshot* const snapshot)
+void ActivePlayer::updateCards(const BoardSnapshot* const snapshot, const bool changed_player)
 {
-
-    if(snapshot->getContainer(CardContainerID("tempB")).getSize() != 0)
+    if(!changed_player)
     {
-        active_hand->updateCards(snapshot->getContainer(CardContainerID("tempB")));
-    }
-    else if(snapshot->getContainer(CardContainerID("tempA")).getSize() != 0)
-    {
-        active_hand->updateCards(snapshot->getContainer(CardContainerID("tempA")));
+        if(snapshot->getContainer(CardContainerID("tempB")).getSize() != 0)
+        {
+            active_hand->updateCards(snapshot->getContainer(CardContainerID("tempB")));
+        }
+        else if(snapshot->getContainer(CardContainerID("tempA")).getSize() != 0)
+        {
+            active_hand->updateCards(snapshot->getContainer(CardContainerID("tempA")));
+        }
+        else
+        {
+            active_hand->updateCards(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_hand")));
+        }
+        active_keepers->updateCards(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_keepers")));
     }
     else
     {
-        active_hand->updateCards(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_hand")));
+        active_hand->updateCards(snapshot->getContainer(active_player.getString()+"_hand"));
+        active_hand->updateCards(snapshot->getContainer(active_player.getString()+"_keepers"));
     }
-    active_keepers->updateCards(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_keepers")));
 }
 
 ActivePlayer::~ActivePlayer()
@@ -43,16 +50,27 @@ void ActivePlayer::connectActiveHand(CardIdLoop& loop)
     active_hand->connectButtons(loop);
 }
 
-void ActivePlayer::switchPlayer(const ProfileName& next_player)
+void ActivePlayer::endTurn(const ProfileName& next_player, QEventLoop& loop)
 {
     scroll_area_hand->hide();
-    QEventLoop loop;
-    SwitchPlayer* switch_player = new SwitchPlayer(next_player, loop);
+    SwitchPlayer* switch_player = new SwitchPlayer(next_player, loop, true);
     layout->addWidget(switch_player);
     loop.exec();
 
     layout->removeWidget(switch_player);
     delete switch_player;
+    scroll_area_hand->show();
+}
+
+void ActivePlayer::changePlayer(const ProfileName& next_player, QEventLoop& loop)
+{
+    scroll_area_hand->hide();
+    SwitchPlayer* change_player = new SwitchPlayer(next_player, loop, false);
+    layout->addWidget(change_player);
+    loop.exec();
+
+    layout->removeWidget(change_player);
+    delete change_player;
     scroll_area_hand->show();
 }
 

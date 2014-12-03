@@ -19,11 +19,12 @@ class ActivePlayer : public QWidget
     Q_OBJECT
 public:
     explicit ActivePlayer(QWidget *parent = 0);
-    void updateCards(const BoardSnapshot* const);
+    void updateCards(const BoardSnapshot* const, const bool);
     ~ActivePlayer();
     void connectActiveKeepers(CardIdLoop&);
     void connectActiveHand(CardIdLoop&);
-    void switchPlayer(const ProfileName&);
+    void endTurn(const ProfileName&, QEventLoop&);
+    void changePlayer(const ProfileName&, QEventLoop&);
 
 
 private:
