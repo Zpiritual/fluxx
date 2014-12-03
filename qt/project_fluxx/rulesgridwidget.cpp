@@ -22,37 +22,30 @@ void RulesGridWidget::updateCards(const CardContainer container)
 
    // delete layout;
 
-    if ( layout->layout() != NULL )
+    if (layout->layout() != NULL)
     {
         QLayoutItem* item;
-        while ( ( item = layout->takeAt( 0 ) ) != NULL )
+        while ((item = layout->takeAt(0)) != NULL)
         {
             delete item->widget();
             delete item;
         }
        // delete layout->layout();
     }
+    this->setMinimumWidth(0);
+
     std::vector<CardID> cards_{container.getCards()};
 
     qDebug() << "number of cards to add in rules: " + QString::number(cards_.size());
 
-    int row{};
-    int column{};
-
     for(CardID card : cards_)
     {
         CardButton* tempbutton = new CardButton(card);
-        layout->addWidget(tempbutton,row, column);
-
+        layout->addWidget(tempbutton);
+        this->setMinimumWidth(this->minimumWidth()+160);
+        qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
-        ++ column;
-        if(column >=5) //number of columns
-        {
-            column = 0;
-            ++row;
-        }
-    }
-}
+    }}
 
 void RulesGridWidget::setConnections(CardIdLoop & loop)
 {
@@ -62,14 +55,10 @@ void RulesGridWidget::setConnections(CardIdLoop & loop)
 
 void RulesGridWidget::uiElements()
 {
-    layout = new QGridLayout();
-    for(int i = 0; i<= 5; ++i)
-    {
-        layout->setColumnMinimumWidth(i,175);
+    layout = new QHBoxLayout();
 
-    }
-    layout->setRowMinimumHeight(0,260);
-    layout->setRowMinimumHeight(1,260);
-    layout->setSpacing(0);
+    this->setMinimumHeight(270);
+    this->setMaximumHeight(270);
+
     this->setLayout(layout);
 }

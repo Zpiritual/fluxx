@@ -18,7 +18,8 @@ public:
     void setConnections(CardIdLoop&);
 
 private:
-    QGridLayout* layout;
+    QHBoxLayout* layout;
+    std::vector<CardID> cards_;
     std::vector<CardButton*> buttons_;
 
     void uiElements();
