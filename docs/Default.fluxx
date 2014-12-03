@@ -71,8 +71,20 @@ CARD_EFFECT BooleanKeeperCheck 2 0 070 080
 CARD_ID 028
 CARD_NAME The Brain (No TV)
 CARD_TYPE GOAL
-CARD_DESCRIPTION If no one has Television on the table, the player with  Brain on the table wins.
+CARD_DESCRIPTION If no one has Television on the table, the player with the Brain on the table wins.
 CARD_EFFECT BooleanKeeperCheck 1 1 078 035
+
+CARD_ID 029
+CARD_NAME Dreamland
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Sleep and Dreams on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 072 071
+
+CARD_ID 031
+CARD_NAME Peace (No War)
+CARD_TYPE GOAL
+CARD_DESCRIPTION If no one has War on the table, the player with Peace on the table wins.
+CARD_EFFECT BooleanKeeperCheck 1 1 081 069
 
 CARD_ID 032
 CARD_NAME 10 Cards in Hand
@@ -80,16 +92,63 @@ CARD_TYPE GOAL
 CARD_DESCRIPTION If someone has 10 or more cards in his or her hand, the the player with the most cards in hand wins.
 CARD_EFFECT ContainerQuantityCheck hand 10
 
+CARD_ID 031
+CARD_NAME Chocolate Milk
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Chocolate and Milk on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 075 077
+
+CARD_ID 033
+CARD_NAME Squishy Chocolate
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with the Sun and Chocolate on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 080 075
+
+CARD_ID 034
+CARD_NAME Hippyism
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Peace and Love on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 081 068
+
 CARD_ID 035
 CARD_NAME Television
 CARD_TYPE KEEPER
-CARD_SUBTYPE DATA
+
+CARD_ID 036
+CARD_NAME Death by Chocolate
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Death and Chocolate on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 074 075
+
+CARD_ID 037
+CARD_NAME Rocket to the Moon
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with the Rocket and the Moon on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 073 070
+
+CARD_ID 038
+CARD_NAME Chocolate Cookies
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Chocolate and Cookies on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 073 070
+
+CARD_ID 039
+CARD_NAME Time is Money
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Time and Money on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 067 066
 
 CARD_ID 040
 CARD_NAME Bed Time
 CARD_TYPE GOAL
 CARD_DESCRIPTION The player with Sleep and Time on the table wins.
 CARD_EFFECT BooleanKeeperCheck 2 0 072 067
+
+CARD_ID 041
+CARD_NAME 5 Keepers
+CARD_TYPE GOAL
+CARD_DESCRIPTION If someone has 5 or more keepers on the table, the the player with the most keepers in play.
+CARD_EFFECT ContainerQuantityCheck keeper 5
 
 CARD_ID 042
 CARD_NAME Baked Goods
