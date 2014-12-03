@@ -93,9 +93,9 @@ void ActivePlayer::uiElements()
     scroll_area_hand->setMaximumHeight(270);
     scroll_area_hand->setMinimumWidth(800);
 
-    this->setMinimumHeight(300);
+    this->setMinimumHeight(450);
 
-    layout->setAlignment(scroll_area_keepers, Qt::AlignTop);
+    //layout->setAlignment(scroll_area_keepers, Qt::AlignTop);
     layout->setAlignment(scroll_area_hand, Qt::AlignTop);
     scroll_area_keepers->setFrameShape(QFrame::NoFrame);
     scroll_area_hand->setFrameShape(QFrame::NoFrame);

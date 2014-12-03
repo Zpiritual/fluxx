@@ -14,7 +14,7 @@ Gui::~Gui()
     delete left_column;
     delete deck_widget;
     delete goals_widget;
-    delete mid_column_top;
+    delete mid_column_right;
     delete rules_widget;
     delete active_player_widget;
     delete mid_column;
@@ -171,25 +171,31 @@ void Gui::uiElements()
     rules_widget = new RulesGridWidget(this);
     active_player_widget = new ActivePlayer(this);
     mid_column = new QVBoxLayout();
-    mid_column_top = new QHBoxLayout();
+    mid_column_right = new QVBoxLayout();
     left_column = new QVBoxLayout();
+    rules_goals_row = new QHBoxLayout();
 
     left_column->addWidget(trash_widget);
     left_column->addWidget(log_widget);
 
-    mid_column_top->addWidget(deck_widget);
-    mid_column_top->addWidget(goals_widget);
+    mid_column_right->addWidget(deck_widget);
+    mid_column_right->addWidget(goals_widget);
 
-    mid_column->addLayout(mid_column_top);
-    mid_column->addWidget(rules_widget);
+    rules_goals_row->addWidget(rules_widget);
+    rules_goals_row->addLayout(mid_column_right);
+
+    mid_column->addLayout(rules_goals_row);
     mid_column->addWidget(active_player_widget);
 
     mid_column->setAlignment(active_player_widget, Qt::AlignBottom);
-    mid_column->setAlignment(mid_column_top, Qt::AlignTop|Qt::AlignCenter);
+    mid_column->setAlignment(mid_column_right, Qt::AlignTop|Qt::AlignRight);
 
     this->setMinimumHeight(600);
     this->setMinimumWidth(1280);
     this->setWindowTitle(QString("Fluxx"));
+
+    rules_widget->setMinimumHeight(270);
+    active_player_widget->setMinimumHeight(600);
 
     layout->addLayout(left_column);
     layout->addLayout(mid_column);

@@ -7,6 +7,7 @@
 #include "CardContainer.h"
 #include "cardbutton.h"
 #include "cardidloop.h"
+#include "bigcardcollection.h"
 
 class GoalButtons : public QWidget
 {
@@ -19,6 +20,7 @@ public:
 
 private:
     std::vector<CardButton*> buttons_;
+    std::vector<CardID> cards_;
     QHBoxLayout* layout;
 
     void uiElements();

@@ -44,7 +44,8 @@ private:
     RulesGridWidget* rules_widget;
     ActivePlayer* active_player_widget;
     QVBoxLayout* mid_column;
-    QHBoxLayout* mid_column_top;
+    QVBoxLayout* mid_column_right;
+    QHBoxLayout* rules_goals_row;
     std::vector<ProfileName> player_ids;
     DeckButton* deck_widget;
     GoalButtons* goals_widget;
