@@ -41,11 +41,9 @@ void TrashButton::clickbutton()
 
 void TrashButton::setConnections(CardIdLoop& loop)
 {
-
     BigCardCollection* bigcollection = new BigCardCollection{cards_, loop};
     bigcollection->show();
     loop.exec();
     bigcollection->close();
-    delete bigcollection;
     qDebug() << "setConnections in TrashButton";
 }

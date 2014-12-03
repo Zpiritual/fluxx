@@ -56,6 +56,18 @@ CARD_TYPE GOAL
 CARD_DESCRIPTION The player with Bread and the Toaster on the table wins.
 CARD_EFFECT BooleanKeeperCheck 2 0 082 076
 
+CARD_ID 025
+CARD_NAME Hearts and Minds
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Love and the Brain on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 068 078
+
+CARD_ID 026
+CARD_NAME Night and Day
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with the Moon and the Sun on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 070 080
+
 CARD_ID 028
 CARD_NAME The Brain (No TV)
 CARD_TYPE GOAL
@@ -77,13 +89,19 @@ CARD_ID 040
 CARD_NAME Bed Time
 CARD_TYPE GOAL
 CARD_DESCRIPTION The player with Sleep and Time on the table wins.
-CARD_EFFECT BooleanKeeperCheck 1 0 072 067
+CARD_EFFECT BooleanKeeperCheck 2 0 072 067
 
 CARD_ID 042
 CARD_NAME Baked Goods
 CARD_TYPE GOAL
 CARD_DESCRIPTION The player with Bread and Cookies on the table wins.
-CARD_EFFECT BooleanKeeperCheck 1 0 076 079
+CARD_EFFECT BooleanKeeperCheck 2 0 076 079
+
+CARD_ID 043
+CARD_NAME The Appliances
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Television and the Toaster on the table wins.
+CARD_EFFECT BooleanKeeperCheck 2 0 035 082
 
 CARD_ID 044
 CARD_NAME Rocket Science
