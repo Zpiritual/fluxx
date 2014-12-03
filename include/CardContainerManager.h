@@ -29,11 +29,7 @@ public:
 	CardContainerManager& operator= (const CardContainerManager&)	= delete;
 	CardContainerManager& operator= (CardContainerManager&&)		= delete;
 
-	~CardContainerManager()
-	{
-		std::cout << "HELLO WORLD" << std::endl;
-	//	delete _stock;
-	}
+	~CardContainerManager();
 
 	//const CardID popDeck(); 
 	// Kan nog tas bort helt, verkar överflödig.

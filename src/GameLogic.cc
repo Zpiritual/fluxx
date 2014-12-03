@@ -48,7 +48,8 @@ void GameLogic::removeRule(const CardID cid)
     _ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), cid);
     //Bypass effect stack and run from executeEffect
     addEffect(*(_cm->getCard(cid)->getEffects().end() - 1));
-    executeNextEffect();
+       executeNextEffect();
+    _rm->removeRule(cid);
 }
 
 void GameLogic::playCard(const PlayerID pid)
@@ -77,10 +78,12 @@ void GameLogic::playCard(const PlayerID pid)
     {
         if (_ccm->getSize(CardContainerID("Goal")) >= _rm->getGoalLimmit())
         {
-            _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal")));
+            CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal"));
+            _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), cid2);
+           _rm->removeRule(cid2);
         }
         _ccm->suspendCard(ccid, cid);
-        effect_AddTriggeredRule(cid.val, (string)("GOAL"));
+        addRule(cid, &_cm->getCard(cid)->getEffects().at(0), RuleTrigger::GOAL);
         _ccm->unSuspendCard(CardContainerID("Goal"));
         cout << "==Cards in Goals:===" << endl;
         for (auto i : _ccm->getCards(CardContainerID("Goal")))
@@ -135,15 +138,23 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) 
     BoardSnapshot snapshot(makeBoardSnapshot(pid, container));
 
     cerr << "GameLogic::pickCard() - Querying GUI for a card." << endl;
-    const CardID id = _gui->pickCard(&snapshot);
+    if(_ccm->getSize(container) == 1)
+    {
+        cerr << "GameLogic::pickCard() - Recieved CardID from GUI: " << _ccm->getCards(container).at(0).val << endl;
+        return _ccm->getCards(container).at(0);
+    }
+    else
+    {
+        const CardID id = _gui->pickCard(&snapshot);
+        cerr << "GameLogic::pickCard() - Recieved CardID from GUI: " << id.val << endl;
+        return id;
 
+    }
 //    if(!_gui->isVisible())
 //    {
 //        throw quit_session("The GUI window was closed.");
 //    }
 
-    cerr << "GameLogic::pickCard() - Recieved CardID from GUI: " << id.val << endl;
-    return id;
 }
 
 PlayerID GameLogic::pickPlayer() const

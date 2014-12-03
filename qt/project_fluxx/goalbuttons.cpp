@@ -45,7 +45,7 @@ GoalButtons::~GoalButtons()
 
 void GoalButtons::uiElements()
 {
-    layout = new QHBoxLayout();
+    layout = new QVBoxLayout();
 
     this->setLayout(layout);
 }

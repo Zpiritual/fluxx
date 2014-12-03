@@ -14,7 +14,7 @@ Gui::~Gui()
     delete left_column;
     delete deck_widget;
     delete goals_widget;
-    delete mid_column_top;
+    delete mid_column_right;
     delete rules_widget;
     delete active_player_widget;
     delete mid_column;
@@ -48,8 +48,10 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 
     if(snapshot->active_player != snapshot->current_player)
     {
+        qDebug() << "JAG SKRIVER HÖGST OCH BÄST i pickcard i gui";
         event_loop = new QEventLoop();
-        active_player_widget->changePlayer(player_ids.at(snapshot->active_player.getInt()), *event_loop);
+        active_player_widget->changePlayer(player_ids.at(snapshot->active_player.getInt()-1), *event_loop);
+
         delete event_loop;
         update(snapshot, true);
     }
@@ -73,14 +75,14 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
         trash_widget->setConnections(*card_id_loop);
     }
     else if(snapshot->target_container == CardContainerID(snapshot->current_player.getString()+"_hand") ||
-            snapshot->target_container == CardContainerID("TempB") ||
+            snapshot->target_container == CardContainerID("tempB") ||
             snapshot->target_container == CardContainerID("tempA"))
     {
          active_player_widget->connectActiveHand(*card_id_loop);
          qDebug() << "pick active hand in gui";
          card_id_loop->exec();
     }
-    else if(snapshot->target_container.val == (snapshot->current_player.getString()+"_keepers"))
+    else if(snapshot->target_container.val == (snapshot->active_player.getString()+"_keepers"))
     {
         active_player_widget->connectActiveKeepers(*card_id_loop);
         card_id_loop->exec();
@@ -169,25 +171,33 @@ void Gui::uiElements()
     rules_widget = new RulesGridWidget(this);
     active_player_widget = new ActivePlayer(this);
     mid_column = new QVBoxLayout();
-    mid_column_top = new QHBoxLayout();
+    mid_column_right = new QVBoxLayout();
     left_column = new QVBoxLayout();
+    rules_goals_row = new QHBoxLayout();
 
     left_column->addWidget(trash_widget);
     left_column->addWidget(log_widget);
 
-    mid_column_top->addWidget(deck_widget);
-    mid_column_top->addWidget(goals_widget);
+    mid_column_right->addWidget(deck_widget);
+    mid_column_right->addWidget(goals_widget);
 
-    mid_column->addLayout(mid_column_top);
-    mid_column->addWidget(rules_widget);
+    rules_goals_row->addWidget(rules_widget);
+    rules_goals_row->addLayout(mid_column_right);
+
+    mid_column->addLayout(rules_goals_row);
     mid_column->addWidget(active_player_widget);
 
     mid_column->setAlignment(active_player_widget, Qt::AlignBottom);
-    mid_column->setAlignment(mid_column_top, Qt::AlignTop|Qt::AlignCenter);
+    mid_column->setAlignment(mid_column_right, Qt::AlignTop|Qt::AlignRight);
 
     this->setMinimumHeight(600);
     this->setMinimumWidth(1280);
     this->setWindowTitle(QString("Fluxx"));
+
+    rules_widget->setMinimumHeight(270);
+    active_player_widget->setMinimumHeight(600);
+    goals_widget->setMinimumSize(100,280);
+    mid_column_right->setAlignment(goals_widget, Qt::AlignTop);
 
     layout->addLayout(left_column);
     layout->addLayout(mid_column);
