@@ -63,9 +63,10 @@ void NewGame::startGame()
         GameLoop game_loop(GameLoop(gui, deck, players.size()));
 
         gui->show();
+        parent2->hide();
 
         game_loop.run();
-
+        parent2->show();
 
         qDebug() << "Add startGame functionality";
         delete gui;
