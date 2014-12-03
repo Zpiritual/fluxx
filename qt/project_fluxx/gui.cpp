@@ -49,50 +49,50 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
     if(snapshot->active_player != snapshot->current_player)
     {
         event_loop = new QEventLoop();
-        active_player_widget->changePlayer(snapshot->active_player, event_loop);
+        active_player_widget->changePlayer(player_ids.at(snapshot->active_player.getInt()), *event_loop);
         delete event_loop;
         update(snapshot, true);
     }
 
     card_id_loop = new CardIdLoop;
 
-    if(containerid == CardContainerID("Rules"))
+    if(snapshot->target_container.val == "Rules")
     {
         rules_widget->setConnections(*card_id_loop);
         qDebug() << "pickcard rules in gui";
 
         card_id_loop->exec();
     }
-    else if(containerid == CardContainerID("Goals"))
+    else if(snapshot->target_container.val == "Goals")
     {
         goals_widget->setConnections(*card_id_loop);
         qDebug() << "pickcard goals in gui";
         card_id_loop->exec();
     }
-    else if(containerid == CardContainerID("Trash"))
+    else if(snapshot->target_container.val == "Trash")
     {
         qDebug() << "pickcard trash in gui";
         trash_widget->setConnections(*card_id_loop);
     }
-    else if(containerid == CardContainerID(snapshot->current_player.getString()+"_hand") ||
-            containerid == CardContainerID("TempB") ||
-            containerid == CardContainerID("tempA"))
+    else if(snapshot->target_container == CardContainerID(snapshot->current_player.getString()+"_hand") ||
+            snapshot->target_container == CardContainerID("TempB") ||
+            snapshot->target_container == CardContainerID("tempA"))
     {
          active_player_widget->connectActiveHand(*card_id_loop);
          qDebug() << "pick active hand in gui";
          card_id_loop->exec();
     }
-    else if(containerid == CardContainerID(snapshot->current_player.getString()+"_keepers"))
+    else if(snapshot->target_container.val == (snapshot->current_player.getString()+"_keepers"))
     {
         active_player_widget->connectActiveKeepers(*card_id_loop);
         card_id_loop->exec();
     }
     //Det är en spelares keepers men inte den aktiva spelarens keepers
-    else if(((containerid.val.find("_hand") != std::string::npos) ||
-            (containerid.val.find("_keepers") != std::string::npos)) &&
-            containerid.val.find(snapshot->current_player.getString()) != std::string::npos)
+    else if(((snapshot->target_container.val.find("_hand") != std::string::npos) ||
+            (snapshot->target_container.val.find("_keepers") != std::string::npos)) &&
+            snapshot->target_container.val.find(snapshot->current_player.getString()) != std::string::npos)
     {
-        BigCardCollection* bigcollection = new BigCardCollection(snapshot->getContainer(containerid).getCards(),*card_id_loop);
+        BigCardCollection* bigcollection = new BigCardCollection(snapshot->getContainer(snapshot->target_container).getCards(),*card_id_loop);
         bigcollection->show();
         card_id_loop->exec();
         bigcollection->close();
@@ -105,7 +105,7 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 
 void Gui::nextPlayer(const BoardSnapshot* const snapshot)
 {
-    update(snapshot);
+    update(snapshot, false);
     event_loop = new QEventLoop();
 
     if(snapshot->direction == Direction::CLOCKWISE)
@@ -128,7 +128,7 @@ void Gui::nextPlayer(const BoardSnapshot* const snapshot)
 
 Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
 {
-    update(snapshot);
+    update(snapshot, false);
     QMessageBox directionpicker;
     directionpicker.setText(QString("Choose a direction"));
     QAbstractButton *clockwise = directionpicker.addButton(QString("Clockwise"),QMessageBox::YesRole);
@@ -146,8 +146,9 @@ Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
 
 void Gui::closeEvent(QCloseEvent* event)
 {
+    // TODO: Stop evenloops
     event->accept();
-    delete this;
+    this->hide();
 }
 
 void Gui::message(const QString& title, const QString& message) const

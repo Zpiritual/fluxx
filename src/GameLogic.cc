@@ -132,18 +132,26 @@ void GameLogic::playCard(const PlayerID pid)
 
 CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) const
 {
-    BoardSnapshot snapshot(makeBoardSnapshot());
+    BoardSnapshot snapshot(makeBoardSnapshot(pid, container));
 
-    cerr << "Querying UI for a card." << endl;
-    const CardID id = _gui->pickCard(&snapshot, container, pid);
-    cerr << "Recieved CardID: " << id.val << endl;
+    cerr << "GameLogic::pickCard() - Querying GUI for a card." << endl;
+    const CardID id = _gui->pickCard(&snapshot);
+
+//    if(!_gui->isVisible())
+//    {
+//        throw quit_session("The GUI window was closed.");
+//    }
+
+    cerr << "GameLogic::pickCard() - Recieved CardID from GUI: " << id.val << endl;
     return id;
 }
 
 PlayerID GameLogic::pickPlayer() const
 {
     BoardSnapshot snapshot(makeBoardSnapshot());
+    cerr << "GameLogic::pickPlayer() - Querying GUI for a player." << endl;
     const PlayerID id = _gui->pickPlayer(&snapshot);
+    cerr << "GameLogic::pickPlayer() - Recieved PlayerID from GUI: " << id.getString() << endl;
     return id;
 }
 
@@ -324,9 +332,30 @@ GameState GameLogic::getCurrentGameState() const
     return _currentGameState;
 }
 
-BoardSnapshot GameLogic::makeBoardSnapshot()const
+BoardSnapshot GameLogic::makeBoardSnapshot(const PlayerID active, const CardContainerID target) const
 {
-    return BoardSnapshot(_ccm->getContainers(), (int)(_pm->getPlayers().size()), _pm->getCurrentPlayer()->getID(), _pm->getCurrentPlayer()->getCardsPlayed(), _rm->getPlay(), _rm->getPlayOrder());
+    return BoardSnapshot(
+        _ccm->getContainers(),
+        (int)(_pm->getPlayers().size()),
+        _pm->getCurrentPlayer()->getID(),
+        active,
+        _pm->getCurrentPlayer()->getCardsPlayed(),
+        _rm->getPlay(),
+        _rm->getPlayOrder(),
+        target);
+}
+
+BoardSnapshot GameLogic::makeBoardSnapshot() const
+{
+    return BoardSnapshot(
+        _ccm->getContainers(),
+        (int)(_pm->getPlayers().size()),
+        _pm->getCurrentPlayer()->getID(),
+        _pm->getCurrentPlayer()->getID(),
+        _pm->getCurrentPlayer()->getCardsPlayed(),
+        _rm->getPlay(),
+        _rm->getPlayOrder(),
+        CardContainerID("NULL CONTAINER"));
 }
 
 CardContainerManager *GameLogic::getCCM()
@@ -607,7 +636,7 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NK
     if (firstCheck && secondCheck)
     {
         _currentGameState = GameState::GAME_OVER;
-        cout << "GAME OVER!! WINNIGN PLAYER: " << winningPlayer << " It's finaly over!" << endl;
+        cout << "GAME OVER! WINNING PLAYER: " << winningPlayer << " It's finally over!" << endl;
     }
 }
 void GameLogic::effect_ContainerQuantityCheck(string container, int quantity)

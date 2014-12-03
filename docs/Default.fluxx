@@ -87,6 +87,32 @@ CARD_NAME Money
 CARD_TYPE KEEPER
 CARD_SUBTYPE DATA
 
+CARD_ID 062
+CARD_NAME Draw 5
+CARD_TYPE RULE
+CARD_SUBTYPE Draw
+CARD_DESCRIPTION Draw 5
+CARD_EFFECT ModifyRule Draw 5
+CARD_EFFECT ModifyRule Draw 1
+
+CARD_ID 042
+CARD_NAME Baked Goods
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Bread and Cookies on the table wins.
+CARD_EFFECT AddTriggeredRule 042 GOAL
+CARD_EFFECT BooleanKeeperCheck 1 0 076 079
+CARD_EFFECT RemoveTriggeredRule 042
+
+CARD_ID 040
+CARD_NAME Bed Time
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Sleep and Time on the table wins.
+CARD_EFFECT AddTriggeredRule 040 GOAL
+CARD_EFFECT BooleanKeeperCheck 1 0 072 067
+CARD_EFFECT RemoveTriggeredRule 040
+
+
+
 CARD_ID 035
 CARD_NAME Television
 CARD_TYPE KEEPER
@@ -171,7 +197,7 @@ CARD_EFFECT ModifyRule Keeper 1
 CARD_ID 054
 CARD_NAME Double Agenda
 CARD_TYPE RULE
-CARD_SUBTYPE Goal
+CARD_SUBTYPE Rule
 CARD_DESCRIPTION Double Agenda
 CARD_EFFECT ModifyRule Goal 2
 CARD_EFFECT ModifyRule Goal 1
@@ -208,30 +234,6 @@ CARD_DESCRIPTION Draw 2
 CARD_EFFECT ModifyRule Draw 2
 CARD_EFFECT ModifyRule Draw 1
 
-CARD_ID 062
-CARD_NAME Draw 5
-CARD_TYPE RULE
-CARD_SUBTYPE Draw
-CARD_DESCRIPTION Draw 5
-CARD_EFFECT ModifyRule Draw 5
-CARD_EFFECT ModifyRule Draw 1
-
-CARD_ID 008
-CARD_NAME Empty the Trash
-CARD_TYPE ACTION
-CARD_SUBTYPE PLAY_POST_EFFECT
-CARD_DESCRIPTION Empty the Trash
-CARD_EFFECT EmptyContainer Trash
-
-CARD_ID 023
-CARD_NAME Milk and Cookies
-CARD_TYPE GOAL
-CARD_SUBTYPE None
-CARD_DESCRIPTION The player with Milk and Cookies on the table wins.
-CARD_EFFECT AddTriggeredRule 023 GOAL
-CARD_EFFECT BooleanKeeperCheck 2 0 077 079
-CARD_EFFECT RemoveTriggeredRule 023
-
 CARD_ID 044
 CARD_NAME Rocket Science
 CARD_TYPE GOAL
@@ -240,6 +242,15 @@ CARD_DESCRIPTION The player with the Rocket and the Brain on the table wins.
 CARD_EFFECT AddTriggeredRule 044 GOAL
 CARD_EFFECT BooleanKeeperCheck 2 0 073 078
 CARD_EFFECT RemoveTriggeredRule 044
+
+CARD_ID 032
+CARD_NAME 10 Cards in Hand
+CARD_TYPE GOAL
+CARD_SUBTYPE None
+CARD_DESCRIPTION If someone has 10 or more cards in his or her hand, the the player with the most cards in hand wins.
+CARD_EFFECT AddTriggeredRule 032 GOAL
+CARD_EFFECT ContainerQuantityCheck hand 10
+CARD_EFFECT RemoveTriggeredRule 032
 
 CARD_ID 028
 CARD_NAME The Brain (No TV)
@@ -250,14 +261,23 @@ CARD_EFFECT AddTriggeredRule 028 GOAL
 CARD_EFFECT BooleanKeeperCheck 1 1 078 035
 CARD_EFFECT RemoveTriggeredRule 028
 
-CARD_ID 021
-CARD_NAME Winning the Lottery
+CARD_ID 024
+CARD_NAME Toast
 CARD_TYPE GOAL
 CARD_SUBTYPE None
-CARD_DESCRIPTION The player with Dreams and Money on the table wins.
-CARD_EFFECT AddTriggeredRule 021 GOAL
-CARD_EFFECT BooleanKeeperCheck 2 0 071 066
-CARD_EFFECT RemoveTriggeredRule 021
+CARD_DESCRIPTION The player with Bread and the Toaster on the table wins.
+CARD_EFFECT AddTriggeredRule 024 GOAL
+CARD_EFFECT BooleanKeeperCheck 2 0 082 076
+CARD_EFFECT RemoveTriggeredRule 024
+
+CARD_ID 023
+CARD_NAME Milk and Cookies
+CARD_TYPE GOAL
+CARD_SUBTYPE None
+CARD_DESCRIPTION The player with Milk and Cookies on the table wins.
+CARD_EFFECT AddTriggeredRule 023 GOAL
+CARD_EFFECT BooleanKeeperCheck 2 0 077 079
+CARD_EFFECT RemoveTriggeredRule 023
 
 CARD_ID 022
 CARD_NAME War = Death
@@ -268,20 +288,18 @@ CARD_EFFECT AddTriggeredRule 022 GOAL
 CARD_EFFECT BooleanKeeperCheck 2 0 074 069
 CARD_EFFECT RemoveTriggeredRule 022
 
-CARD_ID 024
-CARD_NAME Toast
+CARD_ID 021
+CARD_NAME Winning the Lottery
 CARD_TYPE GOAL
 CARD_SUBTYPE None
-CARD_DESCRIPTION The player with Bread and the Toaster on the table wins.
-CARD_EFFECT AddTriggeredRule 024 GOAL
-CARD_EFFECT BooleanKeeperCheck 2 0 082 076
-CARD_EFFECT RemoveTriggeredRule 024
+CARD_DESCRIPTION The player with Dreams and Money on the table wins.
+CARD_EFFECT AddTriggeredRule 021 GOAL
+CARD_EFFECT BooleanKeeperCheck 2 0 071 066
+CARD_EFFECT RemoveTriggeredRule 021
 
-CARD_ID 032
-CARD_NAME 10 Cards in Hand
-CARD_TYPE GOAL
-CARD_SUBTYPE None
-CARD_DESCRIPTION If someone has 10 or more cards in his or her hand, the the player with the most cards in hand wins.
-CARD_EFFECT AddTriggeredRule 032 GOAL
-CARD_EFFECT ContainerQuantityCheck hand 10
-CARD_EFFECT RemoveTriggeredRule 032
+CARD_ID 008
+CARD_NAME Empty the Trash
+CARD_TYPE ACTION
+CARD_SUBTYPE PLAY_POST_EFFECT
+CARD_DESCRIPTION Empty the Trash
+CARD_EFFECT EmptyContainer Trash
