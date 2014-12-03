@@ -54,7 +54,7 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 void CardContainerManager::clearContainer(const  CardContainerID ccid)
 {
-		for(const CardID id: getCards(ccid))
+		for(const CardID id : getCards(ccid))
 			{
 				getContainer(ccid)->removeCard(id);
 				_stock->push(id);
@@ -80,6 +80,7 @@ void CardContainerManager::drawCard(const CardContainerID container)
 	if(_stock->empty())
 	{
 		clearContainer(CardContainerID("Trash"));
+		reshuffle();
 	}
 	getContainer(container)->addCard(_stock->pop());
 	notify(_stock->getID(),container,Event::CARD_MOVED);
