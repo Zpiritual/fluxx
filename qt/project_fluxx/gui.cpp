@@ -9,7 +9,6 @@ Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
 
 Gui::~Gui()
 {
-    qDebug() << "Gui Destructor";
     delete trash_widget;
     delete log_widget;
     delete left_column;
