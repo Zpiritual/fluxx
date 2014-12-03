@@ -121,9 +121,7 @@ CARD_NAME 10 Cards in Hand
 CARD_TYPE GOAL
 CARD_SUBTYPE None
 CARD_DESCRIPTION If someone has 10 or more cards in his or her hand, the the player with the most cards in hand wins.
-CARD_EFFECT AddTriggeredRule 032 GOAL
 CARD_EFFECT ContainerQuantityCheck hand 10
-CARD_EFFECT RemoveTriggeredRule 032
 
 CARD_ID 033
 CARD_NAME Squishy Chocolate

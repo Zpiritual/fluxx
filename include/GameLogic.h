@@ -84,7 +84,7 @@ private:
 	std::deque<Effect> effect_queue;
     GameState _currentGameState;
 	void executeEffect(const Effect&);
-	void onNotify(const CardContainerID &, const CardContainerID & , const Event);
+    void onNotify(const CardContainerID &, const CardContainerID & ,const CardID &, const Event);
 	//Diverse effekt-funktioner, ex:
 	//Draw(int draw, int play, int discard, bool inflation = true);
 };
