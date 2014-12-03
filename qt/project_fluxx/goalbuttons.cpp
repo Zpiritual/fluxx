@@ -33,7 +33,6 @@ void GoalButtons::updateCards(const CardContainer& container)
         tempbutton->smallButton();
         layout->addWidget(tempbutton);
     }
-
 }
 
 GoalButtons::~GoalButtons()

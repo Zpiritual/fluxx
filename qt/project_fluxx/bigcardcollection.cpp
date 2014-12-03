@@ -30,6 +30,8 @@ void BigCardCollection::uiElements(const std::vector<CardID>& crds)
     scroll_area->setWidget(card_collection);
     scroll_area->setMaximumHeight(300);
 
+    scroll_area->setFrameStyle(QFrame::NoFrame);
+
     this->setMinimumSize(550,320);
     this->setMaximumSize(550,320);
 
@@ -42,6 +44,11 @@ void BigCardCollection::uiElements(const std::vector<CardID>& crds, CardIdLoop& 
     card_collection = new CardCollection(crds, loop);
     scroll_area = new QScrollArea();
     horizontal_layout = new QHBoxLayout();
+
+    this->setPalette(QPalette(Qt::green));
+    this->setAutoFillBackground(true);
+
+    scroll_area->setFrameStyle(QFrame::NoFrame);
 
     horizontal_layout->addWidget(scroll_area);
 

@@ -197,7 +197,6 @@ void Gui::uiElements()
     goals_widget->setMinimumSize(100,280);
     mid_column_right->setAlignment(goals_widget, Qt::AlignTop);
 
-
     layout->addLayout(left_column);
     layout->addLayout(mid_column);
     layout->addWidget(player_list_widget);
