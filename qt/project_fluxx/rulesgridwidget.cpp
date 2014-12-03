@@ -20,6 +20,8 @@ void RulesGridWidget::updateCards(const CardContainer container)
 {
     buttons_.clear();
 
+    this->setAutoFillBackground(false);
+
    // delete layout;
 
     if (layout->layout() != NULL)
@@ -49,6 +51,7 @@ void RulesGridWidget::updateCards(const CardContainer container)
 
 void RulesGridWidget::setConnections(CardIdLoop & loop)
 {
+    this->setAutoFillBackground(true);
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
 }
@@ -57,6 +60,7 @@ void RulesGridWidget::uiElements()
 {
     layout = new QHBoxLayout();
 
+    this->setPalette(Qt::green);
     this->setMinimumHeight(270);
     this->setMaximumHeight(270);
 

@@ -43,7 +43,6 @@ const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 //BoardSnapshot* snapshot
 const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 {
-
     update(snapshot, false);
 
     if(snapshot->active_player != snapshot->current_player)
@@ -195,7 +194,7 @@ void Gui::uiElements()
     this->setWindowTitle(QString("Fluxx"));
 
     rules_widget->setMinimumHeight(270);
-    active_player_widget->setMinimumHeight(600);
+    active_player_widget->setMinimumHeight(400);
     goals_widget->setMinimumSize(100,280);
     mid_column_right->setAlignment(goals_widget, Qt::AlignTop);
 

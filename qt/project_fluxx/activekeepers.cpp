@@ -17,6 +17,7 @@ ActiveKeepers::~ActiveKeepers()
 
 void ActiveKeepers::updateCards(const CardContainer& container)
 {
+    this->setAutoFillBackground(false);
     buttons_.clear();
 
    // delete layout;
@@ -48,6 +49,7 @@ void ActiveKeepers::updateCards(const CardContainer& container)
 
 void ActiveKeepers::connectButtons(CardIdLoop &loop)
 {
+    this->setAutoFillBackground(true);
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
 
@@ -56,6 +58,7 @@ void ActiveKeepers::connectButtons(CardIdLoop &loop)
 void ActiveKeepers::uiElements()
 {
     layout = new QHBoxLayout();
+    this->setPalette(QPalette(Qt::green));
 
     this->setMaximumHeight(135);
     this->setMinimumHeight(135);
