@@ -60,14 +60,12 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
     {
         rules_widget->setConnections(*card_id_loop);
         qDebug() << "pickcard rules in gui";
-
         card_id_loop->exec();
     }
-    else if(snapshot->target_container.val == "Goals")
+    else if(snapshot->target_container.val == "Goal")
     {
-        goals_widget->setConnections(*card_id_loop);
         qDebug() << "pickcard goals in gui";
-        card_id_loop->exec();
+        goals_widget->setConnections(*card_id_loop); 
     }
     else if(snapshot->target_container.val == "Trash")
     {

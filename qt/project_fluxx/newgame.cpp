@@ -69,7 +69,7 @@ void NewGame::startGame()
 
         qDebug() << "Add startGame functionality";
         delete gui;
-        delete game_loop;
+        //delete game_loop;
     }
 }
 
