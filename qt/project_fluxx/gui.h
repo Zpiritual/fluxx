@@ -29,14 +29,15 @@ public:
     ~Gui();
     const PlayerID pickPlayer(const BoardSnapshot * const);
     const CardID pickCard(const BoardSnapshot* const, const CardContainerID);
-    const CardID pickCard(const BoardSnapshot* const, const CardContainerID, const PlayerID);
+    const CardID pickCard(const BoardSnapshot* const);
     void nextPlayer(const BoardSnapshot* const);
-    Direction chooseDirection(const BoardSnapshot * const snapshot);
+    Direction chooseDirection(const BoardSnapshot * const);
+
 
     void closeEvent(QCloseEvent*);
 
 private:
-    void update(const BoardSnapshot* const);
+    void update(const BoardSnapshot* const, const bool);
     QHBoxLayout* layout;
     LogWidget* log_widget;
     PlayerList* player_list_widget;
@@ -49,6 +50,9 @@ private:
     GoalButtons* goals_widget;
     TrashButton* trash_widget;
     QVBoxLayout* left_column;
+    CardIdLoop* card_id_loop;
+    PlayerLoop* player_loop;
+    QEventLoop* event_loop;
 
     void message(const QString&, const QString&) const;
     void uiElements();

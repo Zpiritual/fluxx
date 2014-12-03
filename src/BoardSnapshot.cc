@@ -3,15 +3,19 @@
 BoardSnapshot::BoardSnapshot(const std::vector<CardContainer> containers,
 							 const int players,
 							 const PlayerID current,
+							 const PlayerID active,
 			 				 const int played,
 			 				 const int to_play,
-			 				 const Direction direction)
+                             const Direction direction,
+			 				 const CardContainerID target)
 	: containers{containers},
 	players{players},
 	current_player{current},
+	active_player{active},
 	cards_played{played},
 	cards_to_play{to_play},
-	direction{direction}
+	direction{direction},
+	target_container{target}
 {}
 
 CardContainer BoardSnapshot::getContainer(const CardContainerID id) const

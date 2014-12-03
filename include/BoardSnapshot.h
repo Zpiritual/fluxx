@@ -18,11 +18,22 @@ struct BoardSnapshot
 	const std::vector<CardContainer> containers;
 	const int players;
 	const PlayerID current_player;
+	const PlayerID active_player;
 	const int cards_played;
 	const int cards_to_play;
 	const Direction direction;
+	const CardContainerID target_container;
 
-    BoardSnapshot(const std::vector<CardContainer>, const int, const PlayerID, const int, const int, const Direction);
+    BoardSnapshot(
+    	const std::vector<CardContainer>,
+    	const int,
+    	const PlayerID,
+    	const PlayerID,
+    	const int,
+    	const int,
+    	const Direction,
+    	const CardContainerID);
+
 	BoardSnapshot() = delete;
 	BoardSnapshot(const BoardSnapshot&) = default;
 	BoardSnapshot (BoardSnapshot&&) = default;

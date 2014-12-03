@@ -9,9 +9,9 @@ class SwitchPlayer : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SwitchPlayer(const ProfileName&, QEventLoop&, QWidget *parent = 0);
+    explicit SwitchPlayer(const ProfileName&, QEventLoop&, const bool, QWidget *parent = 0);
     ~SwitchPlayer();
-    void uiElements(const ProfileName&);
+    void uiElements(const ProfileName&, const bool);
     void connectSignals(QEventLoop& loop);
 
 private:

@@ -58,6 +58,7 @@ public:
 	void				resolveEffects();
 	void				checkRules(RuleTrigger);
 	//const PlayerID		getNextPlayer();
+	BoardSnapshot makeBoardSnapshot(const PlayerID active, const CardContainerID target) const;
 	BoardSnapshot makeBoardSnapshot() const;
 
     void effect_DrawAndPlay(int draw, int play, int trash);
