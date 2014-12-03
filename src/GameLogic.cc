@@ -314,6 +314,14 @@ void GameLogic::executeEffect(const Effect &effect)
         int quantity;
         ss >> quantity;
         effect_TrashCards(quantity);
+    }   
+    else if (identifier.compare("TrashCardsFromContainer") == 0)
+    {
+        cout << "HELLO  WORLD \n\n\n\n wolol\t" << endl;
+        int quantity;
+        string id;
+        ss >> quantity >> id;
+        effect_TrashCardsFromContainer(quantity,id);
     }
     else
     {
@@ -724,9 +732,19 @@ void GameLogic::effect_SwapPlayerContainer(string container)
 void GameLogic::effect_TrashCards(int quantity)
 {
     string id1 = pickPlayer().getString()+ "_keepers";
-    CardID cid = pickCard(_pm->getCurrentPlayerID(), id1);
+    CardID cid = pickCard(_pm->getCurrentPlayerID(), CardContainerID(id1));
     for(int i = 0; i < quantity && _ccm->getSize(CardContainerID(id1)) > 0; i++)
     {
         _ccm->moveCard(CardContainerID(id1), CardContainerID("Trash"), cid);
+    }
+}
+
+void GameLogic::effect_TrashCardsFromContainer(int quantity, string id)
+{
+    CardContainerID ccid(id);
+    for(int i = 0 ; i < quantity && _ccm->getSize(ccid) > 0; i++)
+    {
+     CardID cid = pickCard(_pm->getCurrentPlayerID(), ccid);
+     _ccm->moveCard(ccid,CardContainerID("Trash"), cid);
     }
 }

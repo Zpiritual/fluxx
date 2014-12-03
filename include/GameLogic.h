@@ -72,6 +72,7 @@ public:
 	void effect_ContainerQuantityCheck(string, int);
 	void effect_SwapPlayerContainer(string);
 	void effect_TrashCards(int);
+	void effect_TrashCardsFromContainer(int,string);
 
 	GameState getCurrentGameState() const;
 private:
