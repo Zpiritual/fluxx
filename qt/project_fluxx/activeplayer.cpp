@@ -88,16 +88,16 @@ void ActivePlayer::uiElements()
 
     scroll_area_keepers->setWidget(active_keepers);
     scroll_area_hand->setWidget(active_hand);
-    scroll_area_keepers->setMaximumHeight(140);
-    scroll_area_keepers->setMinimumHeight(140);
-    scroll_area_hand->setMinimumHeight(280);
-    scroll_area_hand->setMaximumHeight(280);
-    scroll_area_hand->setMinimumWidth(800);
-    active_hand->setMinimumHeight(260);
+//    scroll_area_keepers->setMaximumHeight(140);
+//    scroll_area_keepers->setMinimumHeight(140);
+//    scroll_area_hand->setMinimumHeight(280);
+//    scroll_area_hand->setMaximumHeight(280);
+//    scroll_area_hand->setMinimumWidth(800);
+//    active_hand->setMinimumHeight(280);
 
-    this->setMinimumHeight(400);
+//    this->setMinimumHeight(450);
 
-    //layout->setAlignment(scroll_area_keepers, Qt::AlignTop);
+//    layout->setAlignment(scroll_area_keepers, Qt::AlignTop);
     layout->setAlignment(scroll_area_hand, Qt::AlignTop);
     scroll_area_keepers->setFrameShape(QFrame::NoFrame);
     scroll_area_hand->setFrameShape(QFrame::NoFrame);
