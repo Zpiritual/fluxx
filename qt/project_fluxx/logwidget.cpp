@@ -33,6 +33,8 @@ void LogWidget::uiElements()
     layout->addWidget(log_text_edit);
     layout->addWidget(play_info_label);
 
+    this->setMaximumWidth(160);
+
     log_text_edit->setReadOnly(true);
     log_text_edit->setTextInteractionFlags(Qt::NoTextInteraction);
 

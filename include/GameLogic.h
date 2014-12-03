@@ -71,6 +71,8 @@ public:
     void effect_BooleanKeeperCheck(vector<int> &,vector<int> &);
 	void effect_ContainerQuantityCheck(string, int);
 	void effect_SwapPlayerContainer(string);
+	void effect_TrashCards(int);
+
 	GameState getCurrentGameState() const;
 private:
     Gui * _gui;

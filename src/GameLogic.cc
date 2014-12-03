@@ -309,6 +309,12 @@ void GameLogic::executeEffect(const Effect &effect)
         ss >> container;
         effect_SwapPlayerContainer(container);
     }
+    else if (identifier.compare("TrashCards") == 0)
+    {
+        int quantity;
+        ss >> quantity;
+        effect_TrashCards(quantity);
+    }
     else
     {
         throw std::logic_error("GameLogic::executeEffect() - Undefined Effect");
@@ -713,4 +719,14 @@ void GameLogic::effect_SwapPlayerContainer(string container)
     cout << "Picked player: " << id2s << " " << id1s << endl;
     _ccm->swapCards(CardContainerID(id1s),CardContainerID(id2s));
 
+}
+
+void GameLogic::effect_TrashCards(int quantity)
+{
+    string id1 = pickPlayer().getString()+ "_keepers";
+    CardID cid = pickCard(_pm->getCurrentPlayerID(), id1);
+    for(int i = 0; i < quantity && _ccm->getSize(CardContainerID(id1)) > 0; i++)
+    {
+        _ccm->moveCard(CardContainerID(id1), CardContainerID("Trash"), cid);
+    }
 }
