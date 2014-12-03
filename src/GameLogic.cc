@@ -332,6 +332,7 @@ GameState GameLogic::getCurrentGameState() const
     return _currentGameState;
 }
 
+// For use with pickCard() and other functions that require a player and container to be specified.
 BoardSnapshot GameLogic::makeBoardSnapshot(const PlayerID active, const CardContainerID target) const
 {
     return BoardSnapshot(
@@ -345,6 +346,7 @@ BoardSnapshot GameLogic::makeBoardSnapshot(const PlayerID active, const CardCont
         target);
 }
 
+// For use with pickPlayer() and other functions that don't need to specify a player and container.
 BoardSnapshot GameLogic::makeBoardSnapshot() const
 {
     return BoardSnapshot(
@@ -586,7 +588,7 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NK
     for (Player i : _pm->getPlayers())
     {
         CardContainerID cpkid(i.getID().getString() + "_keepers");
-        int icheck = 0;
+        unsigned icheck = 0;
         for (int j : AKeepers)
         {
             vector<CardID> vid = _ccm->getCards(cpkid);
