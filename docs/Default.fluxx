@@ -1,10 +1,12 @@
 DECK_NAME Default
-<<<<<<< HEAD
-CARD_COUNT 62
-=======
-CARD_COUNT 47
->>>>>>> 63a699e250e1962274e7fe3c10cc0391009bd472
+CARD_COUNT 67
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
+
+CARD_ID 002
+CARD_NAME Take Another Turn
+CARD_TYPE ACTION
+CARD_DESCRIPTION Take another turn as soon as you finish this one.
+CARD_EFFECT RepeatTurn
 
 CARD_ID 003
 CARD_NAME Trade Hands
@@ -16,7 +18,7 @@ CARD_ID 008
 CARD_NAME Empty the Trash
 CARD_TYPE ACTION
 CARD_DESCRIPTION Start a new discard pile with this card and shuffle the rest of the discard pile back into the draw pile.
-CARD_EFFECT EmptyContainer Trash
+CARD_EFFECT ReshuffleContainer Trash
 
 CARD_ID 009
 CARD_NAME Discard and Draw

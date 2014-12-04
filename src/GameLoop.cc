@@ -77,6 +77,13 @@ void GameLoop::nextPlayer()
 SessionData	GameLoop::run()
 {
 	_game_logic->getCCM()->reshuffle();
+
+	for (Player p : _game_logic->getPM()->getPlayers())
+    {
+        _game_logic->drawCard(p.getID());
+        _game_logic->drawCard(p.getID());
+        _game_logic->drawCard(p.getID());
+    }
 	
 	while (executePlayerTurn(getCurrentPlayerID()) != GameState::GAME_OVER)
 	{

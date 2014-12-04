@@ -61,19 +61,38 @@ std::vector<Player> PlayerManager::getPlayers()
 void PlayerManager::nextPlayer(Direction direction)
 {
 	_players.at(_current_player).resetCardsPlayed();
-    _players.at(_current_player).resetCardsDrawn();
-    
-    if (direction == Direction::CLOCKWISE)
-    {
-        _current_player = (_current_player + 1) % _players.size();
-    }
-    else if (direction == Direction::COUNTERCLOCKWISE)
-    {
-        _current_player = (_current_player - 1);
+	_players.at(_current_player).resetCardsDrawn();
 
-        if (_current_player < 0)
-        {
-            _current_player = int(_players.size()-1);
-        }
-    }
+	if(!_repeat_turn)
+	{
+		if (direction == Direction::CLOCKWISE)
+	    {
+	        _current_player = (_current_player + 1) % _players.size();
+	    }
+	    else if (direction == Direction::COUNTERCLOCKWISE)
+	    {
+	        _current_player = (_current_player - 1);
+
+	        if (_current_player < 0)
+	        {
+	            _current_player = int(_players.size()-1);
+	        }
+	    }	
+	}
+	else
+	{
+		_repeat_turn = false;
+	}
+}
+
+void PlayerManager::repeatTurn()
+{
+	if(_repeat_turn)
+	{
+        std::cerr << "PlayerManager::repeatTurn() - Current turn already marked for repeat! What is happening?" << std::endl;
+	}
+	else
+	{
+		_repeat_turn = true;
+	}
 }

@@ -10,7 +10,7 @@
 
 CardContainerManager::CardContainerManager(const Deck* deck)
 // Konstruktorn skall initiera både stock-objektet och vektorn med cardcontainers.
-  	{
+{
 	_stock = new Stock(CardContainerID("Stock"));
 
 	for(CardID c:deck->getCardIDList())
@@ -52,7 +52,7 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 	}	
 }
 
-void CardContainerManager::clearContainer(const  CardContainerID ccid)
+void CardContainerManager::containerToStock(const  CardContainerID ccid)
 {
 		for(const CardID id : getCards(ccid))
 			{
@@ -83,7 +83,7 @@ void CardContainerManager::drawCard(const CardContainerID container)
 	if(_stock->empty())
 	{
 		cerr << "Stock empty, reshuffling trash into stock." << endl;
-		clearContainer(CardContainerID("Trash"));
+		containerToStock(CardContainerID("Trash"));
 		reshuffle();		
 		if(_stock->empty())
 		{
@@ -104,11 +104,11 @@ void CardContainerManager::moveCard(const CardContainerID from, const CardContai
 	notify(from,to,card,Event::CARD_MOVED);
 }
 
-void CardContainerManager::moveCards(const CardContainerID ccid1, const CardContainerID ccid2)
+void CardContainerManager::moveCards(const CardContainerID from, const CardContainerID to)
 {
-	for(CardID id: getCards(ccid1))
+	for(CardID id: getCards(from))
 	{
-		moveCard(ccid1,ccid2,id);
+		moveCard(from, to, id);
 	}
 }
 

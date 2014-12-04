@@ -40,10 +40,12 @@ public:
 	void 			setCurrentPlayer(const PlayerID pid);
 	std::vector<Player> getPlayers();
     void 			nextPlayer(Direction);
+    void			repeatTurn();
 
 private:
 	std::vector<Player> _players;
 	int  _current_player = 0;
+	bool _repeat_turn{false};
 };
 
 #endif

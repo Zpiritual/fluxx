@@ -68,7 +68,7 @@ public:
     void effect_RemoveTriggeredRule(int card_id);
     void effect_ModifyRule(string rule_type, int value);
     void effect_TakeAndPlay(int take, int play, int trash);
-	void effect_EmptyContainer(string container);
+	void effect_ReshuffleContainer(string container);
     void effect_BooleanKeeperCheck(vector<int> &,vector<int> &);
 	void effect_ContainerQuantityCheck(string, int);
 	void effect_SwapPlayerContainer(string);
@@ -77,8 +77,10 @@ public:
     void effect_ForceRandomPlay(int quantity);
 	void effect_MoveContainer(string ccid1,string ccid2);
 	void effect_MoveCardsSubtype(string ccid1,string ccid2, string type);
+	void effect_RepeatTurn();
+
 	void writeToLog(const string);
-	
+
 	GameState getCurrentGameState() const;
 
 private:

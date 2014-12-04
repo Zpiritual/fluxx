@@ -16,13 +16,6 @@ GameLogic::GameLogic(Gui *gui, const Deck *deck, const int players)
     _rm = new RuleManager();
     _pm = new PlayerManager(players);
     _local_log = "";
-    for (Player p : _pm->getPlayers())
-    {
-        drawCard(p.getID());
-        drawCard(p.getID());
-        drawCard(p.getID());
-    }
-
 }
 
 GameLogic::~GameLogic()
@@ -292,11 +285,11 @@ void GameLogic::executeEffect(const Effect &effect)
         ss >> take >> play >> trash;
         effect_TakeAndPlay(take, play, trash);
     }
-    else if (identifier.compare("EmptyContainer") == 0)
+    else if (identifier.compare("ReshuffleContainer") == 0)
     {
         string container;
         ss >> container;
-        effect_EmptyContainer(container);
+        effect_ReshuffleContainer(container);
     }
     else if (identifier.compare("BooleanKeeperCheck") == 0)
     {
@@ -365,6 +358,10 @@ void GameLogic::executeEffect(const Effect &effect)
         ss >> ccid1s >> ccid2s >> type;
         effect_MoveCardsSubtype(ccid1s,ccid2s,type);
     }
+    else if (identifier.compare("RepeatTurn") == 0)
+    {
+        effect_RepeatTurn();
+    }
     else
     {
         throw std::logic_error("GameLogic::executeEffect() - Undefined Effect");
@@ -377,46 +374,70 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
     {
     case Event::CARD_MOVED:
         checkRules(RuleTrigger::GOAL);
-        //cout << "Card moved!" << endl;
-        if(cc1 == CardContainerID("Goal"))
+        
+        const CardContainerID trash("Trash");
+        const CardContainerID goal("Goal");
+
+        if(cc1 == goal)
         {
             addEffect(*(_cm->getCard(cid)->getEffects().end() - 1));
              executeNextEffect();
             _rm->removeRule(cid);
         }
-        if(cc1 == CardContainerID("Rules"))
+        if(cc1 == trash)
         {
             removeRule(cid);
             cout << "\n\n Rule Removed" << endl;
         }
-        if (_ccm->getSize(CardContainerID("Goal")) > _rm->getGoalLimmit())
+        if (_ccm->getSize(goal) > _rm->getGoalLimmit())
         {
-            CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal"));
-            _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), cid2);
+            CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), goal);
+            _ccm->moveCard(goal, trash, cid2);
            _rm->removeRule(cid2);
         }
+
         for (Player p : _pm->getPlayers())
         {
             if (p.getID() != _pm->getCurrentPlayer()->getID())
             {
                 cout << cc1.val << " " << cc2.val << endl;
+                                
                 //Hand Limit check
                 while (_ccm->getSize(CardContainerID(p.getID().getString() + "_hand")) > _rm->getHandLimit())
                 {
-                    cout << "Must remove from hand player: " << p.getID().getString() << ":\t";
-                    CardContainerID ccid1(p.getID().getString() + "_hand");
-                    CardContainerID ccid2("Trash");
-                    _ccm->moveCard(ccid1, ccid2, pickCard(p.getID(), ccid1));
-                    cout << "\n";
+                    cout << "Player must discard cards from hand: " << p.getID().getString() << endl;
+                    CardContainerID player_hand(p.getID().getString() + "_hand");
+                    CardID card_to_trash(0);
+
+                    if (_rm->getHandLimit() == 0)
+                    {
+                        card_to_trash = _ccm->getRandomCard(player_hand);
+                    }
+                    else
+                    {
+                        card_to_trash = pickCard(p.getID(), player_hand);
+                    }
+
+                    _ccm->moveCard(player_hand, trash, card_to_trash);
                 }
+
                 //Keeper Limit check
                 while (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > _rm->getKeeperLimit())
                 {
-                    cout << "Must remove from keepers player: " << p.getID().getString() << ":\t";
-                    CardContainerID ccid1(p.getID().getString() + "_keepers");
-                    CardContainerID ccid2("Trash");
-                    _ccm->moveCard(ccid1, ccid2, pickCard(p.getID(), ccid1));
-                    cout << "\n";
+                    cout << "Player must trash keepers: " << p.getID().getString() << endl;
+                    CardContainerID player_keepers(p.getID().getString() + "_keepers");
+                    CardID card_to_trash(0);
+
+                    if (_rm->getHandLimit() == 0)
+                    {
+                        card_to_trash = _ccm->getRandomCard(player_keepers);
+                    }
+                    else
+                    {
+                        card_to_trash = pickCard(p.getID(), player_keepers);
+                    }
+                    
+                    _ccm->moveCard(player_keepers, trash, card_to_trash);
                 }
             }
         }
@@ -682,9 +703,10 @@ void GameLogic::effect_TakeAndPlay(int take, int play, int trash)
     }
 }
 
-void GameLogic::effect_EmptyContainer(string container)
+void GameLogic::effect_ReshuffleContainer(string container)
 {
-    _ccm->clearContainer(CardContainerID(container));
+    _ccm->containerToStock(CardContainerID(container));
+    _ccm->reshuffle();
 }
 
 void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NKeepers)
@@ -858,4 +880,9 @@ void GameLogic::effect_MoveCardsSubtype(string ccid1,string ccid2, string type)
             _ccm->moveCard(ccid1,ccid2,i);
         }
     }
+}
+
+void GameLogic::effect_RepeatTurn()
+{
+    _pm->repeatTurn();
 }
