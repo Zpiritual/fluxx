@@ -37,7 +37,7 @@ void PlayerManager::addPlayer(Player p)
 
 Player* PlayerManager::getCurrentPlayer() 
 {	
-	std::cerr << "PlayerManager::getCurrentPlayer() - Before \"return &_players.at(_current_player);\"" << std::endl;
+	//std::cerr << "PlayerManager::getCurrentPlayer() - Before \"return &_players.at(_current_player);\"" << std::endl;
 	return &_players.at(_current_player);	
 }
 

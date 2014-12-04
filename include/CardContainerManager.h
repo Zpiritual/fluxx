@@ -45,6 +45,7 @@ public:
 	void unSuspendCard(const CardContainerID& ccid);
 	void suspendCard(const CardContainerID& ccid, const CardID& cid);
 	void swapCards(const CardContainerID, const CardContainerID);
+
 private:
 	CardContainer* getContainer(const CardContainerID);
 	Stock* _stock;

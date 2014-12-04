@@ -11,7 +11,6 @@
 #ifndef STOCK_H
 #define STOCK_H
 
-#include <random>
 #include <stack>
 #include "CardID.h"
 #include "CardContainerID.h"
