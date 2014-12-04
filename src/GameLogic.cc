@@ -338,11 +338,23 @@ void GameLogic::executeEffect(const Effect &effect)
     }   
     else if (identifier.compare("TrashCardsFromContainer") == 0)
     {
-        cout << "HELLO  WORLD \n\n\n\n wolol\t" << endl;
         int quantity;
         string id;
         ss >> quantity >> id;
         effect_TrashCardsFromContainer(quantity,id);
+    }
+    else if (identifier.compare("MoveCards") == 0)
+    {
+    string ccid1s,ccid2s;
+    ss >> ccid1s >> ccid2s;
+    effect_MoveContainer(ccid1s,ccid2s);
+    }
+    else if (identifier.compare("MoveCardsSubtype") == 0)
+    {
+    string ccid1s,ccid2s,type;
+    ss >> ccid1s >> ccid2s >> type;
+    cout << "MoveCardsSybtype: " << type << endl;
+    effect_MoveCardsSubtype(ccid1s,ccid2s,type);
     }
     else
     {
@@ -792,5 +804,21 @@ void GameLogic::effect_TrashCardsFromContainer(int quantity, string id)
     {
      CardID cid = pickCard(_pm->getCurrentPlayerID(), ccid);
      _ccm->moveCard(ccid,CardContainerID("Trash"), cid);
+    }
+}
+
+void GameLogic::effect_MoveContainer(string ccid1,string ccid2)
+{
+    _ccm->moveCards(CardContainerID(ccid1),CardContainerID(ccid2));
+}
+
+void GameLogic::effect_MoveCardsSubtype(string ccid1,string ccid2, string type)
+{
+    for(auto i: _ccm->getCards(ccid1))
+    {
+        if(_cm->getCard(i)->getSubtype().compare(type) == 0)
+        {
+            _ccm->moveCard(ccid1,ccid2,i);
+        }
     }
 }

@@ -1,5 +1,5 @@
 DECK_NAME Default
-CARD_COUNT 46
+CARD_COUNT 47
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
 CARD_ID 003
@@ -37,6 +37,19 @@ CARD_NAME Trash a New Rule
 CARD_TYPE ACTION
 CARD_DESCRIPTION Select one of the New Rule cards in play and place it in the discard pile.
 CARD_EFFECT TrashCardsFromContainer 1 Rules
+
+CARD_ID 017
+CARD_NAME No Limits
+CARD_TYPE ACTION
+CARD_DESCRIPTION Discard all Hand and Keeper Limit rules currently in play.
+CARD_EFFECT MoveCardsSubtype Rules Trash Hand
+CARD_EFFECT MoveCardsSubtype Rules Trash Keeper
+
+CARD_ID 018
+CARD_NAME Rule Reset
+CARD_TYPE ACTION
+CARD_DESCRIPTION Reset to the Basic Rule. Discard all New Rule cards, and leave only the original Basic Rules card int play.
+CARD_EFFECT MoveCards Rules Trash
 
 CARD_ID 019
 CARD_NAME Draw 2 and Use 'em
@@ -239,7 +252,7 @@ CARD_TYPE RULE
 CARD_SUBTYPE Keeper
 CARD_DESCRIPTION Keeper Limit 2
 CARD_EFFECT ModifyRule Keeper 2
-CARD_EFFECT ModifyRule Keeper 1
+CARD_EFFECT ModifyRule Keeper 82
 
 CARD_ID 054
 CARD_NAME Double Agenda
@@ -255,7 +268,7 @@ CARD_TYPE RULE
 CARD_SUBTYPE Hand
 CARD_DESCRIPTION Hand Limit 2
 CARD_EFFECT ModifyRule Hand 2
-CARD_EFFECT ModifyRule Hand 1
+CARD_EFFECT ModifyRule Hand 82
 
 CARD_ID 057
 CARD_NAME Draw 4

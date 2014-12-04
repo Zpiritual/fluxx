@@ -97,6 +97,15 @@ void CardContainerManager::moveCard(const CardContainerID from, const CardContai
 	notify(from,to,card,Event::CARD_MOVED);
 }
 
+void CardContainerManager::moveCards(const CardContainerID ccid1, const CardContainerID ccid2)
+{
+	for(CardID id: getCards(ccid1))
+	{
+		moveCard(ccid1,ccid2,id);
+	}
+}
+
+
 int CardContainerManager::getSize(const CardContainerID container)
 {
 	return getContainer(container)->getSize();
