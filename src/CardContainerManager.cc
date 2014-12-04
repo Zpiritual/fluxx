@@ -31,6 +31,10 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 	const CardContainerID temp_b("tempB");
 	_containers.insert(std::make_pair(temp_b, new CardContainer(temp_b)));
+
+	const CardContainerID temp_c("system_temp");
+	_containers.insert(std::make_pair(temp_c, new CardContainer(temp_c)));
+
 	for(int i = 1; i <= 6; i++)
 	{
 		std::string player_container = "Player";

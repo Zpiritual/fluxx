@@ -1,9 +1,5 @@
 DECK_NAME Default
-<<<<<<< HEAD
-CARD_COUNT 62
-=======
-CARD_COUNT 47
->>>>>>> 63a699e250e1962274e7fe3c10cc0391009bd472
+CARD_COUNT 65
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
 CARD_ID 003
@@ -11,6 +7,12 @@ CARD_NAME Trade Hands
 CARD_TYPE ACTION
 CARD_DESCRIPTION Trade your hand for the hand of one of your opponents.
 CARD_EFFECT SwapPlayerContainer hand
+
+CARD_ID 006
+CARD_NAME Scramble Keepers
+CARD_TYPE ACTION
+CARD_DESCRIPTION Scramble all keepers
+CARD_EFFECT ScramblePlayerContainer keepers
 
 CARD_ID 008
 CARD_NAME Empty the Trash
@@ -329,6 +331,22 @@ CARD_SUBTYPE Draw
 CARD_DESCRIPTION Draw 5
 CARD_EFFECT ModifyRule Draw 5
 CARD_EFFECT ModifyRule Draw 1
+
+CARD_ID 063
+CARD_NAME Rich Bonus
+CARD_TYPE RULE
+CARD_DESCRIPTION The player with the most amount of keepers draws one extra card.
+CARD_EFFECT AddTriggeredRule 063 PRE_DRAW
+CARD_EFFECT BonusPlayerContainerQuantity 1 keepers >
+CARD_EFFECT RemoveTriggeredRule 063
+
+CARD_ID 065
+CARD_NAME Poor Bonus
+CARD_TYPE RULE
+CARD_DESCRIPTION The player with the least amount of keepers draws one extra card.
+CARD_EFFECT AddTriggeredRule 065 PRE_DRAW
+CARD_EFFECT BonusPlayerContainerQuantity 1 keepers <
+CARD_EFFECT RemoveTriggeredRule 065
 
 CARD_ID 066
 CARD_NAME Money
