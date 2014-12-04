@@ -106,9 +106,9 @@ void PlayerList::setConnections(const PlayerLoop& loop)
     }
 }
 
-const PlayerID PlayerList::getPlayerId(const ProfileName player_name) const
+PlayerID PlayerList::getPlayerId(const ProfileName player_name) const
 {
-    for(unsigned int i = 0; i < players.size(); i++)
+    for(unsigned i = 0; i < players.size(); i++)
     {
         if(players.at(i)->getPlayerName() == player_name)
         {
@@ -129,4 +129,6 @@ const PlayerID PlayerList::getPlayerId(const ProfileName player_name) const
             }
         }
     }
+    throw std::logic_error{"Illigal! The game has more than 6 players"};
 }
+

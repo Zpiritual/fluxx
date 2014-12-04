@@ -22,7 +22,7 @@ Gui::~Gui()
     delete layout;
 }
 
-const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
+PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 {
     qDebug() << "Pick Player: ";
     update(snapshot, false);
@@ -41,7 +41,7 @@ const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 }
 
 //BoardSnapshot* snapshot
-const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
+CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 {
     update(snapshot, false);
 

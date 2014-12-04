@@ -11,7 +11,7 @@ void CardIdLoop::quit()
         loop_.quit();
 }
 
-const CardID CardIdLoop::getCardId()
+CardID CardIdLoop::getCardId()
 {
     return card_button_id;
 }
@@ -26,7 +26,7 @@ void CardIdLoop::exit()
     loop_.exit();
 }
 
-const bool CardIdLoop::isRunning() const
+bool CardIdLoop::isRunning() const
 {
     return loop_.isRunning();
 }

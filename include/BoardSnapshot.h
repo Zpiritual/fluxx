@@ -16,7 +16,6 @@
 struct BoardSnapshot
 {
 	const std::vector<CardContainer> containers;
-    const std::vector<std::pair<const PlayerID, const std::string>> log;
 	const int players;
 	const PlayerID current_player;
 	const PlayerID active_player;
@@ -24,6 +23,8 @@ struct BoardSnapshot
 	const int cards_to_play;
 	const Direction direction;
 	const CardContainerID target_container;
+    const std::vector<std::pair<const PlayerID, const std::string>> log;
+
 
     BoardSnapshot(
     	const std::vector<CardContainer>,

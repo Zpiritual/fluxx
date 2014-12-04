@@ -10,9 +10,9 @@ class PlayerLoop : public QObject
     Q_OBJECT
 public:
     explicit PlayerLoop(QObject *parent = 0);
-    const ProfileName getPlayerName() const;
+    ProfileName getPlayerName() const;
     void exec();
-    const bool isRunning() const;
+    bool isRunning() const;
     void exit();
 
 private:

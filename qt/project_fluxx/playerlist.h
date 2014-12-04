@@ -20,7 +20,7 @@ public:
     void updatePlayerState(int, const Direction);
 
     void setConnections(const PlayerLoop&);
-    const PlayerID getPlayerId(const ProfileName) const;
+    PlayerID getPlayerId(const ProfileName) const;
 
 private:
     QVBoxLayout* vertical_layout;
