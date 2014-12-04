@@ -41,6 +41,7 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 
     PlayerID tempid = player_list_widget->getPlayerId(player_loop->getPlayerName());
     delete player_loop;
+    player_loop = NULL;
     return tempid;
 }
 
@@ -55,6 +56,7 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
         active_player_widget->changePlayer(player_ids.at(snapshot->active_player.getInt()-1), *event_loop);
 
         delete event_loop;
+        event_loop = NULL;
         update(snapshot, true);
     }
 
@@ -97,8 +99,9 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
     }
 
     qDebug() << "You picked card: " + QString::number(card_id_loop->getCardId().val);
-    const CardID card_id= card_id_loop->getCardId();
+    CardID card_id= card_id_loop->getCardId();
     delete card_id_loop;
+    card_id_loop = NULL;
     return card_id;
 }
 
@@ -123,6 +126,7 @@ void Gui::nextPlayer(const BoardSnapshot* const snapshot)
         }
     }
     delete event_loop;
+    event_loop = NULL;
 }
 
 Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
@@ -208,6 +212,10 @@ void Gui::uiElements()
     left_column = new QVBoxLayout();
     rules_goals_row = new QHBoxLayout();
     rules_scroll = new QScrollArea();
+
+    card_id_loop = NULL;
+    player_loop = NULL;
+    event_loop = NULL;
 
     this->setAutoFillBackground(true);
     this->setPalette(Qt::white);
