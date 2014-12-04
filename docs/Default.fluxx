@@ -1,9 +1,5 @@
 DECK_NAME Default
-<<<<<<< HEAD
 CARD_COUNT 62
-=======
-CARD_COUNT 47
->>>>>>> 63a699e250e1962274e7fe3c10cc0391009bd472
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
 CARD_ID 003

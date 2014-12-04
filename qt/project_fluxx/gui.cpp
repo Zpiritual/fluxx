@@ -25,7 +25,7 @@ Gui::~Gui()
     delete layout;
 }
 
-const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
+PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 {
     qDebug() << "Pick Player: ";
     update(snapshot, false);
@@ -45,7 +45,7 @@ const PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 }
 
 //BoardSnapshot* snapshot
-const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
+CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 {
     update(snapshot, false);
 
@@ -155,6 +155,10 @@ void Gui::closeEvent(QCloseEvent* event)
     // TODO: Stop evenloops
     this->hide();
 
+//    event_loop->exit();
+//    card_id_loop->exit();
+//    player_loop->exit();
+
 //    if(event_loop->isRunning())
 //        event_loop->quit();
 //    if(card_id_loop->isRunning())
@@ -190,6 +194,7 @@ void Gui::uiElements()
     mid_column_right = new QVBoxLayout();
     left_column = new QVBoxLayout();
     rules_goals_row = new QHBoxLayout();
+    rules_scroll = new QScrollArea();
 
     this->setAutoFillBackground(true);
     this->setPalette(Qt::white);
@@ -201,9 +206,11 @@ void Gui::uiElements()
     mid_column_right->setAlignment(deck_widget, Qt::AlignRight | Qt::AlignTop);
     mid_column_right->setAlignment(goals_widget, Qt::AlignTrailing);
 
-    rules_goals_row->addWidget(rules_widget);
-    rules_goals_row->addLayout(mid_column_right);
+    rules_scroll->setWidget(rules_widget);
+    rules_scroll->setFrameStyle(QFrame::NoFrame);
 
+    rules_goals_row->addWidget(rules_scroll);
+    rules_goals_row->addLayout(mid_column_right);
 
     mid_column->addLayout(rules_goals_row);
     mid_column->addWidget(active_player_widget);

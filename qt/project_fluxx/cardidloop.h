@@ -10,9 +10,11 @@ class CardIdLoop : public QObject
     Q_OBJECT
 public:
     explicit CardIdLoop(QObject *parent = 0);
-    const CardID getCardId();
-    const bool isRunning() const;
+    CardID getCardId();
+    bool isRunning() const;
     void exec();
+    void exit();
+
 signals:
 
 public slots:
