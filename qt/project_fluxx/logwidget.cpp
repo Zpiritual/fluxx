@@ -18,12 +18,17 @@ void LogWidget::updateLog(const BoardSnapshot* const snapshot)
 {
 //    std::string tempstring;
     log_text_edit->setText(QString(""));
+    int i = 0;
     for(const std::pair<const PlayerID, const std::string> entry : snapshot->log)
     {
         ProfileName player = player_names.at(entry.first.getInt()-1);
-        QString tempstring = log_text_edit->toPlainText() + QString::fromStdString(player.val) + QString(" turn\n") + QString::fromStdString(entry.second) ;
+        QString tempstring = log_text_edit->toPlainText();
+        if(i++ != 0)
+        {
+            tempstring += QString("\n");
+        }
+        tempstring += QString::fromStdString(player.val) + QString(" turn\n") + QString::fromStdString(entry.second) ;
         log_text_edit->setPlainText(tempstring);
-
     }
   //  log_text_edit->verticalScrollBar()->setValue(log_text_edit->verticalScrollBar()->maximum());
 
