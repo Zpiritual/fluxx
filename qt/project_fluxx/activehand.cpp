@@ -22,7 +22,6 @@ void ActiveHand::updateCards(const CardContainer container)
 
    // delete layout;    this->setPalette(QPalette(Qt::green));
 
-
     if (layout->layout() != NULL)
     {
         QLayoutItem* item;

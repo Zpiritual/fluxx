@@ -58,7 +58,7 @@ void ActiveKeepers::connectButtons(CardIdLoop &loop)
 void ActiveKeepers::uiElements()
 {
     layout = new QHBoxLayout();
-    this->setPalette(QPalette(Qt::green));
+    this->setPalette(QPalette(QPalette::Background, Qt::green));
 
     this->setMaximumHeight(135);
     this->setMinimumHeight(135);
