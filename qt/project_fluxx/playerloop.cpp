@@ -20,6 +20,11 @@ const bool PlayerLoop::isRunning() const
     return loop.isRunning();
 }
 
+void PlayerLoop::exit()
+{
+    loop.exit();
+}
+
 void PlayerLoop::quit()
 {
     if(loop.isRunning())

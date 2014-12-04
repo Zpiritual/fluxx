@@ -54,6 +54,7 @@ private:
     CardIdLoop* card_id_loop;
     PlayerLoop* player_loop;
     QEventLoop* event_loop;
+    QScrollArea* rules_scroll;
 
     void message(const QString&, const QString&) const;
     void uiElements();

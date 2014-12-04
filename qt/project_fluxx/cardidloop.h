@@ -13,6 +13,8 @@ public:
     const CardID getCardId();
     const bool isRunning() const;
     void exec();
+    void exit();
+
 signals:
 
 public slots:

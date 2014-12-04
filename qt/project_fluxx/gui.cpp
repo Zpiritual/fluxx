@@ -149,12 +149,9 @@ void Gui::closeEvent(QCloseEvent* event)
     // TODO: Stop evenloops
     this->hide();
 
-    if(event_loop->isRunning())
-        event_loop->quit();
-    if(card_id_loop->isRunning())
-        card_id_loop->quit();
-    if(player_loop->isRunning())
-        player_loop->quit();
+//    event_loop->exit();
+//    card_id_loop->exit();
+//    player_loop->exit();
 
     qDebug() << "Closing window";
 
@@ -185,6 +182,7 @@ void Gui::uiElements()
     mid_column_right = new QVBoxLayout();
     left_column = new QVBoxLayout();
     rules_goals_row = new QHBoxLayout();
+    rules_scroll = new QScrollArea();
 
     this->setAutoFillBackground(true);
     this->setPalette(Qt::white);
@@ -196,9 +194,11 @@ void Gui::uiElements()
     mid_column_right->setAlignment(deck_widget, Qt::AlignRight | Qt::AlignTop);
     mid_column_right->setAlignment(goals_widget, Qt::AlignTrailing);
 
-    rules_goals_row->addWidget(rules_widget);
-    rules_goals_row->addLayout(mid_column_right);
+    rules_scroll->setWidget(rules_widget);
+    rules_scroll->setFrameStyle(QFrame::NoFrame);
 
+    rules_goals_row->addWidget(rules_scroll);
+    rules_goals_row->addLayout(mid_column_right);
 
     mid_column->addLayout(rules_goals_row);
     mid_column->addWidget(active_player_widget);

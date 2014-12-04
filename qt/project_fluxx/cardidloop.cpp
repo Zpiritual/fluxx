@@ -21,6 +21,11 @@ void CardIdLoop::exec()
     loop_.exec();
 }
 
+void CardIdLoop::exit()
+{
+    loop_.exit();
+}
+
 const bool CardIdLoop::isRunning() const
 {
     return loop_.isRunning();
