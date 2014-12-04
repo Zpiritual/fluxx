@@ -32,8 +32,6 @@ void ActiveKeepers::updateCards(const CardContainer& container)
 
     std::vector<CardID> cards_{container.getCards()};
 
-    qDebug() << "number of cards to add in keepers: " + QString::number(cards_.size());
-
     for(CardID card : cards_)
     {
         CardButton* tempbutton = new CardButton(card);

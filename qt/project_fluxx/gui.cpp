@@ -51,7 +51,6 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 
     if(snapshot->active_player != snapshot->current_player)
     {
-        qDebug() << "JAG SKRIVER HÖGST OCH BÄST i pickcard i gui";
         event_loop = new QEventLoop();
         active_player_widget->changePlayer(player_ids.at(snapshot->active_player.getInt()-1), *event_loop);
 
@@ -64,17 +63,14 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
     if(snapshot->target_container.val == "Rules")
     {
         rules_widget->setConnections(*card_id_loop);
-        qDebug() << "pickcard rules in gui";
         card_id_loop->exec();
     }
     else if(snapshot->target_container.val == "Goal")
     {
-        qDebug() << "pickcard goals in gui";
         goals_widget->setConnections(*card_id_loop); 
     }
     else if(snapshot->target_container.val == "Trash")
     {
-        qDebug() << "pickcard trash in gui";
         trash_widget->setConnections(*card_id_loop);
     }
     else if(snapshot->target_container == CardContainerID(snapshot->active_player.getString()+"_hand") ||
@@ -82,7 +78,6 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
             snapshot->target_container == CardContainerID("tempA"))
     {
          active_player_widget->connectActiveHand(*card_id_loop);
-         qDebug() << "pick active hand in gui";
          card_id_loop->exec();
     }
     else if(snapshot->target_container.val == (snapshot->active_player.getString()+"_keepers"))
@@ -95,7 +90,6 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
             (snapshot->target_container.val.find("_keepers") != std::string::npos)) &&
             snapshot->target_container.val.find(snapshot->active_player.getString()) == std::string::npos)
     {
-        qDebug() << "Other player container!!! ";
         BigCardCollection* bigcollection = new BigCardCollection(snapshot->getContainer(snapshot->target_container).getCards(),*card_id_loop);
         bigcollection->show();
         card_id_loop->exec();
@@ -244,5 +238,4 @@ void Gui::update(const BoardSnapshot* const snapshot, const bool changed_player)
     active_player_widget->updateCards(snapshot, changed_player);
     log_widget->updateLog(snapshot);
 
-    qDebug() << "update in gui";
 }

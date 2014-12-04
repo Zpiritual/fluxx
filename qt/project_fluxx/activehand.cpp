@@ -34,15 +34,12 @@ void ActiveHand::updateCards(const CardContainer container)
 
     std::vector<CardID> cards_{container.getCards()};
 
-    qDebug() << "number of cards to add in rules: " + QString::number(cards_.size());
-
     for(CardID card : cards_)
     {
         CardButton* tempbutton = new CardButton(card);
         layout->addWidget(tempbutton);
         this->setMinimumWidth(this->minimumWidth()+160);
         this->setMaximumWidth(this->maximumWidth()+160);
-        qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
     }
 }
