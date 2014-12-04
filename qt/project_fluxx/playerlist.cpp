@@ -59,6 +59,8 @@ void PlayerList::updatePlayerVariables(int index, int player_id, const Direction
 void PlayerList::uiElements()
 {
     vertical_layout = new QVBoxLayout();
+    this->setPalette(QPalette(QPalette::Background, Qt::green));
+    this->setAutoFillBackground(false);
 
     for(unsigned int i = 0; i < player_ids.size(); i++)
     {
@@ -96,6 +98,7 @@ void PlayerList::updatePlayerState(int player_id, const Direction direction)
 
 void PlayerList::setConnections(const PlayerLoop& loop)
 {
+    this->setAutoFillBackground(true);
     for(unsigned int i = 0; i < players.size(); i++)
     {
         QObject::connect(players.at(i), SIGNAL(clicked()), &loop, SLOT(quit()));
