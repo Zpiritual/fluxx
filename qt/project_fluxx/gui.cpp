@@ -185,6 +185,8 @@ void Gui::uiElements()
     left_column = new QVBoxLayout();
     rules_goals_row = new QHBoxLayout();
 
+    this->setAutoFillBackground(true);
+    this->setPalette(Qt::white);
     left_column->addWidget(trash_widget);
     left_column->addWidget(log_widget);
 
@@ -198,6 +200,7 @@ void Gui::uiElements()
     mid_column->addWidget(active_player_widget);
 
     rules_goals_row->setAlignment(rules_widget, Qt::AlignTop);
+    rules_goals_row->setAlignment(mid_column_right, Qt::AlignRight);
     mid_column->setAlignment(active_player_widget, Qt::AlignTop);
     rules_goals_row->setAlignment(mid_column_right, Qt::AlignRight|Qt::AlignTop);
 

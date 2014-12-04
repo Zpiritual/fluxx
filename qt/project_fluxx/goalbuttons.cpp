@@ -16,24 +16,41 @@ void GoalButtons::setConnections(CardIdLoop &loop)
 
 void GoalButtons::updateCards(const CardContainer& container)
 {
-    cards_ = container.getCards();
-    //Fel i cards_ anatagligen container som är dealocated
     buttons_.clear();
-    while(!(layout->isEmpty()))
-    {
-        QLayoutItem* temp = layout->itemAt(0);
-        layout->removeItem(temp);
-        delete temp;
-    }
 
-    for(auto card : cards_)
+    this->setAutoFillBackground(false);
+
+   // delete layout;
+
+    if (layout->layout() != NULL)
     {
-        CardButton* tempbutton = new CardButton{card};
-        buttons_.push_back(tempbutton);
+        QLayoutItem* item;
+        while ((item = layout->takeAt(0)) != NULL)
+        {
+            delete item->widget();
+            delete item;
+        }
+       // delete layout->layout();
+    }
+    this->setMinimumWidth(0);
+    this->setMaximumWidth(0);
+
+    cards_ = container.getCards();
+
+    qDebug() << "number of cards to add in rules: " + QString::number(cards_.size());
+
+    for(CardID card : cards_)
+    {
+        CardButton* tempbutton = new CardButton(card);
         tempbutton->smallButton();
         layout->addWidget(tempbutton);
+        this->setMinimumWidth(this->minimumWidth()+160);
+        this->setMinimumWidth(this->minimumWidth()+160);
+        qDebug() << "CardID: " + QString::number(card.val);
+        buttons_.push_back(tempbutton);
     }
 }
+
 
 GoalButtons::~GoalButtons()
 {
