@@ -46,6 +46,7 @@ public:
     CardID pickCard(const PlayerID, const CardContainerID);
     PlayerID pickPlayer();
 	void switchPlayer();
+	bool playerDecision(string, string, string);
 
 	CardContainerManager* getCCM();
 	CardManager*		  getCM();
