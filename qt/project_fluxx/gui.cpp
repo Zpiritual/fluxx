@@ -143,6 +143,25 @@ Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
     }
 }
 
+bool Gui::playerDecision(const BoardSnapshot * const snapshot, const std::string& question, const std::string& left_button_text, const std::string& right_button_text)
+{
+    update(snapshot, false);
+    QMessageBox questionbox;
+    questionbox.setText(QString::fromStdString(question));
+    QAbstractButton *left_button= questionbox.addButton(QString::fromStdString(left_button_text),QMessageBox::YesRole);
+    questionbox.addButton(QString::fromStdString(right_button_text), QMessageBox::NoRole);
+    questionbox.exec();
+    if (questionbox.clickedButton() == left_button) {
+        qDebug() << "You picked left_button";
+        return true;
+
+    } else {
+        qDebug() << "You picked counterclockwise";
+        return false;
+    }
+}
+
+
 
 void Gui::closeEvent(QCloseEvent* event)
 {
