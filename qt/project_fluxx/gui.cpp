@@ -143,6 +143,7 @@ Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
     }
 }
 
+
 void Gui::closeEvent(QCloseEvent* event)
 {
     // TODO: Stop evenloops
@@ -173,7 +174,7 @@ void Gui::message(const QString& title, const QString& message) const
 void Gui::uiElements()
 {
     layout = new QHBoxLayout();
-    log_widget = new LogWidget(this);
+    log_widget = new LogWidget(player_ids, this);
     player_list_widget = new PlayerList(player_ids, this);
     deck_widget = new DeckButton(this);
     trash_widget = new TrashButton(this);
@@ -224,13 +225,12 @@ void Gui::uiElements()
 
 void Gui::update(const BoardSnapshot* const snapshot, const bool changed_player) //Lägg till i alla klasser
 {
-
     rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
     player_list_widget->updatePlayers(snapshot);
     trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
     goals_widget->updateCards(snapshot->getContainer(CardContainerID("Goal")));
     active_player_widget->updateCards(snapshot, changed_player);
-    log_widget->update(snapshot);
+    log_widget->updateLog(snapshot);
 
     qDebug() << "update in gui";
 }

@@ -15,7 +15,7 @@ public:
 
 private:
     QVBoxLayout* layout;
-    QPushButton* continue_game_button;
+//    QPushButton* continue_game_button;
     QPushButton* new_game_button;
     QPushButton* options_button;
     QPushButton* exit_button;
@@ -33,7 +33,7 @@ signals:
 
 public slots:
     void new_game();
-    void continue_game();
+//    void continue_game();
     void options();
     void exit();
 
