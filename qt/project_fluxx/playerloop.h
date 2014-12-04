@@ -12,6 +12,7 @@ public:
     explicit PlayerLoop(QObject *parent = 0);
     const ProfileName getPlayerName() const;
     void exec();
+    const bool isRunning() const;
 
 private:
     ProfileName player_name{std::string("tempName")};

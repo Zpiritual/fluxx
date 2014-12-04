@@ -7,8 +7,8 @@ CardIdLoop::CardIdLoop(QObject *parent) :
 
 void CardIdLoop::quit()
 {
-    card_button_id = dynamic_cast<CardButton*>(sender())->getCardId().val;
-    loop_.quit();
+        card_button_id = dynamic_cast<CardButton*>(sender())->getCardId().val;
+        loop_.quit();
 }
 
 const CardID CardIdLoop::getCardId()
@@ -19,4 +19,9 @@ const CardID CardIdLoop::getCardId()
 void CardIdLoop::exec()
 {
     loop_.exec();
+}
+
+const bool CardIdLoop::isRunning() const
+{
+    return loop_.isRunning();
 }

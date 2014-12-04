@@ -146,8 +146,19 @@ Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
 void Gui::closeEvent(QCloseEvent* event)
 {
     // TODO: Stop evenloops
-    event->accept();
     this->hide();
+
+    if(event_loop->isRunning())
+        event_loop->quit();
+    if(card_id_loop->isRunning())
+        card_id_loop->quit();
+    if(player_loop->isRunning())
+        player_loop->quit();
+
+    qDebug() << "Closing window";
+
+
+    event->accept();
 }
 
 void Gui::message(const QString& title, const QString& message) const
