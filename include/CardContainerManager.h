@@ -37,6 +37,7 @@ public:
 	void drawCard(const CardContainerID);
 	void moveCard(const CardContainerID, const CardContainerID, const CardID);
 	void clearContainer(const CardContainerID);
+	void moveCards(const CardContainerID, const CardContainerID);
 	int getSize(const CardContainerID);
 	std::vector<CardID> getCards(const CardContainerID);
 	std::vector<CardContainer> getContainers() const;

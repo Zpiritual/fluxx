@@ -4,19 +4,21 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "BoardSnapshot.h"
+#include "profilename.h"
 
 class LogWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit LogWidget(QWidget *parent = 0);
+    explicit LogWidget(const std::vector<ProfileName>, QWidget *parent = 0);
     ~LogWidget();
-    void update(const BoardSnapshot* const);
+    void updateLog(const BoardSnapshot* const);
 
 private:
     QLabel* play_info_label;
     QVBoxLayout* layout;
     QTextEdit* log_text_edit;
+    std::vector<ProfileName> player_names;
 
     void uiElements();
 

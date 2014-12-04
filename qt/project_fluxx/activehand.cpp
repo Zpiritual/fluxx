@@ -20,8 +20,6 @@ void ActiveHand::updateCards(const CardContainer container)
     buttons_.clear();
     this->setAutoFillBackground(false);
 
-   // delete layout;    this->setPalette(QPalette(Qt::green));
-
     if (layout->layout() != NULL)
     {
         QLayoutItem* item;
@@ -30,9 +28,9 @@ void ActiveHand::updateCards(const CardContainer container)
             delete item->widget();
             delete item;
         }
-       // delete layout->layout();
     }
     this->setMinimumWidth(0);
+    this->setMaximumWidth(0);
 
     std::vector<CardID> cards_{container.getCards()};
 
@@ -43,6 +41,7 @@ void ActiveHand::updateCards(const CardContainer container)
         CardButton* tempbutton = new CardButton(card);
         layout->addWidget(tempbutton);
         this->setMinimumWidth(this->minimumWidth()+160);
+        this->setMaximumWidth(this->maximumWidth()+160);
         qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
     }

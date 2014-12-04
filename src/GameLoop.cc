@@ -104,7 +104,6 @@ GameState GameLoop::executePlayerTurn(PlayerID pid)
 
  		_game_logic->playCard();
  		_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
-
  	}
  	std::cerr << "END OF TURN\n\n" << std::endl;
  	return _game_logic->getCurrentGameState();

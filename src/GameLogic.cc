@@ -15,7 +15,7 @@ GameLogic::GameLogic(Gui *gui, const Deck *deck, const int players)
     _cm = new CardManager(deck);
     _rm = new RuleManager();
     _pm = new PlayerManager(players);
-
+    _local_log = "";
     for (Player p : _pm->getPlayers())
     {
         drawCard(p.getID());
@@ -75,12 +75,18 @@ void GameLogic::playCard()
     //Fråga GUI om kort-id osv.
 
     CardID cid = pickCard(_pm->getCurrentPlayer()->getID(), ccid);
-    cout << "CARD PICKED: " << cid.val << endl;
     playCardWithID(cid, ccid);
 }
 
 void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
 {
+    //Spela det givna kortet.
+    //if a Goal card is placed check if there is room for it
+    //if not ask what card to replace
+    string str = "Played Card: ";
+    str.append(_cm->getCard(cid)->getName());
+    writeToLog(str);
+
     if (_cm->getCard(cid)->getType().compare("GOAL") == 0)
     {
         _ccm->suspendCard(ccid,cid);
@@ -135,7 +141,6 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
 
     }
     //Else throw exception
-
     //Execute effects
     resolveEffects();    
 }
@@ -145,7 +150,7 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) 
     BoardSnapshot snapshot(makeBoardSnapshot(pid, container));
 
     cerr << "GameLogic::pickCard() - Querying GUI for a card." << endl;
-    if(_ccm->getSize(container) == 1)
+    if(_ccm->getSize(container) == 1 && container.val.find("_hand") == string::npos)
     {
         cerr << "GameLogic::pickCard() - Recieved CardID from GUI: " << _ccm->getCards(container).at(0).val << endl;
         return _ccm->getCards(container).at(0);
@@ -173,9 +178,23 @@ PlayerID GameLogic::pickPlayer() const
     return id;
 }
 
+void GameLogic::writeToLog(const string message)
+{
+    _local_log += message + "\n";
+}
+
 void GameLogic::switchPlayer()
 {
     if(getCurrentGameState() != GameState::CONTINUE) return;
+
+    _log.push_back(make_pair(_pm->getCurrentPlayerID(), _local_log));
+
+    cout << _local_log << endl;
+    _local_log = "";
+    for(auto i: _log)
+    {
+        cout << i.first.getString() << "\n" << i.second << endl;
+    }
     BoardSnapshot snapshot(makeBoardSnapshot());
     std::cerr << "Entering \"_gui->nextPlayer(&snapshot);\"" << endl;
     _gui->nextPlayer(&snapshot);
@@ -185,17 +204,9 @@ void GameLogic::switchPlayer()
 void GameLogic::drawCard(const PlayerID pid)
 {
     if(getCurrentGameState() != GameState::CONTINUE) return;
-    //std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
- //   try
- //   {
-      _ccm->drawCard(pid.getString() + "_hand");
- //   }
- //   catch(...)
- //   {
- //       cout << "GameLogic::drawCard \tERROR REPORT: Error while drawing cards from _ccm " << endl;
- //   }
+    
+    _ccm->drawCard(pid.getString() + "_hand");
     _pm->getCurrentPlayer()->incrementCardsDrawn();
-
 }
 
 void GameLogic::checkRules(RuleTrigger rt)
@@ -342,6 +353,18 @@ void GameLogic::executeEffect(const Effect &effect)
         ss >> quantity;
         effect_ForceRandomPlay(quantity);
     }
+    else if (identifier.compare("MoveCards") == 0)
+    {
+        string ccid1s,ccid2s;
+        ss >> ccid1s >> ccid2s;
+        effect_MoveContainer(ccid1s,ccid2s);
+    }
+    else if (identifier.compare("MoveCardsSubtype") == 0)
+    {
+        string ccid1s,ccid2s,type;
+        ss >> ccid1s >> ccid2s >> type;
+        effect_MoveCardsSubtype(ccid1s,ccid2s,type);
+    }
     else
     {
         throw std::logic_error("GameLogic::executeEffect() - Undefined Effect");
@@ -353,7 +376,6 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
     switch (event)
     {
     case Event::CARD_MOVED:
-        cout << "CARD_MOVED!" << endl;
         checkRules(RuleTrigger::GOAL);
         //cout << "Card moved!" << endl;
         if(cc1 == CardContainerID("Goal"))
@@ -367,10 +389,8 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
             removeRule(cid);
             cout << "\n\n Rule Removed" << endl;
         }
-        cout << "\n HELLO SIZE OF GOALLIMIT:  " << _rm->getGoalLimmit() << endl<< endl<< endl;
         if (_ccm->getSize(CardContainerID("Goal")) > _rm->getGoalLimmit())
         {
-            cout << "\t Goal is to big! ASDADASD" << _ccm->getSize(CardContainerID("Goal")) <<" " <<  _rm->getGoalLimmit() <<   endl;
             CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal"));
             _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), cid2);
            _rm->removeRule(cid2);
@@ -420,7 +440,8 @@ BoardSnapshot GameLogic::makeBoardSnapshot(const PlayerID active, const CardCont
         _pm->getCurrentPlayer()->getCardsPlayed(),
         _rm->getPlay(),
         _rm->getPlayOrder(),
-        target);
+        target,
+        _log);
 }
 
 // For use with pickPlayer() and other functions that don't need to specify a player and container.
@@ -434,7 +455,8 @@ BoardSnapshot GameLogic::makeBoardSnapshot() const
         _pm->getCurrentPlayer()->getCardsPlayed(),
         _rm->getPlay(),
         _rm->getPlayOrder(),
-        CardContainerID("NULL CONTAINER"));
+        CardContainerID("NULL CONTAINER"),
+        _log);
 }
 
 CardContainerManager *GameLogic::getCCM()
@@ -747,7 +769,6 @@ void GameLogic::effect_ContainerQuantityCheck(string container, int quantity)
             pwssamax++;
         }
     }
-    cout << "SANITY CHECK: " << maxHS << " and player count: " << pwssamax << endl;
     if(maxHS >= quantity && pwssamax == 0)
     {
             cout << "GAME OVER: " << endl;
@@ -821,4 +842,20 @@ void GameLogic::effect_ForceRandomPlay(int quantity)
     CardID cid = hand.at(index);
 
     playCardWithID(cid, player_hand);
+}
+
+void GameLogic::effect_MoveContainer(string ccid1,string ccid2)
+{
+    _ccm->moveCards(CardContainerID(ccid1),CardContainerID(ccid2));
+}
+
+void GameLogic::effect_MoveCardsSubtype(string ccid1,string ccid2, string type)
+{
+    for(auto i: _ccm->getCards(ccid1))
+    {
+        if(_cm->getCard(i)->getSubtype().compare(type) == 0)
+        {
+            _ccm->moveCard(ccid1,ccid2,i);
+        }
+    }
 }

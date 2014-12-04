@@ -34,7 +34,7 @@ public:
 	int getCardsDrawn() const;
 	void incrementCardsDrawn();
 	void resetCardsDrawn();
-
+	void addLogEntry();
 private:
 	const PlayerID _id;
 	int _played_cards = 0;

@@ -143,6 +143,7 @@ Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
     }
 }
 
+
 void Gui::closeEvent(QCloseEvent* event)
 {
     // TODO: Stop evenloops
@@ -173,7 +174,7 @@ void Gui::message(const QString& title, const QString& message) const
 void Gui::uiElements()
 {
     layout = new QHBoxLayout();
-    log_widget = new LogWidget(this);
+    log_widget = new LogWidget(player_ids, this);
     player_list_widget = new PlayerList(player_ids, this);
     deck_widget = new DeckButton(this);
     trash_widget = new TrashButton(this);
@@ -185,14 +186,19 @@ void Gui::uiElements()
     left_column = new QVBoxLayout();
     rules_goals_row = new QHBoxLayout();
 
+    this->setAutoFillBackground(true);
+    this->setPalette(Qt::white);
     left_column->addWidget(trash_widget);
     left_column->addWidget(log_widget);
 
     mid_column_right->addWidget(deck_widget);
     mid_column_right->addWidget(goals_widget);
+    mid_column_right->setAlignment(deck_widget, Qt::AlignRight | Qt::AlignTop);
+    mid_column_right->setAlignment(goals_widget, Qt::AlignTrailing);
 
     rules_goals_row->addWidget(rules_widget);
     rules_goals_row->addLayout(mid_column_right);
+
 
     mid_column->addLayout(rules_goals_row);
     mid_column->addWidget(active_player_widget);
@@ -203,11 +209,12 @@ void Gui::uiElements()
 
     this->setMinimumHeight(600);
     this->setMinimumWidth(1280);
+    this->showMaximized();
     this->setWindowTitle(QString("Fluxx"));
 
-    rules_widget->setMinimumHeight(270);
-    goals_widget->setMinimumSize(100,280);
-    mid_column_right->setAlignment(goals_widget, Qt::AlignTop);
+//    rules_widget->setMinimumHeight(270);
+//    goals_widget->setMinimumSize(100,280);
+    //mid_column_right->setAlignment(goals_widget, Qt::AlignTop);
 
     layout->addLayout(left_column);
     layout->addLayout(mid_column);
@@ -223,7 +230,7 @@ void Gui::update(const BoardSnapshot* const snapshot, const bool changed_player)
     trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
     goals_widget->updateCards(snapshot->getContainer(CardContainerID("Goal")));
     active_player_widget->updateCards(snapshot, changed_player);
-    log_widget->update(snapshot);
+    log_widget->updateLog(snapshot);
 
     qDebug() << "update in gui";
 }

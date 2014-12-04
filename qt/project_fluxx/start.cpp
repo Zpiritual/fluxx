@@ -10,7 +10,7 @@ Start::Start(QWidget *parent) :
 
 Start::~Start()
 {
-    delete continue_game_button;
+//    delete continue_game_button;
     delete new_game_button;
     delete options_button;
     delete exit_button;
@@ -32,11 +32,11 @@ void Start::new_game()
     // TODO: Add functionality
 }
 
-void Start::continue_game()
-{
-    qDebug() << "Add continue_game functionality";
-    // TODO: Add functionality
-}
+//void Start::continue_game()
+//{
+//    qDebug() << "Add continue_game functionality";
+//    // TODO: Add functionality
+//}
 
 void Start::options()
 {
@@ -73,8 +73,8 @@ void Start::adjust_button_height(int height)
 {
     new_game_button->setMinimumHeight(height);
     new_game_button->setMaximumHeight(height);
-    continue_game_button->setMinimumHeight(height);
-    continue_game_button->setMaximumHeight(height);
+//    continue_game_button->setMinimumHeight(height);
+//    continue_game_button->setMaximumHeight(height);
     options_button->setMinimumHeight(height);
     options_button->setMaximumHeight(height);
     exit_button->setMinimumHeight(height);
@@ -85,8 +85,8 @@ void Start::adjust_button_width(int width)
 {
     new_game_button->setMinimumWidth(width);
     new_game_button->setMaximumWidth(width);
-    continue_game_button->setMinimumWidth(width);
-    continue_game_button->setMaximumWidth(width);
+//    continue_game_button->setMinimumWidth(width);
+//    continue_game_button->setMaximumWidth(width);
     options_button->setMinimumWidth(width);
     options_button->setMaximumWidth(width);
     exit_button->setMinimumWidth(width);
@@ -96,7 +96,7 @@ void Start::adjust_button_width(int width)
 void Start::connectSignals()
 {
     QObject::connect(new_game_button, SIGNAL(clicked()), this, SLOT(new_game()));
-    QObject::connect(continue_game_button, SIGNAL(clicked()), this, SLOT(continue_game()));
+//    QObject::connect(continue_game_button, SIGNAL(clicked()), this, SLOT(continue_game()));
     QObject::connect(options_button, SIGNAL(clicked()), this, SLOT(options()));
     QObject::connect(exit_button, SIGNAL(clicked()), this, SLOT(exit()));
 }
@@ -106,14 +106,14 @@ void Start::uiElements()
     layout = new QVBoxLayout();
 
     new_game_button = new QPushButton(QString("New Game"));
-    continue_game_button = new QPushButton(QString("Continue Game"));
+    //continue_game_button = new QPushButton(QString("Continue Game"));
     options_button = new QPushButton(QString("Options"));
     exit_button = new QPushButton(QString("Exit"));
 
-    continue_game_button->setEnabled(false);
+//    continue_game_button->setEnabled(false);
 
     layout->addWidget(new_game_button);
-    layout->addWidget(continue_game_button);
+//    layout->addWidget(continue_game_button);
     layout->addWidget(options_button);
     layout->addWidget(exit_button);
 
@@ -121,7 +121,7 @@ void Start::uiElements()
     adjust_button_width(320);
 
     layout->setAlignment(new_game_button, Qt::AlignHCenter);
-    layout->setAlignment(continue_game_button, Qt::AlignHCenter);
+//    layout->setAlignment(continue_game_button, Qt::AlignHCenter);
     layout->setAlignment(options_button, Qt::AlignHCenter);
     layout->setAlignment(exit_button, Qt::AlignHCenter);
 
