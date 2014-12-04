@@ -139,7 +139,7 @@ void GameLogic::playCard(const PlayerID pid)
     resolveEffects();
 }
 
-CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) const
+CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 {
     BoardSnapshot snapshot(makeBoardSnapshot(pid, container));
 
@@ -163,7 +163,7 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) 
 
 }
 
-PlayerID GameLogic::pickPlayer() const
+PlayerID GameLogic::pickPlayer()
 {
     BoardSnapshot snapshot(makeBoardSnapshot());
     cerr << "GameLogic::pickPlayer() - Querying GUI for a player." << endl;
@@ -238,6 +238,7 @@ void GameLogic::resolveEffects()
 
 void GameLogic::executeNextEffect()
 {
+    if(getCurrentGameState() != GameState::CONTINUE) return;
     Effect e = effect_queue.front();
     effect_queue.pop_front();
     cout << "Effect to Execute: " << e.val << endl;
@@ -364,6 +365,7 @@ void GameLogic::executeEffect(const Effect &effect)
 
 void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 ,const CardID& cid,  const Event event)
 {
+    if(getCurrentGameState() != GameState::CONTINUE) return;
     switch (event)
     {
     case Event::CARD_MOVED:

@@ -43,8 +43,8 @@ public:
 	//Prototype functions
     void addRule(const CardID, Effect*, const RuleTrigger);
 	void removeRule(const CardID);
-    CardID pickCard(const PlayerID, const CardContainerID) const;
-    PlayerID pickPlayer() const;
+    CardID pickCard(const PlayerID, const CardContainerID);
+    PlayerID pickPlayer();
 	void switchPlayer();
 
 	CardContainerManager* getCCM();
