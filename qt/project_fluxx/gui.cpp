@@ -40,6 +40,7 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
     }
 
     PlayerID tempid = player_list_widget->getPlayerId(player_loop->getPlayerName());
+    delete player_loop;
     return tempid;
 }
 
@@ -96,7 +97,9 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
     }
 
     qDebug() << "You picked card: " + QString::number(card_id_loop->getCardId().val);
-    return card_id_loop->getCardId();
+    const CardID card_id= card_id_loop->getCardId();
+    delete card_id_loop;
+    return card_id;
 }
 
 void Gui::nextPlayer(const BoardSnapshot* const snapshot)
