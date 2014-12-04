@@ -12,7 +12,7 @@ QT       += widgets
 
 QT      += testlib
 
-TARGET = MainMenu_Test_01
+TARGET = Fluxx
 CONFIG   += console
 CONFIG   -= app_bundle
 
