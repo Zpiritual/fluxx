@@ -12,10 +12,11 @@
 #include "RuleManager.h"
 #include "Player.h"
 #include "PlayerID.h"
-
+#include <string>
 struct BoardSnapshot
 {
 	const std::vector<CardContainer> containers;
+    const std::vector<std::pair<const PlayerID, const std::string>> log;
 	const int players;
 	const PlayerID current_player;
 	const PlayerID active_player;
@@ -32,7 +33,8 @@ struct BoardSnapshot
     	const int,
     	const int,
     	const Direction,
-    	const CardContainerID);
+    	const CardContainerID,
+        const std::vector<std::pair<const PlayerID, const std::string>>&);
 
 	BoardSnapshot() = delete;
 	BoardSnapshot(const BoardSnapshot&) = default;

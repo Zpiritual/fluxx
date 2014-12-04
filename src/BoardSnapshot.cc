@@ -7,7 +7,8 @@ BoardSnapshot::BoardSnapshot(const std::vector<CardContainer> containers,
 			 				 const int played,
 			 				 const int to_play,
                              const Direction direction,
-			 				 const CardContainerID target)
+			 				 const CardContainerID target,
+                             const std::vector<std::pair<const PlayerID,const std::string>>& log)
 	: containers{containers},
 	players{players},
 	current_player{current},
@@ -15,7 +16,8 @@ BoardSnapshot::BoardSnapshot(const std::vector<CardContainer> containers,
 	cards_played{played},
 	cards_to_play{to_play},
 	direction{direction},
-	target_container{target}
+	target_container{target},
+	log{log}
 {}
 
 CardContainer BoardSnapshot::getContainer(const CardContainerID id) const

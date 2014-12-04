@@ -74,6 +74,7 @@ public:
 	void effect_TrashCards(int);
 	void effect_TrashCardsFromContainer(int,string);
 
+	void writeToLog(const string);
 	GameState getCurrentGameState() const;
 private:
     Gui * _gui;
@@ -83,6 +84,8 @@ private:
 	PlayerManager *_pm;
 	std::deque<Effect> effect_queue;
     GameState _currentGameState;
+    string _local_log;
+    vector<pair<const PlayerID,const string>> _log;
 	void executeEffect(const Effect&);
     void onNotify(const CardContainerID &, const CardContainerID & ,const CardID &, const Event);
 	//Diverse effekt-funktioner, ex:

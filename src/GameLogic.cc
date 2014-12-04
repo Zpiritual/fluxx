@@ -3,7 +3,6 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
-
 GameLogic::GameLogic(Gui *gui, const Deck *deck, const int players)
     : _currentGameState {GameState::CONTINUE}
 {
@@ -13,7 +12,7 @@ GameLogic::GameLogic(Gui *gui, const Deck *deck, const int players)
     _cm = new CardManager(deck);
     _rm = new RuleManager();
     _pm = new PlayerManager(players);
-
+    _local_log = "";
     for (Player p : _pm->getPlayers())
     {
         drawCard(p.getID());
@@ -77,6 +76,10 @@ void GameLogic::playCard(const PlayerID pid)
     //Spela det givna kortet.
     //if a Goal card is placed check if there is room for it
     //if not ask what card to replace
+    string str = "Played Card: ";
+    str.append(_cm->getCard(cid)->getName());
+     writeToLog(str);
+
     if (_cm->getCard(cid)->getType().compare("GOAL") == 0)
     {
         _ccm->suspendCard(ccid,cid);
@@ -132,7 +135,6 @@ void GameLogic::playCard(const PlayerID pid)
 
     }
     //Else throw exception
-
     //Execute effects
     resolveEffects();
 }
@@ -142,7 +144,7 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container) 
     BoardSnapshot snapshot(makeBoardSnapshot(pid, container));
 
     cerr << "GameLogic::pickCard() - Querying GUI for a card." << endl;
-    if(_ccm->getSize(container) == 1)
+    if(_ccm->getSize(container) == 1 && container.val.find("_hand") == string::npos)
     {
         cerr << "GameLogic::pickCard() - Recieved CardID from GUI: " << _ccm->getCards(container).at(0).val << endl;
         return _ccm->getCards(container).at(0);
@@ -170,9 +172,23 @@ PlayerID GameLogic::pickPlayer() const
     return id;
 }
 
+void GameLogic::writeToLog(const string message)
+{
+    _local_log += message + "\n";
+}
+
 void GameLogic::switchPlayer()
 {
     if(getCurrentGameState() != GameState::CONTINUE) return;
+
+    _log.push_back(make_pair(_pm->getCurrentPlayerID(), _local_log));
+
+    cout << _local_log << endl;
+    _local_log = "";
+    for(auto i: _log)
+    {
+        cout << i.first.getString() << "\n" << i.second << endl;
+    }
     BoardSnapshot snapshot(makeBoardSnapshot());
     std::cerr << "Entering \"_gui->nextPlayer(&snapshot);\"" << endl;
     _gui->nextPlayer(&snapshot);
@@ -183,14 +199,8 @@ void GameLogic::drawCard(const PlayerID pid)
 {
     if(getCurrentGameState() != GameState::CONTINUE) return;
     //std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
-    try{
       _ccm->drawCard(pid.getString() + "_hand");
 
-    }
-    catch(...)
-    {
-        cout << "GameLogic::drawCard \tERROR REPORT: Error while drwaing cards from _ccm " << endl;
-    }
     _pm->getCurrentPlayer()->incrementCardsDrawn();
 
 }
@@ -345,7 +355,6 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
     switch (event)
     {
     case Event::CARD_MOVED:
-        cout << "CARD_MOVED!" << endl;
         checkRules(RuleTrigger::GOAL);
         //cout << "Card moved!" << endl;
         if(cc1 == CardContainerID("Goal"))
@@ -359,10 +368,8 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
             removeRule(cid);
             cout << "\n\n Rule Removed" << endl;
         }
-        cout << "\n HELLO SIZE OF GOALLIMIT:  " << _rm->getGoalLimmit() << endl<< endl<< endl;
         if (_ccm->getSize(CardContainerID("Goal")) > _rm->getGoalLimmit())
         {
-            cout << "\t Goal is to big! ASDADASD" << _ccm->getSize(CardContainerID("Goal")) <<" " <<  _rm->getGoalLimmit() <<   endl;
             CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal"));
             _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), cid2);
            _rm->removeRule(cid2);
@@ -411,7 +418,8 @@ BoardSnapshot GameLogic::makeBoardSnapshot(const PlayerID active, const CardCont
         _pm->getCurrentPlayer()->getCardsPlayed(),
         _rm->getPlay(),
         _rm->getPlayOrder(),
-        target);
+        target,
+        _log);
 }
 
 // For use with pickPlayer() and other functions that don't need to specify a player and container.
@@ -425,7 +433,8 @@ BoardSnapshot GameLogic::makeBoardSnapshot() const
         _pm->getCurrentPlayer()->getCardsPlayed(),
         _rm->getPlay(),
         _rm->getPlayOrder(),
-        CardContainerID("NULL CONTAINER"));
+        CardContainerID("NULL CONTAINER"),
+        _log);
 }
 
 CardContainerManager *GameLogic::getCCM()
@@ -738,7 +747,6 @@ void GameLogic::effect_ContainerQuantityCheck(string container, int quantity)
             pwssamax++;
         }
     }
-    cout << "SANITY CHECK: " << maxHS << " and player count: " << pwssamax << endl;
     if(maxHS >= quantity && pwssamax == 0)
     {
             cout << "GAME OVER: " << endl;
