@@ -20,8 +20,6 @@ void ActiveKeepers::updateCards(const CardContainer& container)
     this->setAutoFillBackground(false);
     buttons_.clear();
 
-   // delete layout;
-
     if (layout->layout() != NULL)
     {
         QLayoutItem* item;
@@ -30,7 +28,6 @@ void ActiveKeepers::updateCards(const CardContainer& container)
             delete item->widget();
             delete item;
         }
-       // delete layout->layout();
     }
 
     std::vector<CardID> cards_{container.getCards()};
@@ -44,7 +41,6 @@ void ActiveKeepers::updateCards(const CardContainer& container)
         layout->addWidget(tempbutton);
         buttons_.push_back(tempbutton);
     }
-    std::vector<CardID> cards = container.getCards();
 }
 
 void ActiveKeepers::connectButtons(CardIdLoop &loop)
