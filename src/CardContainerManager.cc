@@ -82,9 +82,16 @@ void CardContainerManager::drawCard(const CardContainerID container)
 {
 	if(_stock->empty())
 	{
+		cerr << "Stock empty, reshuffling trash into stock." << endl;
 		clearContainer(CardContainerID("Trash"));
-		reshuffle();
+		reshuffle();		
+		if(_stock->empty())
+		{
+			cerr << "No cards to draw, tough luck!" << endl;
+			return;
+		}
 	}
+
 	CardID id = _stock->pop();
 	getContainer(container)->addCard(id);
 	notify(_stock->getID(),container,id,Event::CARD_MOVED);
@@ -96,6 +103,15 @@ void CardContainerManager::moveCard(const CardContainerID from, const CardContai
 	getContainer(to)->addCard(card);
 	notify(from,to,card,Event::CARD_MOVED);
 }
+
+void CardContainerManager::moveCards(const CardContainerID ccid1, const CardContainerID ccid2)
+{
+	for(CardID id: getCards(ccid1))
+	{
+		moveCard(ccid1,ccid2,id);
+	}
+}
+
 
 int CardContainerManager::getSize(const CardContainerID container)
 {

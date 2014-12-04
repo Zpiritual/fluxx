@@ -47,7 +47,8 @@ void RulesGridWidget::updateCards(const CardContainer container)
         this->setMinimumWidth(this->minimumWidth()+160);
         qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
-    }}
+    }
+}
 
 void RulesGridWidget::setConnections(CardIdLoop & loop)
 {

@@ -37,6 +37,7 @@ public:
 	void drawCard(const CardContainerID);
 	void moveCard(const CardContainerID, const CardContainerID, const CardID);
 	void clearContainer(const CardContainerID);
+	void moveCards(const CardContainerID, const CardContainerID);
 	int getSize(const CardContainerID);
 	std::vector<CardID> getCards(const CardContainerID);
 	std::vector<CardContainer> getContainers() const;
@@ -44,6 +45,7 @@ public:
 	void unSuspendCard(const CardContainerID& ccid);
 	void suspendCard(const CardContainerID& ccid, const CardID& cid);
 	void swapCards(const CardContainerID, const CardContainerID);
+
 private:
 	CardContainer* getContainer(const CardContainerID);
 	Stock* _stock;

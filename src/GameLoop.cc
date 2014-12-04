@@ -69,6 +69,7 @@ void GameLoop::nextPlayer()
 {
 	std::cerr << "GameLoop::nextPlayer() - Before \"_game_logic->switchPlayer();\"" << endl;
 	_game_logic->switchPlayer();
+
 	std::cerr << "GameLoop::nextPlayer() - Before \"_game_logic->getPM()->nextPlayer(_game_logic->getRM()->getPlayOrder());\"" << endl;
 	_game_logic->getPM()->nextPlayer(_game_logic->getRM()->getPlayOrder());
 }
@@ -101,9 +102,8 @@ GameState GameLoop::executePlayerTurn(PlayerID pid)
  		std::cerr << "Cards to play: " << getPlayNO() << ", Cards Played: " << getCardsPlayed() << endl;
  		std::cerr << "Cards to Draw: " << getDrawNO() << ", Cards Drawn: " << _game_logic->getPM()->getCurrentPlayer()->getCardsDrawn() << endl;
 
- 		_game_logic->playCard(getCurrentPlayerID());
+ 		_game_logic->playCard();
  		_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
-
  	}
  	std::cerr << "END OF TURN\n\n" << std::endl;
  	return _game_logic->getCurrentGameState();
