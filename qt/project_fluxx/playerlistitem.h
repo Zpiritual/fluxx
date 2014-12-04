@@ -10,7 +10,7 @@ class PlayerListItem : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PlayerListItem(const ProfileName, QWidget *parent = 0);
+    explicit PlayerListItem(const ProfileName&, QWidget *parent = 0);
     ~PlayerListItem();
     int getHandCount() const;
     int getKeeperCount() const;
@@ -28,7 +28,7 @@ public:
 private:
     std::vector<CardID> hand;
     std::vector<CardID> keepers_id;
-    ProfileName player_name{"tempName"};
+    ProfileName player_name;//{"tempName"};
 
     QPushButton* keeper_button;
 

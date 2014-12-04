@@ -29,7 +29,7 @@ void LogWidget::updateLog(const BoardSnapshot* const snapshot)
         tempstring += QString::fromStdString(player.val) + QString(" turn\n") + QString::fromStdString(entry.second) ;
         log_text_edit->setPlainText(tempstring);
     }
-  //  log_text_edit->verticalScrollBar()->setValue(log_text_edit->verticalScrollBar()->maximum());
+    log_text_edit->verticalScrollBar()->setValue(log_text_edit->verticalScrollBar()->maximum());
 
     play_info_label->setText(QString("Cards to play:" + QString::number(snapshot->cards_to_play) + QString("\nCards played:" + QString::number(snapshot->cards_played))));
 }

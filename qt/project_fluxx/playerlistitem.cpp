@@ -1,6 +1,6 @@
 #include "playerlistitem.h"
 
-PlayerListItem::PlayerListItem(const ProfileName name, QWidget *parent) :
+PlayerListItem::PlayerListItem(const ProfileName& name, QWidget *parent) :
     player_name(name), QWidget(parent)
 {
     uiElements();

@@ -10,7 +10,7 @@ struct ProfileName
     ProfileName(std::string val) : val{val}
     {}
 
-    ProfileName() = delete;
+    ProfileName() = default;
     ProfileName(const ProfileName&) = default;
     ProfileName (ProfileName&&) = default;
 
