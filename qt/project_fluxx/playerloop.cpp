@@ -15,8 +15,16 @@ void PlayerLoop::exec()
     loop.exec();
 }
 
+const bool PlayerLoop::isRunning() const
+{
+    return loop.isRunning();
+}
+
 void PlayerLoop::quit()
 {
-    player_name = dynamic_cast<PlayerListItem*>(sender())->getPlayerName();
-    loop.quit();
+    if(loop.isRunning())
+    {
+        player_name = dynamic_cast<PlayerListItem*>(sender())->getPlayerName();
+        loop.quit();
+    }
 }
