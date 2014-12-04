@@ -21,6 +21,7 @@ PlayerList::~PlayerList()
 
 void PlayerList::updatePlayers(const BoardSnapshot* const board)
 {
+    this->setAutoFillBackground(false);
     qDebug() << "You're in updateplayers in playerlist, congratulations!";
     for(unsigned int i = 0; i < player_ids.size(); i++)
     {
