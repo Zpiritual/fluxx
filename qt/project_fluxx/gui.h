@@ -59,7 +59,6 @@ private:
     void message(const QString&, const QString&) const;
     void uiElements();
 
-
     signals:
 
 public slots:
