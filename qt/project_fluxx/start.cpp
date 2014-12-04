@@ -110,6 +110,8 @@ void Start::uiElements()
     options_button = new QPushButton(QString("Options"));
     exit_button = new QPushButton(QString("Exit"));
 
+    continue_game_button->setEnabled(false);
+
     layout->addWidget(new_game_button);
     layout->addWidget(continue_game_button);
     layout->addWidget(options_button);

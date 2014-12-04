@@ -38,6 +38,6 @@ void LogWidget::uiElements()
     log_text_edit->setReadOnly(true);
     log_text_edit->setTextInteractionFlags(Qt::NoTextInteraction);
 
-     this->setLayout(layout);
+    this->setLayout(layout);
 }
 

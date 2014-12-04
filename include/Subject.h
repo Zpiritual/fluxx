@@ -13,11 +13,11 @@ private:
 	std::vector<Observer*> _observers;
 
 protected:
-	void notify(const CardContainerID & cc1, const CardContainerID & cc2, const Event event)
+	void notify(const CardContainerID & cc1, const CardContainerID & cc2,const CardID & cid, const Event event)
 	{
 		for(Observer* o: _observers)
 		{
-			o->onNotify(cc1,cc2,event);
+			o->onNotify(cc1,cc2,cid,event);
 		}
 	}
 

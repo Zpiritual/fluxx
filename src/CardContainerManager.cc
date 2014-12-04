@@ -66,8 +66,11 @@ CardContainerManager::~CardContainerManager()
 	for(std::pair<CardContainerID, CardContainer*> i : _containers)
 	{
 		delete i.second;
+		i.second = nullptr;
 	}
+
 	delete _stock;
+	_stock = nullptr;
 }
 
 void CardContainerManager::reshuffle()
@@ -82,15 +85,16 @@ void CardContainerManager::drawCard(const CardContainerID container)
 		clearContainer(CardContainerID("Trash"));
 		reshuffle();
 	}
-	getContainer(container)->addCard(_stock->pop());
-	notify(_stock->getID(),container,Event::CARD_MOVED);
+	CardID id = _stock->pop();
+	getContainer(container)->addCard(id);
+	notify(_stock->getID(),container,id,Event::CARD_MOVED);
 }
 
 void CardContainerManager::moveCard(const CardContainerID from, const CardContainerID to, const CardID card)
 {
 	getContainer(from)->removeCard(card);
 	getContainer(to)->addCard(card);
-	notify(from,to,Event::CARD_MOVED);
+	notify(from,to,card,Event::CARD_MOVED);
 }
 
 int CardContainerManager::getSize(const CardContainerID container)
@@ -127,16 +131,17 @@ void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID
 {
 	getContainer(ccid)->removeCard(cid);
     _suspendedCards.push(cid);
-    notify(ccid, CardContainerID("SuspendedCards"),Event::CARD_MOVED);
+    notify(ccid, CardContainerID("SuspendedCards"),cid,Event::CARD_MOVED);
 }
 
 void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 {
     if(!_suspendedCards.empty())
 	{
-		getContainer(ccid)->addCard(_suspendedCards.top());
+        CardID id = _suspendedCards.top();
+        getContainer(ccid)->addCard(id);
 		_suspendedCards.pop();
-        notify(CardContainerID("SuspendedCards"), ccid,Event::CARD_MOVED);
+        notify(CardContainerID("SuspendedCards"), ccid,id,Event::CARD_MOVED);
 
 	}
     else

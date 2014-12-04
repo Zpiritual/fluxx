@@ -14,7 +14,6 @@ BigCardCollection::BigCardCollection(const std::vector<CardID>& crds, CardIdLoop
 
 void BigCardCollection::closeEvent(QCloseEvent* event)
 {
-    qDebug() << "Big Card Collection close event";
     event->accept();
     delete this;
 }
@@ -45,7 +44,7 @@ void BigCardCollection::uiElements(const std::vector<CardID>& crds, CardIdLoop& 
     scroll_area = new QScrollArea();
     horizontal_layout = new QHBoxLayout();
 
-    this->setPalette(QPalette(Qt::green));
+    this->setPalette(QPalette(QPalette::Background, Qt::green));
     this->setAutoFillBackground(true);
 
     scroll_area->setFrameStyle(QFrame::NoFrame);

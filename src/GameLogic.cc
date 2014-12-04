@@ -25,10 +25,15 @@ GameLogic::GameLogic(Gui *gui, const Deck *deck, const int players)
 
 GameLogic::~GameLogic()
  {
+    _ccm->removeObserver(this);
      delete  _ccm;
+     _ccm = nullptr;
      delete  _cm;
+     _cm = nullptr;
      delete  _rm;
+     _rm  = nullptr;
      delete  _pm;
+     _pm  = nullptr;
  }
 
 void GameLogic::addEffect(Effect effect)
@@ -44,12 +49,10 @@ void GameLogic::addRule(const CardID cid, Effect *effect, const RuleTrigger trig
 
 void GameLogic::removeRule(const CardID cid)
 {
-    //Move the card from Rules to Trash
-    _ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), cid);
-    //Bypass effect stack and run from executeEffect
-    addEffect(*(_cm->getCard(cid)->getEffects().end() - 1));
-       executeNextEffect();
     _rm->removeRule(cid);
+    addEffect(*(_cm->getCard(cid)->getEffects().end() - 1));
+    executeNextEffect();
+    
 }
 
 void GameLogic::playCard(const PlayerID pid)
@@ -76,13 +79,14 @@ void GameLogic::playCard(const PlayerID pid)
     //if not ask what card to replace
     if (_cm->getCard(cid)->getType().compare("GOAL") == 0)
     {
-        if (_ccm->getSize(CardContainerID("Goal")) >= _rm->getGoalLimmit())
+        _ccm->suspendCard(ccid,cid);
+        if(_ccm->getSize(CardContainerID("Goal")) == _rm->getGoalLimmit())
         {
+             cout << "\t Goal is to big!" << _ccm->getSize(CardContainerID("Goal")) <<" " <<  _rm->getGoalLimmit() <<   endl;
             CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal"));
             _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), cid2);
            _rm->removeRule(cid2);
         }
-        _ccm->suspendCard(ccid, cid);
         addRule(cid, &_cm->getCard(cid)->getEffects().at(0), RuleTrigger::GOAL);
         _ccm->unSuspendCard(CardContainerID("Goal"));
         cout << "==Cards in Goals:===" << endl;
@@ -179,7 +183,14 @@ void GameLogic::drawCard(const PlayerID pid)
 {
     if(getCurrentGameState() != GameState::CONTINUE) return;
     //std::cout << getPM()->getPlayer(pid).getContainerID().val << std::endl;
-    _ccm->drawCard(pid.getString() + "_hand");
+    try{
+      _ccm->drawCard(pid.getString() + "_hand");
+
+    }
+    catch(...)
+    {
+        cout << "GameLogic::drawCard \tERROR REPORT: Error while drwaing cards from _ccm " << endl;
+    }
     _pm->getCurrentPlayer()->incrementCardsDrawn();
 
 }
@@ -314,6 +325,14 @@ void GameLogic::executeEffect(const Effect &effect)
         int quantity;
         ss >> quantity;
         effect_TrashCards(quantity);
+    }   
+    else if (identifier.compare("TrashCardsFromContainer") == 0)
+    {
+        cout << "HELLO  WORLD \n\n\n\n wolol\t" << endl;
+        int quantity;
+        string id;
+        ss >> quantity >> id;
+        effect_TrashCardsFromContainer(quantity,id);
     }
     else
     {
@@ -321,7 +340,7 @@ void GameLogic::executeEffect(const Effect &effect)
     }
 }
 
-void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 , const Event event)
+void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 ,const CardID& cid,  const Event event)
 {
     switch (event)
     {
@@ -329,6 +348,25 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
         cout << "CARD_MOVED!" << endl;
         checkRules(RuleTrigger::GOAL);
         //cout << "Card moved!" << endl;
+        if(cc1 == CardContainerID("Goal"))
+        {
+            addEffect(*(_cm->getCard(cid)->getEffects().end() - 1));
+             executeNextEffect();
+            _rm->removeRule(cid);
+        }
+        if(cc1 == CardContainerID("Rules"))
+        {
+            removeRule(cid);
+            cout << "\n\n Rule Removed" << endl;
+        }
+        cout << "\n HELLO SIZE OF GOALLIMIT:  " << _rm->getGoalLimmit() << endl<< endl<< endl;
+        if (_ccm->getSize(CardContainerID("Goal")) > _rm->getGoalLimmit())
+        {
+            cout << "\t Goal is to big! ASDADASD" << _ccm->getSize(CardContainerID("Goal")) <<" " <<  _rm->getGoalLimmit() <<   endl;
+            CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal"));
+            _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), cid2);
+           _rm->removeRule(cid2);
+        }
         for (Player p : _pm->getPlayers())
         {
             if (p.getID() != _pm->getCurrentPlayer()->getID())
@@ -429,7 +467,14 @@ void GameLogic::effect_DrawAndPlay(int draw, int play, int trash)
 
     for (int i = 0 ; i < draw ; i++)
     {
-        _ccm->drawCard(CardContainerID(ccid));
+        try{
+              _ccm->drawCard(CardContainerID(ccid)); 
+        }
+        catch(...)
+        {
+            cout << "GameLogic::effect_DrawAndPlay \tERROR REPORT: Error while drwaing cards from _ccm " << endl;
+        }
+     
     }
 
     for (int i = 0 ; i < play; i++)
@@ -512,7 +557,7 @@ void GameLogic::effect_ModifyRule(string rule_type, int value)
     {
         if (_cm->getCard(i)->getSubtype().compare(rule_type) == 0)
         {
-            removeRule(i);
+           _ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"),i);
         }
     }
 
@@ -724,9 +769,20 @@ void GameLogic::effect_SwapPlayerContainer(string container)
 void GameLogic::effect_TrashCards(int quantity)
 {
     string id1 = pickPlayer().getString()+ "_keepers";
-    CardID cid = pickCard(_pm->getCurrentPlayerID(), id1);
+
     for(int i = 0; i < quantity && _ccm->getSize(CardContainerID(id1)) > 0; i++)
     {
+         CardID cid = pickCard(_pm->getCurrentPlayerID(), CardContainerID(id1));
         _ccm->moveCard(CardContainerID(id1), CardContainerID("Trash"), cid);
+    }
+}
+
+void GameLogic::effect_TrashCardsFromContainer(int quantity, string id)
+{
+    CardContainerID ccid(id);
+    for(int i = 0 ; i < quantity && _ccm->getSize(ccid) > 0; i++)
+    {
+     CardID cid = pickCard(_pm->getCurrentPlayerID(), ccid);
+     _ccm->moveCard(ccid,CardContainerID("Trash"), cid);
     }
 }

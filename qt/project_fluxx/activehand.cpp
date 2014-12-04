@@ -22,7 +22,6 @@ void ActiveHand::updateCards(const CardContainer container)
 
    // delete layout;    this->setPalette(QPalette(Qt::green));
 
-
     if (layout->layout() != NULL)
     {
         QLayoutItem* item;
@@ -54,13 +53,12 @@ void ActiveHand::connectButtons(CardIdLoop& loop)
     this->setAutoFillBackground(true);
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
-
 }
 
 void ActiveHand::uiElements()
 {
     layout = new QHBoxLayout();
-    this->setPalette(QPalette(Qt::green));
+    this->setPalette(QPalette(QPalette::Background, Qt::green));
     this->setMaximumHeight(260);
     this->setMinimumHeight(260);
     this->setLayout(layout);

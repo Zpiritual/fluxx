@@ -91,6 +91,7 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
             (snapshot->target_container.val.find("_keepers") != std::string::npos)) &&
             snapshot->target_container.val.find(snapshot->active_player.getString()) == std::string::npos)
     {
+        qDebug() << "Other player container!!! ";
         BigCardCollection* bigcollection = new BigCardCollection(snapshot->getContainer(snapshot->target_container).getCards(),*card_id_loop);
         bigcollection->show();
         card_id_loop->exec();
