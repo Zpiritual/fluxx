@@ -1,5 +1,6 @@
 #include "Stock.h"
 #include <stdexcept>
+#include <random>
 #include <ctime>
 Stock::Stock(const CardContainerID id): _id{id}
 {}
@@ -35,7 +36,7 @@ void Stock::push(const CardID id)
 	_cards.push(id);
 }
 
-bool Stock::empty() 	const
+bool Stock::empty()	const
 {
 	return _cards.empty();
 }
@@ -47,6 +48,7 @@ void Stock::shuffle()
 	{
 		tmp.push_back(pop());
 	}
+
 	int i = time(0);
     std::mt19937 gen(i);
 	while(!tmp.empty())

@@ -82,9 +82,16 @@ void CardContainerManager::drawCard(const CardContainerID container)
 {
 	if(_stock->empty())
 	{
+		cerr << "Stock empty, reshuffling trash into stock." << endl;
 		clearContainer(CardContainerID("Trash"));
-		reshuffle();
+		reshuffle();		
+		if(_stock->empty())
+		{
+			cerr << "No cards to draw, tough luck!" << endl;
+			return;
+		}
 	}
+
 	CardID id = _stock->pop();
 	getContainer(container)->addCard(id);
 	notify(_stock->getID(),container,id,Event::CARD_MOVED);

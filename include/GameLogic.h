@@ -53,7 +53,8 @@ public:
 	PlayerManager*		  getPM();
 
 
-	void				playCard(const PlayerID);
+	void				playCard();
+    void				playCardWithID(const CardID, const CardContainerID);
 	void				drawCard(const PlayerID);
 	void				resolveEffects();
 	void				checkRules(RuleTrigger);
@@ -73,8 +74,10 @@ public:
 	void effect_SwapPlayerContainer(string);
 	void effect_TrashCards(int);
 	void effect_TrashCardsFromContainer(int,string);
+    void effect_ForceRandomPlay(int quantity);
 
 	GameState getCurrentGameState() const;
+
 private:
     Gui * _gui;
     CardContainerManager *_ccm;
