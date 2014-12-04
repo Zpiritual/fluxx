@@ -35,14 +35,12 @@ void GoalButtons::updateCards(const CardContainer& container)
 
     cards_ = container.getCards();
 
-    qDebug() << "number of cards to add in rules: " + QString::number(cards_.size());
 
     for(CardID card : cards_)
     {
         CardButton* tempbutton = new CardButton(card);
         tempbutton->smallButton();
         layout->addWidget(tempbutton);
-        qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
     }
 }

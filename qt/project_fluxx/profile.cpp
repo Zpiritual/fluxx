@@ -13,7 +13,7 @@ Profile::~Profile()
 
 }
 
-Profile& Profile::operator=(const Player& player)
+Profile& Profile::operator=(const Player& /*player*/)
 {
     //name = player.getID();
 

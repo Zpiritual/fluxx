@@ -27,11 +27,12 @@ class Gui : public QWidget
 public:  
     explicit Gui(std::vector<ProfileName> players, QWidget *parent = 0);
     ~Gui();
-    const PlayerID pickPlayer(const BoardSnapshot * const);
-    const CardID pickCard(const BoardSnapshot* const, const CardContainerID);
-    const CardID pickCard(const BoardSnapshot* const);
+    PlayerID pickPlayer(const BoardSnapshot * const);
+    CardID pickCard(const BoardSnapshot* const, const CardContainerID);
+    CardID pickCard(const BoardSnapshot* const);
     void nextPlayer(const BoardSnapshot* const);
     Direction chooseDirection(const BoardSnapshot * const);
+    bool playerDecision(const BoardSnapshot* const, const std::string&, const std::string&, const std::string&);
 
 
     void closeEvent(QCloseEvent*);
@@ -54,6 +55,7 @@ private:
     CardIdLoop* card_id_loop;
     PlayerLoop* player_loop;
     QEventLoop* event_loop;
+    QScrollArea* rules_scroll;
 
     void message(const QString&, const QString&) const;
     void uiElements();

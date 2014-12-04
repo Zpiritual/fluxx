@@ -22,7 +22,6 @@ PlayerList::~PlayerList()
 void PlayerList::updatePlayers(const BoardSnapshot* const board)
 {
     this->setAutoFillBackground(false);
-    qDebug() << "You're in updateplayers in playerlist, congratulations!";
     for(unsigned int i = 0; i < player_ids.size(); i++)
     {
         const CardContainerID player_hand{std::string{"Player" + std::to_string(i+1) + "_hand"}};
@@ -106,9 +105,9 @@ void PlayerList::setConnections(const PlayerLoop& loop)
     }
 }
 
-const PlayerID PlayerList::getPlayerId(const ProfileName player_name) const
+PlayerID PlayerList::getPlayerId(const ProfileName player_name) const
 {
-    for(unsigned int i = 0; i < players.size(); i++)
+    for(unsigned i = 0; i < players.size(); i++)
     {
         if(players.at(i)->getPlayerName() == player_name)
         {
@@ -129,4 +128,6 @@ const PlayerID PlayerList::getPlayerId(const ProfileName player_name) const
             }
         }
     }
+    throw std::logic_error{"Illigal! The game has more than 6 players"};
 }
+
