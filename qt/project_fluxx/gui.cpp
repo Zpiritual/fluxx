@@ -192,25 +192,28 @@ void Gui::uiElements()
 
     mid_column_right->addWidget(deck_widget);
     mid_column_right->addWidget(goals_widget);
+    mid_column_right->setAlignment(deck_widget, Qt::AlignRight | Qt::AlignTop);
+    mid_column_right->setAlignment(goals_widget, Qt::AlignTrailing);
 
     rules_goals_row->addWidget(rules_widget);
     rules_goals_row->addLayout(mid_column_right);
+
 
     mid_column->addLayout(rules_goals_row);
     mid_column->addWidget(active_player_widget);
 
     rules_goals_row->setAlignment(rules_widget, Qt::AlignTop);
-    rules_goals_row->setAlignment(mid_column_right, Qt::AlignRight);
     mid_column->setAlignment(active_player_widget, Qt::AlignTop);
     rules_goals_row->setAlignment(mid_column_right, Qt::AlignRight|Qt::AlignTop);
 
     this->setMinimumHeight(600);
     this->setMinimumWidth(1280);
+    this->showMaximized();
     this->setWindowTitle(QString("Fluxx"));
 
-    rules_widget->setMinimumHeight(270);
-    goals_widget->setMinimumSize(100,280);
-    mid_column_right->setAlignment(goals_widget, Qt::AlignTop);
+//    rules_widget->setMinimumHeight(270);
+//    goals_widget->setMinimumSize(100,280);
+    //mid_column_right->setAlignment(goals_widget, Qt::AlignTop);
 
     layout->addLayout(left_column);
     layout->addLayout(mid_column);
@@ -221,6 +224,7 @@ void Gui::uiElements()
 
 void Gui::update(const BoardSnapshot* const snapshot, const bool changed_player) //Lägg till i alla klasser
 {
+
     rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
     player_list_widget->updatePlayers(snapshot);
     trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));

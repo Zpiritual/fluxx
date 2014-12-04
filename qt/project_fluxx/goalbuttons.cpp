@@ -32,8 +32,6 @@ void GoalButtons::updateCards(const CardContainer& container)
         }
        // delete layout->layout();
     }
-    this->setMinimumWidth(0);
-    this->setMaximumWidth(0);
 
     cards_ = container.getCards();
 
@@ -44,8 +42,6 @@ void GoalButtons::updateCards(const CardContainer& container)
         CardButton* tempbutton = new CardButton(card);
         tempbutton->smallButton();
         layout->addWidget(tempbutton);
-        this->setMinimumWidth(this->minimumWidth()+160);
-        this->setMinimumWidth(this->minimumWidth()+160);
         qDebug() << "CardID: " + QString::number(card.val);
         buttons_.push_back(tempbutton);
     }
