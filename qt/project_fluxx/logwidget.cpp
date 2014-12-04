@@ -16,7 +16,6 @@ LogWidget::~LogWidget()
 
 void LogWidget::updateLog(const BoardSnapshot* const snapshot)
 {
-//    std::string tempstring;
     log_text_edit->setText(QString(""));
     int i = 0;
     for(const std::pair<const PlayerID, const std::string> entry : snapshot->log)
@@ -33,9 +32,6 @@ void LogWidget::updateLog(const BoardSnapshot* const snapshot)
   //  log_text_edit->verticalScrollBar()->setValue(log_text_edit->verticalScrollBar()->maximum());
 
     play_info_label->setText(QString("Cards to play:" + QString::number(snapshot->cards_to_play) + QString("\nCards played:" + QString::number(snapshot->cards_played))));
-
-    // TODO: Add log from boardsnapshot
-    //log_text_edit->setText();
 }
 
 void LogWidget::uiElements()

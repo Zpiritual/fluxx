@@ -9,6 +9,9 @@ Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
 
 Gui::~Gui()
 {
+    delete card_id_loop;
+    delete player_loop;
+    delete event_loop;
     delete trash_widget;
     delete log_widget;
     delete left_column;
@@ -149,15 +152,14 @@ void Gui::closeEvent(QCloseEvent* event)
     // TODO: Stop evenloops
     this->hide();
 
-    if(event_loop->isRunning())
-        event_loop->quit();
-    if(card_id_loop->isRunning())
-        card_id_loop->quit();
-    if(player_loop->isRunning())
-        player_loop->quit();
+//    if(event_loop->isRunning())
+//        event_loop->quit();
+//    if(card_id_loop->isRunning())
+//        card_id_loop->quit();
+//    if(player_loop->isRunning())
+//        player_loop->quit();
 
     qDebug() << "Closing window";
-
 
     event->accept();
 }
