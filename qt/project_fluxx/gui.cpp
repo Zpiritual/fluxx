@@ -103,7 +103,7 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
     }
 
     qDebug() << "You picked card: " + QString::number(card_id_loop->getCardId().val);
-    const CardID card_id= card_id_loop->getCardId();
+    CardID card_id= card_id_loop->getCardId();
     delete card_id_loop;
     return card_id;
 }
