@@ -11,6 +11,7 @@ class CardIdLoop : public QObject
 public:
     explicit CardIdLoop(QObject *parent = 0);
     const CardID getCardId();
+    const bool isRunning() const;
     void exec();
 signals:
 

@@ -89,7 +89,7 @@ const CardID Gui::pickCard(const BoardSnapshot* const snapshot)
     //Det är en spelares keepers men inte den aktiva spelarens keepers
     else if(((snapshot->target_container.val.find("_hand") != std::string::npos) ||
             (snapshot->target_container.val.find("_keepers") != std::string::npos)) &&
-            snapshot->target_container.val.find(snapshot->current_player.getString()) != std::string::npos)
+            snapshot->target_container.val.find(snapshot->active_player.getString()) == std::string::npos)
     {
         BigCardCollection* bigcollection = new BigCardCollection(snapshot->getContainer(snapshot->target_container).getCards(),*card_id_loop);
         bigcollection->show();
@@ -145,8 +145,19 @@ Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
 void Gui::closeEvent(QCloseEvent* event)
 {
     // TODO: Stop evenloops
-    event->accept();
     this->hide();
+
+    if(event_loop->isRunning())
+        event_loop->quit();
+    if(card_id_loop->isRunning())
+        card_id_loop->quit();
+    if(player_loop->isRunning())
+        player_loop->quit();
+
+    qDebug() << "Closing window";
+
+
+    event->accept();
 }
 
 void Gui::message(const QString& title, const QString& message) const
