@@ -84,11 +84,18 @@ SessionData	GameLoop::run()
         _game_logic->drawCard(p.getID());
         _game_logic->drawCard(p.getID());
     }
-	
-	while (executePlayerTurn(getCurrentPlayerID()) == GameState::CONTINUE)
+	try
 	{
-		nextPlayer();
+		while (executePlayerTurn(getCurrentPlayerID()) == GameState::CONTINUE)
+		{
+			nextPlayer();
+		}
 	}
+	catch(std::logic_error & error)
+	{
+		error.what();
+	}
+
     return SessionData(_game_logic->getPM()->getPlayers(), PlayerIdentifier::Player1);
 }
 

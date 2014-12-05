@@ -146,6 +146,10 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
 }
 bool GameLogic::playerDecision(string question, string leftButton, string rightButton)
 {
+ if(!_gui->isVisible())
+     {
+        _currentGameState = GameState::QUIT;
+     }
     cout << "Decisions has been made" << endl;
       BoardSnapshot snapshot(makeBoardSnapshot());
     return _gui->playerDecision(&snapshot, question,leftButton,rightButton);
@@ -170,6 +174,11 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 
         CardID id = _gui->pickCard(&snapshot);
         cerr << "GameLogic::pickCard() - Recieved CardID from GUI: " << id.val << endl;
+      if(!_gui->isVisible())
+     {
+        _currentGameState = GameState::QUIT;
+         return CardID(0);
+     }
         return id;
 
     }
@@ -182,12 +191,18 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 
 PlayerID GameLogic::pickPlayer()
 {
+     if(!_gui->isVisible())
+     {
+        _currentGameState = GameState::QUIT;
+     }
      cout << "Decisions has been made" << endl;
     BoardSnapshot snapshot(makeBoardSnapshot());
     cerr << "GameLogic::pickPlayer() - Querying GUI for a player." << endl;
     const PlayerID id = _gui->pickPlayer(&snapshot);
-            if(!_gui->isVisible())
-             _currentGameState == GameState::QUIT;
+    if(!_gui->isVisible())
+    {
+       _currentGameState == GameState::QUIT;
+    }
     cerr << "GameLogic::pickPlayer() - Recieved PlayerID from GUI: " << id.getString() << endl;
     return id;
 }
