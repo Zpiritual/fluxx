@@ -656,18 +656,24 @@ void GameLogic::effect_ModifyRule(string rule_type, int value)
 {
     for (auto i : _ccm->getCards(CardContainerID("Rules")))
     {
-
-        if(_cm->getCard(i)->getEffects().at(1).val.find(rule_type) != string::npos && _cm->getCard(i)->getEffects().at(1).val.compare(rule_type) != 0)
+        if(_cm->getCard(i)->getEffects().at(0).val.find("AddTriggeredRule") != string::npos )
         {
-            cout << _cm->getCard(i)->getEffects().at(1).val << " and " << rule_type << endl;
-             _ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), i);
+            if(_cm->getCard(i)->getEffects().at(1).val.find(" "+ rule_type+" ") != string::npos && _cm->getCard(i)->getEffects().at(1).val.find(to_string(value)) == string::npos)
+            {
+             cout << _cm->getCard(i)->getEffects().at(1).val << " and " << rule_type << endl;
+            _ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), i);
              break;
+            }
         }
-        else if(_cm->getCard(i)->getEffects().at(0).val.find(rule_type) != string::npos && _cm->getCard(i)->getEffects().at(0).val.compare(rule_type) != 0)
+
+         if(_cm->getCard(i)->getEffects().at(0).val.find("ModifyRule") != string::npos )
         {
-            cout << _cm->getCard(i)->getEffects().at(1).val << " and " << rule_type << endl;
-             _ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), i);
+            if(_cm->getCard(i)->getEffects().at(0).val.find(rule_type) != string::npos && _cm->getCard(i)->getEffects().at(0).val.find(to_string(value)) == string::npos)
+            {
+             cout << _cm->getCard(i)->getEffects().at(0).val << " and " << rule_type << endl;
+            _ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), i);
              break;
+            }
         }
     }
 
