@@ -4,12 +4,16 @@
 
 void CardContainer::addCard(const CardID c)
 {
+	if(c == CardID(0))
+		return;
 	//if(std::find(_cards.begin(), _cards.end(), c) == _cards.end())	//Guard for duplicates //Nooo, bättre att kasta så vi upptäcker felet.
 	_cards.push_back(c);
 }
 
 void CardContainer::removeCard(const CardID c)
 {
+	if(c == CardID(0))
+		return;
 	auto card = std::find(_cards.begin(), _cards.end(),c);
 
 	if (card == _cards.end())

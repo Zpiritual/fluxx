@@ -85,7 +85,7 @@ SessionData	GameLoop::run()
         _game_logic->drawCard(p.getID());
     }
 	
-	while (executePlayerTurn(getCurrentPlayerID()) != GameState::GAME_OVER)
+	while (executePlayerTurn(getCurrentPlayerID()) == GameState::CONTINUE)
 	{
 		nextPlayer();
 	}

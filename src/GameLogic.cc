@@ -69,6 +69,7 @@ void GameLogic::playCard()
     //Fråga GUI om kort-id osv.
 
     CardID cid = pickCard(_pm->getCurrentPlayer()->getID(), ccid);
+    if(cid != CardID(0))
     playCardWithID(cid, ccid);
 }
 
@@ -151,6 +152,12 @@ bool GameLogic::playerDecision(string question, string leftButton, string rightB
 }
 CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 {
+     if (getCurrentGameState() != GameState::CONTINUE) return CardID(0);
+     if(!_gui->isVisible())
+     {
+        _currentGameState = GameState::QUIT;
+         return CardID(0);
+     }
     BoardSnapshot snapshot(makeBoardSnapshot(pid, container));
     cerr << "GameLogic::pickCard() - Querying GUI for a card." << endl;
     if (_ccm->getSize(container) == 1 && container.val.find("_hand") == string::npos)
@@ -160,7 +167,8 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
     }
     else
     {
-        const CardID id = _gui->pickCard(&snapshot);
+
+        CardID id = _gui->pickCard(&snapshot);
         cerr << "GameLogic::pickCard() - Recieved CardID from GUI: " << id.val << endl;
         return id;
 
@@ -174,9 +182,12 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 
 PlayerID GameLogic::pickPlayer()
 {
+     cout << "Decisions has been made" << endl;
     BoardSnapshot snapshot(makeBoardSnapshot());
     cerr << "GameLogic::pickPlayer() - Querying GUI for a player." << endl;
     const PlayerID id = _gui->pickPlayer(&snapshot);
+            if(!_gui->isVisible())
+             _currentGameState == GameState::QUIT;
     cerr << "GameLogic::pickPlayer() - Recieved PlayerID from GUI: " << id.getString() << endl;
     return id;
 }
@@ -189,7 +200,9 @@ void GameLogic::writeToLog(const string message)
 void GameLogic::switchPlayer()
 {
     if (getCurrentGameState() != GameState::CONTINUE) return;
-
+      if(!_gui->isVisible())
+             _currentGameState == GameState::QUIT;
+    cout << "Decisions has been made" << endl;
     _log.push_back(make_pair(_pm->getCurrentPlayerID(), _local_log));
 
     cout << _local_log << endl;
@@ -216,7 +229,6 @@ void GameLogic::checkRules(RuleTrigger rt)
 {
     if (getCurrentGameState() != GameState::CONTINUE) return;
     cout << "Check rules" << endl;
-    if (getCurrentGameState() != GameState::CONTINUE) return;
     //TODO - waiting for RuleManager to be completed
     vector<Effect> effects = _rm->getTriggeredRules(rt);
     for (unsigned int i = 0; i < effects.size(); i++ )
