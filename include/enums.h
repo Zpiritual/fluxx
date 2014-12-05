@@ -19,6 +19,7 @@ enum class RuleTrigger
 enum class GameState
 {
 	CONTINUE,
+	QUIT,
 	GAME_OVER
 };
 

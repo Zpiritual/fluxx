@@ -43,9 +43,10 @@ public:
 	//Prototype functions
     void addRule(const CardID, Effect*, const RuleTrigger);
 	void removeRule(const CardID);
-    CardID pickCard(const PlayerID, const CardContainerID) const;
-    PlayerID pickPlayer() const;
+    CardID pickCard(const PlayerID, const CardContainerID);
+    PlayerID pickPlayer();
 	void switchPlayer();
+	bool playerDecision(string, string, string);
 
 	CardContainerManager* getCCM();
 	CardManager*		  getCM();
@@ -68,17 +69,21 @@ public:
     void effect_RemoveTriggeredRule(int card_id);
     void effect_ModifyRule(string rule_type, int value);
     void effect_TakeAndPlay(int take, int play, int trash);
-	void effect_EmptyContainer(string container);
+	void effect_ReshuffleContainer(string container);
     void effect_BooleanKeeperCheck(vector<int> &,vector<int> &);
 	void effect_ContainerQuantityCheck(string, int);
 	void effect_SwapPlayerContainer(string);
 	void effect_TrashCards(int);
 	void effect_TrashCardsFromContainer(int,string);
     void effect_ForceRandomPlay(int quantity);
-	void effect_MoveContainer(string ccid1,string ccid2);
+	void effect_MoveContainer(string ccid1, string ccid2);
 	void effect_MoveCardsSubtype(string ccid1,string ccid2, string type);
+	void effect_RepeatTurn();
+	void effect_ScramblePlayerContainer(string);
+	void effect_bonusPlayerContainerQuantity(int, string,char);
+	void effect_rotatePlayerContainer(string);
 	void writeToLog(const string);
-	
+
 	GameState getCurrentGameState() const;
 
 private:
