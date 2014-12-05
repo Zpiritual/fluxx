@@ -410,6 +410,13 @@ void GameLogic::executeEffect(const Effect &effect)
         ss >> quantity >> container >> relation;
         effect_bonusPlayerContainerQuantity(quantity, container, relation);
     }
+    else if (identifier.compare("BonusPlayerContainerEmpty") == 0)
+    {
+        int quantity;
+        string container;
+        ss >> quantity >> container;
+        effect_bonusPlayerContainerEmpty(quantity, container);
+    }
     else if (identifier.compare("RepeatTurn") == 0)
     {
         effect_RepeatTurn();
@@ -1056,6 +1063,16 @@ void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string contain
             _ccm->drawCard(CardContainerID(_pm->getPlayers().at(bestPlayer).getID().getString() + "_hand"));
     }
 
+}
+
+void GameLogic::effect_bonusPlayerContainerEmpty(int quantity, string container)
+{
+    int containerSize = _ccm->getSize(CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_" + container));
+    if(containerSize == 0)
+    {
+         for (int  i = 0; i < quantity; i++)
+            _ccm->drawCard(CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"));
+    }
 }
 
 void GameLogic::effect_rotatePlayerContainer(string container)

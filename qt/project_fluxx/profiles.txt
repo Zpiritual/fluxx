@@ -18,3 +18,13 @@ wins 0
 games 0
 playedcards 0
 
+profile sciii
+wins 0
+games 0
+playedcards 0
+
+profile scii
+wins 0
+games 0
+playedcards 0
+

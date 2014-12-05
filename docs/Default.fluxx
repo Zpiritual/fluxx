@@ -1,5 +1,5 @@
 DECK_NAME Default
-CARD_COUNT 72
+CARD_COUNT 73
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
 CARD_ID 002
@@ -359,6 +359,14 @@ CARD_DESCRIPTION The player with the most amount of keepers draws one extra card
 CARD_EFFECT AddTriggeredRule 063 PRE_DRAW
 CARD_EFFECT BonusPlayerContainerQuantity 1 keepers >
 CARD_EFFECT RemoveTriggeredRule 063
+
+CARD_ID 064
+CARD_NAME No-Hand Bonus
+CARD_TYPE RULE
+CARD_DESCRIPTION The player with the most amount of keepers draws one extra card.
+CARD_EFFECT AddTriggeredRule 064 PRE_DRAW
+CARD_EFFECT BonusPlayerContainerEmpty 3 hand
+CARD_EFFECT RemoveTriggeredRule 064
 
 CARD_ID 065
 CARD_NAME Poor Bonus
