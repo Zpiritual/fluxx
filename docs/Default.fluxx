@@ -1,5 +1,5 @@
 DECK_NAME Default
-CARD_COUNT 73
+CARD_COUNT 74
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
 CARD_ID 002
@@ -20,11 +20,23 @@ CARD_TYPE ACTION
 CARD_DESCRIPTION All players pass their hand to the player next to them. You decide which direction.
 CARD_EFFECT RotatePlayerContainer hand
 
+CARD_ID 005
+CARD_NAME Let's DO That Again!
+CARD_TYPE ACTION
+CARD_DESCRIPTION Search through the discard pile. Take any ACtion or New Rule card you wish, and immediately play it. 
+CARD_EFFECT RotatePlayerContainer hand
+
 CARD_ID 006
 CARD_NAME Scramble Keepers
 CARD_TYPE ACTION
 CARD_DESCRIPTION Scramble all keepers
 CARD_EFFECT ScramblePlayerContainer keepers
+
+CARD_ID 007
+CARD_NAME Everybody Gets 1
+CARD_TYPE ACTION
+CARD_DESCRIPTION Set Your hand aside. Count the number of players in the game etc...
+CARD_EFFECT DrawAndDistribute 1
 
 CARD_ID 008
 CARD_NAME Empty the Trash
@@ -47,7 +59,7 @@ CARD_EFFECT DrawAndPlay 3 0 0
 CARD_ID 011
 CARD_NAME Trash a Keeper
 CARD_TYPE ACTION
-CARD_DESCRIPTION Take a Keeper form in front of any player na dput it on the discard pile.
+CARD_DESCRIPTION Take a Keeper form in front of any player and put it on the discard pile.
 CARD_EFFECT TrashCards 1
 
 CARD_ID 015

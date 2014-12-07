@@ -83,6 +83,9 @@ public:
 	void effect_bonusPlayerContainerQuantity(int, string,char);
 	void effect_bonusPlayerContainerEmpty(int, string);
 	void effect_rotatePlayerContainer(string);
+    void effect_DrawAndDistribute(int);
+    //void effect_TakeAndPlayBasedOnSubtype(string, int ,vector<string>);
+	
 	void writeToLog(const string);
 
 	GameState getCurrentGameState() const;

@@ -427,6 +427,12 @@ void GameLogic::executeEffect(const Effect &effect)
         ss >> container;
         effect_rotatePlayerContainer(container);
     }
+    else if (identifier.compare("DrawAndDistribute") == 0)
+    {
+        int quantity;
+        ss >> quantity;
+        effect_DrawAndDistribute(quantity);
+    }
     else
     {
         throw std::logic_error("GameLogic::executeEffect() - Undefined Effect");
@@ -1077,7 +1083,7 @@ void GameLogic::effect_bonusPlayerContainerEmpty(int quantity, string container)
 
 void GameLogic::effect_rotatePlayerContainer(string container)
 {
-    bool rotation =    playerDecision("Rotaion", "COUNTERCLOCKWISE", "CLOCKWISE");
+    bool rotation =    playerDecision("Rotation", "COUNTERCLOCKWISE", "CLOCKWISE");
 
     vector<vector<CardID>> containers;
     for (int i = 0; i < _pm->getPlayers().size(); i++)
@@ -1106,6 +1112,29 @@ void GameLogic::effect_rotatePlayerContainer(string container)
         for (auto j : containers.at(i))
         {
             _ccm->moveCard(ccid, ccid2, j);
+        }
+    }
+}
+void GameLogic::effect_DrawAndDistribute(int quantity)
+{
+    string ccids;
+    if(_ccm->getSize(CardContainerID("tempA")) == 0)
+        ccids = "tempA";
+    else if(_ccm->getSize(CardContainerID("tempB")) == 0)
+        ccids = "tempB";
+    else
+        throw logic_error("No empty Temp CardContainer!");
+    CardContainerID id(ccids);
+    for(int j = 0; j < _pm->getPlayers().size(); j++)
+        for(int i = 0; i <  quantity; i++)
+        {
+           _ccm->drawCard(id);
+        }
+    for(Player p: _pm->getPlayers())
+    {
+        for(int j = 0; j <  quantity; j++)
+        {
+         _ccm->moveCard(id,CardContainerID(p.getID().getString() + "_hand"), pickCard(_pm->getCurrentPlayer()->getID(), id));
         }
     }
 }
