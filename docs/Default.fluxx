@@ -24,7 +24,7 @@ CARD_ID 005
 CARD_NAME Let's DO That Again!
 CARD_TYPE ACTION
 CARD_DESCRIPTION Search through the discard pile. Take any ACtion or New Rule card you wish, and immediately play it. 
-CARD_EFFECT RotatePlayerContainer hand
+CARD_EFFECT TakeAndPlayBasedOnSubtype Trash RULE ACTION
 
 CARD_ID 006
 CARD_NAME Scramble Keepers

@@ -433,6 +433,18 @@ void GameLogic::executeEffect(const Effect &effect)
         ss >> quantity;
         effect_DrawAndDistribute(quantity);
     }
+    else if (identifier.compare("TakeAndPlayBasedOnSubtype") == 0)
+    {
+        string container;
+        vector<string> subtypes;
+        ss >> container;
+        string tmp;
+        while(ss >> tmp)
+        {
+            subtypes.push_back(tmp);
+        }
+        effect_TakeAndPlayBasedOnSubtype(container, subtypes);
+    }
     else if (identifier.compare("SetOrder") == 0)
     {
         string direction;
@@ -1177,3 +1189,21 @@ void GameLogic::effect_SetOrder(string direction)
         throw std::logic_error("GameLogic::effect_SetOrder(string direction) - Invalid direction: " + direction);
     }
 }
+
+ void GameLogic::effect_TakeAndPlayBasedOnSubtype(string container,vector<string> subtypes)
+ {
+    bool check = false;
+    CardID id(0);
+        do
+        {
+            id = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID(container));
+            for(string s: subtypes)
+            {
+                check = _cm->getCard(id)->getSubtype().compare(s) == 0;
+                break;
+            }
+        }while(!check);
+    playCardWithID(id,CardContainerID(container));
+ }
+
+

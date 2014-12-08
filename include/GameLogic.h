@@ -84,7 +84,7 @@ public:
 	void effect_bonusPlayerContainerEmpty(int, string);
 	void effect_rotatePlayerContainer(string);
     void effect_DrawAndDistribute(int);
-    //void effect_TakeAndPlayBasedOnSubtype(string, int ,vector<string>);
+    void effect_TakeAndPlayBasedOnSubtype(string, vector<string>);
     void effect_SetOrder(string);
 	
 	void writeToLog(const string);
