@@ -49,7 +49,8 @@ Deck* DeckParser::deck_to_game(std::string filename)
             }
             else if(t.compare("CARD_NAME") == 0)
             {
-               getline(ss,name);
+            	ss >> ws;
+            	getline(ss,name);
             }
             else if(t.compare("CARD_TYPE") == 0)
 			{
@@ -73,14 +74,14 @@ Deck* DeckParser::deck_to_game(std::string filename)
 		}
 		
 	//debug stuff:
-		cerr << "NEW CARD:" << endl;
+		cerr << "\nNEW CARD:" << endl;
 		cerr << "=========" << endl;
 		cerr << "ID: " << id << endl;
     	cerr << "NAME: " << name << endl;
 		cerr << "TYPE: " << type << endl;
 		cerr << "SubType: " << subtype << endl;
 		cerr << "Description: " << description << endl;
-		cerr << "Effect:" << effects.size() << endl;
+		cerr << "Effect:" << effect << endl;
         cards.push_back(new Card(id, name, type, subtype, description, effects));
 	}
 

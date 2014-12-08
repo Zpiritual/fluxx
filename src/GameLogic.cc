@@ -201,7 +201,7 @@ PlayerID GameLogic::pickPlayer()
     const PlayerID id = _gui->pickPlayer(&snapshot);
     if(!_gui->isVisible())
     {
-       _currentGameState == GameState::QUIT;
+       _currentGameState = GameState::QUIT;
     }
     cerr << "GameLogic::pickPlayer() - Recieved PlayerID from GUI: " << id.getString() << endl;
     return id;
@@ -216,7 +216,7 @@ void GameLogic::switchPlayer()
 {
     if (getCurrentGameState() != GameState::CONTINUE) return;
       if(!_gui->isVisible())
-             _currentGameState == GameState::QUIT;
+             _currentGameState = GameState::QUIT;
     cout << "Decisions has been made" << endl;
     _log.push_back(make_pair(_pm->getCurrentPlayerID(), _local_log));
 
@@ -432,6 +432,12 @@ void GameLogic::executeEffect(const Effect &effect)
         int quantity;
         ss >> quantity;
         effect_DrawAndDistribute(quantity);
+    }
+    else if (identifier.compare("SetOrder") == 0)
+    {
+        string direction;
+        ss >> direction;
+        effect_SetOrder(direction);
     }
     else
     {
@@ -1000,7 +1006,7 @@ void GameLogic::effect_ScramblePlayerContainer(string container)
     }
     cout << "GameLogic::effect_ScramblePlayerContainer(): " << "Start giving cards to players" << endl;
 
-    for (int j = 0; j < _pm->getPlayers().size(); j++)
+    for (unsigned int j = 0; j < _pm->getPlayers().size(); j++)
     {
         for (int i = 0 ; i < playerContainerCount.at(j); i++)
         {
@@ -1030,8 +1036,8 @@ void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string contain
         bestValue = 82;
         bestPlayer = 0;
     }
-    
-    for (int i = 0 ; i < containersSize.size(); i++)
+
+    for (unsigned int i = 0 ; i < containersSize.size(); i++)
     {
         if (relation == '<')
         {
@@ -1087,25 +1093,25 @@ void GameLogic::effect_rotatePlayerContainer(string container)
     bool rotation =    playerDecision("Rotation", "COUNTERCLOCKWISE", "CLOCKWISE");
 
     vector<vector<CardID>> containers;
-    for (int i = 0; i < _pm->getPlayers().size(); i++)
+    for (unsigned int i = 0; i < _pm->getPlayers().size(); i++)
     {
         CardContainerID ccid(_pm->getPlayers().at(i).getID().getString() + "_" + container);
         containers.push_back(_ccm->getCards(ccid));
     }
 
-    for (int i = 0; i< _pm->getPlayers().size(); i++)
+    for (unsigned int i = 0; i < _pm->getPlayers().size(); i++)
     {
         int target = i;
         if (rotation)
         {
             target = i - 1;
             if (target == -1)
-                target = _pm->getPlayers().size() - 1;
+                target = int(_pm->getPlayers().size() - 1);
         }
         else
         {
             target = i + 1;
-            if (target == _pm->getPlayers().size())
+            if (target == int(_pm->getPlayers().size()))
                 target = 0;
         }
         CardContainerID ccid(_pm->getPlayers().at(i).getID().getString() + "_" + container);
@@ -1126,7 +1132,7 @@ void GameLogic::effect_DrawAndDistribute(int quantity)
     else
         throw logic_error("No empty Temp CardContainer!");
     CardContainerID id(ccids);
-    for(int j = 0; j < _pm->getPlayers().size(); j++)
+    for(unsigned int j = 0; j < _pm->getPlayers().size(); j++)
         for(int i = 0; i <  quantity; i++)
         {
            _ccm->drawCard(id);
@@ -1143,4 +1149,31 @@ void GameLogic::effect_DrawAndDistribute(int quantity)
 void GameLogic::effect_RepeatTurn()
 {
     _pm->repeatTurn();
+}
+
+void GameLogic::effect_SetOrder(string direction)
+{
+    if (direction.compare("CLOCKWISE") == 0)
+    {
+        if (getPM()->getPlayers().size() == 2)
+        {
+            // I detta utförande är kort-id 55 hårdkodat. Suboptimalt!            
+            getCCM()->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), CardID(55));
+            effect_RepeatTurn();
+        }
+
+        getRM()->setPlayOrder(Direction::CLOCKWISE);
+    }
+    else if (direction.compare("COUNTERCLOCKWISE") == 0)
+    {
+        // Om antalet spelare är två tas regeln omedelbart bort igen, och exit-effekten är effektlös.
+        if (!(getPM()->getPlayers().size() == 2))
+        {
+            getRM()->setPlayOrder(Direction::COUNTERCLOCKWISE);
+        }
+    }
+    else
+    {
+        throw std::logic_error("GameLogic::effect_SetOrder(string direction) - Invalid direction: " + direction);
+    }
 }

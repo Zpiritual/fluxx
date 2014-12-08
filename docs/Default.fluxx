@@ -1,5 +1,5 @@
 DECK_NAME Default
-CARD_COUNT 74
+CARD_COUNT 76
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
 CARD_ID 002
@@ -307,6 +307,13 @@ CARD_SUBTYPE Rule
 CARD_DESCRIPTION Double Agenda
 CARD_EFFECT ModifyRule Goal 2
 CARD_EFFECT ModifyRule Goal 1
+
+CARD_ID 055
+CARD_NAME Reverse Order
+CARD_TYPE RULE
+CARD_DESCRIPTION At the end of the turn in which this card is played, turn order will proceed in the opposite direction. When there are only two players, treat this card as Take Another Turn.
+CARD_EFFECT SetOrder COUNTERCLOCKWISE
+CARD_EFFECT SetOrder CLOCKWISE
 
 CARD_ID 056
 CARD_NAME Hand Limit 2
