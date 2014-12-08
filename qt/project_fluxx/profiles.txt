@@ -18,3 +18,23 @@ wins 0
 games 0
 playedcards 0
 
+profile Lola
+wins 0
+games 0
+playedcards 0
+
+profile Gösta
+wins 0
+games 0
+playedcards 0
+
+profile Runa
+wins 0
+games 0
+playedcards 0
+
+profile Johan
+wins 0
+games 0
+playedcards 0
+

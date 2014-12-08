@@ -924,7 +924,6 @@ void GameLogic::effect_ScramblePlayerContainer(string container)
         }
     }
     cout << "GameLogic::effect_ScramblePlayerContainer(): " << "End of effect" << endl;
-
 }
 
 void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string container, char relation)
@@ -937,7 +936,9 @@ void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string contain
     int amountOfPlayers = 0;
     int bestPlayer = 0;
     int bestValue = containersSize.at(0);
-    cout << "First Best Player: " << bestPlayer << endl;
+
+    cerr << "First Best Player: " << bestPlayer << endl;
+
     for (int i = 0 ; i < containersSize.size(); i++)
     {
         if (relation == '<')
@@ -947,7 +948,6 @@ void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string contain
                 bestValue == containersSize.at(i);
                 bestPlayer == i;
                 amountOfPlayers = 0;
-
             }
             else if(containersSize.at(i) == bestValue)
             {
