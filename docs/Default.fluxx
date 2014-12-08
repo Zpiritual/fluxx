@@ -1,5 +1,5 @@
 DECK_NAME Default
-CARD_COUNT 70
+CARD_COUNT 74
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
 CARD_ID 002
@@ -14,11 +14,29 @@ CARD_TYPE ACTION
 CARD_DESCRIPTION Trade your hand for the hand of one of your opponents.
 CARD_EFFECT SwapPlayerContainer hand
 
+CARD_ID 004
+CARD_NAME Rotate Hands
+CARD_TYPE ACTION
+CARD_DESCRIPTION All players pass their hand to the player next to them. You decide which direction.
+CARD_EFFECT RotatePlayerContainer hand
+
+CARD_ID 005
+CARD_NAME Let's DO That Again!
+CARD_TYPE ACTION
+CARD_DESCRIPTION Search through the discard pile. Take any ACtion or New Rule card you wish, and immediately play it. 
+CARD_EFFECT RotatePlayerContainer hand
+
 CARD_ID 006
 CARD_NAME Scramble Keepers
 CARD_TYPE ACTION
 CARD_DESCRIPTION Scramble all keepers
 CARD_EFFECT ScramblePlayerContainer keepers
+
+CARD_ID 007
+CARD_NAME Everybody Gets 1
+CARD_TYPE ACTION
+CARD_DESCRIPTION Set Your hand aside. Count the number of players in the game etc...
+CARD_EFFECT DrawAndDistribute 1
 
 CARD_ID 008
 CARD_NAME Empty the Trash
@@ -41,7 +59,7 @@ CARD_EFFECT DrawAndPlay 3 0 0
 CARD_ID 011
 CARD_NAME Trash a Keeper
 CARD_TYPE ACTION
-CARD_DESCRIPTION Take a Keeper form in front of any player na dput it on the discard pile.
+CARD_DESCRIPTION Take a Keeper form in front of any player and put it on the discard pile.
 CARD_EFFECT TrashCards 1
 
 CARD_ID 015
@@ -226,6 +244,14 @@ CARD_EFFECT AddTriggeredRule 46 PRE_PLAY
 CARD_EFFECT ForceRandomPlay 1
 CARD_EFFECT RemoveTriggeredRule 46
 
+CARD_ID 047
+CARD_NAME Play All
+CARD_TYPE RULE
+CARD_SUBTYPE Play
+CARD_DESCRIPTION Play All
+CARD_EFFECT ModifyRule Play 82
+CARD_EFFECT ModifyRule Play 1
+
 CARD_ID 048
 CARD_NAME Play 4
 CARD_TYPE RULE
@@ -345,6 +371,14 @@ CARD_DESCRIPTION The player with the most amount of keepers draws one extra card
 CARD_EFFECT AddTriggeredRule 063 PRE_DRAW
 CARD_EFFECT BonusPlayerContainerQuantity 1 keepers >
 CARD_EFFECT RemoveTriggeredRule 063
+
+CARD_ID 064
+CARD_NAME No-Hand Bonus
+CARD_TYPE RULE
+CARD_DESCRIPTION The player with the most amount of keepers draws one extra card.
+CARD_EFFECT AddTriggeredRule 064 PRE_DRAW
+CARD_EFFECT BonusPlayerContainerEmpty 3 hand
+CARD_EFFECT RemoveTriggeredRule 064
 
 CARD_ID 065
 CARD_NAME Poor Bonus

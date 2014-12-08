@@ -46,6 +46,7 @@ public:
     CardID pickCard(const PlayerID, const CardContainerID);
     PlayerID pickPlayer();
 	void switchPlayer();
+	bool playerDecision(string, string, string);
 
 	CardContainerManager* getCCM();
 	CardManager*		  getCM();
@@ -80,7 +81,11 @@ public:
 	void effect_RepeatTurn();
 	void effect_ScramblePlayerContainer(string);
 	void effect_bonusPlayerContainerQuantity(int, string,char);
+	void effect_bonusPlayerContainerEmpty(int, string);
 	void effect_rotatePlayerContainer(string);
+    void effect_DrawAndDistribute(int);
+    //void effect_TakeAndPlayBasedOnSubtype(string, int ,vector<string>);
+	
 	void writeToLog(const string);
 
 	GameState getCurrentGameState() const;

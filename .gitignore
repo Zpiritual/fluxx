@@ -7,3 +7,4 @@
 *.o
 *.stackdump
 *_test
+*.db

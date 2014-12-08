@@ -84,11 +84,18 @@ SessionData	GameLoop::run()
         _game_logic->drawCard(p.getID());
         _game_logic->drawCard(p.getID());
     }
-	
-	while (executePlayerTurn(getCurrentPlayerID()) != GameState::GAME_OVER)
+	try
 	{
-		nextPlayer();
+		while (executePlayerTurn(getCurrentPlayerID()) == GameState::CONTINUE)
+		{
+			nextPlayer();
+		}
 	}
+	catch(std::logic_error & error)
+	{
+		error.what();
+	}
+
     return SessionData(_game_logic->getPM()->getPlayers(), PlayerIdentifier::Player1);
 }
 
@@ -104,13 +111,13 @@ GameState GameLoop::executePlayerTurn(PlayerID pid)
 
 	checkTriggeredRules(RuleTrigger::PRE_PLAY);
 	
- 	while (getCardsPlayed() < getPlayNO() && _game_logic->getCCM()->getSize(getCurrentPlayerID().getString() + "_hand") != 0) // played_cards ligger i player.
+ 	while (getCardsPlayed() < getPlayNO() && _game_logic->getCCM()->getSize(getCurrentPlayerID().getString() + "_hand") != 0 && _game_logic->getCurrentGameState() == GameState::CONTINUE) // played_cards ligger i player.
  	{
  		std::cerr << "Cards to play: " << getPlayNO() << ", Cards Played: " << getCardsPlayed() << endl;
  		std::cerr << "Cards to Draw: " << getDrawNO() << ", Cards Drawn: " << _game_logic->getPM()->getCurrentPlayer()->getCardsDrawn() << endl;
 
  		_game_logic->playCard();
- 		_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
+ 		//_game_logic->getPM()->getCurrentPlayer()->incrementCardsPlayed();
  	}
  	std::cerr << "END OF TURN\n\n" << std::endl;
  	return _game_logic->getCurrentGameState();
