@@ -31,7 +31,6 @@ public:
     CardID pickCard(const BoardSnapshot* const, const CardContainerID);
     CardID pickCard(const BoardSnapshot* const);
     void nextPlayer(const BoardSnapshot* const);
-    Direction chooseDirection(const BoardSnapshot * const);
     bool playerDecision(const BoardSnapshot* const, const std::string&, const std::string&, const std::string&);
 
 
