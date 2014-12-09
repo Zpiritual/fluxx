@@ -19,13 +19,13 @@
 #include "profilename.h"
 #include "cardidloop.h"
 #include "playerloop.h"
-
+#include "mainmenu.h"
 
 class Gui : public QWidget
 {
     Q_OBJECT
 public:  
-    explicit Gui(std::vector<ProfileName> players, QWidget *parent = 0);
+    explicit Gui(std::vector<ProfileName> players, MainMenu* main_menu, QWidget *parent = 0);
     ~Gui();
     PlayerID pickPlayer(const BoardSnapshot * const);
     CardID pickCard(const BoardSnapshot* const, const CardContainerID);
@@ -56,6 +56,7 @@ private:
     PlayerLoop* player_loop;
     QEventLoop* event_loop;
     QScrollArea* rules_scroll;
+    MainMenu* _parent;
 
     void message(const QString&, const QString&) const;
     void uiElements();

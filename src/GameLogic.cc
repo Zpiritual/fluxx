@@ -56,9 +56,9 @@ void GameLogic::playCard()
     if (getCurrentGameState() != GameState::CONTINUE) return;
     string ccids;
     //Kollar efter specialiserade containrar
-    if (getCCM()->getSize(CardContainerID("tempB")) > 0)
+    if (_ccm->getSize(CardContainerID("tempB")) > 0)
         ccids = "tempB";
-    else if (getCCM()->getSize(CardContainerID("tempA")) > 0)
+    else if (_ccm->getSize(CardContainerID("tempA")) > 0)
         ccids = "tempA";
     else
         ccids = _pm->getCurrentPlayer()->getID().getString() + "_hand";
@@ -576,8 +576,9 @@ BoardSnapshot GameLogic::makeBoardSnapshot(const PlayerID active, const CardCont
     return BoardSnapshot(
                _ccm->getContainers(),
                (int)(_pm->getPlayers().size()),
-               _pm->getCurrentPlayer()->getID(),
+               _pm->getCurrentPlayerID(),
                active,
+               _pm->getNextPlayerID(_rm->getPlayOrder()),
                _pm->getCurrentPlayer()->getCardsPlayed(),
                _rm->getPlay(),
                _rm->getPlayOrder(),
@@ -591,8 +592,9 @@ BoardSnapshot GameLogic::makeBoardSnapshot() const
     return BoardSnapshot(
                _ccm->getContainers(),
                (int)(_pm->getPlayers().size()),
-               _pm->getCurrentPlayer()->getID(),
-               _pm->getCurrentPlayer()->getID(),
+               _pm->getCurrentPlayerID(),
+               _pm->getCurrentPlayerID(),
+               _pm->getNextPlayerID(_rm->getPlayOrder()),
                _pm->getCurrentPlayer()->getCardsPlayed(),
                _rm->getPlay(),
                _rm->getPlayOrder(),
@@ -624,11 +626,11 @@ void GameLogic::effect_DrawAndPlay(int draw, int play, int trash)
 {
     string ccid;
 
-    if (getCCM()->getSize(CardContainerID("tempA")) == 0)
+    if (_ccm->getSize(CardContainerID("tempA")) == 0)
     {
         ccid = "tempA";
     }
-    else if (getCCM()->getSize(CardContainerID("tempB")) == 0)
+    else if (_ccm->getSize(CardContainerID("tempB")) == 0)
     {
         ccid = "tempB";
     }
@@ -799,11 +801,11 @@ void GameLogic::effect_TakeAndPlay(int take, int play, int trash)
 {
     string ccid;
 
-    if (getCCM()->getSize(CardContainerID("tempA")) == 0)
+    if (_ccm->getSize(CardContainerID("tempA")) == 0)
     {
         ccid = "tempA";
     }
-    else if (getCCM()->getSize(CardContainerID("tempB")) == 0)
+    else if (_ccm->getSize(CardContainerID("tempB")) == 0)
     {
         ccid = "tempB";
     }
@@ -1179,23 +1181,28 @@ void GameLogic::effect_RepeatTurn()
 
 void GameLogic::effect_SetOrder(string direction)
 {
-    if (direction.compare("CLOCKWISE") == 0)
+    if (direction.compare("COUNTERCLOCKWISE") == 0)
     {
-        if (getPM()->getPlayers().size() == 2)
+        if (_pm->getPlayers().size() == 2)
         {
+            _ccm->unSuspendCard(CardContainerID("Trash"));
             // I detta utförande är kort-id 55 hårdkodat. Suboptimalt!            
-            getCCM()->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), CardID(55));
-            effect_RepeatTurn();
+            //getCCM()->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), CardID(55));
+            addEffect(Effect{"RepeatTurn"});
         }
-
-        getRM()->setPlayOrder(Direction::CLOCKWISE);
+        else
+        {
+            _rm->setPlayOrder(Direction::COUNTERCLOCKWISE);
+        }
+    
     }
-    else if (direction.compare("COUNTERCLOCKWISE") == 0)
+    else if (direction.compare("CLOCKWISE") == 0)
     {
         // Om antalet spelare är två tas regeln omedelbart bort igen, och exit-effekten är effektlös.
-        if (!(getPM()->getPlayers().size() == 2))
+        // Spelordningen är iofs meningslös med bara två spelare, så den här kontrollen är kanske inte strikt nödvändig.
+        if (!(_pm->getPlayers().size() == 2))
         {
-            getRM()->setPlayOrder(Direction::COUNTERCLOCKWISE);
+            _rm->setPlayOrder(Direction::CLOCKWISE);
         }
     }
     else

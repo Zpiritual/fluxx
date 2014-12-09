@@ -14,7 +14,7 @@ GameLoop::~GameLoop()
     std::cerr << "\nBefore deletion of _game_logic @" << _game_logic <<  std::endl;
 	delete _game_logic;
 	_game_logic = nullptr;
-	std::cerr << "\nBefore deletion of _game_logic" << std::endl;
+    std::cerr << "\nAfter deletion of _game_logic" << std::endl;
 }
 
 // void GameLoop::playCard(const PlayerID, const CardID)
@@ -93,7 +93,7 @@ SessionData	GameLoop::run()
 	}
 	catch(std::logic_error & error)
 	{
-		error.what();
+		std::cerr << error.what();
 	}
 
     return SessionData(_game_logic->getPM()->getPlayers(), PlayerIdentifier::Player1);
