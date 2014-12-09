@@ -523,7 +523,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                 cout << cc1.val << " " << cc2.val << endl;
 
                 //Hand Limit check
-                while (_ccm->getSize(CardContainerID(p.getID().getString() + "_hand")) > _rm->getHandLimit())
+                while (_ccm->getSize(CardContainerID(p.getID().getString() + "_hand")) > _rm->getHandLimit() && getCurrentGameState() == GameState::CONTINUE)
                 {
                     cout << "Player must discard cards from hand: " << p.getID().getString() << endl;
                     CardContainerID player_hand(p.getID().getString() + "_hand");
@@ -542,7 +542,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                 }
 
                 //Keeper Limit check
-                while (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > _rm->getKeeperLimit())
+                while (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > _rm->getKeeperLimit()  && getCurrentGameState() == GameState::CONTINUE)
                 {
                     cout << "Player must trash keepers: " << p.getID().getString() << endl;
                     CardContainerID player_keepers(p.getID().getString() + "_keepers");
@@ -1233,7 +1233,8 @@ void GameLogic::effect_SetOrder(string direction)
             for(string s: subtypes)
             {
                 check = _cm->getCard(id)->getType().compare(s) == 0;
-                break;
+                if(check)
+                    break;
             }
         }
 playCardWithID(id,CardContainerID(container));
