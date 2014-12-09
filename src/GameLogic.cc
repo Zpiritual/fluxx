@@ -153,23 +153,24 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
 
 bool GameLogic::playerDecision(string question, string leftButton, string rightButton)
 {
- if(!_gui->isVisible())
-     {
+    if(!_gui->isVisible())
+    {
         _currentGameState = GameState::QUIT;
-     }
+    }
     cout << "Decisions has been made" << endl;
-      BoardSnapshot snapshot(makeBoardSnapshot());
+    BoardSnapshot snapshot(makeBoardSnapshot());
     return _gui->playerDecision(&snapshot, question,leftButton,rightButton);
 }
 
 CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 {
-     if (getCurrentGameState() != GameState::CONTINUE) return CardID(0);
-     if(!_gui->isVisible())
-     {
+    if (getCurrentGameState() != GameState::CONTINUE) return CardID(0);
+    if(!_gui->isVisible())
+    {
         _currentGameState = GameState::QUIT;
-         return CardID(0);
-     }
+        return CardID(0);
+    }
+    
     BoardSnapshot snapshot(makeBoardSnapshot(pid, container));
     cerr << "GameLogic::pickCard() - Querying GUI for a card." << endl;
     if (_ccm->getSize(container) == 1 && container.val.find("_hand") == string::npos)
@@ -179,34 +180,30 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
     }
     else
     {
-
         CardID id = _gui->pickCard(&snapshot);
         cerr << "GameLogic::pickCard() - Recieved CardID from GUI: " << id.val << endl;
-      if(!_gui->isVisible())
-     {
-        _currentGameState = GameState::QUIT;
-         return CardID(0);
-     }
-        return id;
 
+        if(!_gui->isVisible())
+        {
+            _currentGameState = GameState::QUIT;
+             return CardID(0);
+        }
+            return id;
     }
-    //    if(!_gui->isVisible())
-    //    {
-    //        throw quit_session("The GUI window was closed.");
-    //    }
-
 }
 
 PlayerID GameLogic::pickPlayer()
 {
-     if(!_gui->isVisible())
-     {
+    if(!_gui->isVisible())
+    {
         _currentGameState = GameState::QUIT;
-     }
-     cout << "Decisions has been made" << endl;
+    }
+    
+    cout << "Decisions has been made" << endl;
     BoardSnapshot snapshot(makeBoardSnapshot());
     cerr << "GameLogic::pickPlayer() - Querying GUI for a player." << endl;
     const PlayerID id = _gui->pickPlayer(&snapshot);
+    
     if(!_gui->isVisible())
     {
        _currentGameState = GameState::QUIT;

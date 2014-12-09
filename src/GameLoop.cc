@@ -1,6 +1,7 @@
 #include "GameLoop.h"
 #include "enums.h"
 #include <iostream>
+#include <string>
 
 GameLoop::GameLoop(Gui * gui, const Deck * deck, const int players)
 {
@@ -96,7 +97,30 @@ SessionData	GameLoop::run()
 		std::cerr << error.what();
 	}
 
-    return SessionData(_game_logic->getPM()->getWinningPlayer(), _game_logic->getPM()->getPlayerStats());
+	string gamestate;
+
+	if (_game_logic->getCurrentGameState() == GameState::CONTINUE)
+	{
+		gamestate = "CONTINUE";
+	}
+	else if (_game_logic->getCurrentGameState() == GameState::QUIT)
+	{
+		gamestate = "QUIT";
+	}
+	else if (_game_logic->getCurrentGameState() == GameState::GAME_OVER)
+	{
+		gamestate = "GAME_OVER";
+	}
+	else
+	{
+		gamestate = "INVALID GAMESTATE";
+	}
+
+	cerr << "Ending session. Gamestate: " << gamestate << endl;
+
+    return SessionData(_game_logic->getPM()->getWinningPlayer(),
+    				   _game_logic->getPM()->getPlayerStats(),
+    				   _game_logic->getCurrentGameState());
 }
 
 GameState GameLoop::executePlayerTurn(PlayerID pid)
