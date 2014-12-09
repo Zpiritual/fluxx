@@ -30,7 +30,8 @@ enum class PlayerIdentifier
 	Player3,
 	Player4,
 	Player5,
-	Player6
+	Player6,
+	NO_PLAYER
 };
 
 enum class Event
