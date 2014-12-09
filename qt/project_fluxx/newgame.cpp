@@ -68,7 +68,7 @@ void NewGame::startGame()
 
         SessionData session_data = game_loop.run();
 
-
+        qDebug() << "Pre gameover if statements in newgame startgame";
         if(session_data.game_state == GameState::GAME_OVER)
         {
             parent2->gameOverScreen(session_data, players);
