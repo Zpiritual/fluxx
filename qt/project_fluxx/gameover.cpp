@@ -12,7 +12,10 @@ void GameOver::uiElementSetup(SessionData session_data,std::vector<ProfileName> 
 {
     layout = new QVBoxLayout;
     ok_button = new QPushButton("Return to main menu");
-    winning_player_label = new QLabel(QString("Congratulations ") + QString::fromStdString(players.at(session_data.winning_player.getInt()).val)+ QString(" has won!"));
+    qDebug() << QString::number(players.size());
+    qDebug() << QString::number(session_data.winning_player.getInt()) + QString::fromStdString(session_data.winning_player.getString());
+    qDebug() << QString::number(session_data.players.size());
+    winning_player_label = new QLabel(QString("Congratulations ") + QString::fromStdString(players.at(session_data.winning_player.getInt()-1).val)+ QString(" has won!"));
 
     layout->addWidget(winning_player_label);
     layout->addWidget(ok_button);

@@ -68,10 +68,20 @@ void NewGame::startGame()
 
         SessionData session_data = game_loop.run();
 
-        qDebug() << "Add startGame functionality";
-        parent2->gameOverScreen(session_data, players);
+
+        if(session_data.game_state == GameState::GAME_OVER)
+        {
+            parent2->gameOverScreen(session_data, players);
+        }
+        else
+        {
+            parent2->newGameBack();
+
+        }
         parent2->show();
         delete gui;
+
+        qDebug() << "Add startGame functionality";
     }
 }
 

@@ -14,8 +14,9 @@ struct SessionData
 {
 	PlayerID winning_player;	
 	std::vector<PlayerStats> players;
+	GameState game_state;
 	
-    SessionData(PlayerID, std::vector<PlayerStats>);
+    SessionData(PlayerID, std::vector<PlayerStats>, GameState);
 
     SessionData() = delete;
 	SessionData(const SessionData&) = default;
