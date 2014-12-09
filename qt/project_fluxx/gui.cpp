@@ -182,24 +182,15 @@ void Gui::closeEvent(QCloseEvent* event)
     message.exec();
     if(message.clickedButton() == yes_button)
     {
+        _parent->newGameBack();
         _parent->show();
         this->hide();
         event->accept();
     }
     else
+    {
         event->ignore();
-
-
-//    event_loop->exit();
-//    card_id_loop->exit();
-//    player_loop->exit();
-
-//    if(event_loop->isRunning())
-//        event_loop->quit();
-//    if(card_id_loop->isRunning())
-//        card_id_loop->quit();
-//    if(player_loop->isRunning())
-//        player_loop->quit();
+    }
 
     qDebug() << "Closing window";
 

@@ -69,10 +69,8 @@ void NewGame::startGame()
 
         game_loop.run();
 
-
         qDebug() << "Add startGame functionality";
         delete gui;
-
     }
 }
 

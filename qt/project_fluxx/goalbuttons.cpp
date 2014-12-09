@@ -20,8 +20,6 @@ void GoalButtons::updateCards(const CardContainer& container)
 
     this->setAutoFillBackground(false);
 
-   // delete layout;
-
     if (layout->layout() != NULL)
     {
         QLayoutItem* item;
@@ -30,7 +28,6 @@ void GoalButtons::updateCards(const CardContainer& container)
             delete item->widget();
             delete item;
         }
-       // delete layout->layout();
     }
 
     cards_ = container.getCards();
