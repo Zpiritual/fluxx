@@ -60,4 +60,16 @@ games 0
 playedcards 0
 drawncards 0
 maxconsecutiveplays -143442918
+wins 1
+games 1
+playedcards 8
+drawncards 30
+maxconsecutiveplays 1
+
+profile Op
+wins 0
+games 1
+playedcards 9
+drawncards 20
+maxconsecutiveplays 3
 

@@ -84,10 +84,7 @@ void Options::ok()
     // TODO: Add functionality
     if(parent2 != nullptr)
     {
-        for(unsigned int i = 0; i < profiles.size(); i++)
-        {
-            parent2->setProfiles(profiles);
-        }
+        parent2->setProfiles(profiles);
         parent2->optionsBack();
     }
     else
@@ -185,7 +182,6 @@ void Options::removeProfile(const Profile& profile)
 {
     for(auto it = profiles.begin(); it != profiles.end(); ++it)
     {
-
         if(it->getName() == profile.getName())
         {
             if(it == profiles.end() - 1)

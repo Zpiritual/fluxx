@@ -1,11 +1,14 @@
 #include "profile.h"
 
-Profile::Profile(const std::string& n, int win, int game, int cards)
+Profile::Profile(const std::string& n, int win, int game, int cards, int dc, int mcp)
     : name(n)
 {
     wins = win;
     games = game;
     played_cards = cards;
+    drawn_cards = dc;
+    max_consecutive_plays = mcp;
+
 }
 
 Profile::~Profile()

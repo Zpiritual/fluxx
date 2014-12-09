@@ -12,7 +12,7 @@
 class Profile
 {
 public:
-    Profile(const std::string& n = "tempName", int w = 0, int g = 0, int pc = 0);
+    Profile(const std::string& n = "tempName", int w = 0, int g = 0, int pc = 0, int dc = 0, int mcp = 0);
     ~Profile();
 
     Profile& operator+=(const PlayerStats&);
