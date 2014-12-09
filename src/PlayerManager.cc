@@ -46,13 +46,39 @@ PlayerID PlayerManager::getCurrentPlayerID()
 	return getCurrentPlayer()->getID();
 }
 
-void PlayerManager::setCurrentPlayer(const PlayerID pid)
-{	
-	for(unsigned int i = 0; i < _players.size(); i++)
+PlayerID PlayerManager::getNextPlayerID(Direction direction)
+{
+	if(!_repeat_turn)
 	{
-		if(_players.at(i).getID() == pid) _current_player = i;
-	}	
+		if (direction == Direction::CLOCKWISE)
+	    {
+            return getPlayers().at((_current_player + 1) % _players.size()).getID();
+	    }
+	    else if (direction == Direction::COUNTERCLOCKWISE)
+	    {
+            const int next_player = (_current_player - 1);
+
+	        if (next_player < 0)
+	        {
+                return getPlayers().at(_players.size()-1).getID();
+	        }
+            else
+            {
+                return getPlayers().at(next_player).getID();
+            }
+	    }	
+	}
+    return getCurrentPlayerID();
 }
+
+// void PlayerManager::setCurrentPlayer(const PlayerID pid)
+// {	
+// 	for(unsigned int i = 0; i < _players.size(); i++)
+// 	{
+// 		if(_players.at(i).getID() == pid) _current_player = i;
+// 	}	
+// }
+
 std::vector<Player> PlayerManager::getPlayers()
 {
 	return _players;

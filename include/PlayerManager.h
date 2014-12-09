@@ -37,7 +37,8 @@ public:
 	void 			addPlayer(Player p);
 	Player*		  	getCurrentPlayer();
 	PlayerID		getCurrentPlayerID();
-	void 			setCurrentPlayer(const PlayerID pid);
+	PlayerID		getNextPlayerID(Direction direction);
+	//void 			setCurrentPlayer(const PlayerID pid);
 	std::vector<Player> getPlayers();
     void 			nextPlayer(Direction);
     void			repeatTurn();

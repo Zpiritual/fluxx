@@ -19,6 +19,7 @@ struct BoardSnapshot
 	const int players;
 	const PlayerID current_player;
 	const PlayerID active_player;
+	const PlayerID next_player;
 	const int cards_played;
 	const int cards_to_play;
 	const Direction direction;
@@ -29,6 +30,7 @@ struct BoardSnapshot
     BoardSnapshot(
     	const std::vector<CardContainer>,
     	const int,
+    	const PlayerID,
     	const PlayerID,
     	const PlayerID,
     	const int,
