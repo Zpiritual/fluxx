@@ -31,15 +31,19 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 {
     qDebug() << "Pick Player: ";
     update(snapshot, false);
-    player_loop = new PlayerLoop{};
-    player_list_widget->setConnections(*player_loop);
-    player_loop->exec();
 
-    if (player_list_widget->getPlayerId(player_loop->getPlayerName()) == snapshot->current_player)
+    do
     {
-        message(QString("Pick Player"), QString("Can't pick yourself! Pick another player please."));
-        pickPlayer(snapshot);
-    }
+        delete player_loop;
+        player_loop = NULL;
+        player_loop = new PlayerLoop{};
+        player_list_widget->setConnections(*player_loop);
+        player_loop->exec();
+        if (player_list_widget->getPlayerId(player_loop->getPlayerName()) == snapshot->current_player)
+        {
+            message(QString("Pick Player"), QString("Can't pick yourself! Pick another player please."));
+        }
+    }while(player_list_widget->getPlayerId(player_loop->getPlayerName()) == snapshot->current_player);
 
     PlayerID tempid = player_list_widget->getPlayerId(player_loop->getPlayerName());
     delete player_loop;
@@ -50,10 +54,9 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 //BoardSnapshot* snapshot
 CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 {
-    update(snapshot, false);
-
-    if(snapshot->active_player != snapshot->current_player)
+if(snapshot->active_player != previous_active_player && snapshot->current_player != snapshot->active_player)
     {
+        previous_active_player = snapshot->active_player;
         event_loop = new QEventLoop();
         active_player_widget->changePlayer(player_ids.at(snapshot->active_player.getInt()-1), *event_loop);
 
@@ -61,6 +64,13 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
         event_loop = NULL;
         update(snapshot, true);
     }
+    else if(snapshot->current_player == snapshot->active_player)
+    {
+        previous_active_player = snapshot->active_player;
+        update(snapshot, false);
+    }
+    else
+        update(snapshot, true);
 
     card_id_loop = new CardIdLoop;
 
@@ -112,21 +122,22 @@ void Gui::nextPlayer(const BoardSnapshot* const snapshot)
     update(snapshot, false);
     event_loop = new QEventLoop();
 
-    if(snapshot->direction == Direction::CLOCKWISE)
-    {
-        active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() % player_ids.size()), *event_loop);
-    }
-    else
-    {
-        if((snapshot->current_player.getInt() - 1) == 0)
-        {
-            active_player_widget->endTurn(player_ids.at(player_ids.size() - 1), *event_loop);
-        }
-        else
-        {
-            active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() - 2),*event_loop);
-        }
-    }
+    active_player_widget->endTurn(player_ids.at(snapshot->next_player.getInt()-1),*event_loop);
+//    if(snapshot->direction == Direction::CLOCKWISE)
+//    {
+//        active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() % player_ids.size()), *event_loop);
+//    }
+//    else
+//    {
+//        if((snapshot->current_player.getInt() - 1) == 0)
+//        {
+//            active_player_widget->endTurn(player_ids.at(player_ids.size() - 1), *event_loop);
+//        }
+//        else
+//        {
+//            active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() - 2),*event_loop);
+//        }
+//    }
     delete event_loop;
     event_loop = NULL;
 }
@@ -169,8 +180,6 @@ bool Gui::playerDecision(const BoardSnapshot * const snapshot, const std::string
     }
 }
 
-
-
 void Gui::closeEvent(QCloseEvent* event)
 {
     // TODO: Stop evenloops
@@ -182,27 +191,17 @@ void Gui::closeEvent(QCloseEvent* event)
     message.exec();
     if(message.clickedButton() == yes_button)
     {
+        _parent->newGameBack();
         _parent->show();
         this->hide();
         event->accept();
     }
     else
+    {
         event->ignore();
-
-
-//    event_loop->exit();
-//    card_id_loop->exit();
-//    player_loop->exit();
-
-//    if(event_loop->isRunning())
-//        event_loop->quit();
-//    if(card_id_loop->isRunning())
-//        card_id_loop->quit();
-//    if(player_loop->isRunning())
-//        player_loop->quit();
+    }
 
     qDebug() << "Closing window";
-
 }
 
 void Gui::message(const QString& title, const QString& message) const

@@ -16,8 +16,7 @@ public:
     explicit PlayerList(const std::vector<ProfileName>, QWidget *parent = 0);
     ~PlayerList();
     void updatePlayers(const BoardSnapshot* const);
-    void updatePlayerState(int, int, const Direction);
-    void updatePlayerState(int, const Direction);
+    void updatePlayerState(int, int);
 
     void setConnections(const PlayerLoop&);
     PlayerID getPlayerId(const ProfileName) const;
@@ -30,7 +29,6 @@ private:
     int current_player;
     int next_player;
 
-    void updatePlayerVariables(int, int, const Direction);
     void uiElements();
 
 signals:

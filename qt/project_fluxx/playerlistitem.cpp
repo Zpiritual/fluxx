@@ -29,25 +29,24 @@ void PlayerListItem::updateCards(const std::vector<CardID> hnd, const std::vecto
 {
     hand = hnd;
     keepers_id = keeprs;
-//    qDebug() << "Number of keepers in playerlistitem" + QString::number(keepers_id.size());
     card_count->setText(QString{"Hand Count: "} + QString::number(getHandCount()));
     keeper_count->setText(QString{"Keeper Count: "} + QString::number(getKeeperCount()));
 }
 
 void PlayerListItem::setActivePlayer()
 {
-    QPalette Pal(palette());
-    Pal.setColor(QPalette::Background, QColor(0, 170, 0));
+    QPalette pal(palette());
+    pal.setColor(QPalette::Background, Qt::green);
     this->setAutoFillBackground(true);
-    this->setPalette(Pal);
+    this->setPalette(pal);
 }
 
 void PlayerListItem::setNextPlayer()
 {
-    QPalette Pal(palette());
-    Pal.setColor(QPalette::Background, QColor(200, 255, 50));
+    QPalette pal(palette());
+    pal.setColor(QPalette::Background, Qt::yellow);
     this->setAutoFillBackground(true);
-    this->setPalette(Pal);
+    this->setPalette(pal);
 }
 
 void PlayerListItem::setInactivePlayer()
@@ -57,8 +56,6 @@ void PlayerListItem::setInactivePlayer()
 
 void PlayerListItem::mousePressEvent(QMouseEvent* event)
 {
-//    qDebug() << QString::fromStdString(this->getPlayerName().val);
-//    qDebug() << event->pos().x() << event->pos().y();
     state = true;
     event->accept();
     emit clicked();

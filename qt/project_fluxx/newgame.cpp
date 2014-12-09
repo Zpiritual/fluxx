@@ -69,10 +69,9 @@ void NewGame::startGame()
 
         game_loop.run();
 
-
         qDebug() << "Add startGame functionality";
+        parent2->show();
         delete gui;
-
     }
 }
 

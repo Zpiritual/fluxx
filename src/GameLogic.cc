@@ -459,6 +459,26 @@ void GameLogic::executeEffect(const Effect &effect)
         ss >> direction;
         effect_SetOrder(direction);
     }
+    else if (identifier.compare("DiscardPercentileOfContainer") == 0)
+    {
+        string container;
+        int percent;
+        ss >> container >> percent;
+        effect_DiscardPercentileOfContainer(container, percent);
+    }
+    else if (identifier.compare("TakeRandomAndPlayFromPlayer") == 0)
+    {
+        string container;
+        int quantity;
+        ss >> container >> quantity;
+        effect_TakeRandomAndPlayFromPlayer(container, quantity);
+    }
+    else if (identifier.compare("MoveKeepers") == 0)
+    {
+        int quantity;
+        ss >> quantity;
+        effect_MoveKeepers(quantity);
+    }
     else
     {
         throw std::logic_error("GameLogic::executeEffect() - Undefined Effect: " + identifier);
@@ -517,7 +537,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                 cout << cc1.val << " " << cc2.val << endl;
 
                 //Hand Limit check
-                while (_ccm->getSize(CardContainerID(p.getID().getString() + "_hand")) > _rm->getHandLimit())
+                while (_ccm->getSize(CardContainerID(p.getID().getString() + "_hand")) > _rm->getHandLimit() && getCurrentGameState() == GameState::CONTINUE)
                 {
                     cout << "Player must discard cards from hand: " << p.getID().getString() << endl;
                     CardContainerID player_hand(p.getID().getString() + "_hand");
@@ -536,7 +556,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                 }
 
                 //Keeper Limit check
-                while (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > _rm->getKeeperLimit())
+                while (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > _rm->getKeeperLimit()  && getCurrentGameState() == GameState::CONTINUE)
                 {
                     cout << "Player must trash keepers: " << p.getID().getString() << endl;
                     CardContainerID player_keepers(p.getID().getString() + "_keepers");
@@ -1226,18 +1246,73 @@ void GameLogic::effect_SetOrder(string direction)
 
  void GameLogic::effect_TakeAndPlayBasedOnSubtype(string container,vector<string> subtypes)
  {
+    int count = 0;
+    for(CardID id: _ccm->getCards(CardContainerID(container)))
+    {
+            for(string s: subtypes)
+            {
+                if(_cm->getCard(id)->getType().compare(s) == 0)
+                {
+                    count++;
+                }
+            }
+    }
+    if(count == 0) return;
     bool check = false;
     CardID id(0);
-        do
+        while(!check)
         {
             id = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID(container));
             for(string s: subtypes)
             {
-                check = _cm->getCard(id)->getSubtype().compare(s) == 0;
-                break;
+                check = _cm->getCard(id)->getType().compare(s) == 0;
+                if(check)
+                    break;
             }
-        }while(!check);
-    playCardWithID(id,CardContainerID(container));
+        }
+playCardWithID(id,CardContainerID(container));
  }
+
+ void GameLogic::effect_DiscardPercentileOfContainer(string container,int percent)
+ {
+    float a = _ccm->getSize(CardContainerID(container));
+    a = a * percent;
+    a = a / 100.0f;
+    a = a + 0.5f;
+    cout << "Count: " << a << endl;
+    for(int i = 0; i < (int)a; i++)
+    {
+        if(playerDecision("Discard More Cards?","Yes","No"))
+        {
+        CardID id = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID(container));
+        _ccm->moveCard(CardContainerID(container),CardContainerID("Trash"), id);    
+        }
+        else
+            return;
+    }
+ }
+void GameLogic::effect_TakeRandomAndPlayFromPlayer(string container,int quantity)
+{
+    cout << "HELLO OWRLD" << endl;
+    PlayerID pid = pickPlayer();
+    CardContainerID ccid(pid.getString() + "_" + container);
+    for(int i = 0; i < quantity && _ccm->getSize(ccid) > 0; i++)
+    {
+        playCardWithID(_ccm->getRandomCard(ccid), ccid);
+    }
+    cerr << "Effect END" << endl;
+}
+
+void GameLogic::effect_MoveKeepers(int quantity)
+{
+    CardContainerID ccid(pickPlayer().getString() + "_keepers");
+    for(int i = 0 ;i  < quantity && _ccm->getSize(ccid) > 0; i++)
+    {
+        pickCard(_pm->getCurrentPlayerID(), ccid);
+    }
+}
+
+
+
 
 
