@@ -54,18 +54,14 @@ void GameLogic::removeRule(const CardID cid)
 void GameLogic::playCard()
 {
     if (getCurrentGameState() != GameState::CONTINUE) return;
-    string ccids;
+    CardContainerID ccid(_pm->getCurrentPlayer()->getID().getString() + "_hand");
     //Kollar efter specialiserade containrar
-    if (_ccm->getSize(CardContainerID("tempB")) > 0)
-        ccids = "tempB";
-    else if (_ccm->getSize(CardContainerID("tempA")) > 0)
-        ccids = "tempA";
-    else
-        ccids = _pm->getCurrentPlayer()->getID().getString() + "_hand";
+    if (!_ccm->isEmptyTemp())
+        ccid = _ccm->getTemp();
 
-    CardContainerID ccid(ccids);
+    
     if (_ccm->getSize(ccid) == 0)
-        throw std::logic_error("Playing from empty Container: " + ccids);
+        throw std::logic_error("Playing from empty Container: " + ccid.val);
     //Fråga GUI om kort-id osv.
 
     CardID cid = pickCard(_pm->getCurrentPlayer()->getID(), ccid);
@@ -194,14 +190,17 @@ PlayerID GameLogic::pickPlayer()
      if(!_gui->isVisible())
      {
         _currentGameState = GameState::QUIT;
+        return PlayerID(PlayerIdentifier::NO_PLAYER);
      }
-     cout << "Decisions has been made" << endl;
+    cout << "Decisions has been made" << endl;
     BoardSnapshot snapshot(makeBoardSnapshot());
     cerr << "GameLogic::pickPlayer() - Querying GUI for a player." << endl;
     const PlayerID id = _gui->pickPlayer(&snapshot);
-    if(!_gui->isVisible())
+
+    if(!_gui->isVisible() || id == PlayerID(PlayerIdentifier::NO_PLAYER))
     {
        _currentGameState = GameState::QUIT;
+        return PlayerID(PlayerIdentifier::NO_PLAYER);
     }
     cerr << "GameLogic::pickPlayer() - Recieved PlayerID from GUI: " << id.getString() << endl;
     return id;
@@ -630,26 +629,13 @@ PlayerManager *GameLogic::getPM()
 
 void GameLogic::effect_DrawAndPlay(int draw, int play, int trash)
 {
-    string ccid;
-
-    if (_ccm->getSize(CardContainerID("tempA")) == 0)
-    {
-        ccid = "tempA";
-    }
-    else if (_ccm->getSize(CardContainerID("tempB")) == 0)
-    {
-        ccid = "tempB";
-    }
-    else
-    {
-        throw std::logic_error("effect_DrawAndPlay() - No empty Temp CardContainer!");
-    }
-
+    CardContainerID ccid(_ccm->newTemp());
+    //Kollar efter specialiserade containrar
     for (int i = 0 ; i < draw ; i++)
     {
         try
         {
-            _ccm->drawCard(CardContainerID(ccid));
+            _ccm->drawCard(ccid);
         }
         catch (...)
         {
@@ -657,22 +643,20 @@ void GameLogic::effect_DrawAndPlay(int draw, int play, int trash)
         }
 
     }
-
     for (int i = 0 ; i < play; i++)
     {
         playCard();
     }
-
     for (int i = 0 ; i < trash; i++)
     {
-        _ccm->moveCard(CardContainerID(ccid), CardContainerID("Trash"), pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID(ccid)));
+        _ccm->moveCard(ccid, CardContainerID("Trash"), pickCard(_pm->getCurrentPlayer()->getID(), ccid));
     }
-
     //Återstående kort flyttas till spelarens hand.
-    for (CardID cid : _ccm->getCards(CardContainerID(ccid)))
+    for (CardID cid : _ccm->getCards(ccid))
     {
-        _ccm->moveCard(CardContainerID(ccid), CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"), cid);
+        _ccm->moveCard(ccid, CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"), cid);
     }
+    _ccm->deleteTemp();
 }
 
 void GameLogic::effect_Redraw()
@@ -805,22 +789,8 @@ void GameLogic::effect_ModifyRule(string rule_type, int value)
 
 void GameLogic::effect_TakeAndPlay(int take, int play, int trash)
 {
-    string ccid;
 
-    if (_ccm->getSize(CardContainerID("tempA")) == 0)
-    {
-        ccid = "tempA";
-    }
-    else if (_ccm->getSize(CardContainerID("tempB")) == 0)
-    {
-        ccid = "tempB";
-    }
-    else
-    {
-        throw std::logic_error("GameLogic::effect_TakeAndPlay() - No available temp container.");
-    }
-
-    const CardContainerID temp_container(ccid);
+    const CardContainerID temp_container(_ccm->newTemp());
     const CardContainerID target(pickPlayer().getString() + "_hand");
     const PlayerID current_player(_pm->getCurrentPlayer()->getID());
 
@@ -845,6 +815,7 @@ void GameLogic::effect_TakeAndPlay(int take, int play, int trash)
     {
         _ccm->moveCard(temp_container, player_hand, _ccm->getRandomCard(player_hand));
     }
+    _ccm->deleteTemp();
 }
 
 void GameLogic::effect_ReshuffleContainer(string container)
@@ -1158,14 +1129,7 @@ void GameLogic::effect_rotatePlayerContainer(string container)
 }
 void GameLogic::effect_DrawAndDistribute(int quantity)
 {
-    string ccids;
-    if(_ccm->getSize(CardContainerID("tempA")) == 0)
-        ccids = "tempA";
-    else if(_ccm->getSize(CardContainerID("tempB")) == 0)
-        ccids = "tempB";
-    else
-        throw logic_error("No empty Temp CardContainer!");
-    CardContainerID id(ccids);
+    CardContainerID id(_ccm->newTemp());
     for(unsigned int j = 0; j < _pm->getPlayers().size(); j++)
         for(int i = 0; i <  quantity; i++)
         {
@@ -1178,6 +1142,7 @@ void GameLogic::effect_DrawAndDistribute(int quantity)
          _ccm->moveCard(id,CardContainerID(p.getID().getString() + "_hand"), pickCard(_pm->getCurrentPlayer()->getID(), id));
         }
     }
+    _ccm->deleteTemp();
 }
 
 void GameLogic::effect_RepeatTurn()
@@ -1281,7 +1246,7 @@ void GameLogic::effect_MoveKeepers(int quantity)
     CardContainerID ccid(pickPlayer().getString() + "_keepers");
     for(int i = 0 ;i  < quantity && _ccm->getSize(ccid) > 0; i++)
     {
-        pickCard(_pm->getCurrentPlayerID(), ccid);
+        _ccm->moveCard(ccid, CardContainerID(_pm->getCurrentPlayerID().getString() + "_keepers"), pickCard(_pm->getCurrentPlayerID(), ccid));
     }
 }
 
