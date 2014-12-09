@@ -6,6 +6,7 @@ PlayerManager::PlayerManager(const int players)
 {
 	_players.push_back(PlayerID(PlayerIdentifier::Player1));
 	_players.push_back(PlayerID(PlayerIdentifier::Player2));
+	
 	if (players > 2) {
 		_players.push_back(PlayerID(PlayerIdentifier::Player3));
 		if (players > 3) {

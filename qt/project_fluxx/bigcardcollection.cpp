@@ -30,6 +30,8 @@ void BigCardCollection::uiElements(const std::vector<CardID>& crds)
     scroll_area->setMaximumHeight(300);
 
     scroll_area->setFrameStyle(QFrame::NoFrame);
+    this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog);
+
 
     this->setMinimumSize(550,320);
     this->setMaximumSize(550,320);
@@ -46,7 +48,7 @@ void BigCardCollection::uiElements(const std::vector<CardID>& crds, CardIdLoop& 
 
     this->setPalette(QPalette(QPalette::Background, Qt::green));
     this->setAutoFillBackground(true);
-    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
+    this->setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowSystemMenuHint | Qt::WindowTitleHint |Qt::WindowStaysOnTopHint);
 
     scroll_area->setFrameStyle(QFrame::NoFrame);
 

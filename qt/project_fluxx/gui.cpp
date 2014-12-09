@@ -126,24 +126,6 @@ void Gui::nextPlayer(const BoardSnapshot* const snapshot)
     event_loop = NULL;
 }
 
-Direction Gui::chooseDirection(const BoardSnapshot* const snapshot)
-{
-    update(snapshot, false);
-    QMessageBox directionpicker;
-    directionpicker.setText(QString("Choose a direction"));
-    QAbstractButton *clockwise = directionpicker.addButton(QString("Clockwise"),QMessageBox::YesRole);
-    directionpicker.addButton(QString("Anticlockwise"), QMessageBox::NoRole);
-    directionpicker.exec();
-    if (directionpicker.clickedButton() == clockwise ) {
-        qDebug() << "You picked clockwise";
-        return Direction::CLOCKWISE;
-
-    } else {
-        qDebug() << "You picked counterclockwise";
-        return Direction::COUNTERCLOCKWISE;
-    }
-}
-
 bool Gui::playerDecision(const BoardSnapshot * const snapshot, const std::string& question, const std::string& left_button_text, const std::string& right_button_text)
 {
     update(snapshot, false);
@@ -152,13 +134,12 @@ bool Gui::playerDecision(const BoardSnapshot * const snapshot, const std::string
     questionbox.addButton(QString::fromStdString(right_button_text), QMessageBox::NoRole);
     QAbstractButton *left_button= questionbox.addButton(QString::fromStdString(left_button_text),QMessageBox::YesRole);
     questionbox.setWindowFlags(((questionbox.windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowCloseButtonHint));
-    //questionbox.
     questionbox.exec();
     if (questionbox.clickedButton() == left_button) {
         qDebug() << "You picked left_button";
         return true;
-
-    } else {
+    }
+    else {
         qDebug() << "You picked counterclockwise";
         return false;
     }

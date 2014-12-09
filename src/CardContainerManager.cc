@@ -15,22 +15,16 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 	for(CardID c:deck->getCardIDList())
 		 {
-		 	_stock->push(c);
+			_stock->push(c);
 		 }
 	const CardContainerID trash("Trash");
 	_containers.insert(std::make_pair(trash, new CardContainer(trash)));
 	
-    const CardContainerID goal("Goal");
-    _containers.insert(std::make_pair(goal, new CardContainer(goal)));
+	const CardContainerID goal("Goal");
+	_containers.insert(std::make_pair(goal, new CardContainer(goal)));
 
 	const CardContainerID rules("Rules");
 	_containers.insert(std::make_pair(rules, new CardContainer(rules)));
-
-	const CardContainerID temp_a("tempA");
-	_containers.insert(std::make_pair(temp_a, new CardContainer(temp_a)));
-
-	const CardContainerID temp_b("tempB");
-	_containers.insert(std::make_pair(temp_b, new CardContainer(temp_b)));
 
 	const CardContainerID temp_c("system_temp");
 	_containers.insert(std::make_pair(temp_c, new CardContainer(temp_c)));
@@ -62,6 +56,11 @@ void CardContainerManager::containerToStock(const  CardContainerID ccid)
 			{
 				getContainer(ccid)->removeCard(id);
 				_stock->push(id);
+			}
+			while(!_temps.empty())
+			{
+				delete _temps.top();
+				_temps.pop();
 			}
 }
 
@@ -103,7 +102,7 @@ void CardContainerManager::drawCard(const CardContainerID container)
 
 void CardContainerManager::moveCard(const CardContainerID from, const CardContainerID to, const CardID card)
 {
-    if(card == CardID(0))
+	if(card == CardID(0))
 		return;
 	getContainer(from)->removeCard(card);
 	getContainer(to)->addCard(card);
@@ -127,6 +126,8 @@ int CardContainerManager::getSize(const CardContainerID container)
 
 CardContainer* CardContainerManager::getContainer(const CardContainerID container)
 {
+	if(!_temps.empty()&& container == getTemp())
+		return _temps.top();
 	return _containers.at(container);
 }
 
@@ -140,7 +141,17 @@ std::vector<CardContainer> CardContainerManager::getContainers() const
 	std::vector<CardContainer> cardContainers;
 	for(auto it = _containers.begin(); it != _containers.end(); ++it)
 	{
+        if(it->second)
 		cardContainers.push_back(*(it->second));
+	}
+	if(!isEmptyTemp())
+	{
+        cardContainers.push_back(*_temps.top());
+	}
+	else
+	{
+		CardContainer cc(CardContainerID("tempA"));
+		cardContainers.push_back(cc);
 	}
 	return cardContainers;
 }
@@ -155,27 +166,27 @@ void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID
 	if(cid == CardID(0))
 		return;
 	getContainer(ccid)->removeCard(cid);
-    _suspendedCards.push(cid);
-    notify(ccid, CardContainerID("SuspendedCards"),cid,Event::CARD_MOVED);
+	_suspendedCards.push(cid);
+	notify(ccid, CardContainerID("SuspendedCards"),cid,Event::CARD_MOVED);
 	
 }
 
 void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 {
-    if(!_suspendedCards.empty())
+	if(!_suspendedCards.empty())
 	{
-        CardID id = _suspendedCards.top();
-        getContainer(ccid)->addCard(id);
+		CardID id = _suspendedCards.top();
+		getContainer(ccid)->addCard(id);
 		_suspendedCards.pop();
-        notify(CardContainerID("SuspendedCards"), ccid,id,Event::CARD_MOVED);
+		notify(CardContainerID("SuspendedCards"), ccid,id,Event::CARD_MOVED);
 
 	}
-    else
-    {
-    	std::cerr << "CardContainerManager::unSuspendCard() - No card to unsuspend." << endl;
-    	//throw std::logic_error("No Cards are suspended");
-    }
-        
+	else
+	{
+		std::cerr << "CardContainerManager::unSuspendCard() - No card to unsuspend." << endl;
+		//throw std::logic_error("No Cards are suspended");
+	}
+		
 }
 	void CardContainerManager::swapCards(const CardContainerID ccid1, const CardContainerID ccid2)
 	{
@@ -185,8 +196,37 @@ void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 		{
 			moveCard(ccid1, ccid2, id);
 		}
-        for(CardID id : cardIDList2)
+		for(CardID id : cardIDList2)
 		{
 			moveCard(ccid2,ccid1,id);
 		}
+	}
+	CardContainerID CardContainerManager::newTemp()
+	{
+		std::cout << "New Temp" << std::endl;
+		CardContainerID id("tempA");
+		CardContainer* c = new CardContainer(id);
+		_temps.push(c);
+		return id;
+	}
+
+	CardContainerID CardContainerManager::getTemp() const
+	{
+		std::cout << "Get Temp" << std::endl;
+		if(_temps.empty())
+			throw std::logic_error("No Temp Container Created");
+		return _temps.top()->getID();
+	}
+
+	void CardContainerManager::deleteTemp()
+	{
+		std::cout << "Delete temp" << endl;
+		delete _temps.top();
+		_temps.pop();
+	}
+
+	bool CardContainerManager::isEmptyTemp() const
+	{
+		std::cout << "Is Empty" << std::endl;
+		return _temps.empty();
 	}
