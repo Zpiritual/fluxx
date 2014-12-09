@@ -24,6 +24,7 @@ public:
 
     void addProfile(const Profile&);
     void setProfiles(const std::vector<Profile>&);
+    void updateProfiles(const SessionData&);
     void writeProfilesToFile() const;
 
     void closeEvent(QCloseEvent*);
