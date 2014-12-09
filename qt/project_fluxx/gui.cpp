@@ -54,10 +54,9 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 //BoardSnapshot* snapshot
 CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 {
-    update(snapshot, false);
-
-    if(snapshot->active_player != snapshot->current_player)
+if(snapshot->active_player != previous_active_player && snapshot->current_player != snapshot->active_player)
     {
+        previous_active_player = snapshot->active_player;
         event_loop = new QEventLoop();
         active_player_widget->changePlayer(player_ids.at(snapshot->active_player.getInt()-1), *event_loop);
 
@@ -65,6 +64,13 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
         event_loop = NULL;
         update(snapshot, true);
     }
+    else if(snapshot->current_player == snapshot->active_player)
+    {
+        previous_active_player = snapshot->active_player;
+        update(snapshot, false);
+    }
+    else
+        update(snapshot, true);
 
     card_id_loop = new CardIdLoop;
 
@@ -116,21 +122,22 @@ void Gui::nextPlayer(const BoardSnapshot* const snapshot)
     update(snapshot, false);
     event_loop = new QEventLoop();
 
-    if(snapshot->direction == Direction::CLOCKWISE)
-    {
-        active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() % player_ids.size()), *event_loop);
-    }
-    else
-    {
-        if((snapshot->current_player.getInt() - 1) == 0)
-        {
-            active_player_widget->endTurn(player_ids.at(player_ids.size() - 1), *event_loop);
-        }
-        else
-        {
-            active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() - 2),*event_loop);
-        }
-    }
+    active_player_widget->endTurn(player_ids.at(snapshot->next_player.getInt()-1),*event_loop);
+//    if(snapshot->direction == Direction::CLOCKWISE)
+//    {
+//        active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() % player_ids.size()), *event_loop);
+//    }
+//    else
+//    {
+//        if((snapshot->current_player.getInt() - 1) == 0)
+//        {
+//            active_player_widget->endTurn(player_ids.at(player_ids.size() - 1), *event_loop);
+//        }
+//        else
+//        {
+//            active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() - 2),*event_loop);
+//        }
+//    }
     delete event_loop;
     event_loop = NULL;
 }
