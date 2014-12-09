@@ -1,5 +1,5 @@
 DECK_NAME Default
-CARD_COUNT 78
+CARD_COUNT 79
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
 CARD_ID 002
@@ -61,6 +61,12 @@ CARD_NAME Trash a Keeper
 CARD_TYPE ACTION
 CARD_DESCRIPTION Take a Keeper form in front of any player and put it on the discard pile.
 CARD_EFFECT TrashCards 1
+
+CARD_ID 013
+CARD_NAME Steal a Keeper
+CARD_TYPE ACTION
+CARD_DESCRIPTION Steal a Keeper form in front of another player, and add it to your collection of Keepers on the table.
+CARD_EFFECT MoveKeepers 1
 
 CARD_ID 014
 CARD_NAME Let's Simplify
