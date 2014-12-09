@@ -79,9 +79,21 @@ PlayerID PlayerManager::getNextPlayerID(Direction direction)
 // 	}	
 // }
 
-std::vector<Player> PlayerManager::getPlayers()
+std::vector<Player> PlayerManager::getPlayers() const
 {
 	return _players;
+}
+
+std::vector<PlayerStats> PlayerManager::getPlayerStats() const
+{
+    std::vector<PlayerStats> stats;
+
+	for(Player p : getPlayers())
+	{
+		stats.push_back(p.makeStats());
+	}
+
+	return stats;
 }
 
 void PlayerManager::nextPlayer(Direction direction)

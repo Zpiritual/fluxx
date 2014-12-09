@@ -10,7 +10,7 @@
 
 #include <string>
 #include "PlayerID.h"
-#include "CardContainerID.h"
+#include "PlayerStats.h"
 
 class Player
 {
@@ -26,7 +26,7 @@ public:
 
 	~Player() = default;
 
-	std::string getName() const;
+	//std::string getName() const;
 	PlayerID getID() const;
 	
 	int getCardsPlayed() const;
@@ -46,7 +46,7 @@ public:
 	int getMaxConsecutivePlays() const;
 	void setMaxConsecutivePlays(int);
 
-	void addLogEntry();
+	PlayerStats makeStats() const;
 
 private:
 	const PlayerID _id;

@@ -39,7 +39,8 @@ public:
 	PlayerID		getCurrentPlayerID();
 	PlayerID		getNextPlayerID(Direction direction);
 	//void 			setCurrentPlayer(const PlayerID pid);
-	std::vector<Player> getPlayers();
+	std::vector<Player> getPlayers() const;
+	std::vector<PlayerStats> getPlayerStats() const;
     void 			nextPlayer(Direction);
     void			repeatTurn();
     PlayerID		getWinningPlayer();

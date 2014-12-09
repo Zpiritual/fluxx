@@ -96,7 +96,7 @@ SessionData	GameLoop::run()
 		std::cerr << error.what();
 	}
 
-    return SessionData(_game_logic->getPM()->getWinningPlayer(), _game_logic->getPM()->getPlayers());
+    return SessionData(_game_logic->getPM()->getWinningPlayer(), _game_logic->getPM()->getPlayerStats());
 }
 
 GameState GameLoop::executePlayerTurn(PlayerID pid)

@@ -110,7 +110,8 @@ HEADERS += \
     ../../include/Stock.h \
     ../../include/TriggeredRule.h \
     playerloop.h \
-    cardpicture.h
+    cardpicture.h \
+    ../../include/PlayerStats.h
 
 
 QMAKE_CXXFLAGS += -std=c++11
