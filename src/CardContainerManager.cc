@@ -26,9 +26,6 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 	const CardContainerID rules("Rules");
 	_containers.insert(std::make_pair(rules, new CardContainer(rules)));
 
-	const CardContainerID temp_b("tempB");
-	_containers.insert(std::make_pair(temp_b, new CardContainer(temp_b)));
-
 	const CardContainerID temp_c("system_temp");
 	_containers.insert(std::make_pair(temp_c, new CardContainer(temp_c)));
 

@@ -78,8 +78,14 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
     string str = "Played Card: ";
     str.append(_cm->getCard(cid)->getName());
     writeToLog(str);
+    
+    _pm->getCurrentPlayer()->incrementTotalCardsPlayed();
+    _pm->getCurrentPlayer()->incrementConsecutivePlays();
+
+
     if (ccid.val.find("_hand") != string::npos)
         _pm->getCurrentPlayer()->incrementCardsPlayed();
+   
     if (_cm->getCard(cid)->getType().compare("GOAL") == 0)
     {
         _ccm->suspendCard(ccid, cid);
@@ -140,24 +146,27 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
     //Execute effects
     resolveEffects();
 }
+
 bool GameLogic::playerDecision(string question, string leftButton, string rightButton)
 {
- if(!_gui->isVisible())
-     {
+    if(!_gui->isVisible())
+    {
         _currentGameState = GameState::QUIT;
-     }
+    }
     cout << "Decisions has been made" << endl;
-      BoardSnapshot snapshot(makeBoardSnapshot());
+    BoardSnapshot snapshot(makeBoardSnapshot());
     return _gui->playerDecision(&snapshot, question,leftButton,rightButton);
 }
+
 CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 {
-     if (getCurrentGameState() != GameState::CONTINUE) return CardID(0);
-     if(!_gui->isVisible())
-     {
+    if (getCurrentGameState() != GameState::CONTINUE) return CardID(0);
+    if(!_gui->isVisible())
+    {
         _currentGameState = GameState::QUIT;
-         return CardID(0);
-     }
+        return CardID(0);
+    }
+    
     BoardSnapshot snapshot(makeBoardSnapshot(pid, container));
     cerr << "GameLogic::pickCard() - Querying GUI for a card." << endl;
     if (_ccm->getSize(container) == 1 && container.val.find("_hand") == string::npos)
@@ -167,28 +176,22 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
     }
     else
     {
-
         CardID id = _gui->pickCard(&snapshot);
         cerr << "GameLogic::pickCard() - Recieved CardID from GUI: " << id.val << endl;
-      if(!_gui->isVisible())
-     {
-        _currentGameState = GameState::QUIT;
-         return CardID(0);
-     }
-        return id;
 
+        if(!_gui->isVisible())
+        {
+            _currentGameState = GameState::QUIT;
+             return CardID(0);
+        }
+            return id;
     }
-    //    if(!_gui->isVisible())
-    //    {
-    //        throw quit_session("The GUI window was closed.");
-    //    }
-
 }
 
 PlayerID GameLogic::pickPlayer()
 {
-     if(!_gui->isVisible())
-     {
+    if(!_gui->isVisible())
+    {
         _currentGameState = GameState::QUIT;
         return PlayerID(PlayerIdentifier::NO_PLAYER);
      }
@@ -196,7 +199,6 @@ PlayerID GameLogic::pickPlayer()
     BoardSnapshot snapshot(makeBoardSnapshot());
     cerr << "GameLogic::pickPlayer() - Querying GUI for a player." << endl;
     const PlayerID id = _gui->pickPlayer(&snapshot);
-
     if(!_gui->isVisible() || id == PlayerID(PlayerIdentifier::NO_PLAYER))
     {
        _currentGameState = GameState::QUIT;
@@ -236,7 +238,7 @@ void GameLogic::drawCard(const PlayerID pid)
     if (getCurrentGameState() != GameState::CONTINUE) return;
 
     _ccm->drawCard(pid.getString() + "_hand");
-    _pm->getCurrentPlayer()->incrementCardsDrawn();
+    _pm->getCurrentPlayer()->incrementTotalCardsDrawn();
 }
 
 void GameLogic::checkRules(RuleTrigger rt)
@@ -472,7 +474,7 @@ void GameLogic::executeEffect(const Effect &effect)
     }
     else
     {
-        throw std::logic_error("GameLogic::executeEffect() - Undefined Effect");
+        throw std::logic_error("GameLogic::executeEffect() - Undefined Effect: " + identifier);
     }
 }
 
@@ -752,6 +754,7 @@ void GameLogic::effect_ModifyRule(string rule_type, int value)
         while (_pm->getCurrentPlayer()->getCardsDrawn() < _rm->getDraw())
         {
             drawCard(_pm->getCurrentPlayer()->getID());
+            _pm->getCurrentPlayer()->incrementCardsDrawn();
         }
     }
     else if (rule_type.compare("Keeper") == 0)
@@ -827,7 +830,7 @@ void GameLogic::effect_ReshuffleContainer(string container)
 void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NKeepers)
 {
     bool firstCheck = false;
-    string winningPlayer;
+    PlayerID winningPlayer;
     for (Player i : _pm->getPlayers())
     {
         CardContainerID cpkid(i.getID().getString() + "_keepers");
@@ -850,7 +853,7 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NK
         if (icheck == AKeepers.size())
         {
             firstCheck = true;
-            winningPlayer = i.getID().getString();
+            winningPlayer = i.getID();
             break;
         }
     }
@@ -881,35 +884,53 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NK
     if (firstCheck && secondCheck)
     {
         _currentGameState = GameState::GAME_OVER;
-        cout << "GAME OVER! WINNING PLAYER: " << winningPlayer << " It's finally over!" << endl;
+        getPM()->setWinningPlayer(winningPlayer);
+        cout << "GAME OVER! WINNING PLAYER: " << winningPlayer.getString() << endl;
     }
 }
+
 void GameLogic::effect_ContainerQuantityCheck(string container, int quantity)
 {
-    string idss = "";
-    if (container.compare("keeper") == 0) idss = "_keepers";
-    else if (container.compare("hand") == 0) idss = "_hand";
-    else throw logic_error(container + " is not a valid player container!");
+    string container_type = "";
+    
+    if (container.compare("keeper") == 0)
+    {
+        container_type = "_keepers";
+    }
+    else if (container.compare("hand") == 0)
+    {
+        container_type = "_hand";
+    }
+    else
+    {
+        throw logic_error(container + " is not a valid player container!");
+    }
 
-    int maxHS = 0;
-    int pwssamax = 0;
+    int max_size = 0;
+    int players_with_max = 0;
+    PlayerID best_player;
+
     for (Player p : _pm->getPlayers())
     {
-        int i = _ccm->getSize(CardContainerID(p.getID().getString() + idss)) ;
-        if ( i > maxHS)
+        int container_size = _ccm->getSize(CardContainerID(p.getID().getString() + container_type)) ;
+        
+        if ( container_size > max_size)
         {
-            maxHS = i;
-            pwssamax = 0;
+            max_size = container_size;
+            players_with_max = 1;
+            best_player = p.getID();
         }
-        else if ( i == maxHS)
+        else if ( container_size == max_size)
         {
-            pwssamax++;
+            players_with_max++;
         }
     }
-    if (maxHS >= quantity && pwssamax == 0)
+    if (max_size >= quantity && players_with_max == 1)
     {
-        cout << "GAME OVER: " << endl;
+        cout << "GAME OVER! WINNING PLAYER: " << best_player.getString() << endl;
         _currentGameState = GameState::GAME_OVER;
+        _pm->setWinningPlayer(best_player);
+        cout << "GAME OVER! WINNING PLAYER: " << best_player.getString() << endl;
     }
 }
 

@@ -14,8 +14,8 @@ struct ProfileName
     ProfileName(const ProfileName&) = default;
     ProfileName (ProfileName&&) = default;
 
-    ProfileName& operator= (const ProfileName&) = default;
-    ProfileName& operator= (ProfileName&&) = default;
+    ProfileName& operator=(const ProfileName&) = default;
+    ProfileName& operator=(ProfileName&&) = default;
 
     ~ProfileName() = default;
 

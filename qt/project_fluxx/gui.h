@@ -57,10 +57,10 @@ private:
     QEventLoop* event_loop;
     QScrollArea* rules_scroll;
     MainMenu* _parent;
+    PlayerID previous_active_player;
 
     void message(const QString&, const QString&) const;
     void uiElements();
-
 
     signals:
 

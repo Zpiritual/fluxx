@@ -13,10 +13,11 @@ Profile::~Profile()
 
 }
 
-Profile& Profile::operator=(const Player& /*player*/)
+Profile& Profile::operator+=(const PlayerStats& stat)
 {
-    //name = player.getID();
-
+    drawn_cards += stat._total_drawn_cards;
+    played_cards += stat._total_played_cards;
+    games += 1;
     return *this;
 }
 
@@ -40,6 +41,16 @@ int Profile::getPlayedCards() const
     return played_cards;
 }
 
+int Profile::getDrawnCards() const
+{
+    return drawn_cards;
+}
+
+int Profile::getMaxConsecutivePlays() const
+{
+    return max_consecutive_plays;
+}
+
 void Profile::setName(const std::string& s)
 {
     name.val = s;
@@ -60,7 +71,17 @@ void Profile::setPlayedCards(int pg)
     played_cards = pg;
 }
 
-void Profile::read_line(const std::string& text)
+void Profile::setDrawnCards(int dc)
+{
+    drawn_cards = dc;
+}
+
+void Profile::setMaxConsecutivePlays(int mcp)
+{
+    max_consecutive_plays = mcp;
+}
+
+void Profile::readLine(const std::string& text)
 {
     if(text != "")
     {
@@ -98,6 +119,18 @@ void Profile::checkStat(std::istringstream& is, const std::string& stat)
         is >> pc;
         played_cards = pc;
     }
+    else if(stat == "drawncards")
+    {
+        int dc;
+        is >> dc;
+        drawn_cards = dc;
+    }
+    else if(stat == "maxconsecutiveplays")
+    {
+        int mcp;
+        is >> mcp;
+        max_consecutive_plays = mcp;
+    }
 }
 
 std::ostream& operator<<(std::ostream& os, const Profile& profile)
@@ -105,7 +138,9 @@ std::ostream& operator<<(std::ostream& os, const Profile& profile)
     os << "profile " << profile.getName() << "\n"
        << "wins " << profile.getWins() << "\n"
        << "games " << profile.getGames() << "\n"
-       << "playedcards " << profile.getPlayedCards() << "\n\n";
+       << "playedcards " << profile.getPlayedCards() << "\n"
+       << "drawncards " << profile.getDrawnCards() << "\n"
+       << "maxconsecutiveplays " << profile.getMaxConsecutivePlays() << "\n\n";
     return os;
 }
 

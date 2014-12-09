@@ -2,6 +2,8 @@
 #include "newgame.h"
 #include "start.h"
 #include "options.h"
+#include "gameover.h"
+
 
 #include <fstream>
 
@@ -76,6 +78,38 @@ void MainMenu::optionsBack()
 
     delete options_widget;
     options_widget = NULL;
+}
+
+void MainMenu::gameOverBack()
+{
+    start_widget = new Start(this);
+    main_layout->addWidget(start_widget);
+    main_layout->removeWidget(game_over_widget);
+    this->setWindowTitle(QString("Main menu"));
+
+    delete game_over_widget;
+    game_over_widget = NULL;
+}
+
+void MainMenu::gameOverScreen(SessionData session_data, std::vector<ProfileName> players)
+{
+    game_over_widget = new GameOver(session_data, players, this);
+    main_layout->addWidget(game_over_widget);
+    main_layout->removeWidget(newgame_widget);
+    this->setWindowTitle(QString("Game Over"));
+
+    for(int i = 0; session_data.players.size(); i++)
+    {
+        profiles.at(session_data.players.at(i)._id.getInt() - 1) += session_data.players.at(i);
+        if(profiles.at(session_data.players.at(i)._id.getInt() - 1).getMaxConsecutivePlays() < session_data.players.at(i)._max_consecutive_plays)
+            profiles.at(session_data.players.at(i)._id.getInt() - 1).setMaxConsecutivePlays(session_data.players.at(i)._max_consecutive_plays);
+    }
+    profiles.at(session_data.winning_player.getInt() - 1).setWins(profiles.at(session_data.winning_player.getInt() - 1).getWins() + 1);
+
+    delete newgame_widget;
+    newgame_widget = NULL;
+
+    qDebug() << "game over screen in main menu";
 }
 
 void MainMenu::addProfile(const Profile& profile)
