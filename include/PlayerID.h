@@ -20,7 +20,7 @@ struct PlayerID
 	PlayerID(PlayerIdentifier val) : val{val}
 	{}
 
-    PlayerID() = default;
+	PlayerID() = default;
 	PlayerID(const PlayerID&) = default;
 	PlayerID (PlayerID&&) = default;
 

@@ -31,15 +31,19 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 {
     qDebug() << "Pick Player: ";
     update(snapshot, false);
-    player_loop = new PlayerLoop{};
-    player_list_widget->setConnections(*player_loop);
-    player_loop->exec();
 
-    if (player_list_widget->getPlayerId(player_loop->getPlayerName()) == snapshot->current_player)
+    do
     {
-        message(QString("Pick Player"), QString("Can't pick yourself! Pick another player please."));
-        pickPlayer(snapshot);
-    }
+        delete player_loop;
+        player_loop = NULL;
+        player_loop = new PlayerLoop{};
+        player_list_widget->setConnections(*player_loop);
+        player_loop->exec();
+        if (player_list_widget->getPlayerId(player_loop->getPlayerName()) == snapshot->current_player)
+        {
+            message(QString("Pick Player"), QString("Can't pick yourself! Pick another player please."));
+        }
+    }while(player_list_widget->getPlayerId(player_loop->getPlayerName()) == snapshot->current_player);
 
     PlayerID tempid = player_list_widget->getPlayerId(player_loop->getPlayerName());
     delete player_loop;
@@ -161,8 +165,6 @@ bool Gui::playerDecision(const BoardSnapshot * const snapshot, const std::string
     }
 }
 
-
-
 void Gui::closeEvent(QCloseEvent* event)
 {
     // TODO: Stop evenloops
@@ -188,12 +190,9 @@ void Gui::closeEvent(QCloseEvent* event)
         event->accept();
     }
     else
+    {
         event->ignore();
-
-
-    qDebug() << "Closing window";
-
-
+    }
 }
 
 void Gui::message(const QString& title, const QString& message) const

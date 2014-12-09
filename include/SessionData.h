@@ -12,11 +12,10 @@
 
 struct SessionData
 {
-	std::vector<Player> val;
-	//Winning players ID 
-	PlayerID wp;	
+	PlayerID winning_player;	
+	std::vector<PlayerStats> players;
 	
-	SessionData(std::vector<Player> val, PlayerID wp);
+    SessionData(PlayerID, std::vector<PlayerStats>);
 
     SessionData() = delete;
 	SessionData(const SessionData&) = default;

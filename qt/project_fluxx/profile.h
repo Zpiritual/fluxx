@@ -1,13 +1,13 @@
 #ifndef PROFILE_H
 #define PROFILE_H
 
-#include "profilename.h"
-#include "Player.h"
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <algorithm>
 #include <iterator>
+#include "profilename.h"
+#include "Player.h"
 
 class Profile
 {
@@ -29,7 +29,7 @@ public:
     void setGames(int);
     void setPlayedCards(int);
 
-    void read_line(const std::string&);
+    void readLine(const std::string&);
 
 private:
     ProfileName name;
