@@ -31,17 +31,20 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 {
     qDebug() << "Pick Player: ";
     update(snapshot, false);
-    player_loop = new PlayerLoop{};
-    player_list_widget->setConnections(*player_loop);
-    player_loop->exec();
 
-    if (player_list_widget->getPlayerId(player_loop->getPlayerName()) == snapshot->current_player)
+    do
     {
-        message(QString("Pick Player"), QString("Can't pick yourself! Pick another player please."));
         delete player_loop;
         player_loop = NULL;
-        pickPlayer(snapshot);
-    }
+        player_loop = new PlayerLoop{};
+        player_list_widget->setConnections(*player_loop);
+        player_loop->exec();
+        if (player_list_widget->getPlayerId(player_loop->getPlayerName()) == snapshot->current_player)
+        {
+            message(QString("Pick Player"), QString("Can't pick yourself! Pick another player please."));
+        }
+    }while(player_list_widget->getPlayerId(player_loop->getPlayerName()) == snapshot->current_player);
+
     PlayerID tempid = player_list_widget->getPlayerId(player_loop->getPlayerName());
     delete player_loop;
     player_loop = NULL;
