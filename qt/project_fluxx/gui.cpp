@@ -52,8 +52,9 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 {
     update(snapshot, false);
 
-    if(snapshot->active_player != snapshot->current_player)
+    if(snapshot->active_player != previous_active_player && snapshot->current_player != snapshot->active_player)
     {
+        previous_active_player = snapshot->active_player;
         event_loop = new QEventLoop();
         active_player_widget->changePlayer(player_ids.at(snapshot->active_player.getInt()-1), *event_loop);
 
@@ -61,6 +62,8 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
         event_loop = NULL;
         update(snapshot, true);
     }
+    else if(snapshot->current_player == snapshot->active_player)
+        previous_active_player = snapshot->active_player;
 
     card_id_loop = new CardIdLoop;
 
