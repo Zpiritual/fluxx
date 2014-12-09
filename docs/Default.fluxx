@@ -78,7 +78,7 @@ CARD_ID 016
 CARD_NAME Use What You Take
 CARD_TYPE ACTION
 CARD_DESCRIPTION Take a card at random form another player's hand, and play it.
-CARD_EFFECT TakeRandomAndPlay hand 1
+CARD_EFFECT TakeRandomAndPlayFromPlayer hand 1
 
 CARD_ID 017
 CARD_NAME No Limits
