@@ -81,7 +81,12 @@ public:
 	void effect_RepeatTurn();
 	void effect_ScramblePlayerContainer(string);
 	void effect_bonusPlayerContainerQuantity(int, string,char);
+	void effect_bonusPlayerContainerEmpty(int, string);
 	void effect_rotatePlayerContainer(string);
+    void effect_DrawAndDistribute(int);
+    void effect_TakeAndPlayBasedOnSubtype(string, vector<string>);
+    void effect_SetOrder(string);
+	
 	void writeToLog(const string);
 
 	GameState getCurrentGameState() const;

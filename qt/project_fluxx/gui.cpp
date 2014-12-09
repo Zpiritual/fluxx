@@ -170,7 +170,20 @@ bool Gui::playerDecision(const BoardSnapshot * const snapshot, const std::string
 void Gui::closeEvent(QCloseEvent* event)
 {
     // TODO: Stop evenloops
-    this->hide();
+    QMessageBox message;
+    message.setWindowTitle("Exit game?");
+    message.setText("Are you sure you want to quit? All progress will be lost.");
+    QAbstractButton *yes_button= message.addButton(QString("Yes"),QMessageBox::YesRole);
+    message.addButton("No",QMessageBox::NoRole);
+    message.exec();
+    if(message.clickedButton() == yes_button)
+    {
+        this->hide();
+        event->accept();
+    }
+    else
+        event->ignore();
+
 
 //    event_loop->exit();
 //    card_id_loop->exit();
@@ -185,7 +198,6 @@ void Gui::closeEvent(QCloseEvent* event)
 
     qDebug() << "Closing window";
 
-    event->accept();
 }
 
 void Gui::message(const QString& title, const QString& message) const

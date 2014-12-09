@@ -103,9 +103,12 @@ void CardContainerManager::drawCard(const CardContainerID container)
 
 void CardContainerManager::moveCard(const CardContainerID from, const CardContainerID to, const CardID card)
 {
+    if(card == CardID(0))
+		return;
 	getContainer(from)->removeCard(card);
 	getContainer(to)->addCard(card);
 	notify(from,to,card,Event::CARD_MOVED);
+	
 }
 
 void CardContainerManager::moveCards(const CardContainerID from, const CardContainerID to)
@@ -149,9 +152,12 @@ CardID CardContainerManager::getRandomCard(const CardContainerID container)
 
 void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID& cid)
 {
+	if(cid == CardID(0))
+		return;
 	getContainer(ccid)->removeCard(cid);
     _suspendedCards.push(cid);
     notify(ccid, CardContainerID("SuspendedCards"),cid,Event::CARD_MOVED);
+	
 }
 
 void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
