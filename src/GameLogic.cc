@@ -465,6 +465,12 @@ void GameLogic::executeEffect(const Effect &effect)
         ss >> container >> quantity;
         effect_TakeRandomAndPlayFromPlayer(container, quantity);
     }
+    else if (identifier.compare("MoveKeepers") == 0)
+    {
+        int quantity;
+        ss >> quantity;
+        effect_MoveKeepers(quantity);
+    }
     else
     {
         throw std::logic_error("GameLogic::executeEffect() - Undefined Effect");
@@ -1269,6 +1275,17 @@ void GameLogic::effect_TakeRandomAndPlayFromPlayer(string container,int quantity
     }
     cerr << "Effect END" << endl;
 }
+
+void GameLogic::effect_MoveKeepers(int quantity)
+{
+    CardContainerID ccid(pickPlayer().getString() + "_keepers");
+    for(int i = 0 ;i  < quantity && _ccm->getSize(ccid) > 0; i++)
+    {
+        pickCard(_pm->getCurrentPlayerID(), ccid);
+    }
+}
+
+
 
 
 

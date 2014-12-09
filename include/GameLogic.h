@@ -78,6 +78,7 @@ public:
     void effect_ForceRandomPlay(int quantity);
 	void effect_MoveContainer(string ccid1, string ccid2);
 	void effect_MoveCardsSubtype(string ccid1,string ccid2, string type);
+	void effect_MoveKeepers(int);
 	void effect_RepeatTurn();
 	void effect_ScramblePlayerContainer(string);
 	void effect_bonusPlayerContainerQuantity(int, string,char);
