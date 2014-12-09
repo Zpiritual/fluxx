@@ -76,7 +76,6 @@ void NewGame::startGame()
         else
         {
             parent2->newGameBack();
-
         }
         parent2->show();
         delete gui;
