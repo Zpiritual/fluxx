@@ -1,5 +1,5 @@
 DECK_NAME Default
-CARD_COUNT 76
+CARD_COUNT 78
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
 CARD_ID 002
@@ -62,11 +62,23 @@ CARD_TYPE ACTION
 CARD_DESCRIPTION Take a Keeper form in front of any player and put it on the discard pile.
 CARD_EFFECT TrashCards 1
 
+CARD_ID 014
+CARD_NAME Let's Simplify
+CARD_TYPE ACTION
+CARD_DESCRIPTION Discard your choice of up to half (rounded up) of the New Rule cards currently in play.
+CARD_EFFECT DiscardPercentileOfContainer Rules 50
+
 CARD_ID 015
 CARD_NAME Trash a New Rule
 CARD_TYPE ACTION
 CARD_DESCRIPTION Select one of the New Rule cards in play and place it in the discard pile.
 CARD_EFFECT TrashCardsFromContainer 1 Rules
+
+CARD_ID 016
+CARD_NAME Use What You Take
+CARD_TYPE ACTION
+CARD_DESCRIPTION Take a card at random form another player's hand, and play it.
+CARD_EFFECT TakeRandomAndPlay hand 1
 
 CARD_ID 017
 CARD_NAME No Limits
