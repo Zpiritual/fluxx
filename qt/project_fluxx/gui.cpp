@@ -115,21 +115,22 @@ void Gui::nextPlayer(const BoardSnapshot* const snapshot)
     update(snapshot, false);
     event_loop = new QEventLoop();
 
-    if(snapshot->direction == Direction::CLOCKWISE)
-    {
-        active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() % player_ids.size()), *event_loop);
-    }
-    else
-    {
-        if((snapshot->current_player.getInt() - 1) == 0)
-        {
-            active_player_widget->endTurn(player_ids.at(player_ids.size() - 1), *event_loop);
-        }
-        else
-        {
-            active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() - 2),*event_loop);
-        }
-    }
+    active_player_widget->endTurn(player_ids.at(snapshot->next_player.getInt()-1),*event_loop);
+//    if(snapshot->direction == Direction::CLOCKWISE)
+//    {
+//        active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() % player_ids.size()), *event_loop);
+//    }
+//    else
+//    {
+//        if((snapshot->current_player.getInt() - 1) == 0)
+//        {
+//            active_player_widget->endTurn(player_ids.at(player_ids.size() - 1), *event_loop);
+//        }
+//        else
+//        {
+//            active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() - 2),*event_loop);
+//        }
+//    }
     delete event_loop;
     event_loop = NULL;
 }
