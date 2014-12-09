@@ -56,7 +56,6 @@ void NewGame::startGame()
     }
     else
     {
-
         Gui* gui = new Gui(players, parent2);
 
         gui->move(QApplication::desktop()->screen()->rect().center() - gui->rect().center());
@@ -67,10 +66,10 @@ void NewGame::startGame()
 
         parent2->hide();
 
-        game_loop.run();
-
+        SessionData session_data = game_loop.run();
 
         qDebug() << "Add startGame functionality";
+        parent2->gameOverScreen(session_data, players);
         parent2->show();
         delete gui;
 

@@ -119,21 +119,6 @@ void Gui::nextPlayer(const BoardSnapshot* const snapshot)
     event_loop = new QEventLoop();
 
     active_player_widget->endTurn(player_ids.at(snapshot->next_player.getInt()-1),*event_loop);
-//    if(snapshot->direction == Direction::CLOCKWISE)
-//    {
-//        active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() % player_ids.size()), *event_loop);
-//    }
-//    else
-//    {
-//        if((snapshot->current_player.getInt() - 1) == 0)
-//        {
-//            active_player_widget->endTurn(player_ids.at(player_ids.size() - 1), *event_loop);
-//        }
-//        else
-//        {
-//            active_player_widget->endTurn(player_ids.at(snapshot->current_player.getInt() - 2),*event_loop);
-//        }
-//    }
     delete event_loop;
     event_loop = NULL;
 }
@@ -191,24 +176,23 @@ void Gui::closeEvent(QCloseEvent* event)
     {
         _parent->show();
         this->hide();
+        if(card_id_loop != NULL)
+            card_id_loop->exit();
+        if(player_loop != NULL)
+            card_id_loop->exit();
+        if(event_loop != NULL)
+            event_loop->exit();
+
+        qDebug() << "Closing window";
+
         event->accept();
     }
     else
         event->ignore();
 
 
-//    event_loop->exit();
-//    card_id_loop->exit();
-//    player_loop->exit();
-
-//    if(event_loop->isRunning())
-//        event_loop->quit();
-//    if(card_id_loop->isRunning())
-//        card_id_loop->quit();
-//    if(player_loop->isRunning())
-//        player_loop->quit();
-
     qDebug() << "Closing window";
+
 
 }
 
@@ -268,10 +252,6 @@ void Gui::uiElements()
     this->setMinimumWidth(1280);
     this->showMaximized();
     this->setWindowTitle(QString("Fluxx"));
-
-//    rules_widget->setMinimumHeight(270);
-//    goals_widget->setMinimumSize(100,280);
-    //mid_column_right->setAlignment(goals_widget, Qt::AlignTop);
 
     layout->addLayout(left_column);
     layout->addLayout(mid_column);

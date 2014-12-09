@@ -62,7 +62,8 @@ SOURCES += main.cpp \
     cardcollection.cpp \
     cardidloop.cpp \
     playerloop.cpp \
-    cardpicture.cpp
+    cardpicture.cpp \
+    gameover.cpp
 
 
 HEADERS += \
@@ -110,7 +111,8 @@ HEADERS += \
     ../../include/Stock.h \
     ../../include/TriggeredRule.h \
     playerloop.h \
-    cardpicture.h
+    cardpicture.h \
+    gameover.h
 
 
 QMAKE_CXXFLAGS += -std=c++11

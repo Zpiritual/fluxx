@@ -18,7 +18,7 @@ struct SessionData
 	
 	SessionData(std::vector<Player> val, PlayerID wp);
 
-	SessionData() = delete;
+    SessionData() = delete;
 	SessionData(const SessionData&) = default;
 	SessionData (SessionData&&) = default;
 

@@ -6,6 +6,7 @@
 #include "profile.h"
 #include "Deck.h"
 #include "cardpicture.h"
+#include "SessionData.h"
 
 class MainMenu : public QWidget
 {
@@ -18,6 +19,8 @@ public:
     void newGameBack();
     void options();
     void optionsBack();
+    void gameOverBack();
+    void gameOverScreen(SessionData, std::vector<ProfileName>);
 
     void addProfile(const Profile&);
     void setProfiles(const std::vector<Profile>&);
@@ -31,6 +34,7 @@ private:
     QWidget* start_widget; //The widget that run at start
     QWidget* options_widget; //The options menu widget
     QWidget* newgame_widget; //The newgame menu widget
+    QWidget* game_over_widget; //The game over widget
 
     std::vector<Profile> profiles;
 
