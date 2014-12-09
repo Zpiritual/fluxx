@@ -60,7 +60,7 @@ void Profile::setPlayedCards(int pg)
     played_cards = pg;
 }
 
-void Profile::read_line(const std::string& text)
+void Profile::readLine(const std::string& text)
 {
     if(text != "")
     {

@@ -30,32 +30,8 @@ void PlayerList::updatePlayers(const BoardSnapshot* const board)
         CardContainer keepers{board->getContainer(player_keepers)};
         players.at(i)->updateCards(hand.getCards(), keepers.getCards());
     }
-    updatePlayerState(board->current_player.getInt(), board->direction);
+    updatePlayerState(board->current_player.getInt(), board->next_player.getInt());
 }
-
-void PlayerList::updatePlayerVariables(int index, int player_id, const Direction direction)
-{
-    if(index == (player_id - 1))
-    {
-        current_player = index;
-        if(direction == Direction::CLOCKWISE)
-        {
-            next_player = (current_player + 1) % player_ids.size();
-        }
-        else
-        {
-            if(index == 0)
-            {
-                next_player = player_ids.size() - 1;
-            }
-            else
-            {
-                next_player = current_player - 1;
-            }
-        }
-    }
-}
-
 void PlayerList::uiElements()
 {
     vertical_layout = new QVBoxLayout();
@@ -72,20 +48,16 @@ void PlayerList::uiElements()
     this->setLayout(vertical_layout);
 }
 
-void PlayerList::updatePlayerState(int player_id, const Direction direction)
+void PlayerList::updatePlayerState(int player_id, int next_player_id)
 {
-    for(unsigned int i = 0; i < player_ids.size(); i++)
-    {
-        updatePlayerVariables(i, player_id, direction);
-    }
 
     for(unsigned int i = 0; i < player_ids.size(); i++)
     {
-        if (i == (unsigned int) current_player)
+        if (i == (unsigned int) player_id - 1)
         {
             players.at(i)->setActivePlayer();
         }
-        else if(i == (unsigned int) next_player)
+        else if(i == (unsigned int) next_player_id - 1)
         {
             players.at(i)->setNextPlayer();
         }
