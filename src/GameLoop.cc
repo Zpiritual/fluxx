@@ -96,7 +96,7 @@ SessionData	GameLoop::run()
 		std::cerr << error.what();
 	}
 
-    return SessionData(_game_logic->getPM()->getPlayers(), PlayerIdentifier::Player1);
+    return SessionData(_game_logic->getPM()->getWinningPlayer(), _game_logic->getPM()->getPlayers());
 }
 
 GameState GameLoop::executePlayerTurn(PlayerID pid)
@@ -106,7 +106,12 @@ GameState GameLoop::executePlayerTurn(PlayerID pid)
 	checkTriggeredRules(RuleTrigger::PRE_DRAW);
 
 	drawCards(getCurrentPlayerID(), getDrawNO());
-	
+
+	for (int i{0}; i < getDrawNO(); ++i)
+	{
+        _game_logic->getPM()->getCurrentPlayer()->incrementCardsDrawn();
+	}
+
 	checkTriggeredRules(RuleTrigger::POST_DRAW);
 
 	checkTriggeredRules(RuleTrigger::PRE_PLAY);

@@ -86,8 +86,22 @@ std::vector<Player> PlayerManager::getPlayers()
 
 void PlayerManager::nextPlayer(Direction direction)
 {
-	_players.at(_current_player).resetCardsPlayed();
-	_players.at(_current_player).resetCardsDrawn();
+    Player* player(&_players.at(_current_player));
+
+	if ( player->getConsecutivePlays() > player->getMaxConsecutivePlays() )
+	{
+		player->setMaxConsecutivePlays(player->getConsecutivePlays());
+		// om man har två rundor efter varandra? fixa till
+	}
+
+	player->resetCardsPlayed();
+	player->resetCardsDrawn();
+
+	if ( getCurrentPlayerID() != getNextPlayerID(direction) )
+	{
+		player->resetConsecutivePlays();	
+	}
+	
 
 	if(!_repeat_turn)
 	{
@@ -121,4 +135,14 @@ void PlayerManager::repeatTurn()
 	{
 		_repeat_turn = true;
 	}
+}
+
+PlayerID PlayerManager::getWinningPlayer()
+{
+	return _winning_player;
+}
+
+void PlayerManager::setWinningPlayer(PlayerID winner)
+{
+	_winning_player = winner;
 }

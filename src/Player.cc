@@ -29,9 +29,19 @@ void Player::incrementCardsPlayed()
 	++_played_cards;
 }
 
+void Player::incrementTotalCardsPlayed()
+{
+	++_total_played_cards;
+}
+
 void Player::incrementCardsDrawn()
 {
 	++_drawn_cards;
+}
+
+void Player::incrementTotalCardsDrawn()
+{
+	++_total_drawn_cards;
 }
 
 void Player::resetCardsPlayed()
@@ -42,4 +52,29 @@ void Player::resetCardsPlayed()
 void Player::resetCardsDrawn()
 {
 	_drawn_cards = 0;
+}
+
+int Player::getConsecutivePlays() const
+{
+	return _consecutive_plays;
+}
+
+void Player::incrementConsecutivePlays()
+{
+	++_consecutive_plays;
+}
+
+void Player::resetConsecutivePlays()
+{
+	_consecutive_plays = 0;
+}
+
+int Player::getMaxConsecutivePlays() const
+{
+	return _max_consecutive_plays;
+}
+
+void Player::setMaxConsecutivePlays(int new_max)
+{
+	_max_consecutive_plays = new_max;
 }

@@ -42,11 +42,14 @@ public:
 	std::vector<Player> getPlayers();
     void 			nextPlayer(Direction);
     void			repeatTurn();
+    PlayerID		getWinningPlayer();
+    void			setWinningPlayer(PlayerID);
 
 private:
 	std::vector<Player> _players;
 	int  _current_player = 0;
 	bool _repeat_turn{false};
+	PlayerID _winning_player;
 };
 
 #endif

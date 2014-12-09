@@ -1,4 +1,5 @@
 #include "SessionData.h"
 
-SessionData::SessionData(std::vector<Player> val, PlayerID wp):val{val}, wp{wp}
+SessionData::SessionData(PlayerID winning_player, std::vector<Player> players)
+    : winning_player{winning_player}, players{players}
 {}
