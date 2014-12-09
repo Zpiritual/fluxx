@@ -46,6 +46,7 @@ void BigCardCollection::uiElements(const std::vector<CardID>& crds, CardIdLoop& 
 
     this->setPalette(QPalette(QPalette::Background, Qt::green));
     this->setAutoFillBackground(true);
+    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
 
     scroll_area->setFrameStyle(QFrame::NoFrame);
 
