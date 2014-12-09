@@ -181,7 +181,7 @@ void Gui::closeEvent(QCloseEvent* event)
         if(card_id_loop != NULL)
             card_id_loop->exit();
         if(player_loop != NULL)
-            card_id_loop->exit();
+            player_loop->exit();
         if(event_loop != NULL)
             event_loop->exit();
 

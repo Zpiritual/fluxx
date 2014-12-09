@@ -15,7 +15,7 @@ public:
     Profile(const std::string& n = "tempName", int w = 0, int g = 0, int pc = 0);
     ~Profile();
 
-    Profile& operator=(const Player&);
+    Profile& operator+=(const PlayerStats&);
 
     void checkStat(std::istringstream& is, const std::string&);
 
@@ -23,11 +23,15 @@ public:
     int getWins() const;
     int getGames() const;
     int getPlayedCards() const;
+    int getDrawnCards() const;
+    int getMaxConsecutivePlays() const;
 
     void setName(const std::string&);
     void setWins(int);
     void setGames(int);
     void setPlayedCards(int);
+    void setDrawnCards(int);
+    void setMaxConsecutivePlays(int);
 
     void readLine(const std::string&);
 
@@ -36,6 +40,8 @@ private:
     int wins;
     int games;
     int played_cards;
+    int drawn_cards;
+    int max_consecutive_plays;
 };
 
 std::ostream& operator<<(std::ostream&, const Profile&);
