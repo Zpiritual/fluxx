@@ -1,9 +1,11 @@
 #include "gui.h"
 
-Gui::Gui(std::vector<ProfileName> players, QWidget *parent) :
+Gui::Gui(std::vector<ProfileName> players, MainMenu* main_menu, QWidget *parent) :
     QWidget(parent)
 {
     player_ids = players;
+    _parent = main_menu;
+    qDebug() << "postparent in Gui";
     uiElements();
 }
 
@@ -152,8 +154,10 @@ bool Gui::playerDecision(const BoardSnapshot * const snapshot, const std::string
     update(snapshot, false);
     QMessageBox questionbox;
     questionbox.setText(QString::fromStdString(question));
-    QAbstractButton *left_button= questionbox.addButton(QString::fromStdString(left_button_text),QMessageBox::YesRole);
     questionbox.addButton(QString::fromStdString(right_button_text), QMessageBox::NoRole);
+    QAbstractButton *left_button= questionbox.addButton(QString::fromStdString(left_button_text),QMessageBox::YesRole);
+    questionbox.setWindowFlags(((questionbox.windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowCloseButtonHint));
+    //questionbox.
     questionbox.exec();
     if (questionbox.clickedButton() == left_button) {
         qDebug() << "You picked left_button";
@@ -178,6 +182,7 @@ void Gui::closeEvent(QCloseEvent* event)
     message.exec();
     if(message.clickedButton() == yes_button)
     {
+        _parent->show();
         this->hide();
         event->accept();
     }
