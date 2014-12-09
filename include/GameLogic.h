@@ -85,6 +85,8 @@ public:
 	void effect_rotatePlayerContainer(string);
     void effect_DrawAndDistribute(int);
     void effect_TakeAndPlayBasedOnSubtype(string, vector<string>);
+    void effect_DiscardPercentileOfContainer(string,int);
+    void effect_TakeRandomAndPlayFromPlayer(string,int);
     void effect_SetOrder(string);
 	
 	void writeToLog(const string);
