@@ -88,7 +88,6 @@ if(snapshot->active_player != previous_active_player && snapshot->current_player
         trash_widget->setConnections(*card_id_loop);
     }
     else if(snapshot->target_container == CardContainerID(snapshot->active_player.getString()+"_hand") ||
-            snapshot->target_container == CardContainerID("tempB") ||
             snapshot->target_container == CardContainerID("tempA"))
     {
          active_player_widget->connectActiveHand(*card_id_loop);

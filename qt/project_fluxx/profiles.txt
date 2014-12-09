@@ -1,45 +1,14 @@
 profile Rasmus
-wins 0
-games 0
-playedcards 0
+wins 1
+games 1
+playedcards 8
+drawncards 30
+maxconsecutiveplays 1
 
-profile Fredrik
+profile Op
 wins 0
-games 0
-playedcards 0
-
-profile Martin
-wins 0
-games 0
-playedcards 0
-
-profile Johannes
-wins 0
-games 0
-playedcards 0
-
-profile Lola
-wins 0
-games 0
-playedcards 0
-
-profile sciii
-wins 0
-games 0
-playedcards 0
-
-profile Gösta
-wins 0
-games 0
-playedcards 0
-
-profile Runa
-wins 0
-games 0
-playedcards 0
-
-profile Johan
-wins 0
-games 0
-playedcards 0
+games 1
+playedcards 9
+drawncards 20
+maxconsecutiveplays 3
 

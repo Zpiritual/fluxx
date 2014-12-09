@@ -98,7 +98,7 @@ void MainMenu::gameOverScreen(SessionData session_data, std::vector<ProfileName>
     main_layout->removeWidget(newgame_widget);
     this->setWindowTitle(QString("Game Over"));
 
-    for(int i = 0; session_data.players.size(); i++)
+    for(int i = 0; i < session_data.players.size(); i++)
     {
         profiles.at(session_data.players.at(i)._id.getInt() - 1) += session_data.players.at(i);
         if(profiles.at(session_data.players.at(i)._id.getInt() - 1).getMaxConsecutivePlays() < session_data.players.at(i)._max_consecutive_plays)
