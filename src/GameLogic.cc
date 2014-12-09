@@ -352,6 +352,17 @@ void GameLogic::executeEffect(const Effect &effect)
         cout << "Checking Effect BooleanKeeperCheck" << endl;
         effect_BooleanKeeperCheck(AKeepers, NKeepers);
     }
+    else if (identifier.compare("SpecificKeeperCheck") == 0)
+    {
+        vector<int> cards;
+        int temp;
+
+        while (ss >> temp)
+        {
+            cards.push_back(temp);
+        }
+        effect_SpecificKeeperCheck(cards);
+    }
     else if (identifier.compare("ContainerQuantityCheck") == 0)
     {
         string container;
@@ -440,6 +451,7 @@ void GameLogic::executeEffect(const Effect &effect)
         vector<string> subtypes;
         ss >> container;
         string tmp;
+        
         while(ss >> tmp)
         {
             subtypes.push_back(tmp);
@@ -889,6 +901,48 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NK
     }
 }
 
+void GameLogic::effect_SpecificKeeperCheck(vector<int> cards)
+{
+    cerr << "GameLogic::effect_SpecificKeeperCheck() - Input vector contains card id:s: ";
+    for (int i : cards)
+    {
+        cerr << i << endl;
+    }
+    
+    for (Player p : _pm->getPlayers())
+    {
+        CardContainerID player_container(p.getID().getString() + "_keepers");
+        unsigned matches_found = 0;
+        vector<CardID> player_keepers = _ccm->getCards(player_container);
+
+        if (player_keepers.size() == cards.size())
+        {
+            for (int card : cards)
+            {
+                vector<CardID> player_keepers = _ccm->getCards(player_container);
+
+                if ( find(player_keepers.begin(), player_keepers.end(), CardID(card)) != player_keepers.end() )
+                {
+                    cerr << "Keeper: " << card << " found in: " << player_container.val << endl;
+                    for (CardID id : player_keepers)
+                    {
+                        cerr << "Contains: " << id.val << ' ';
+                    }
+                    cout << endl;
+                    ++matches_found;
+                }
+            }
+            if (matches_found == cards.size())
+            {
+                _currentGameState = GameState::GAME_OVER;
+                getPM()->setWinningPlayer(p.getID());
+                cout << "GAME OVER! WINNING PLAYER: " << p.getID().getString() << endl;
+                break;
+            }
+        }
+    }
+}
+
 void GameLogic::effect_ContainerQuantityCheck(string container, int quantity)
 {
     string container_type = "";
@@ -927,7 +981,6 @@ void GameLogic::effect_ContainerQuantityCheck(string container, int quantity)
     }
     if (max_size >= quantity && players_with_max == 1)
     {
-        cout << "GAME OVER! WINNING PLAYER: " << best_player.getString() << endl;
         _currentGameState = GameState::GAME_OVER;
         _pm->setWinningPlayer(best_player);
         cout << "GAME OVER! WINNING PLAYER: " << best_player.getString() << endl;

@@ -1,5 +1,5 @@
 DECK_NAME Default
-CARD_COUNT 79
+CARD_COUNT 80
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
 CARD_ID 002
@@ -146,6 +146,12 @@ CARD_NAME Night and Day
 CARD_TYPE GOAL
 CARD_DESCRIPTION The player with the Moon and the Sun on the table wins.
 CARD_EFFECT BooleanKeeperCheck 2 0 070 080
+
+CARD_ID 027
+CARD_NAME All You Need Is Love
+CARD_TYPE GOAL
+CARD_DESCRIPTION The player with Love on the table wins, but only if that player has no other keepers on the table.
+CARD_EFFECT SpecificKeeperCheck 068
 
 CARD_ID 028
 CARD_NAME The Brain (No TV)
