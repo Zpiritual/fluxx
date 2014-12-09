@@ -171,7 +171,11 @@ void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 
 	}
     else
-        throw std::logic_error("No Cards are suspended");
+    {
+    	std::cerr << "CardContainerManager::unSuspendCard() - No card to unsuspend." << endl;
+    	//throw std::logic_error("No Cards are suspended");
+    }
+        
 }
 	void CardContainerManager::swapCards(const CardContainerID ccid1, const CardContainerID ccid2)
 	{
