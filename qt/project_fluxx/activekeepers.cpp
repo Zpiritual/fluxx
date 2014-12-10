@@ -56,6 +56,5 @@ void ActiveKeepers::uiElements()
 
     this->setMaximumHeight(135);
     this->setMinimumHeight(135);
-    this->setMinimumWidth(800);
     this->setLayout(layout);
 }

@@ -34,8 +34,7 @@ void SwitchPlayer::uiElements(const ProfileName& next_player, const bool end_tur
 
     next_player_button->setMinimumWidth(100);
     next_player_button->setMinimumHeight(75);
-    this->setMinimumHeight(259);
-    this->setMinimumWidth(500);
+
     next_player_layout->addWidget(next_player_text);
     next_player_layout->addWidget(next_player_button);
 
