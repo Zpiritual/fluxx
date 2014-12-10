@@ -135,6 +135,7 @@ GameState GameLoop::executePlayerTurn(PlayerID pid)
  	{
  		_game_logic->playCard();
  	}
+ 	checkTriggeredRules(RuleTrigger::POST_PLAY);
  	return _game_logic->getCurrentGameState();
 }
 
