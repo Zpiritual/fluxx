@@ -30,9 +30,6 @@ void CardButton::mouseReleaseEvent(QMouseEvent *e) {
         BigCard* big_card_window = new BigCard(id_, this);
 
         big_card_window->show();
-
-
-        qDebug() << "Add right click on button functionality";
     }
     QPushButton::mouseReleaseEvent(e);
 }

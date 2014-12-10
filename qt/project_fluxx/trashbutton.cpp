@@ -31,14 +31,14 @@ void TrashButton::clickbutton()
 {
     if(cards_.size() != 0)
     {
-        BigCardCollection* bigcollection = new BigCardCollection{cards_};
+        BigCardCollection* bigcollection = new BigCardCollection{cards_, this};
         bigcollection->show();
     }
 }
 
 void TrashButton::setConnections(CardIdLoop& loop)
 {
-    BigCardCollection* bigcollection = new BigCardCollection{cards_, loop};
+    BigCardCollection* bigcollection = new BigCardCollection{cards_, loop, this};
     bigcollection->show();
     loop.exec();
     bigcollection->close();

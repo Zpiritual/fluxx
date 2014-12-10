@@ -1,5 +1,5 @@
 DECK_NAME Default
-CARD_COUNT 83
+CARD_COUNT 82
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
 
 CARD_ID 001
@@ -177,17 +177,11 @@ CARD_TYPE GOAL
 CARD_DESCRIPTION The player with Sleep and Dreams on the table wins.
 CARD_EFFECT BooleanKeeperCheck 2 0 072 071
 
-CARD_ID 031
+CARD_ID 030
 CARD_NAME Peace (No War)
 CARD_TYPE GOAL
 CARD_DESCRIPTION If no one has War on the table, the player with Peace on the table wins.
 CARD_EFFECT BooleanKeeperCheck 1 1 081 069
-
-CARD_ID 032
-CARD_NAME 10 Cards in Hand
-CARD_TYPE GOAL
-CARD_DESCRIPTION If someone has 10 or more cards in his or her hand, the the player with the most cards in hand wins.
-CARD_EFFECT ContainerQuantityCheck hand 10
 
 CARD_ID 031
 CARD_NAME Chocolate Milk

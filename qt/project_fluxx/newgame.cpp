@@ -68,7 +68,7 @@ void NewGame::startGame()
 
         SessionData session_data = game_loop.run();
 
-        qDebug() << "Pre gameover if statements in newgame startgame";
+        qDebug() << "GameLoop Exited successfully";
         if(session_data.game_state == GameState::GAME_OVER)
         {
             parent2->gameOverScreen(session_data, players);
@@ -79,8 +79,6 @@ void NewGame::startGame()
         }
         parent2->show();
         delete gui;
-
-        qDebug() << "Add startGame functionality";
     }
 }
 
@@ -104,7 +102,6 @@ void NewGame::selectPlayer()
     }
     player_list->clearSelection();
     select_player_button->setEnabled(false);
-    qDebug() << "Add selectPlayer functionality";
 }
 
 void NewGame::enableSelectPlayerButton()
@@ -159,8 +156,6 @@ void NewGame::connectSignals()
 
 void NewGame::goBack()
 {
-    qDebug() << "Add goBack functionality";
-
     if(parent2 != nullptr)
     {
         parent2->newGameBack();

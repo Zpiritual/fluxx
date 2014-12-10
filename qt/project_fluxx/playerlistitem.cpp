@@ -31,6 +31,10 @@ void PlayerListItem::updateCards(const std::vector<CardID> hnd, const std::vecto
     keepers_id = keeprs;
     card_count->setText(QString{"Hand Count: "} + QString::number(getHandCount()));
     keeper_count->setText(QString{"Keeper Count: "} + QString::number(getKeeperCount()));
+    if(getKeeperCount() == 0)
+        keeper_button->setEnabled(false);
+    else
+        keeper_button->setEnabled(true);
 }
 
 void PlayerListItem::setActivePlayer()
