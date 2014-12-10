@@ -56,7 +56,7 @@ int RuleManager::getDraw()
 	}
 	else
 	{
-		return _draw;
+		return _draw + _inflation;
 	}
 }
 
@@ -68,7 +68,7 @@ int RuleManager::getPlay()
 	}
 	else
 	{
-		return _play;
+		return _play - _inflation;
 	}
 }
 
