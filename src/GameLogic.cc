@@ -410,8 +410,9 @@ void GameLogic::executeEffect(const Effect &effect)
 		int quantity;
 		string container;
 		char relation;
-		ss >> quantity >> container >> relation;
-		effect_bonusPlayerContainerQuantity(quantity, container, relation);
+		string bonus;
+		ss >> quantity >> container >> relation >> bonus;
+		effect_bonusPlayerContainerQuantity(quantity, container, relation, bonus);
 	}
 	else if (identifier.compare("BonusPlayerContainerEmpty") == 0)
 	{
@@ -701,9 +702,9 @@ void GameLogic::effect_AddTriggeredRule(int card_id, string trigger)
 	{
 		rt = RuleTrigger::PRE_PLAY;
 	}
-	else if (trigger.compare("TURN_END") == 0)
+	else if (trigger.compare("POST_PLAY") == 0)
 	{
-		rt = RuleTrigger::TURN_END;
+		rt = RuleTrigger::POST_PLAY;
 	}
 	else if (trigger.compare("GOAL") == 0)
 	{
@@ -1091,7 +1092,7 @@ void GameLogic::effect_ScramblePlayerContainer(string container)
 	}
 }
 
-void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string container, char relation)
+void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string container, char relation, string bonus)
 {
 	quantity += _rm->getInflation();
 	vector<int> containersSize;
@@ -1147,7 +1148,13 @@ void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string contain
 	{
 		cout << "Player will draw: " << quantity  << "Extra cards" << endl;
 		for (int  i = 0; i < quantity; i++)
-			_ccm->drawCard(CardContainerID(_pm->getPlayers().at(bestPlayer).getID().getString() + "_hand"));
+		{
+			if(bonus.compare("Draw") == 0)
+				_ccm->drawCard(CardContainerID(_pm->getPlayers().at(bestPlayer).getID().getString() + "_hand"));
+            else if(bonus.compare("Play") == 0 && playerDecision("Play another card?", "Yes", "No"))
+				playCard();
+		}
+		
 	}
 }
 

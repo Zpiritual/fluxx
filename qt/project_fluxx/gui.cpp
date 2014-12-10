@@ -133,7 +133,8 @@ bool Gui::playerDecision(const BoardSnapshot * const snapshot, const std::string
     questionbox.setText(QString::fromStdString(question));
     questionbox.addButton(QString::fromStdString(right_button_text), QMessageBox::NoRole);
     QAbstractButton *left_button= questionbox.addButton(QString::fromStdString(left_button_text),QMessageBox::YesRole);
-    questionbox.setWindowFlags(((questionbox.windowFlags() | Qt::CustomizeWindowHint) & ~Qt::WindowCloseButtonHint));
+    questionbox.setWindowFlags(((questionbox.windowFlags() | Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint) & ~Qt::WindowCloseButtonHint));
+    questionbox.raise();
     questionbox.exec();
     if (questionbox.clickedButton() == left_button) {
         qDebug() << "You picked left_button";
@@ -153,7 +154,8 @@ void Gui::closeEvent(QCloseEvent* event)
     message.setText("Are you sure you want to quit? All progress will be lost.");
     QAbstractButton *yes_button= message.addButton(QString("Yes"),QMessageBox::YesRole);
     message.addButton("No",QMessageBox::NoRole);
-    message.raise();
+   // message.raise();
+    message.setWindowFlags(message.windowFlags() | Qt::WindowStaysOnTopHint);
     message.exec();
     if(message.clickedButton() == yes_button)
     {
