@@ -5,6 +5,7 @@
 #include "TriggeredRule.h"
 #include "enums.h"
 #include <vector>
+#include <limits>
 
 class RuleManager
 {
@@ -19,7 +20,7 @@ public:
 
 	int 		getHandLimit()		;
 	int 		getKeeperLimit() 	;
-	int 		getGoalLimmit() 	;
+	int 		getGoalLimit() 	;
 	int 		getInflation() 		;
 	int 		getDraw() 			;
 	int 		getPlay() 			;
@@ -27,7 +28,7 @@ public:
 
 	void setHandLimit(const int);
 	void setKeeperLimit(const int);
-	void setGoalLimmit(const int);
+	void setGoalLimit(const int);
 	void setInflation(const int);
 	void setDraw(const int);
 	void setPlay(const int);
@@ -39,8 +40,8 @@ public:
 	void clearRules();
 
 private:
-	int _hand_limmit 	= 82;
-	int _keeper_limit	= 82;
+	int _hand_limit 	= std::numeric_limits<int>::max();
+	int _keeper_limit	= std::numeric_limits<int>::max();
 	int _goal_limit		= 1;
 	int _inflation		= 0;
 	int _draw			= 1;

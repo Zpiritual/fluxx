@@ -8,6 +8,8 @@ ActivePlayer::ActivePlayer(QWidget *parent) :
 
 void ActivePlayer::updateCards(const BoardSnapshot* const snapshot, const bool changed_player)
 {
+    active_hand->hide();  //Removes background colors getting stuck when hand shrinks
+    active_hand->show();
     if(!changed_player)
     {
         if(snapshot->getContainer(CardContainerID("tempA")).getSize() != 0)
@@ -77,6 +79,7 @@ void ActivePlayer::uiElements()
     scroll_area_hand = new QScrollArea();
     scroll_area_keepers = new QScrollArea();
 
+
     active_hand = new ActiveHand();
     active_keepers = new ActiveKeepers();
     layout->addWidget(scroll_area_keepers);
@@ -84,9 +87,14 @@ void ActivePlayer::uiElements()
 
     scroll_area_keepers->setWidget(active_keepers);
     scroll_area_hand->setWidget(active_hand);
-    layout->setAlignment(scroll_area_hand, Qt::AlignTop);
+   // layout->setAlignment(scroll_area_hand, Qt::AlignTop);
     scroll_area_keepers->setFrameShape(QFrame::NoFrame);
     scroll_area_hand->setFrameShape(QFrame::NoFrame);
 
+
+    scroll_area_hand->setMinimumHeight(active_hand->minimumSizeHint().height() + scroll_area_hand->horizontalScrollBar()->height() + 10);
+    scroll_area_hand->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    layout->setSpacing(0);
     this->setLayout(layout);
 }

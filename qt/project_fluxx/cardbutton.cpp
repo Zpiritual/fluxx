@@ -68,10 +68,10 @@ void CardButton::uiElements(const CardID* id)
 
 void CardButton::smallButton()
 {
-    this->setMaximumSize(85,135);
-    this->setMinimumSize(85,135);
+    this->setMaximumSize(85,132);
+    this->setMinimumSize(85,132);
 
-    this->setIconSize(QSize(85,135));
+    this->setIconSize(QSize(85,132));
 }
 
 

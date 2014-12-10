@@ -2,6 +2,7 @@
 #include "enums.h"
 #include <iostream>
 #include <string>
+#include <limits>
 
 GameLoop::GameLoop(Gui * gui, const Deck * deck, const int players)
 {
@@ -38,7 +39,16 @@ int GameLoop::getDrawNO() const
 
 int GameLoop::getPlayNO() const
 {
-	return _game_logic->getRM()->getPlay();
+	const int play_rule = _game_logic->getRM()->getPlay();
+
+	if (play_rule == 0)
+	{
+		return std::numeric_limits<int>::max();
+	}
+	else
+	{
+		return play_rule;
+	}
 }
 
 // const PlayerID GameLoop::getNextPlayerID()

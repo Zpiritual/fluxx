@@ -200,6 +200,12 @@ void Gui::uiElements()
     rules_goals_row = new QHBoxLayout();
     rules_scroll = new QScrollArea();
 
+    layout->setSpacing(0);
+    mid_column->setSpacing(0);
+    mid_column_right->setSpacing(0);
+    left_column->setSpacing(0);
+    rules_goals_row->setSpacing(0);
+
     card_id_loop = NULL;
     player_loop = NULL;
     event_loop = NULL;
@@ -236,6 +242,7 @@ void Gui::uiElements()
     layout->addLayout(mid_column);
     layout->addWidget(player_list_widget);
 
+    layout->setContentsMargins(0, 0, 0, 0); // Remove margins for window borders
     this->setLayout(layout);
 }
 
