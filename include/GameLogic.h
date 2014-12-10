@@ -1,9 +1,3 @@
-//Changelog
-//2014--11-20
-//moved constructor and destructor to .cc
-//added forward declarations
-//=========
-
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
 
@@ -40,13 +34,12 @@ public:
 	void executeNextEffect();
 	void addEffect(Effect);
 
-	//Prototype functions
-    void addRule(const CardID, Effect*, const RuleTrigger);
-	void removeRule(const CardID);
-    CardID pickCard(const PlayerID, const CardContainerID);
+    void	 addRule(const CardID, Effect*, const RuleTrigger);
+	void	 removeRule(const CardID);
+    CardID	 pickCard(const PlayerID, const CardContainerID);
     PlayerID pickPlayer();
-	void switchPlayer();
-	bool playerDecision(string, string, string);
+	void	 switchPlayer();
+	bool	 playerDecision(string, string, string);
 
 	CardContainerManager* getCCM();
 	CardManager*		  getCM();
@@ -54,12 +47,11 @@ public:
 	PlayerManager*		  getPM();
 
 
-	void				playCard();
-    void				playCardWithID(const CardID, const CardContainerID);
-	void				drawCard(const PlayerID);
-	void				resolveEffects();
-	void				checkRules(RuleTrigger);
-	//const PlayerID		getNextPlayer();
+	void		  playCard();
+    void		  playCardWithID(const CardID, const CardContainerID);
+	void		  drawCard(const PlayerID);
+	void		  resolveEffects();
+	void		  checkRules(RuleTrigger);
 	BoardSnapshot makeBoardSnapshot(const PlayerID active, const CardContainerID target) const;
 	BoardSnapshot makeBoardSnapshot() const;
 
@@ -108,8 +100,6 @@ private:
     vector<pair<const PlayerID,const string>> _log;
 	void executeEffect(const Effect&);
     void onNotify(const CardContainerID &, const CardContainerID & ,const CardID &, const Event);
-	//Diverse effekt-funktioner, ex:
-	//Draw(int draw, int play, int discard, bool inflation = true);
 };
 
 #endif

@@ -31,6 +31,7 @@ public:
 	{
 		_observers.erase(std::find(_observers.begin(), _observers.end(), o));
 	}
+	
 	~Subject()
 	{
 		for(auto i: _observers)

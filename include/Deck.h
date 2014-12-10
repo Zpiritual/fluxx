@@ -1,11 +1,3 @@
-//Changelog:
-//==========
-//2014-11-06
-//Changed _cards from const
-//Changed pointers from const Card const pointer to const Card pointer - impossible to use map and const pointers 
-//2014-11-14
-//Removed const from vector given <const T> not allowed
-
 #ifndef DECK_H
 #define DECK_H
 #include "Card.h"
@@ -27,10 +19,9 @@ public:
 
 	~Deck();
 
-	int getSize() const;
-	std::vector<CardID> getCardIDList() const ;
-
-	const Card* getCard(const CardID id) const;
+	int					getSize()				 const;
+	std::vector<CardID> getCardIDList()			 const;
+	const Card*			getCard(const CardID id) const;
 
 private:
 	std::map<const CardID, const Card* > _cards;

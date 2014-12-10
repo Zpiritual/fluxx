@@ -63,7 +63,8 @@ SOURCES += main.cpp \
     cardidloop.cpp \
     playerloop.cpp \
     cardpicture.cpp \
-    gameover.cpp
+    gameover.cpp \
+    help.cpp
 
 
 HEADERS += \
@@ -113,7 +114,10 @@ HEADERS += \
     ../../include/PlayerStats.h \
     playerloop.h \
     cardpicture.h \
-    gameover.h
+    gameover.h \
+    ../../include/Observer.h \
+    ../../include/Subject.h \
+    help.h
 
 
 

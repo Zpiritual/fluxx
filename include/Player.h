@@ -1,10 +1,3 @@
-//Changelog:
-//==========
-//2014-11-06
-//Added const to getters
-//2014-11-19
-//Added ID to Container
-
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -26,24 +19,23 @@ public:
 
 	~Player() = default;
 
-	//std::string getName() const;
 	PlayerID getID() const;
 	
-	int getCardsPlayed() const;
+	int  getCardsPlayed() const;
 	void incrementCardsPlayed();
 	void incrementTotalCardsPlayed();
 	void resetCardsPlayed();
 
-	int getCardsDrawn() const;
+	int  getCardsDrawn() const;
 	void incrementCardsDrawn();
 	void incrementTotalCardsDrawn();
 	void resetCardsDrawn();
 	
-	int getConsecutivePlays() const;
+	int  getConsecutivePlays() const;
 	void incrementConsecutivePlays();
 	void resetConsecutivePlays();
 	
-	int getMaxConsecutivePlays() const;
+	int  getMaxConsecutivePlays() const;
 	void setMaxConsecutivePlays(int);
 
 	PlayerStats makeStats() const;
@@ -61,4 +53,5 @@ private:
 	int _total_drawn_cards = 0;
 	int _max_consecutive_plays = 0;
 };
+
 #endif

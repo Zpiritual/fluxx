@@ -11,7 +11,9 @@ Deck::Deck(const std::vector< const Card* > &cards)
 Deck::~Deck()
 {
 	for(auto c: _cards)
+	{
 		delete c.second;
+	}
 }
 
 std::vector<CardID> Deck::getCardIDList() const 

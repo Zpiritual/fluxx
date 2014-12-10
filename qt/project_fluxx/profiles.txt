@@ -1,22 +1,15 @@
 profile Rasmus
 wins 3
 games 7
-playedcards 59
-drawncards 168
-maxconsecutiveplays 6
-
-profile Fredrik
-wins 3
-games 8
-playedcards 84
-drawncards 123
-maxconsecutiveplays 5
+playedcards 76
+drawncards 172
+maxconsecutiveplays 9
 
 profile Fredrik
 wins 2
 games 6
-playedcards 61
-drawncards 101
+playedcards 72
+drawncards 103
 maxconsecutiveplays 8
 
 profile Martin

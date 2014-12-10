@@ -27,7 +27,6 @@ Player* PlayerManager::getPlayer(const PlayerID pid)
 	{
 		if(_players.at(i).getID() == pid) return &_players.at(i);
 	}
-
 	throw std::logic_error("PlayerManager::getPlayer() - Felaktig PlayerID");
 }
 
@@ -38,7 +37,6 @@ void PlayerManager::addPlayer(Player p)
 
 Player* PlayerManager::getCurrentPlayer() 
 {	
-	//std::cerr << "PlayerManager::getCurrentPlayer() - Before \"return &_players.at(_current_player);\"" << std::endl;
 	return &_players.at(_current_player);	
 }
 
@@ -72,14 +70,6 @@ PlayerID PlayerManager::getNextPlayerID(Direction direction)
     return getCurrentPlayerID();
 }
 
-// void PlayerManager::setCurrentPlayer(const PlayerID pid)
-// {	
-// 	for(unsigned int i = 0; i < _players.size(); i++)
-// 	{
-// 		if(_players.at(i).getID() == pid) _current_player = i;
-// 	}	
-// }
-
 std::vector<Player> PlayerManager::getPlayers() const
 {
 	return _players;
@@ -93,7 +83,6 @@ std::vector<PlayerStats> PlayerManager::getPlayerStats() const
 	{
 		stats.push_back(p.makeStats());
 	}
-
 	return stats;
 }
 
@@ -104,7 +93,6 @@ void PlayerManager::nextPlayer(Direction direction)
 	if ( player->getConsecutivePlays() > player->getMaxConsecutivePlays() )
 	{
 		player->setMaxConsecutivePlays(player->getConsecutivePlays());
-		// om man har två rundor efter varandra? fixa till
 	}
 
 	player->resetCardsPlayed();
@@ -115,7 +103,6 @@ void PlayerManager::nextPlayer(Direction direction)
 		player->resetConsecutivePlays();	
 	}
 	
-
 	if(!_repeat_turn)
 	{
 		if (direction == Direction::CLOCKWISE)

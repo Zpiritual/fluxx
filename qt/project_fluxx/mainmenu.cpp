@@ -22,7 +22,7 @@ MainMenu::MainMenu(const Deck* const dck, QWidget *parent) :
     this->setMaximumWidth(640);
     this->setMaximumHeight(480);
 
-    this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog);
+    this->setWindowFlags(Qt::Dialog);
 
     main_layout->addWidget(start_widget);
     this->setLayout(main_layout);
@@ -107,7 +107,7 @@ void MainMenu::gameOverScreen(SessionData session_data, std::vector<ProfileName>
     delete newgame_widget;
     newgame_widget = NULL;
 
-    qDebug() << "game over screen in main menu";
+    qDebug() << "game over screen in main menu done";
 }
 
 void MainMenu::addProfile(const Profile& profile)

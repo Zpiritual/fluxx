@@ -34,7 +34,6 @@ public:
 	void setPlay(const int);
 	void setPlayOrder(const Direction);
     std::vector<Effect> getTriggeredRules(const RuleTrigger);
-	//Placeholders?
 	void addRule(TriggeredRule*);
 	void removeRule(CardID);
 	void clearRules();

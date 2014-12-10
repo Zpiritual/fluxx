@@ -1,5 +1,6 @@
 #include "BoardSnapshot.h"
 #include <exception>
+
 BoardSnapshot::BoardSnapshot(const std::vector<CardContainer> containers,
 							 const int players,
 							 const PlayerID current,
@@ -28,6 +29,5 @@ CardContainer BoardSnapshot::getContainer(const CardContainerID id) const
 	{
 		if(a.getID() == id) return a;
 	}
-	//Kan nå slutet utan att returnera. Vad göra då? Någon specialcontainer med ett "error-kort"?
-    throw std::logic_error("No container found with that ID " + id.val);
+    throw std::logic_error("No container found with ID: " + id.val);
 }
