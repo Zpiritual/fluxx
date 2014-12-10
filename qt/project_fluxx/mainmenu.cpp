@@ -127,6 +127,7 @@ void MainMenu::updateProfiles(const SessionData& session_data)
     for(unsigned int i = 0; i < session_data.players.size(); i++)
     {
         profiles.at(session_data.players.at(i)._id.getInt() - 1) += session_data.players.at(i);
+        profiles.at(session_data.players.at(i)._id.getInt() - 1).setPlayTime(profiles.at(session_data.players.at(i)._id.getInt() - 1).getPlayTime() + session_data.elapsed_time);
         if(profiles.at(session_data.players.at(i)._id.getInt() - 1).getMaxConsecutivePlays() < session_data.players.at(i)._max_consecutive_plays)
             profiles.at(session_data.players.at(i)._id.getInt() - 1).setMaxConsecutivePlays(session_data.players.at(i)._max_consecutive_plays);
     }
@@ -147,7 +148,6 @@ void MainMenu::writeProfilesToFile() const
     {
         std::cout << "Couldn't open profiles.txt!\n";
     }
-
     file.close();
 }
 

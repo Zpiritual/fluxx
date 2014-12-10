@@ -1,63 +1,48 @@
 profile Rasmus
-wins 5
-games 12
-playedcards 109
-drawncards 274
-maxconsecutiveplays 9
-
-profile Fredrik
-wins 4
-games 11
-playedcards 107
-drawncards 184
-maxconsecutiveplays 8
+wins 1
+games 2
+playedcards 22
+drawncards 37
+maxconsecutiveplays 3
+playtime 93
 
 profile Martin
-wins 2
-games 5
-playedcards 30
-drawncards 105
+wins 1
+games 2
+playedcards 22
+drawncards 25
 maxconsecutiveplays 2
+playtime 136
+
+profile Fredrik
+wins 0
+games 0
+playedcards 0
+drawncards 0
+maxconsecutiveplays 0
+playtime 0
 
 profile Johannes
 wins 0
-games 1
-playedcards 2
-drawncards 6
-maxconsecutiveplays 1
+games 0
+playedcards 0
+drawncards 0
+maxconsecutiveplays 0
+playtime 0
 
-profile Lola
-wins 1
-games 1
-playedcards 4
-drawncards 10
-maxconsecutiveplays 3
-
-profile sciii
-wins 0
-games 1
-playedcards 2
-drawncards 10
-maxconsecutiveplays 1
-
-profile Gösta
+profile Derp
 wins 0
 games 0
 playedcards 0
 drawncards 0
 maxconsecutiveplays 0
+playtime 0
 
-profile Runa
+profile H4xX0R
 wins 0
 games 0
 playedcards 0
 drawncards 0
 maxconsecutiveplays 0
-
-profile Johan
-wins 0
-games 0
-playedcards 0
-drawncards 0
-maxconsecutiveplays 0
+playtime 0
 
