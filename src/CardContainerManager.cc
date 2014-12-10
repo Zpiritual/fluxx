@@ -170,6 +170,22 @@ void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID
 	
 }
 
+CardID CardContainerManager::getSuspendedCard()
+{
+	if(!_suspendedCards.empty())
+	{
+		return _suspendedCards.top();
+	}
+	else
+		return CardID(0);
+}
+
+bool CardContainerManager::hasSuspendedCard()
+{
+	return !_suspendedCards.empty();
+}
+
+
 void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 {
 	if(!_suspendedCards.empty())

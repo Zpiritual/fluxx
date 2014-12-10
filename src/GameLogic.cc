@@ -105,7 +105,8 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
         _ccm->suspendCard(ccid, cid);
         addEffect(*(_cm->getCard(cid)->getEffects().begin()));
         executeNextEffect();
-        _ccm->unSuspendCard(CardContainerID("Rules"));
+        if(_ccm->hasSuspendedCard() && _cm->getCard(_ccm->getSuspendedCard())->getType().compare("RULE") == 0)
+             _ccm->unSuspendCard(CardContainerID("Rules"));
     }
     else if (_cm->getCard(cid)->getType().compare("ACTION") == 0)
     {
