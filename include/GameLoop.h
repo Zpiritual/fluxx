@@ -30,7 +30,7 @@ public:
 	void 			drawCards(const PlayerID, const int);
 	void 			nextPlayer();
 	
-	GameState		executePlayerTurn(PlayerID);
+    GameState		executePlayerTurn();
 	PlayerID		getCurrentPlayerID() const;
 	int 			getDrawNO() const;
 	int 			getPlayNO() const;

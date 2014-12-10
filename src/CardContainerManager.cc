@@ -136,11 +136,13 @@ vector<CardID> CardContainerManager::getCards(const CardContainerID container)
 std::vector<CardContainer> CardContainerManager::getContainers() const
 {
 	std::vector<CardContainer> cardContainers;
+	
 	for(auto it = _containers.begin(); it != _containers.end(); ++it)
 	{
         if(it->second)
 		cardContainers.push_back(*(it->second));
 	}
+
 	if(!isEmptyTemp())
 	{
         cardContainers.push_back(*_temps.top());

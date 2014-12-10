@@ -1167,7 +1167,7 @@ void GameLogic::effect_bonusPlayerContainerEmpty(int quantity, string container)
 
 void GameLogic::effect_rotatePlayerContainer(string container)
 {
-	bool rotation = playerDecision("Rotation", "COUNTERCLOCKWISE", "CLOCKWISE");
+	bool rotation = playerDecision("Pick the play order:", "Counterclockwise", "Clockwise");
 	vector<vector<CardID>> containers;
 
 	for (unsigned int i = 0; i < _pm->getPlayers().size(); i++)
@@ -1305,7 +1305,7 @@ void GameLogic::effect_DiscardPercentileOfContainer(string container, int percen
 	
 	for (int i = 0; i < (int)a; i++)
 	{
-		if (playerDecision("Discard More Cards?", "Yes", "No"))
+		if (playerDecision("Do you want to trash a rule?", "Yes", "No"))
 		{
 			CardID id = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID(container));
 			_ccm->moveCard(CardContainerID(container), CardContainerID("Trash"), id);
@@ -1356,21 +1356,40 @@ void GameLogic::effect_PlayersGiveToPlayer(int quantity)
 
 void GameLogic::effect_SwapKeepers(int quantity)
 {
-	CardContainerID ccid1(_pm->getCurrentPlayerID().getString() + "_keepers");
-	CardContainerID ccid2(pickPlayer().getString() + "_keepers");
-	CardContainerID ccid3("system_temp");
-	
-	if (_ccm->getSize(ccid2) != 0 && _ccm->getSize(ccid1) != 0)
-	{
-		for (int i = 0; i < quantity; i++)
-		{
-			_ccm->moveCard(ccid2, ccid3, pickCard(_pm->getCurrentPlayerID(), ccid2));
-		}
+	CardContainerID player_keepers(_pm->getCurrentPlayerID().getString() + "_keepers");
 
-		for (int i = 0; i < quantity; i++)
+	int players_with_keepers{0};
+
+	for ( Player p : _pm->getPlayers() )
+	{
+        if (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > 0)
 		{
-			_ccm->moveCard(ccid1, ccid2, pickCard(_pm->getCurrentPlayerID(), ccid1));
+			++players_with_keepers;
 		}
-		_ccm->moveCards(ccid3, ccid1);
+	}
+
+    if ( (_ccm->getSize(player_keepers) > 0) && (players_with_keepers >= 2) )
+	{
+        while ( true )
+		{
+            CardContainerID opponent_keepers(pickPlayer().getString() + "_keepers");
+			CardContainerID temp("system_temp");	
+
+            if (_ccm->getSize(opponent_keepers) > 0)
+			{			
+				for (int i = 0; i < quantity; i++)
+				{
+					_ccm->moveCard(opponent_keepers, temp, pickCard(_pm->getCurrentPlayerID(), opponent_keepers));
+				}
+
+				for (int i = 0; i < quantity; i++)
+				{
+					_ccm->moveCard(player_keepers, opponent_keepers, pickCard(_pm->getCurrentPlayerID(), player_keepers));
+				}
+				_ccm->moveCards(temp, player_keepers);
+
+				break;
+			}
+		}
 	}
 }

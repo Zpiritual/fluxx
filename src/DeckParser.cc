@@ -17,6 +17,7 @@ Deck* DeckParser::deck_to_game(std::string filename)
 		ifs.close();
 		throw std::logic_error("No Deck Found @" + filename);
 	}
+
 	ifs >> deck_name;
 	ifs >> temp;
 	ifs >> deck_size;
@@ -43,6 +44,7 @@ Deck* DeckParser::deck_to_game(std::string filename)
 			stringstream ss{line};
 			string t;
 			ss >> t;
+
 			if(t.compare("CARD_ID") == 0)
 			{
 				ss >> id;
@@ -72,6 +74,7 @@ Deck* DeckParser::deck_to_game(std::string filename)
 				effects.push_back(e);
 			}
 		}
+        cards.push_back(new Card(id, name, type, subtype, description, effects));
 	}
 
 	if(cards.size() != deck_size)

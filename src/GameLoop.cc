@@ -78,7 +78,7 @@ SessionData	GameLoop::run()
     }
 	try
 	{
-		while (executePlayerTurn(getCurrentPlayerID()) == GameState::CONTINUE)
+        while (executePlayerTurn() == GameState::CONTINUE)
 		{
 			nextPlayer();
 		}
@@ -118,11 +118,11 @@ SessionData	GameLoop::run()
     				   );
 }
 
-GameState GameLoop::executePlayerTurn(PlayerID pid)
+GameState GameLoop::executePlayerTurn()
 {
 	checkTriggeredRules(RuleTrigger::PRE_DRAW);
 
-	drawCards(getCurrentPlayerID(), getDrawNO());
+    drawCards(getCurrentPlayerID(), getDrawNO());
 
 	for (int i{0}; i < getDrawNO(); ++i)
 	{
@@ -135,6 +135,7 @@ GameState GameLoop::executePlayerTurn(PlayerID pid)
  	{
  		_game_logic->playCard();
  	}
+ 	
  	return _game_logic->getCurrentGameState();
 }
 
