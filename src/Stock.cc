@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <random>
 #include <ctime>
+
 Stock::Stock(const CardContainerID id): _id{id}
 {}
 
@@ -28,6 +29,7 @@ CardID Stock::pop()
 	}
 	const CardID tmp = _cards.top();
 	_cards.pop();
+
 	return tmp;
 }
 
@@ -44,13 +46,14 @@ bool Stock::empty()	const
 void Stock::shuffle()
 {
 	std::vector<CardID> tmp;
+
 	while(!_cards.empty())
 	{
 		tmp.push_back(pop());
 	}
-
 	int i = time(0);
     std::mt19937 gen(i);
+
 	while(!tmp.empty())
 	{
 		std::uniform_int_distribution<int> distribution(0,tmp.size()-1);

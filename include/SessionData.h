@@ -1,8 +1,3 @@
-//Changelog:
-//==========
-//2014-11-06
-//Changed PlayerID* to PlayerID
-
 #ifndef SESSIONDATA_H
 #define SESSIONDATA_H
 

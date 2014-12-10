@@ -1,8 +1,3 @@
-//Changelog:
-//=========
-//2014-11-18
-//Added getContainer(ContainerID)
-
 #ifndef BOARDSNAPSHOT_H
 #define BOARDSNAPSHOT_H
 
@@ -13,6 +8,7 @@
 #include "Player.h"
 #include "PlayerID.h"
 #include <string>
+
 struct BoardSnapshot
 {
 	const std::vector<CardContainer> containers;
@@ -25,7 +21,6 @@ struct BoardSnapshot
 	const Direction direction;
 	const CardContainerID target_container;
     const std::vector<std::pair<const PlayerID, const std::string>> log;
-
 
     BoardSnapshot(
     	const std::vector<CardContainer>,

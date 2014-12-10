@@ -68,7 +68,7 @@ int RuleManager::getPlay()
 	}
 	else
 	{
-		return _play - _inflation;
+		return _play + _inflation;
 	}
 }
 

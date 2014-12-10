@@ -1,13 +1,14 @@
 #include "Player.h"
 	
-Player::Player(const PlayerID pid)
-	: _id{pid}, _played_cards{0}, _drawn_cards{0}
+Player::Player(const PlayerID pid) :
+	_id{pid},
+	_played_cards{0},
+	_drawn_cards{0},
+	_consecutive_plays{0},
+	_total_played_cards{0},
+	_total_drawn_cards{0},
+	_max_consecutive_plays{0}
 {}
-
-// std::string Player::getName() const
-// {
-// 	return _id.getString();
-// }
 
 PlayerID Player::getID() const
 {
