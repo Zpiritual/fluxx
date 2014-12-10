@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <chrono>
 
 GameLoop::GameLoop(Gui * gui, const Deck * deck, const int players)
 {
@@ -87,6 +88,8 @@ void GameLoop::nextPlayer()
 
 SessionData	GameLoop::run()
 {
+	 auto begin = chrono::high_resolution_clock::now();
+
 	_game_logic->getCCM()->reshuffle();
 
 	for (Player p : _game_logic->getPM()->getPlayers())
@@ -128,9 +131,13 @@ SessionData	GameLoop::run()
 
 	cerr << "Ending session. Gamestate: " << gamestate << endl;
 
+ 	auto end = chrono::high_resolution_clock::now();
+
     return SessionData(_game_logic->getPM()->getWinningPlayer(),
     				   _game_logic->getPM()->getPlayerStats(),
-    				   _game_logic->getCurrentGameState());
+    				   _game_logic->getCurrentGameState(),
+    				   std::chrono::duration_cast<chrono::seconds>(end - begin).count()
+    				   );
 }
 
 GameState GameLoop::executePlayerTurn(PlayerID pid)
