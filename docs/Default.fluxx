@@ -419,8 +419,8 @@ CARD_ID 063
 CARD_NAME Rich Bonus
 CARD_TYPE RULE
 CARD_DESCRIPTION The player with the most amount of keepers draws one extra card.
-CARD_EFFECT AddTriggeredRule 063 PRE_DRAW
-CARD_EFFECT BonusPlayerContainerQuantity 1 keepers >
+CARD_EFFECT AddTriggeredRule 063 POST_PLAY
+CARD_EFFECT BonusPlayerContainerQuantity 1 keepers > Play
 CARD_EFFECT RemoveTriggeredRule 063
 
 CARD_ID 064
@@ -436,7 +436,7 @@ CARD_NAME Poor Bonus
 CARD_TYPE RULE
 CARD_DESCRIPTION The player with the least amount of keepers draws one extra card.
 CARD_EFFECT AddTriggeredRule 065 PRE_DRAW
-CARD_EFFECT BonusPlayerContainerQuantity 1 keepers <
+CARD_EFFECT BonusPlayerContainerQuantity 1 keepers < Draw
 CARD_EFFECT RemoveTriggeredRule 065
 
 CARD_ID 066
