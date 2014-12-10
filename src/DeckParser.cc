@@ -72,8 +72,9 @@ Deck* DeckParser::deck_to_game(std::string filename)
 				effects.push_back(e);
 			}
 		}
-	}
+    cards.push_back(new Card(id,name,type,subtype,description, effects));
 
+	}
 	if(cards.size() != deck_size)
 	{
         cerr << "Mismatch: Deck size does not correspond to number of cards in file.\nDeck size: "
