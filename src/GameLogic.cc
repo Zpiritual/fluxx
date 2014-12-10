@@ -89,9 +89,9 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
     if (_cm->getCard(cid)->getType().compare("GOAL") == 0)
     {
         _ccm->suspendCard(ccid, cid);
-        if (_ccm->getSize(CardContainerID("Goal")) == _rm->getGoalLimmit())
+        if (_ccm->getSize(CardContainerID("Goal")) == _rm->getGoalLimit())
         {
-            cout << "\t Goal is too big!" << _ccm->getSize(CardContainerID("Goal")) << " " <<  _rm->getGoalLimmit() <<   endl;
+            cout << "\t Goal is too big!" << _ccm->getSize(CardContainerID("Goal")) << " " <<  _rm->getGoalLimit() <<   endl;
             CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal"));
             _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), cid2);
             // _rm->removeRule(cid2);
@@ -528,7 +528,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
         //     cout << "\n\n Rule Removed" << endl;
         // }
 
-        if (_ccm->getSize(goal) > _rm->getGoalLimmit())
+        if (_ccm->getSize(goal) > _rm->getGoalLimit())
         {
             CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), goal);
             _ccm->moveCard(goal, trash, cid2);
@@ -779,7 +779,7 @@ void GameLogic::effect_ModifyRule(string rule_type, int value)
     }
     else if (rule_type.compare("Goal") == 0)
     {
-        _rm->setGoalLimmit(value);
+        _rm->setGoalLimit(value);
     }
     else if (rule_type.compare("Inflation") == 0)
     {
@@ -924,11 +924,6 @@ void GameLogic::effect_SpecificKeeperCheck(vector<int> cards)
                 if ( find(player_keepers.begin(), player_keepers.end(), CardID(card)) != player_keepers.end() )
                 {
                     cerr << "Keeper: " << card << " found in: " << player_container.val << endl;
-                    for (CardID id : player_keepers)
-                    {
-                        cerr << "Contains: " << id.val << ' ';
-                    }
-                    cout << endl;
                     ++matches_found;
                 }
             }

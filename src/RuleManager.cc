@@ -1,5 +1,6 @@
 #include "RuleManager.h"
 #include <iostream>
+
 RuleManager::~RuleManager()
 {
 	for(TriggeredRule* i: _triggered_rules)
@@ -8,17 +9,38 @@ RuleManager::~RuleManager()
 
 int RuleManager::getHandLimit()
 {
-	return _hand_limmit;
+	if (_hand_limit >= std::numeric_limits<int>::max() - _inflation)
+	{
+		return _hand_limit;
+	}
+	else
+	{
+		return _hand_limit + _inflation;
+	}
 }
 
 int RuleManager::getKeeperLimit()
 {
-	return _keeper_limit;
+	if (_keeper_limit >= std::numeric_limits<int>::max() - _inflation)
+	{
+		return _keeper_limit;
+	}
+	else
+	{
+		return _keeper_limit + _inflation;
+	}
 }
 
-int RuleManager::getGoalLimmit()
+int RuleManager::getGoalLimit()
 {
-	return _goal_limit;
+	if (_goal_limit == 0)
+	{
+		return std::numeric_limits<int>::max();
+	}
+	else
+	{
+		return _goal_limit;
+	}
 }
 
 int RuleManager::getInflation()
@@ -28,12 +50,26 @@ int RuleManager::getInflation()
 
 int RuleManager::getDraw()
 {
-	return _draw;
+	if (_draw == 0)
+	{
+		return std::numeric_limits<int>::max();
+	}
+	else
+	{
+		return _draw;
+	}
 }
 
 int RuleManager::getPlay()
 {
-	return _play;
+	if (_play == 0)
+	{
+		return std::numeric_limits<int>::max();
+	}
+	else
+	{
+		return _play;
+	}
 }
 
 Direction RuleManager::getPlayOrder()
@@ -43,7 +79,7 @@ Direction RuleManager::getPlayOrder()
 
 void RuleManager::setHandLimit(const int l)
 {
-	_hand_limmit = l;
+    _hand_limit = l;
 }
 
 void RuleManager::setKeeperLimit(const int l)
@@ -51,7 +87,7 @@ void RuleManager::setKeeperLimit(const int l)
 	_keeper_limit = l;
 }
 
-void RuleManager::setGoalLimmit(const int l)
+void RuleManager::setGoalLimit(const int l)
 {
 	_goal_limit = l;
 }
