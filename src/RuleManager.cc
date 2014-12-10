@@ -140,7 +140,6 @@ std::vector<Effect> RuleManager::getTriggeredRules(const RuleTrigger type)
 	{
 		if(tr->getType() == type)
 		{
-            std::cout << tr->getEffect().val << std::endl;
 			effects.push_back(tr->getEffect());
 		}
 	}

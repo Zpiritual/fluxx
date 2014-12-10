@@ -95,7 +95,6 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
         _ccm->suspendCard(ccid, cid);
         if (_ccm->getSize(CardContainerID("Goal")) == _rm->getGoalLimit())
         {
-            cout << "\t Goal is too big!" << _ccm->getSize(CardContainerID("Goal")) << " " <<  _rm->getGoalLimit() <<   endl;
             CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal"));
             _ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), cid2);
         }
@@ -205,14 +204,7 @@ void GameLogic::switchPlayer()
 	}
 
 	_log.push_back(make_pair(_pm->getCurrentPlayerID(), _local_log));
-
-	cout << _local_log << endl;
 	_local_log = "";
-
-	for (auto i : _log)
-	{
-		cout << i.first.getString() << "\n" << i.second << endl;
-	}
 	BoardSnapshot snapshot(makeBoardSnapshot());
 	_gui->nextPlayer(&snapshot);
 }
@@ -363,7 +355,6 @@ void GameLogic::executeEffect(const Effect &effect)
 	}
 	else if (identifier.compare("SwapPlayerContainer") == 0)
 	{
-		cout << "SwapPlayerContainer" << endl << endl << endl;
 		string container;
 		ss >> container;
 		effect_SwapPlayerContainer(container);
@@ -537,8 +528,6 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
         {
             if (p.getID() != _pm->getCurrentPlayer()->getID())
             {
-                cout << cc1.val << " " << cc2.val << endl;
-
                 while (_ccm->getSize(CardContainerID(p.getID().getString() + "_hand")) > _rm->getHandLimit() && getCurrentGameState() == GameState::CONTINUE)
                 {
                     CardContainerID player_hand(p.getID().getString() + "_hand");
@@ -645,7 +634,7 @@ void GameLogic::effect_DrawAndPlay(int draw, int play, int trash)
 		}
 		catch (...)
 		{
-			cout << "GameLogic::effect_DrawAndPlay \tERROR REPORT: Error while drwaing cards from _ccm " << endl;
+			cout << "GameLogic::effect_DrawAndPlay() - Error while moving cards to temp container." << endl;
 		}
 	}
 
@@ -731,7 +720,6 @@ void GameLogic::effect_ModifyRule(string rule_type, int value)
         {
             if(_cm->getCard(i)->getEffects().at(1).val.find(" "+ rule_type+" ") != string::npos && _cm->getCard(i)->getEffects().at(1).val.find(to_string(value)) == string::npos)
             {
-	            cout << _cm->getCard(i)->getEffects().at(1).val << " and " << rule_type << endl;
 	            _ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), i);
 	            break;
             }
@@ -741,7 +729,6 @@ void GameLogic::effect_ModifyRule(string rule_type, int value)
         {
             if(_cm->getCard(i)->getEffects().at(0).val.find(rule_type) != string::npos && _cm->getCard(i)->getEffects().at(0).val.find(to_string(value)) == string::npos)
             {
-            	cout << _cm->getCard(i)->getEffects().at(0).val << " and " << rule_type << endl;
             	_ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), i);
             	break;
             }
@@ -777,7 +764,6 @@ void GameLogic::effect_ModifyRule(string rule_type, int value)
     else if (rule_type.compare("Inflation") == 0)
     {
         _rm->setInflation(value);
-        cout << "Inflation Set" << endl;
     }
     else if (rule_type.compare("PlayOrder") == 0)
     {
@@ -849,13 +835,6 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NK
 			
 			if (find(vid.begin(), vid.end(), CardID(j)) != vid.end())
 			{
-				cout << "Keeper: " << j << " found in: " << cpkid.val << endl;
-				
-				for (CardID id : vid)
-				{
-					cout << "Contains: " << id.val << ",";
-				}
-				cout << endl;
 				icheck++;
 			}
 		}
@@ -879,12 +858,6 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NK
 		{
 			if (find(vid.begin(), vid.end(), CardID(j)) != vid.end())
 			{
-				cout << "Keeper: " << j << " found in: " << cpkid.val << endl;
-				for (CardID id : vid)
-				{
-					cout << "Contains: " << id.val << ",";
-				}
-				cout << endl;
 				icheck++;
 			}
 		}
@@ -903,12 +876,7 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NK
 }
 
 void GameLogic::effect_SpecificKeeperCheck(vector<int> cards)
-{
-    for (int i : cards)
-    {
-        cerr << i << endl;
-    }
-    
+{    
     for (Player p : _pm->getPlayers())
     {
         CardContainerID player_container(p.getID().getString() + "_keepers");
@@ -923,7 +891,6 @@ void GameLogic::effect_SpecificKeeperCheck(vector<int> cards)
 
                 if ( find(player_keepers.begin(), player_keepers.end(), CardID(card)) != player_keepers.end() )
                 {
-                    cerr << "Keeper: " << card << " found in: " << player_container.val << endl;
                     ++matches_found;
                 }
             }
@@ -1129,8 +1096,6 @@ void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string contain
 		}
 		else if (relation == '>')
 		{
-			cout << "Relation check check!" << endl;
-			
 			if (containersSize.at(i) > bestValue)
 			{
 				bestValue = containersSize.at(i);
@@ -1146,7 +1111,6 @@ void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string contain
 
 	if (amountOfPlayers == 0 && bestPlayer != -1 && _pm->getCurrentPlayerID() == _pm->getPlayers().at(bestPlayer).getID())
 	{
-		cout << "Player will draw: " << quantity  << "Extra cards" << endl;
 		for (int  i = 0; i < quantity; i++)
 		{
 			if(bonus.compare("Draw") == 0)
