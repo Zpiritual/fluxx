@@ -1,6 +1,12 @@
 DECK_NAME Default
-CARD_COUNT 80
+CARD_COUNT 83
 DECK_DESCRIPTION This Deck contains all fully implemented cards of the standard Fluxx deck.
+
+CARD_ID 001
+CARD_NAME Taxation
+CARD_TYPE ACTION
+CARD_DESCRIPTION Each player must choose one card form his or her hand and give to you.
+CARD_EFFECT PlayersGiveToPlayer 1
 
 CARD_ID 002
 CARD_NAME Take Another Turn
@@ -61,6 +67,12 @@ CARD_NAME Trash a Keeper
 CARD_TYPE ACTION
 CARD_DESCRIPTION Take a Keeper form in front of any player and put it on the discard pile.
 CARD_EFFECT TrashCards 1
+
+CARD_ID 012
+CARD_NAME Exchange Keepers
+CARD_TYPE ACTION
+CARD_DESCRIPTION Pick any Keeper another player has on the table and exchange it for one of yours.
+CARD_EFFECT SwapKeepers 1
 
 CARD_ID 013
 CARD_NAME Steal a Keeper
@@ -259,6 +271,14 @@ CARD_NAME Rocket Science
 CARD_TYPE GOAL
 CARD_DESCRIPTION The player with the Rocket and the Brain on the table wins.
 CARD_EFFECT BooleanKeeperCheck 2 0 073 078
+
+CARD_ID 045
+CARD_NAME Inflation
+CARD_TYPE RULE
+CARD_SUBTYPE Inflation
+CARD_DESCRIPTION Inflation
+CARD_EFFECT ModifyRule Inflation 1
+CARD_EFFECT ModifyRule Inflation 0
 
 CARD_ID 046
 CARD_NAME First Play Random
