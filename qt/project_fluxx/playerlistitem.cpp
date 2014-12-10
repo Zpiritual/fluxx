@@ -116,7 +116,7 @@ void PlayerListItem::connectSignals()
 
 void PlayerListItem::showKeepers()
 {
-    BigCardCollection* big_keepers = new BigCardCollection(keepers_id);
+    BigCardCollection* big_keepers = new BigCardCollection(keepers_id, this);
 
     big_keepers->show();
 }

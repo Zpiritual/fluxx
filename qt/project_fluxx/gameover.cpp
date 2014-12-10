@@ -13,9 +13,14 @@ void GameOver::uiElementSetup(SessionData session_data,std::vector<ProfileName> 
     layout = new QVBoxLayout;
     ok_button = new QPushButton("Return to main menu");
     winning_player_label = new QLabel(QString("Congratulations ") + QString::fromStdString(players.at(session_data.winning_player.getInt()-1).val)+ QString(" has won!"));
+    time_played_label = new QLabel(QString("Time played: ") + QString::number(session_data.elapsed_time/60) + QString(" minues and ") + QString::number(session_data.elapsed_time%60) + QString(" seconds played"));
 
     layout->addWidget(winning_player_label);
+    layout->addWidget(time_played_label);
+
     layout->addWidget(ok_button);
+
+    layout->setAlignment(winning_player_label, Qt::AlignCenter);
 
     this->setLayout(layout);
 }

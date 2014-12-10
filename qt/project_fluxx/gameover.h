@@ -17,6 +17,7 @@ private:
     QVBoxLayout* layout;
     QPushButton* ok_button;
     QLabel* winning_player_label;
+    QLabel* time_played_label;
     void uiElementSetup(SessionData session_data, std::vector<ProfileName>);
     void connectSignals();
     ProfileName winning_player_name;

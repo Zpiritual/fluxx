@@ -36,7 +36,7 @@ void ActiveHand::updateCards(const CardContainer container)
     this->setMinimumWidth(10);
     for(CardID card : cards_)
     {
-        CardButton* tempbutton = new CardButton(card);
+        CardButton* tempbutton = new CardButton(card, this);
         layout->addWidget(tempbutton);
         layout->setAlignment(tempbutton, Qt::AlignCenter);
         this->setMinimumWidth(this->minimumWidth()+170);

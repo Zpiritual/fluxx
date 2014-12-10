@@ -103,7 +103,7 @@ if(snapshot->active_player != previous_active_player && snapshot->current_player
             (snapshot->target_container.val.find("_keepers") != std::string::npos)) &&
             snapshot->target_container.val.find(snapshot->active_player.getString()) == std::string::npos)
     {
-        BigCardCollection* bigcollection = new BigCardCollection(snapshot->getContainer(snapshot->target_container).getCards(),*card_id_loop);
+        BigCardCollection* bigcollection = new BigCardCollection(snapshot->getContainer(snapshot->target_container).getCards(),*card_id_loop, this);
         bigcollection->show();
         card_id_loop->exec();
         bigcollection->close();
@@ -153,6 +153,7 @@ void Gui::closeEvent(QCloseEvent* event)
     message.setText("Are you sure you want to quit? All progress will be lost.");
     QAbstractButton *yes_button= message.addButton(QString("Yes"),QMessageBox::YesRole);
     message.addButton("No",QMessageBox::NoRole);
+    message.raise();
     message.exec();
     if(message.clickedButton() == yes_button)
     {
@@ -214,7 +215,8 @@ void Gui::uiElements()
     this->setPalette(Qt::white);
     left_column->addWidget(trash_widget);
     left_column->addWidget(log_widget);
-
+    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+    //this->resizeEvent(new QResizeEvent(QSize(this->sizeHint().width(),this->sizeHint().height()), tempsize));
     mid_column_right->addWidget(deck_widget);
     mid_column_right->addWidget(goals_widget);
     mid_column_right->setAlignment(deck_widget, Qt::AlignRight | Qt::AlignTop);
@@ -233,14 +235,16 @@ void Gui::uiElements()
     mid_column->setAlignment(active_player_widget, Qt::AlignTop);
     rules_goals_row->setAlignment(mid_column_right, Qt::AlignRight|Qt::AlignTop);
 
-    this->setMinimumHeight(600);
-    this->setMinimumWidth(1280);
-    this->showMaximized();
     this->setWindowTitle(QString("Fluxx"));
 
     layout->addLayout(left_column);
     layout->addLayout(mid_column);
     layout->addWidget(player_list_widget);
+
+    this->setMinimumSize(640, 480);
+
+
+    this->showMaximized();
 
     layout->setContentsMargins(0, 0, 0, 0); // Remove margins for window borders
     this->setLayout(layout);

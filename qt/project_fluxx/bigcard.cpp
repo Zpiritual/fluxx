@@ -3,7 +3,8 @@
 BigCard::BigCard(const CardID* id, QWidget* parent) :
     QGraphicsView(parent)
 {
-    uiElements(id);
+    uiElements(id);   
+    this->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint);
 }
 
 BigCard::~BigCard()

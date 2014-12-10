@@ -19,6 +19,10 @@ MainMenu::MainMenu(const Deck* const dck, QWidget *parent) :
     this->setWindowTitle(QString("Main Menu"));
     this->setMinimumWidth(640);
     this->setMinimumHeight(480);
+    this->setMaximumWidth(640);
+    this->setMaximumHeight(480);
+
+    this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog);
 
     main_layout->addWidget(start_widget);
     this->setLayout(main_layout);

@@ -34,7 +34,7 @@ void ActiveKeepers::updateCards(const CardContainer& container)
 
     for(CardID card : cards_)
     {
-        CardButton* tempbutton = new CardButton(card);
+        CardButton* tempbutton = new CardButton(card, this);
         tempbutton->smallButton();
         layout->addWidget(tempbutton);
         buttons_.push_back(tempbutton);

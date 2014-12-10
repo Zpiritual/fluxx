@@ -80,8 +80,8 @@ void ActivePlayer::uiElements()
     scroll_area_keepers = new QScrollArea();
 
 
-    active_hand = new ActiveHand();
-    active_keepers = new ActiveKeepers();
+    active_hand = new ActiveHand(this);
+    active_keepers = new ActiveKeepers(this);
     layout->addWidget(scroll_area_keepers);
     layout->addWidget(scroll_area_hand);
 
