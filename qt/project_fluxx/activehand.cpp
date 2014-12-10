@@ -33,15 +33,18 @@ void ActiveHand::updateCards(const CardContainer container)
     this->setMaximumWidth(0);
 
     std::vector<CardID> cards_{container.getCards()};
-
+    this->setMinimumWidth(10);
     for(CardID card : cards_)
     {
         CardButton* tempbutton = new CardButton(card);
         layout->addWidget(tempbutton);
-        this->setMinimumWidth(this->minimumWidth()+160);
-        this->setMaximumWidth(this->maximumWidth()+160);
+        layout->setAlignment(tempbutton, Qt::AlignCenter);
+        this->setMinimumWidth(this->minimumWidth()+170);
+        this->setMaximumWidth(this->maximumWidth()+170);
         buttons_.push_back(tempbutton);
     }
+    this->setMinimumWidth(this->minimumWidth()+12);
+    this->setMaximumWidth(this->maximumWidth()+12);
 }
 
 void ActiveHand::connectButtons(CardIdLoop& loop)
@@ -55,7 +58,7 @@ void ActiveHand::uiElements()
 {
     layout = new QHBoxLayout();
     this->setPalette(QPalette(QPalette::Background, Qt::green));
-    this->setMaximumHeight(260);
-    this->setMinimumHeight(260);
+    this->setMaximumHeight(283);
+    this->setMinimumHeight(283);
     this->setLayout(layout);
 }

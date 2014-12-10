@@ -42,7 +42,7 @@ void RulesGridWidget::updateCards(const CardContainer container)
     {
         CardButton* tempbutton = new CardButton(card);
         layout->addWidget(tempbutton);
-        this->setMinimumWidth(this->minimumWidth()+160);
+        this->setMinimumWidth(this->minimumWidth()+170);
         buttons_.push_back(tempbutton);
     }
 }

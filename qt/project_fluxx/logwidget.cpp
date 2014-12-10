@@ -31,7 +31,10 @@ void LogWidget::updateLog(const BoardSnapshot* const snapshot)
     }
     log_text_edit->verticalScrollBar()->setValue(log_text_edit->verticalScrollBar()->maximum());
 
-    play_info_label->setText(QString("Cards to play:" + QString::number(snapshot->cards_to_play) + QString("\nCards played:" + QString::number(snapshot->cards_played))));
+    if(snapshot->cards_to_play == std::numeric_limits<int>::max())
+        play_info_label->setText(QString("Cards to play: ALL" + QString("\nCards played:" + QString::number(snapshot->cards_played))));
+    else
+        play_info_label->setText(QString("Cards to play:" + QString::number(snapshot->cards_to_play) + QString("\nCards played:" + QString::number(snapshot->cards_played))));
 }
 
 void LogWidget::uiElements()
