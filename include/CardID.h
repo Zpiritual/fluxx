@@ -1,8 +1,3 @@
-//Changelog:
-//==========
-//2014-11-06
-//Made copy and move accessable
-
 #ifndef CARDID_H
 #define CARDID_H
 
@@ -22,20 +17,9 @@ struct CardID
 
 	~CardID() 							= default;
 
-	bool operator ==(const CardID &p) const
-	{
-		return val == p.val;
-	}
-
-	bool operator !=(const CardID &p) const
-	{
-		return val != p.val;
-	}
-
-	bool operator <(const CardID &p) const
-	{
-		return val < p.val;
-	}
+	bool operator ==(const CardID &p)	const { return val == p.val; }
+	bool operator !=(const CardID &p)	const { return val != p.val; }
+	bool operator <(const CardID &p)	const { return val < p.val;	}
 };
 
 #endif

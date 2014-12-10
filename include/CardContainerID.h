@@ -1,10 +1,3 @@
-//Changelog:
-//==========
-//2014-11-06
-//Made copy and move accessable
-//2014-11-18
-//Renamed from ContainerID to CardContainerID
-
 #ifndef CARDCONTAINERID_H
 #define CARDCONTAINERID_H
 

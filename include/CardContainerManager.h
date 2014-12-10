@@ -1,10 +1,3 @@
-//Changelog
-//=========
-//2014-11-19
-//Changed _containers to _containers with *
-//changed stock to stock*
-//moved constructor and destructor to .cc
-//added forward declarations
 #ifndef CARDCONTAINERMANAGER_H
 #define CARDCONTAINERMANAGER_H
 
@@ -19,7 +12,8 @@
 #include "Subject.h"
 #include <iostream>
 
-class CardContainerManager:public Subject {
+class CardContainerManager : public Subject
+{
 public:
 	CardContainerManager(const Deck* const);
 
@@ -32,8 +26,6 @@ public:
 
 	~CardContainerManager();
 
-	//const CardID popDeck(); 
-	// Kan nog tas bort helt, verkar överflödig.
 	void reshuffle();
 	void drawCard(const CardContainerID);
 	void moveCard(const CardContainerID, const CardContainerID, const CardID);
@@ -50,6 +42,7 @@ public:
 	CardContainerID getTemp() const;
 	void deleteTemp();
 	bool isEmptyTemp() const;
+
 private:
 	CardContainer* getContainer(const CardContainerID);
 	Stock* _stock;

@@ -11,19 +11,19 @@ Deck* DeckParser::deck_to_game(std::string filename)
 
 	string temp;
 	ifs >> temp;
+
 	if(temp.empty())
 	{
 		ifs.close();
 		throw std::logic_error("No Deck Found @" + filename);
 	}
-	
 	ifs >> deck_name;
-
 	ifs >> temp;
 	ifs >> deck_size;
-
 	ifs >> temp;
+
 	getline(ifs, deck_description);
+
 	vector<const Card*> cards;
 	string line;
 	
@@ -72,17 +72,6 @@ Deck* DeckParser::deck_to_game(std::string filename)
 				effects.push_back(e);
 			}
 		}
-		
-	//debug stuff:
-		cerr << "\nNEW CARD:" << endl;
-		cerr << "=========" << endl;
-		cerr << "ID: " << id << endl;
-    	cerr << "NAME: " << name << endl;
-		cerr << "TYPE: " << type << endl;
-		cerr << "SubType: " << subtype << endl;
-		cerr << "Description: " << description << endl;
-		cerr << "Effect:" << effect << endl;
-        cards.push_back(new Card(id, name, type, subtype, description, effects));
 	}
 
 	if(cards.size() != deck_size)
