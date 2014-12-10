@@ -1,37 +1,29 @@
 profile Rasmus
-<<<<<<< HEAD
-wins 0
-games 2
-playedcards 27
-drawncards 83
+wins 1
+games 4
+playedcards 37
+drawncards 114
 maxconsecutiveplays 6
 
 profile Fredrik
-wins 0
-games 2
-playedcards 18
-drawncards 84
-maxconsecutiveplays 1
-=======
-wins 1
-games 3
-playedcards 54
-drawncards 73
+wins 2
+games 5
+playedcards 64
+drawncards 92
 maxconsecutiveplays 5
 
 profile Fredrik
 wins 2
-games 3
-playedcards 52
-drawncards 85
+games 5
+playedcards 56
+drawncards 93
 maxconsecutiveplays 8
->>>>>>> 8b5e39bdaf1b0ff34bc6872b5aa81f8c15972cbf
 
 profile Martin
 wins 2
-games 2
-playedcards 21
-drawncards 89
+games 3
+playedcards 22
+drawncards 90
 maxconsecutiveplays 2
 
 profile Johannes

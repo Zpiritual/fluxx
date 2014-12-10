@@ -71,82 +71,6 @@ void GameLogic::playCard()
 
 void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
 {
-<<<<<<< HEAD
-	if (getCurrentGameState() != GameState::CONTINUE) return;
-	//Spela det givna kortet.
-	//if a Goal card is placed check if there is room for it
-	//if not ask what card to replace
-	string str = "Played Card: ";
-	str.append(_cm->getCard(cid)->getName());
-	writeToLog(str);
-
-	_pm->getCurrentPlayer()->incrementTotalCardsPlayed();
-	_pm->getCurrentPlayer()->incrementConsecutivePlays();
-
-
-	if (ccid.val.find("_hand") != string::npos)
-		_pm->getCurrentPlayer()->incrementCardsPlayed();
-
-	if (_cm->getCard(cid)->getType().compare("GOAL") == 0)
-	{
-		_ccm->suspendCard(ccid, cid);
-		if (_ccm->getSize(CardContainerID("Goal")) == _rm->getGoalLimmit())
-		{
-			cout << "\t Goal is too big!" << _ccm->getSize(CardContainerID("Goal")) << " " <<  _rm->getGoalLimmit() <<   endl;
-			CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), CardContainerID("Goal"));
-			_ccm->moveCard(CardContainerID("Goal"), CardContainerID("Trash"), cid2);
-			// _rm->removeRule(cid2);
-		}
-		//addRule(cid, &_cm->getCard(cid)->getEffects().at(0), RuleTrigger::GOAL);
-		_ccm->unSuspendCard(CardContainerID("Goal"));
-		// cout << "==Cards in Goals:===" << endl;
-		//  for (auto i : _ccm->getCards(CardContainerID("Goal")))
-		// {
-		//      cout << i.val << ", ";
-		//  }
-		//  cout << "\n====================" << endl;
-	}
-	//If a rule is played, execute the first effect, the middle effects handles by the first effect, the last effect eecutes
-	//when the card is removed
-	else if (_cm->getCard(cid)->getType().compare("RULE") == 0)
-	{
-		//addEffect(_cm->getCard(cid)->getEffects().at(0));
-		//executeNextEffect();
-		_ccm->suspendCard(ccid, cid);
-		addEffect(*(_cm->getCard(cid)->getEffects().begin()));
-		executeNextEffect();
-		_ccm->unSuspendCard(CardContainerID("Rules"));
-		//cout << "===Cards in Rules:===" << endl;
-		// for (auto i : _ccm->getCards(CardContainerID("Rules")))
-		// {
-		//     cout << i.val << ", ";
-		// }
-		//cout << "\n====================" << endl;
-		//Must run last effect when removed
-	}
-	//If a action is played, put all the effects in the effect qeue
-	else if (_cm->getCard(cid)->getType().compare("ACTION") == 0)
-	{
-		//std::cout << "Playing a Action" << std::endl;
-		_ccm->suspendCard(ccid, cid);
-		for (Effect e : _cm->getCard(cid)->getEffects())
-			addEffect(e);
-		//Execute effects
-		resolveEffects();
-		_ccm->unSuspendCard(CardContainerID("Trash"));
-		//cout << "Action done!" << endl;
-	}
-	//If Keeper is played, do nothing.
-	else if (_cm->getCard(cid)->getType().compare("KEEPER") == 0)
-	{
-		std::cout << "Playing a Keeper" << std::endl;
-		_ccm->moveCard(ccid, CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_keepers"), cid);
-
-	}
-	//Else throw exception
-	//Execute effects
-	resolveEffects();
-=======
     if (getCurrentGameState() != GameState::CONTINUE) return;
     //Spela det givna kortet.
     //if a Goal card is placed check if there is room for it
@@ -221,7 +145,6 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
     //Else throw exception
     //Execute effects
     resolveEffects();
->>>>>>> 8b5e39bdaf1b0ff34bc6872b5aa81f8c15972cbf
 }
 
 bool GameLogic::playerDecision(string question, string leftButton, string rightButton)
@@ -581,98 +504,6 @@ void GameLogic::executeEffect(const Effect &effect)
 
 void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 , const CardID &cid,  const Event event)
 {
-<<<<<<< HEAD
-	if (getCurrentGameState() != GameState::CONTINUE) return;
-	switch (event)
-	{
-	case Event::CARD_MOVED:
-		checkRules(RuleTrigger::GOAL);
-
-		const CardContainerID trash("Trash");
-		const CardContainerID goal("Goal");
-		const CardContainerID rules("Rules");
-		const CardContainerID suspended ("SuspendedCards");
-		cout << "======================" << endl;
-		cout << "====   ON NOTIFY  ====" << endl;
-		cout << "==" << cc1.val << " " << cc2.val << "==" << endl;
-		if (cc2 == goal)
-		{
-			cout << "ADDING GOAL RULE" << endl;
-			addRule(cid, &*(_cm->getCard(cid)->getEffects().begin()), RuleTrigger::GOAL);
-		}
-		if (cc1 == goal)
-		{
-			cout << "REMOVE GOAL RULE" << endl;
-			removeRule(cid);
-		}
-		else    if (cc1 == rules)
-		{
-			cout << "REMOVE RULE RULE" << endl;
-			addEffect(*(_cm->getCard(cid)->getEffects().end() - 1));
-			executeNextEffect();
-		}
-		cout << "======================" << endl << endl;
-		//if(cc1 == trash)
-		//  {
-		//     removeRule(cid);
-		//     cout << "\n\n Rule Removed" << endl;
-		// }
-
-		if (_ccm->getSize(goal) > _rm->getGoalLimmit())
-		{
-			CardID cid2 = pickCard(_pm->getCurrentPlayer()->getID(), goal);
-			_ccm->moveCard(goal, trash, cid2);
-			_rm->removeRule(cid2);
-		}
-
-		for (Player p : _pm->getPlayers())
-		{
-			if (p.getID() != _pm->getCurrentPlayer()->getID())
-			{
-				cout << cc1.val << " " << cc2.val << endl;
-
-				//Hand Limit check
-				while (_ccm->getSize(CardContainerID(p.getID().getString() + "_hand")) > _rm->getHandLimit() && getCurrentGameState() == GameState::CONTINUE)
-				{
-					cout << "Player must discard cards from hand: " << p.getID().getString() << endl;
-					CardContainerID player_hand(p.getID().getString() + "_hand");
-					CardID card_to_trash(0);
-
-					if (_rm->getHandLimit() == 0)
-					{
-						card_to_trash = _ccm->getRandomCard(player_hand);
-					}
-					else
-					{
-						card_to_trash = pickCard(p.getID(), player_hand);
-					}
-
-					_ccm->moveCard(player_hand, trash, card_to_trash);
-				}
-
-				//Keeper Limit check
-				while (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > _rm->getKeeperLimit()  && getCurrentGameState() == GameState::CONTINUE)
-				{
-					cout << "Player must trash keepers: " << p.getID().getString() << endl;
-					CardContainerID player_keepers(p.getID().getString() + "_keepers");
-					CardID card_to_trash(0);
-
-					if (_rm->getHandLimit() == 0)
-					{
-						card_to_trash = _ccm->getRandomCard(player_keepers);
-					}
-					else
-					{
-						card_to_trash = pickCard(p.getID(), player_keepers);
-					}
-
-					_ccm->moveCard(player_keepers, trash, card_to_trash);
-				}
-			}
-		}
-		break;
-	}
-=======
     if (getCurrentGameState() != GameState::CONTINUE) return;
     switch (event)
     {
@@ -763,7 +594,6 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
         }
         break;
     }
->>>>>>> 8b5e39bdaf1b0ff34bc6872b5aa81f8c15972cbf
 }
 
 GameState GameLogic::getCurrentGameState() const
@@ -916,76 +746,6 @@ void GameLogic::effect_RemoveTriggeredRule(int card_id)
 
 void GameLogic::effect_ModifyRule(string rule_type, int value)
 {
-<<<<<<< HEAD
-	for (auto i : _ccm->getCards(CardContainerID("Rules")))
-	{
-		if (_cm->getCard(i)->getEffects().at(0).val.find("AddTriggeredRule") != string::npos )
-		{
-			if (_cm->getCard(i)->getEffects().at(1).val.find(" " + rule_type + " ") != string::npos && _cm->getCard(i)->getEffects().at(1).val.find(to_string(value)) == string::npos)
-			{
-				cout << _cm->getCard(i)->getEffects().at(1).val << " and " << rule_type << endl;
-				_ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), i);
-				break;
-			}
-		}
-
-		if (_cm->getCard(i)->getEffects().at(0).val.find("ModifyRule") != string::npos )
-		{
-			if (_cm->getCard(i)->getEffects().at(0).val.find(rule_type) != string::npos && _cm->getCard(i)->getEffects().at(0).val.find(to_string(value)) == string::npos)
-			{
-				cout << _cm->getCard(i)->getEffects().at(0).val << " and " << rule_type << endl;
-				_ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), i);
-				break;
-			}
-		}
-	}
-
-	if (rule_type.compare("Play") == 0)
-	{
-		_rm->setPlay(value);
-	}
-	else if (rule_type.compare("Draw") == 0)
-	{
-		_rm->setDraw(value);
-
-		while (_pm->getCurrentPlayer()->getCardsDrawn() < _rm->getDraw())
-		{
-			drawCard(_pm->getCurrentPlayer()->getID());
-			_pm->getCurrentPlayer()->incrementCardsDrawn();
-		}
-	}
-	else if (rule_type.compare("Keeper") == 0)
-	{
-		_rm->setKeeperLimit(value);
-	}
-	else if (rule_type.compare("Hand") == 0)
-	{
-		_rm->setHandLimit(value);
-	}
-	else if (rule_type.compare("Goal") == 0)
-	{
-		_rm->setGoalLimmit(value);
-	}
-	else if (rule_type.compare("Inflation") == 0)
-	{
-		_rm->setInflation(value);
-	}
-	else if (rule_type.compare("PlayOrder") == 0)
-	{
-		if (value == 1)
-		{
-			_rm->setPlayOrder(Direction::CLOCKWISE);
-		}
-		else
-		{
-			_rm->setPlayOrder(Direction::COUNTERCLOCKWISE);
-		}
-	}
-	else
-	{
-		throw std::logic_error("GameLogic::effect_ModifyRule() - No valid rule type.");
-	}
-=======
     for (auto i : _ccm->getCards(CardContainerID("Rules")))
     {
         if(_cm->getCard(i)->getEffects().at(0).val.find("AddTriggeredRule") != string::npos )
@@ -1038,6 +798,7 @@ void GameLogic::effect_ModifyRule(string rule_type, int value)
     else if (rule_type.compare("Inflation") == 0)
     {
         _rm->setInflation(value);
+        cout << "Inflation Set" << endl;
     }
     else if (rule_type.compare("PlayOrder") == 0)
     {
@@ -1054,7 +815,6 @@ void GameLogic::effect_ModifyRule(string rule_type, int value)
     {
         throw std::logic_error("GameLogic::effect_ModifyRule() - No valid rule type.");
     }
->>>>>>> 8b5e39bdaf1b0ff34bc6872b5aa81f8c15972cbf
 }
 
 void GameLogic::effect_TakeAndPlay(int take, int play, int trash)
@@ -1158,46 +918,7 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NK
 
 void GameLogic::effect_SpecificKeeperCheck(vector<int> cards)
 {
-<<<<<<< HEAD
-	cerr << "GameLogic::effect_SpecificKeeperCheck() - Input vector contains card id:s: ";
-	for (int i : cards)
-	{
-		cerr << i << endl;
-	}
 
-	for (Player p : _pm->getPlayers())
-	{
-		CardContainerID player_container(p.getID().getString() + "_keepers");
-		unsigned matches_found = 0;
-		vector<CardID> player_keepers = _ccm->getCards(player_container);
-
-		if (player_keepers.size() == cards.size())
-		{
-			for (int card : cards)
-			{
-				vector<CardID> player_keepers = _ccm->getCards(player_container);
-
-				if ( find(player_keepers.begin(), player_keepers.end(), CardID(card)) != player_keepers.end() )
-				{
-					cerr << "Keeper: " << card << " found in: " << player_container.val << endl;
-					for (CardID id : player_keepers)
-					{
-						cerr << "Contains: " << id.val << ' ';
-					}
-					cout << endl;
-					++matches_found;
-				}
-			}
-			if (matches_found == cards.size())
-			{
-				_currentGameState = GameState::GAME_OVER;
-				getPM()->setWinningPlayer(p.getID());
-				cout << "GAME OVER! WINNING PLAYER: " << p.getID().getString() << endl;
-				break;
-			}
-		}
-	}
-=======
     cerr << "GameLogic::effect_SpecificKeeperCheck() - Input vector contains card id:s: ";
     for (int i : cards)
     {
@@ -1231,7 +952,6 @@ void GameLogic::effect_SpecificKeeperCheck(vector<int> cards)
             }
         }
     }
->>>>>>> 8b5e39bdaf1b0ff34bc6872b5aa81f8c15972cbf
 }
 
 void GameLogic::effect_ContainerQuantityCheck(string container, int quantity)
@@ -1626,7 +1346,7 @@ void GameLogic::effect_PlayersGiveToPlayer(int quantity)
 	{
 		if (p.getID() != _pm->getCurrentPlayerID())
 		{
-			for (int i = 0; i < quantity; i++)
+            for (int i = 0; i < quantity && _ccm->getSize(CardContainerID(p.getID().getString() + "_hand")) != 0; i++)
 				_ccm->moveCard(CardContainerID(p.getID().getString() + "_hand"), CardContainerID(_pm->getCurrentPlayerID().getString() + "_hand"), pickCard(p.getID(), CardContainerID(p.getID().getString() + "_hand")));
 		}
 	}
