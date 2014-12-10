@@ -32,7 +32,6 @@ void GoalButtons::updateCards(const CardContainer& container)
 
     cards_ = container.getCards();
 
-
     for(CardID card : cards_)
     {
         CardButton* tempbutton = new CardButton(card, this);

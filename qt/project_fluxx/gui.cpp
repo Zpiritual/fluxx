@@ -35,7 +35,6 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
     do
     {
         delete player_loop;
-        player_loop = NULL;
         player_loop = new PlayerLoop{};
         player_list_widget->setConnections(*player_loop);
         player_loop->exec();
@@ -244,7 +243,6 @@ void Gui::uiElements()
     layout->addWidget(player_list_widget);
 
     this->setMinimumSize(640, 480);
-
 
     this->showMaximized();
 

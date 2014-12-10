@@ -22,8 +22,6 @@ void RulesGridWidget::updateCards(const CardContainer container)
 
     this->setAutoFillBackground(false);
 
-   // delete layout;
-
     if (layout->layout() != NULL)
     {
         QLayoutItem* item;
@@ -32,7 +30,6 @@ void RulesGridWidget::updateCards(const CardContainer container)
             delete item->widget();
             delete item;
         }
-       // delete layout->layout();
     }
     this->setMinimumWidth(0);
 

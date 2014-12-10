@@ -8,6 +8,14 @@ GameOver::GameOver(SessionData session_data, std::vector<ProfileName> players, Q
     connectSignals();
 }
 
+GameOver::~GameOver()
+{
+    delete ok_button;
+    delete winning_player_label;
+    delete time_played_label;
+    delete layout;
+}
+
 void GameOver::uiElementSetup(SessionData session_data,std::vector<ProfileName> players)
 {
     layout = new QVBoxLayout;
@@ -17,7 +25,6 @@ void GameOver::uiElementSetup(SessionData session_data,std::vector<ProfileName> 
 
     layout->addWidget(winning_player_label);
     layout->addWidget(time_played_label);
-
     layout->addWidget(ok_button);
 
     layout->setAlignment(winning_player_label, Qt::AlignCenter);
@@ -28,7 +35,6 @@ void GameOver::uiElementSetup(SessionData session_data,std::vector<ProfileName> 
 void GameOver::connectSignals()
 {
     QObject::connect(ok_button, SIGNAL(clicked()), this, SLOT(returnToMainMenu()));
-
 }
 
 void GameOver::returnToMainMenu()

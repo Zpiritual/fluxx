@@ -8,10 +8,7 @@ NewGame::NewGame(const std::vector<Profile>& profiles, const Deck* const dck, QW
     deck = dck;
     parent2 = dynamic_cast<MainMenu*>(parent);
 
-    for(unsigned i = 0; i < profiles.size(); i++)
-    {
-        player_list->addItem(QString::fromStdString(profiles.at(i).getName()));
-    }
+    addToPlayerList(profiles);
 }
 
 NewGame::~NewGame()
@@ -46,6 +43,14 @@ bool NewGame::existPlayer(const ProfileName& player_id) const
         }
     }
     return false;
+}
+
+void NewGame::addToPlayerList(const std::vector<Profile>& profiles)
+{
+    for(unsigned i = 0; i < profiles.size(); i++)
+    {
+        player_list->addItem(QString::fromStdString(profiles.at(i).getName()));
+    }
 }
 
 void NewGame::startGame()

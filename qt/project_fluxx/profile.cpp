@@ -8,12 +8,10 @@ Profile::Profile(const std::string& n, int win, int game, int cards, int dc, int
     played_cards = cards;
     drawn_cards = dc;
     max_consecutive_plays = mcp;
-
 }
 
 Profile::~Profile()
 {
-
 }
 
 Profile& Profile::operator+=(const PlayerStats& stat)

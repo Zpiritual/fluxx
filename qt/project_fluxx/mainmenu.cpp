@@ -14,6 +14,7 @@ MainMenu::MainMenu(const Deck* const dck, QWidget *parent) :
     start_widget = new Start(this);
     options_widget = NULL;
     newgame_widget = NULL;
+    game_over_widget = NULL;
     deck = dck;
 
     this->setWindowTitle(QString("Main Menu"));
@@ -37,6 +38,7 @@ MainMenu::~MainMenu()
     delete start_widget;
     delete newgame_widget;
     delete options_widget;
+    delete game_over_widget;
     delete main_layout;
 }
 
@@ -158,7 +160,6 @@ void MainMenu::closeEvent(QCloseEvent* event)
 
 void MainMenu::readProfiles()
 {
-    // Read in profiles
     std::ifstream file("./profiles.txt");
     Profile p;
     if(file)
@@ -177,7 +178,6 @@ void MainMenu::readProfiles()
 
 void MainMenu::createPictures() const
 {
-    // Create card pictures if needed
     std::vector<CardID> card_ids = deck->getCardIDList();
     for(unsigned int i = 0; i < card_ids.size(); i++)
     {

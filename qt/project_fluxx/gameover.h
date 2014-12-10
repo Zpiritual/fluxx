@@ -12,16 +12,18 @@ class GameOver : public QWidget
     Q_OBJECT
 public:
     explicit GameOver(SessionData, std::vector<ProfileName>, QWidget *parent = 0);
+    ~GameOver();
 
 private:
     QVBoxLayout* layout;
     QPushButton* ok_button;
     QLabel* winning_player_label;
     QLabel* time_played_label;
-    void uiElementSetup(SessionData session_data, std::vector<ProfileName>);
-    void connectSignals();
     ProfileName winning_player_name;
     MainMenu* parent2;
+
+    void uiElementSetup(SessionData session_data, std::vector<ProfileName>);
+    void connectSignals();
 
 signals:
 

@@ -8,10 +8,7 @@ Options::Options(const std::vector<Profile>& prfiles, QWidget *parent) :
 
     profiles = prfiles;
 
-    for(unsigned int i = 0; i < profiles.size(); i++)
-    {
-        user_profiles->addItem(QString::fromStdString(profiles.at(i).getName()));
-    }
+    addToProfiles();
 }
 
 Options::~Options()
@@ -192,5 +189,13 @@ void Options::removeProfile(const Profile& profile)
             profiles.erase(it);
             return;
         }
+    }
+}
+
+void Options::addToProfiles()
+{
+    for(unsigned int i = 0; i < profiles.size(); i++)
+    {
+        user_profiles->addItem(QString::fromStdString(profiles.at(i).getName()));
     }
 }
