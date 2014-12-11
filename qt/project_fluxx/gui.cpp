@@ -117,6 +117,7 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
             snapshot->target_container.val.find(snapshot->active_player.getString()) == std::string::npos)
     {
         BigCardCollection* bigcollection = new BigCardCollection(snapshot->getContainer(snapshot->target_container).getCards(),*card_id_loop, this);
+        bigcollection->setWindowTitle(QString::fromStdString(snapshot->getContainer(snapshot->target_container).getID().val));
         bigcollection->show();
         card_id_loop->exec();
         bigcollection->close();
