@@ -136,11 +136,13 @@ vector<CardID> CardContainerManager::getCards(const CardContainerID container)
 std::vector<CardContainer> CardContainerManager::getContainers() const
 {
 	std::vector<CardContainer> cardContainers;
+	
 	for(auto it = _containers.begin(); it != _containers.end(); ++it)
 	{
         if(it->second)
 		cardContainers.push_back(*(it->second));
 	}
+
 	if(!isEmptyTemp())
 	{
         cardContainers.push_back(*_temps.top());
@@ -167,6 +169,22 @@ void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID
 	notify(ccid, CardContainerID("SuspendedCards"),cid,Event::CARD_MOVED);
 	
 }
+
+CardID CardContainerManager::getSuspendedCard()
+{
+	if(!_suspendedCards.empty())
+	{
+		return _suspendedCards.top();
+	}
+	else
+		return CardID(0);
+}
+
+bool CardContainerManager::hasSuspendedCard()
+{
+	return !_suspendedCards.empty();
+}
+
 
 void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 {

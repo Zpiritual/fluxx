@@ -129,7 +129,7 @@ void PlayerManager::repeatTurn()
 {
 	if(_repeat_turn)
 	{
-        std::cerr << "PlayerManager::repeatTurn() - Current turn already marked for repeat! What is happening?" << std::endl;
+        std::cerr << "PlayerManager::repeatTurn() - Invalid instruction. Current turn already marked for repeat." << std::endl;
 	}
 	else
 	{

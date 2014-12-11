@@ -15,11 +15,14 @@
 #include "CardContainerID.h"
 #include "PlayerID.h"
 #include "playerlist.h"
-#include "activeplayer.h"
+//#include "activeplayer.h"
 #include "profilename.h"
 #include "cardidloop.h"
 #include "playerloop.h"
 #include "mainmenu.h"
+#include "activehand.h"
+#include "activekeepers.h"
+
 
 class Gui : public QWidget
 {
@@ -42,10 +45,11 @@ private:
     LogWidget* log_widget;
     PlayerList* player_list_widget;
     RulesGridWidget* rules_widget;
-    ActivePlayer* active_player_widget;
+    //ActivePlayer* active_player_widget;
     QVBoxLayout* mid_column;
     QVBoxLayout* mid_column_right;
     QHBoxLayout* rules_goals_row;
+    QVBoxLayout* rules_keepers_column;
     std::vector<ProfileName> player_ids;
     DeckButton* deck_widget;
     GoalButtons* goals_widget;
@@ -54,14 +58,27 @@ private:
     CardIdLoop* card_id_loop;
     PlayerLoop* player_loop;
     QEventLoop* event_loop;
-    QScrollArea* rules_scroll;
+    QScrollArea* scroll_area_rules;
     MainMenu* _parent;
     PlayerID previous_active_player;
+    QScrollArea* scroll_area_hand;
+    QScrollArea* scroll_area_keepers;
+    ActiveHand* active_hand;
+    ActiveKeepers* active_keepers;
+
 
     void message(const QString&, const QString&) const;
     void uiElements();
 
-    signals:
+    void changePlayer(const ProfileName &next_player, QEventLoop &loop);
+    void endTurn(const ProfileName&, QEventLoop&);
+    void connectActiveKeepers(CardIdLoop&);
+    void connectActiveHand(CardIdLoop&);
+    void updateActiveHandAndKeepers(const BoardSnapshot* const, const bool);
+
+
+
+signals:
 
 public slots:
 

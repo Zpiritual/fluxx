@@ -37,6 +37,8 @@ public:
     CardID getRandomCard(const CardContainerID);
 	void unSuspendCard(const CardContainerID& ccid);
 	void suspendCard(const CardContainerID& ccid, const CardID& cid);
+	CardID getSuspendedCard();
+	bool hasSuspendedCard();
 	void swapCards(const CardContainerID, const CardContainerID);
 	CardContainerID newTemp();
 	CardContainerID getTemp() const;

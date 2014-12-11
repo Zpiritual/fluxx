@@ -38,6 +38,7 @@ private:
     void connectSignals();
     void message(const QString&, const QString&) const;
     bool existPlayer(const ProfileName&) const;
+    void addToPlayerList(const std::vector<Profile>&);
 
 signals:
 

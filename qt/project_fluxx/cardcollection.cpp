@@ -1,29 +1,21 @@
 #include "cardcollection.h"
 
-CardCollection::CardCollection(const std::vector<CardID> crds, QWidget *parent) :
+CardCollection::CardCollection(const std::vector<CardID>& crds, QWidget *parent) :
     QWidget(parent)
 {
     horizontal_layout = new QHBoxLayout();
 
-    for(unsigned int i = 0; i < crds.size(); i++)
-    {
-        cards.push_back(new CardButton(crds.at(i)));
-        horizontal_layout->addWidget(cards.at(i));
-    }
+    addCards(crds);
 
     this->setLayout(horizontal_layout);
 }
 
-CardCollection::CardCollection(const std::vector<CardID> crds, CardIdLoop &loop, QWidget *parent) :
+CardCollection::CardCollection(const std::vector<CardID>& crds, CardIdLoop &loop, QWidget *parent) :
     QWidget(parent)
 {
     horizontal_layout = new QHBoxLayout();
 
-    for(unsigned int i = 0; i < crds.size(); i++)
-    {
-        cards.push_back(new CardButton(crds.at(i)));
-        horizontal_layout->addWidget(cards.at(i));
-    }
+    addCards(crds);
 
     this->setLayout(horizontal_layout);
 
@@ -41,4 +33,13 @@ CardCollection::~CardCollection()
         delete cards.at(i);
     }
     delete horizontal_layout;
+}
+
+void CardCollection::addCards(const std::vector<CardID>& crds)
+{
+    for(unsigned int i = 0; i < crds.size(); i++)
+    {
+        cards.push_back(new CardButton(crds.at(i)));
+        horizontal_layout->addWidget(cards.at(i));
+    }
 }

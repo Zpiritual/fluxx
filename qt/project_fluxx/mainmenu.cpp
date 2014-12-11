@@ -14,6 +14,7 @@ MainMenu::MainMenu(const Deck* const dck, QWidget *parent) :
     start_widget = new Start(this);
     options_widget = NULL;
     newgame_widget = NULL;
+    game_over_widget = NULL;
     deck = dck;
 
     this->setWindowTitle(QString("Main Menu"));
@@ -37,6 +38,7 @@ MainMenu::~MainMenu()
     delete start_widget;
     delete newgame_widget;
     delete options_widget;
+    delete game_over_widget;
     delete main_layout;
 }
 
@@ -125,6 +127,7 @@ void MainMenu::updateProfiles(const SessionData& session_data)
     for(unsigned int i = 0; i < session_data.players.size(); i++)
     {
         profiles.at(session_data.players.at(i)._id.getInt() - 1) += session_data.players.at(i);
+        profiles.at(session_data.players.at(i)._id.getInt() - 1).setPlayTime(profiles.at(session_data.players.at(i)._id.getInt() - 1).getPlayTime() + session_data.elapsed_time);
         if(profiles.at(session_data.players.at(i)._id.getInt() - 1).getMaxConsecutivePlays() < session_data.players.at(i)._max_consecutive_plays)
             profiles.at(session_data.players.at(i)._id.getInt() - 1).setMaxConsecutivePlays(session_data.players.at(i)._max_consecutive_plays);
     }
@@ -145,7 +148,6 @@ void MainMenu::writeProfilesToFile() const
     {
         std::cout << "Couldn't open profiles.txt!\n";
     }
-
     file.close();
 }
 
@@ -158,7 +160,6 @@ void MainMenu::closeEvent(QCloseEvent* event)
 
 void MainMenu::readProfiles()
 {
-    // Read in profiles
     std::ifstream file("./profiles.txt");
     Profile p;
     if(file)
@@ -177,7 +178,6 @@ void MainMenu::readProfiles()
 
 void MainMenu::createPictures() const
 {
-    // Create card pictures if needed
     std::vector<CardID> card_ids = deck->getCardIDList();
     for(unsigned int i = 0; i < card_ids.size(); i++)
     {

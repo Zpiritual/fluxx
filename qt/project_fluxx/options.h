@@ -37,6 +37,8 @@ private:
 
     void addProfile(const Profile&);
     void removeProfile(const Profile&);
+    void addToProfiles();
+
 
 signals:
 

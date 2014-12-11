@@ -22,10 +22,9 @@ public:
     void gameOverBack();
     void gameOverScreen(SessionData, std::vector<ProfileName>);
 
-    void addProfile(const Profile&);
     void setProfiles(const std::vector<Profile>&);
-    void updateProfiles(const SessionData&);
     void writeProfilesToFile() const;
+
 
     void closeEvent(QCloseEvent*);
 
@@ -43,6 +42,9 @@ private:
 
     void readProfiles();
     void createPictures() const;
+    void addProfile(const Profile&);
+    void updateProfiles(const SessionData&);
+
 
 signals:
 
