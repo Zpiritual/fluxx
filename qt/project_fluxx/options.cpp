@@ -65,8 +65,9 @@ void Options::enableRemoveButton()
 
 void Options::enableAddButton()
 {
-    if(profile_text->text() == "")
+    if(profile_text->text() == "" || profile_text->text().at(0) == QString(" "))
     {
+        profile_text->setText(QString(""));
         add_profile_button->setEnabled(false);
     }
     else
