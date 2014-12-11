@@ -60,6 +60,7 @@ void GameLogic::removeRule(const CardID cid)
 
 void GameLogic::playCard()
 {
+    cerr << "GameLogic::playCard() -- " << endl;
 	if (getCurrentGameState() != GameState::CONTINUE)
     {
         return;
@@ -87,6 +88,7 @@ void GameLogic::playCard()
 
 void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
 {
+    cerr << "GameLogic::playCardWithID() -- " << cid.val <<" " << ccid.val << endl;
     if (getCurrentGameState() != GameState::CONTINUE)
     {
     	cerr << "GameLogic::playCardWithID: " << "getCurrentGameState != GameState::CONTINUE" << cid.val << " " << ccid.val << endl;
@@ -559,6 +561,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                 while (_ccm->getSize(CardContainerID(p.getID().getString() + "_hand")) > _rm->getHandLimit() && getCurrentGameState() == GameState::CONTINUE)
                 {
                     CardContainerID player_hand(p.getID().getString() + "_hand");
+                    cerr << "GameLogic::onNotify -- " << cc1.val << " " << cc2.val << " " << cid.val << " " << " hand limit" << endl;
                     CardID card_to_trash(0);
 
                     if (_rm->getHandLimit() == 0)
@@ -575,6 +578,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                 while (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > _rm->getKeeperLimit()  && getCurrentGameState() == GameState::CONTINUE)
                 {
                     CardContainerID player_keepers(p.getID().getString() + "_keepers");
+                    cerr << "GameLogic::onNotify -- " << cc1.val << " " << cc2.val << " " << cid.val << " " << " keeper limit" << endl;
                     CardID card_to_trash(0);
 
                     if (_rm->getKeeperLimit() == 0)
