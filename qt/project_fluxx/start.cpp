@@ -28,12 +28,12 @@ void Start::new_game()
     {
         message(QString("Error"), QString("parent2 does not exist"));
     }
-    qDebug() << "Add new_game functionality";
+    // qDebug() << "Add new_game functionality";
     // TODO: Add functionality
 }
 
 //void Start::continue_game()
-//{
+//
 //    qDebug() << "Add continue_game functionality";
 //    // TODO: Add functionality
 //}
@@ -48,13 +48,13 @@ void Start::options()
     {
         message(QString("Error"), QString("parent2 does not exist"));
     }
-    qDebug() << "Add options functionality";
+    // qDebug() << "Add options functionality";
     // TODO: Add functionality
 }
 
 void Start::exit()
 {
-    qDebug() << "Add exit functionality";
+    // qDebug() << "Add exit functionality";
     // TODO: Add functionality
 
     if(parent2 != nullptr)
