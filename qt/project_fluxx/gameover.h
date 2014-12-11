@@ -1,3 +1,5 @@
+//Contains the game over screen that displays the stats and winning player.
+
 #ifndef GAMEOVER_H
 #define GAMEOVER_H
 
@@ -24,8 +26,6 @@ private:
     void connectSignals();
     ProfileName winning_player_name;
     MainMenu* parent2;
-
-signals:
 
 public slots:
     void returnToMainMenu();

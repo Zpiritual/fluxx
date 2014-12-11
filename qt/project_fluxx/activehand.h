@@ -1,3 +1,5 @@
+//This class contains the active player's handthat is shown at the bottom of the window in the middle
+
 #ifndef ACTIVEHAND_H
 #define ACTIVEHAND_H
 
@@ -14,18 +16,15 @@ class ActiveHand : public QWidget
 public:
     explicit ActiveHand(QWidget *parent = 0);
     ~ActiveHand();
-    void updateCards(const CardContainer); //Gå till qlistwidget och hämta hand mha gethand(playerID),
-    //eventuellt görs detta i activeplayer
-    void connectButtons(CardIdLoop &loop);
+
+    void updateCards(const CardContainer);
+    void connectButtons(CardIdLoop& loop);
+
 private:
-    std::vector<CardButton*> buttons_;
     QHBoxLayout* layout;
+    std::vector<CardButton*> buttons_;
 
     void uiElements();
-signals:
-
-public slots:
-
 };
 
 #endif // ACTIVEHAND_H

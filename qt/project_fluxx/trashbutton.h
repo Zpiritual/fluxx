@@ -1,3 +1,5 @@
+//Button used for the trash pile. Will open a BigCardContainer when clicked.
+
 #ifndef TRASHBUTTON_H
 #define TRASHBUTTON_H
 
@@ -20,8 +22,6 @@ public:
 private:
     std::vector<CardID> cards_;
     QIcon icon;
-
-signals:
 
 public slots:
     void clickbutton();

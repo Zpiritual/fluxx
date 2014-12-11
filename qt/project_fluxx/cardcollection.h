@@ -1,3 +1,5 @@
+//This is a helper class to BigCardCollection
+
 #ifndef CARDCOLLECTION_H
 #define CARDCOLLECTION_H
 
@@ -21,11 +23,6 @@ private:
     std::vector<CardButton*> cards;
 
     void addCards(const std::vector<CardID>&);
-
-signals:
-
-public slots:
-
 };
 
 #endif // CARDCOLLECTION_H

@@ -1,3 +1,5 @@
+//Class shown in the main menu that is used for starting the game.
+
 #ifndef NEWGAME_H
 #define NEWGAME_H
 

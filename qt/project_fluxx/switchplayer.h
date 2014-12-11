@@ -1,3 +1,5 @@
+//Class used when the players switch turns and is used to in replacement to active hand.
+
 #ifndef SWITCHPLAYER_H
 #define SWITCHPLAYER_H
 
@@ -17,17 +19,8 @@ public:
 private:
     QHBoxLayout* main_layout;
     QVBoxLayout* next_player_layout;
-
     QPushButton* next_player_button;
-
     QLabel* next_player_text;
-
-
-signals:
-
-public slots:
-    void nextPlayer();
-
 };
 
 #endif // SWITCHPLAYER_H

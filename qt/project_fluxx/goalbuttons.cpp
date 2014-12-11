@@ -6,42 +6,6 @@ GoalButtons::GoalButtons(QWidget *parent) :
     uiElements();
 }
 
-void GoalButtons::setConnections(CardIdLoop &loop)
-{
-    BigCardCollection* bigcollection = new BigCardCollection{cards_, loop};
-    bigcollection->show();
-    loop.exec();
-    bigcollection->close();
-}
-
-void GoalButtons::updateCards(const CardContainer& container)
-{
-    buttons_.clear();
-
-    this->setAutoFillBackground(false);
-
-    if (layout->layout() != NULL)
-    {
-        QLayoutItem* item;
-        while ((item = layout->takeAt(0)) != NULL)
-        {
-            delete item->widget();
-            delete item;
-        }
-    }
-
-    cards_ = container.getCards();
-
-    for(CardID card : cards_)
-    {
-        CardButton* tempbutton = new CardButton(card, this);
-        tempbutton->smallButton();
-        layout->addWidget(tempbutton);
-        buttons_.push_back(tempbutton);
-    }
-}
-
-
 GoalButtons::~GoalButtons()
 {
     for(CardButton* button : buttons_)
@@ -57,3 +21,38 @@ void GoalButtons::uiElements()
     this->setLayout(layout);
 }
 
+void GoalButtons::updateCards(const CardContainer& container)
+{
+    this->setAutoFillBackground(false);
+
+    buttons_.clear();
+    if (layout->layout() != NULL) //Remove everything in the widget
+    {
+        QLayoutItem* item;
+        while ((item = layout->takeAt(0)) != NULL)
+        {
+            delete item->widget();
+            delete item;
+        }
+    }
+
+    cards_ = container.getCards();
+
+    for(CardID card : cards_) //Add new cards
+    {
+        CardButton* tempbutton = new CardButton(card, this);
+        tempbutton->smallButton();
+        layout->addWidget(tempbutton);
+        buttons_.push_back(tempbutton);
+    }
+}
+
+void GoalButtons::setConnections(CardIdLoop &loop)
+{
+
+    BigCardCollection* bigcollection = new BigCardCollection{cards_, loop};
+    bigcollection->setWindowTitle(QString("Goals"));
+    bigcollection->show();
+    loop.exec();
+    bigcollection->close();
+}

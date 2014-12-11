@@ -1,3 +1,5 @@
+//THIS FILE IS NO LONGER IN USE AND IS RETIRED
+
 #ifndef ACTIVEPLAYER_H
 #define ACTIVEPLAYER_H
 
@@ -19,13 +21,13 @@ class ActivePlayer : public QWidget
     Q_OBJECT
 public:
     explicit ActivePlayer(QWidget *parent = 0);
-    void updateCards(const BoardSnapshot* const, const bool);
     ~ActivePlayer();
+
+    void updateCards(const BoardSnapshot* const, const bool);
     void connectActiveKeepers(CardIdLoop&);
     void connectActiveHand(CardIdLoop&);
     void endTurn(const ProfileName&, QEventLoop&);
     void changePlayer(const ProfileName&, QEventLoop&);
-
 
 private:
     QVBoxLayout* layout;
@@ -35,11 +37,6 @@ private:
     ActiveKeepers* active_keepers;
 
     void uiElements();
-
-signals:
-
-public slots:
-
 };
 
 

@@ -1,3 +1,5 @@
+//Container for a player's name
+
 #ifndef PROFILENAME_H
 #define PROFILENAME_H
 

@@ -7,7 +7,7 @@
 #include <ctime>
 
 GameLogic::GameLogic(Gui *gui, const Deck *deck, const int players)
-	: _currentGameState {GameState::CONTINUE}
+	: _currentGameState{GameState::CONTINUE}
 {
 	_gui = gui;
 	_ccm = new CardContainerManager(deck);
@@ -33,43 +33,55 @@ GameLogic::~GameLogic()
 
 void GameLogic::addEffect(Effect effect)
 {
-	if (getCurrentGameState() != GameState::CONTINUE) return;
+	if (getCurrentGameState() != GameState::CONTINUE)
+    {
+        return;
+    }
 	effect_queue.push_front(effect);
 }
 
 void GameLogic::addRule(const CardID cid, Effect *effect, const RuleTrigger trigger)
 {
-	if (getCurrentGameState() != GameState::CONTINUE) return;
+	if (getCurrentGameState() != GameState::CONTINUE)
+    {
+        return;
+    }
 	_rm->addRule(new TriggeredRule(cid, trigger, *effect));
 }
 
 void GameLogic::removeRule(const CardID cid)
 {
-	if (getCurrentGameState() != GameState::CONTINUE) return;
+	if (getCurrentGameState() != GameState::CONTINUE)
+    {
+        return;
+    }
 	_rm->removeRule(cid);
 }
 
 void GameLogic::playCard()
 {
-	if (getCurrentGameState() != GameState::CONTINUE) return;
+	if (getCurrentGameState() != GameState::CONTINUE)
+    {
+        return;
+    }
 
-	CardContainerID ccid(_pm->getCurrentPlayer()->getID().getString() + "_hand");
+	CardContainerID player_hand(_pm->getCurrentPlayer()->getID().getString() + "_hand");
 
 	if (!_ccm->isEmptyTemp())
 	{
-		ccid = _ccm->getTemp();
+		player_hand = _ccm->getTemp();
 	}
 
-	if (_ccm->getSize(ccid) == 0)
+	if (_ccm->getSize(player_hand) == 0)
 	{
-		throw std::logic_error("Playing from empty Container: " + ccid.val);
+		throw std::logic_error("GameLogic::playCard() - Cannot play card from empty container: " + player_hand.val);
 	}
 
-	CardID cid = pickCard(_pm->getCurrentPlayer()->getID(), ccid);
+	CardID card_to_play = pickCard(_pm->getCurrentPlayer()->getID(), player_hand);
 	
-	if (cid != CardID(0))
+	if (card_to_play != CardID(0))
 	{
-		playCardWithID(cid, ccid);
+		playCardWithID(card_to_play, player_hand);
 	}
 }
 
@@ -89,6 +101,7 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
     _pm->getCurrentPlayer()->incrementTotalCardsPlayed();
     _pm->getCurrentPlayer()->incrementConsecutivePlays();
 
+    //Endast kort som spelas direkt från handen räknas som "spelade kort", till skillnad från kort i tillfälliga containrar, som kommer från olika effekter.
     if (ccid.val.find("_hand") != string::npos)
     {
     	_pm->getCurrentPlayer()->incrementCardsPlayed();
@@ -151,8 +164,7 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 {
 	if (getCurrentGameState() != GameState::CONTINUE)
 	{
-	cerr << "GameLogic::pickCard: " << "GameState != CONTINUE"<< pid.getString() << " " << container.val << endl;
-
+        cerr << "GameLogic::pickCard() - GameState != CONTINUE, returning CardID(0)." << endl;
 		return CardID(0);
 	}
 
@@ -164,13 +176,14 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 
 	BoardSnapshot snapshot(makeBoardSnapshot(pid, container));
 
+    //Om goal-containern innehåller endast ett kort ersätts det automatiskt, utan spelarinput.
     if (_ccm->getSize(container) == 1 && (container == CardContainerID("Goal")))
 	{
 		return _ccm->getCards(container).at(0);
 	}
 	else
 	{
-		CardID id = _gui->pickCard(&snapshot);
+		CardID id = _gui->pickCard(&snapshot); 
 
 		if (!_gui->isVisible())
 		{
@@ -509,6 +522,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
     switch (event)
     {
     case Event::CARD_MOVED:
+
         checkRules(RuleTrigger::GOAL);
 
         const CardContainerID trash("Trash");
@@ -646,10 +660,9 @@ void GameLogic::effect_DrawAndPlay(int draw, int play, int trash)
 		{
 			_ccm->drawCard(ccid);
 		}
-		catch (const exception & e)
-		{	
-            cout << "GameLogic::effect_DrawAndPlay: " << e.what() << endl;
-			cout << "GameLogic::effect_DrawAndPlay() - Error while moving cards to temp container." << endl;
+		catch (const std::exception& e)
+		{
+			cerr << "GameLogic::effect_DrawAndPlay() - Error while moving cards to temp container: " << e.what() << endl;
 		}
 	}
 
@@ -673,15 +686,17 @@ void GameLogic::effect_DrawAndPlay(int draw, int play, int trash)
 void GameLogic::effect_Redraw()
 {
 	std::vector<CardID> v;
+    CardContainerID player_hand(_pm->getCurrentPlayer()->getID().getString()  + "_hand");
 
-	for (CardID i : _ccm->getCards(CardContainerID(_pm->getCurrentPlayer()->getID().getString()  + "_hand")))
+
+    for (CardID i : _ccm->getCards(player_hand))
 	{
 		v.push_back(i);
 	}
 
 	for (CardID i : v)
 	{
-		_ccm->moveCard(CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"), CardContainerID("Trash"), i);
+		_ccm->moveCard(player_hand, CardContainerID("Trash"), i);
 	}
 
 	for (unsigned i = 0; i < v.size(); ++i)
@@ -716,9 +731,8 @@ void GameLogic::effect_AddTriggeredRule(int card_id, string trigger)
 	}
 	else
 	{
-		throw std::logic_error("GameLogic::effect_AddTriggeredRule() - Tried to add TriggeredRule without RuleTrigger");
+		throw std::logic_error("GameLogic::effect_AddTriggeredRule() - Invalid trigger type: " + trigger);
 	}
-
 	addRule(CardID(card_id), &(_cm->getCard(CardID(card_id))->getEffects().at(1)), rt);
 }
 
@@ -729,13 +743,17 @@ void GameLogic::effect_RemoveTriggeredRule(int card_id)
 
 void GameLogic::effect_ModifyRule(string rule_type, int value)
 {
-    for (auto i : _ccm->getCards(CardContainerID("Rules")))
+    CardContainerID rules("Rules");
+    CardContainerID trash("Trash");
+
+    for (auto i : _ccm->getCards(rules))
     {
         if(_cm->getCard(i)->getEffects().at(0).val.find("AddTriggeredRule") != string::npos )
         {
-            if(_cm->getCard(i)->getEffects().at(1).val.find(" "+ rule_type+" ") != string::npos && _cm->getCard(i)->getEffects().at(1).val.find(to_string(value)) == string::npos)
+            if(_cm->getCard(i)->getEffects().at(1).val.find(" " + rule_type + " ") != string::npos
+                && _cm->getCard(i)->getEffects().at(1).val.find(to_string(value)) == string::npos)
             {
-	            _ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), i);
+	            _ccm->moveCard(rules, trash, i);
 	            break;
             }
         }
@@ -744,7 +762,7 @@ void GameLogic::effect_ModifyRule(string rule_type, int value)
         {
             if(_cm->getCard(i)->getEffects().at(0).val.find(rule_type) != string::npos && _cm->getCard(i)->getEffects().at(0).val.find(to_string(value)) == string::npos)
             {
-            	_ccm->moveCard(CardContainerID("Rules"), CardContainerID("Trash"), i);
+            	_ccm->moveCard(rules, trash, i);
             	break;
             }
         }

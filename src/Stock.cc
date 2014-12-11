@@ -56,7 +56,7 @@ void Stock::shuffle()
 
 	while(!tmp.empty())
 	{
-		std::uniform_int_distribution<int> distribution(0,tmp.size()-1);
+		std::uniform_int_distribution<int> distribution(0, tmp.size()-1);
 		unsigned int i = distribution(gen);
 		push(tmp.at(i));
 		tmp.erase(tmp.begin() + i);

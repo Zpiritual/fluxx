@@ -1,3 +1,5 @@
+//Track the the stats of profiles internally
+
 #ifndef PROFILE_H
 #define PROFILE_H
 
@@ -34,7 +36,6 @@ public:
     void setDrawnCards(int);
     void setMaxConsecutivePlays(int);
     void setPlayTime(int);
-
     void readLine(const std::string&);
 
 private:

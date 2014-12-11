@@ -14,6 +14,7 @@ LogWidget::~LogWidget()
     delete layout;
 }
 
+//Update the log
 void LogWidget::updateLog(const BoardSnapshot* const snapshot)
 {
     log_text_edit->setText(QString(""));
@@ -29,7 +30,7 @@ void LogWidget::updateLog(const BoardSnapshot* const snapshot)
         tempstring += QString::fromStdString(player.val) + QString(" turn\n") + QString::fromStdString(entry.second) ;
         log_text_edit->setPlainText(tempstring);
     }
-    log_text_edit->verticalScrollBar()->setValue(log_text_edit->verticalScrollBar()->maximum());
+    log_text_edit->verticalScrollBar()->setValue(log_text_edit->verticalScrollBar()->maximum()); //Scroll to bottom
 
     if(snapshot->cards_to_play == std::numeric_limits<int>::max())
         play_info_label->setText(QString("Cards to play: ALL" + QString("\nCards played:" + QString::number(snapshot->cards_played))));
@@ -37,6 +38,7 @@ void LogWidget::updateLog(const BoardSnapshot* const snapshot)
         play_info_label->setText(QString("Cards to play:" + QString::number(snapshot->cards_to_play) + QString("\nCards played:" + QString::number(snapshot->cards_played))));
 }
 
+//Set up the elements in the widget
 void LogWidget::uiElements()
 {
     layout = new QVBoxLayout();

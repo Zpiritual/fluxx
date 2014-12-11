@@ -1,3 +1,6 @@
+//This class will create images of cards that exist in the card definition file
+//but doesn't have a corresponding image in the image folder
+
 #ifndef CARDPICTURE_H
 #define CARDPICTURE_H
 
@@ -23,12 +26,6 @@ private:
     CardID card_id{0};
 
     void uiElements(const Card&);
-
-
-signals:
-
-public slots:
-
 };
 
 #endif // CARDPICTURE_H

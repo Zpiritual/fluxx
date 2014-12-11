@@ -51,7 +51,11 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 
         if (player_list_widget->getPlayerId(player_loop->getPlayerName()) == snapshot->current_player)
         {
-            message(QString("Pick Player"), QString("Can't pick yourself! Pick another player please."));
+            QMessageBox message_dialog;
+            message_dialog.setWindowTitle("Pick Player");
+            message_dialog.setText("Can't pick yourself! Pick another player please.");
+            message_dialog.exec();
+
         }
     }while(player_list_widget->getPlayerId(player_loop->getPlayerName()) == snapshot->current_player);
 
@@ -117,6 +121,7 @@ CardID Gui::pickCard(const BoardSnapshot* const snapshot)
             snapshot->target_container.val.find(snapshot->active_player.getString()) == std::string::npos)
     {
         BigCardCollection* bigcollection = new BigCardCollection(snapshot->getContainer(snapshot->target_container).getCards(),*card_id_loop, this);
+        bigcollection->setWindowTitle(QString::fromStdString(snapshot->getContainer(snapshot->target_container).getID().val));
         bigcollection->show();
         card_id_loop->exec();
         bigcollection->close();
@@ -192,18 +197,88 @@ void Gui::closeEvent(QCloseEvent* event)
         event->ignore();
 }
 
-void Gui::message(const QString& title, const QString& message) const
+//Updates the content of everywidget
+void Gui::update(const BoardSnapshot* const snapshot, const bool changed_player) //Lägg till i alla klasser
 {
-    // Display a message box
-    QMessageBox message_dialog;
-    message_dialog.setWindowTitle(title);
-    message_dialog.setText(message);
-    message_dialog.exec();
+    rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
+    player_list_widget->updatePlayers(snapshot);
+    trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
+    goals_widget->updateCards(snapshot->getContainer(CardContainerID("Goal")));
+    log_widget->updateLog(snapshot);
+    updateActiveHandAndKeepers(snapshot, changed_player);
 }
 
+//Helper function that updates the active hand and active keepers based on which player is active
+void Gui::updateActiveHandAndKeepers(const BoardSnapshot* const snapshot, const bool changed_player)
+{
+    //Removes background colors getting stuck when hand shrinks
+    active_hand->hide();
+    active_hand->show();
+
+    if(!changed_player)
+    {
+        if(snapshot->getContainer(CardContainerID("tempA")).getSize() != 0) //If there is a temporary hand, show that instead of regular hand
+            active_hand->updateCards(snapshot->getContainer(CardContainerID("tempA")));
+        else
+            active_hand->updateCards(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_hand")));
+
+        active_keepers->updateCards(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_keepers")));
+    }
+    else
+    {
+        active_hand->updateCards(snapshot->getContainer(snapshot->active_player.getString()+"_hand"));
+        active_keepers->updateCards(snapshot->getContainer(snapshot->active_player.getString()+"_keepers"));
+    }
+}
+
+//Enable clicking on the active keepers buttons
+void Gui::connectActiveKeepers(CardIdLoop& loop)
+{
+    active_keepers->connectButtons(loop);
+}
+
+//Enable clicking on the active hand buttons
+void Gui::connectActiveHand(CardIdLoop& loop)
+{
+    active_hand->connectButtons(loop);
+}
+
+//A player's turn is over, hide hand and switch player
+void Gui::endTurn(const ProfileName& next_player, QEventLoop& loop)
+{
+    SwitchPlayer* switch_player = new SwitchPlayer(next_player, loop, true);
+
+    scroll_area_hand->hide();
+    mid_column->addWidget(switch_player);
+    switch_player->setMinimumHeight(scroll_area_hand->sizeHint().height());
+
+    loop.exec();
+
+    mid_column->removeWidget(switch_player);
+    delete switch_player;
+    scroll_area_hand->show();
+}
+
+//The turn isn't over but another player has to choose cards to trash or similar.
+void Gui::changePlayer(const ProfileName& next_player, QEventLoop& loop)
+{
+    SwitchPlayer* change_player = new SwitchPlayer(next_player, loop, false);
+
+    scroll_area_hand->hide();
+    mid_column->addWidget(change_player);
+    change_player->setMinimumHeight(scroll_area_hand->sizeHint().height());
+
+    loop.exec();
+
+    mid_column->removeWidget(change_player);
+    delete change_player;
+    scroll_area_hand->show();
+}
+
+//Set up the layout of all the elements in the gui
 void Gui::uiElements()
 {
-    //init game ui widgets
+    //Init game ui widgets
     log_widget = new LogWidget(player_ids, this);
     player_list_widget = new PlayerList(player_ids, this);
     deck_widget = new DeckButton(this);
@@ -287,78 +362,4 @@ void Gui::uiElements()
     rules_goals_row->setAlignment(mid_column_right, Qt::AlignRight|Qt::AlignTop);
     mid_column->setAlignment(scroll_area_hand, Qt::AlignBottom);
     //rules_keepers_column->setAlignment(scroll_area_keepers, Qt::AlignCenter);
-}
-
-//Updates the content of everywidget
-void Gui::update(const BoardSnapshot* const snapshot, const bool changed_player) //Lägg till i alla klasser
-{
-    rules_widget->updateCards(snapshot->getContainer(CardContainerID("Rules")));
-    player_list_widget->updatePlayers(snapshot);
-    trash_widget->updateCards(snapshot->getContainer(CardContainerID("Trash")));
-    goals_widget->updateCards(snapshot->getContainer(CardContainerID("Goal")));
-    log_widget->updateLog(snapshot);
-    updateActiveHandAndKeepers(snapshot, changed_player);
-}
-
-//Helper function that updates the active hand and active keepers based on which player is active
-void Gui::updateActiveHandAndKeepers(const BoardSnapshot* const snapshot, const bool changed_player)
-{
-    //Removes background colors getting stuck when hand shrinks
-    active_hand->hide();
-    active_hand->show();
-
-    if(!changed_player)
-    {
-        if(snapshot->getContainer(CardContainerID("tempA")).getSize() != 0) //If there is a temporary hand, show that instead of regular hand
-            active_hand->updateCards(snapshot->getContainer(CardContainerID("tempA")));
-        else
-            active_hand->updateCards(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_hand")));
-
-        active_keepers->updateCards(snapshot->getContainer(CardContainerID(snapshot->current_player.getString()+"_keepers")));
-    }
-    else
-    {
-        active_hand->updateCards(snapshot->getContainer(snapshot->active_player.getString()+"_hand"));
-        active_keepers->updateCards(snapshot->getContainer(snapshot->active_player.getString()+"_keepers"));
-    }
-}
-
-void Gui::connectActiveKeepers(CardIdLoop& loop)
-{
-    active_keepers->connectButtons(loop);
-}
-
-void Gui::connectActiveHand(CardIdLoop& loop)
-{
-    active_hand->connectButtons(loop);
-}
-
-void Gui::endTurn(const ProfileName& next_player, QEventLoop& loop)
-{
-    SwitchPlayer* switch_player = new SwitchPlayer(next_player, loop, true);
-
-    scroll_area_hand->hide();
-    mid_column->addWidget(switch_player);
-    switch_player->setMinimumHeight(scroll_area_hand->sizeHint().height());
-
-    loop.exec();
-
-    mid_column->removeWidget(switch_player);
-    delete switch_player;
-    scroll_area_hand->show();
-}
-
-void Gui::changePlayer(const ProfileName& next_player, QEventLoop& loop)
-{
-    SwitchPlayer* change_player = new SwitchPlayer(next_player, loop, false);
-
-    scroll_area_hand->hide();
-    mid_column->addWidget(change_player);
-    change_player->setMinimumHeight(scroll_area_hand->sizeHint().height());
-
-    loop.exec();
-
-    mid_column->removeWidget(change_player);
-    delete change_player;
-    scroll_area_hand->show();
 }

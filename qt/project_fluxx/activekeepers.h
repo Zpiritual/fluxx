@@ -1,3 +1,5 @@
+//This class contains small images of the active player's keepers and is shown above the active hand
+
 #ifndef ACTIVEKEEPERS_H
 #define ACTIVEKEEPERS_H
 
@@ -14,6 +16,7 @@ class ActiveKeepers : public QWidget
 public:
     explicit ActiveKeepers(QWidget *parent = 0);
     ~ActiveKeepers();
+
     void updateCards(const CardContainer&);
     void connectButtons(CardIdLoop& loop);
 
@@ -22,12 +25,6 @@ private:
     std::vector<CardButton*> buttons_;
 
     void uiElements();
-
-signals:
-
-public slots:
-
 };
-
 
 #endif // ACTIVEKEEPERS_H

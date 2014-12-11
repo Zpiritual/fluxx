@@ -1,3 +1,5 @@
+//Class that contain all the rule cards on the board, shown in Gui.
+
 #ifndef RULESGRIDWIDGET_H
 #define RULESGRIDWIDGET_H
 
@@ -23,11 +25,6 @@ private:
     std::vector<CardButton*> buttons_;
 
     void uiElements();
-
-signals:
-
-public slots:
-
 };
 
 

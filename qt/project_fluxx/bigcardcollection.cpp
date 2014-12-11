@@ -32,7 +32,6 @@ void BigCardCollection::uiElements(const std::vector<CardID>& crds)
     scroll_area->setFrameStyle(QFrame::NoFrame);
     this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::Dialog);
 
-
     this->setMinimumSize(550,320);
     this->setMaximumSize(550,320);
 

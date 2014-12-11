@@ -1,3 +1,6 @@
+//Wrapper for a QEventLoop that will store
+//which player the mouse was clicked that stopped the loop
+
 #ifndef PLAYERLOOP_H
 #define PLAYERLOOP_H
 
@@ -18,8 +21,6 @@ public:
 private:
     ProfileName player_name{std::string("tempName")};
     QEventLoop loop;
-
-signals:
 
 public slots:
     void quit();

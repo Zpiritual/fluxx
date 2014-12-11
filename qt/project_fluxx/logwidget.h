@@ -1,3 +1,5 @@
+//Class that shows the log and info about how many cards should be and have been play
+
 #ifndef LOGWIDGET_H
 #define LOGWIDGET_H
 
@@ -21,11 +23,6 @@ private:
     std::vector<ProfileName> player_names;
 
     void uiElements();
-
-signals:
-
-public slots:
-
 };
 
 #endif // LOGWIDGET_H

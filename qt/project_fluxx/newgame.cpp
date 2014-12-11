@@ -141,6 +141,7 @@ void NewGame::selectPlayers()
             addPlayer(selected_items.at(i));
         }
     }
+    player_list->clearSelection();
 }
 
 void NewGame::enableSelectPlayerButton()

@@ -1,3 +1,5 @@
+//Contains the main class for the actual game itself. Also contain the interface used by the gameloop.
+
 #ifndef GUI_H
 #define GUI_H
 
@@ -15,7 +17,6 @@
 #include "CardContainerID.h"
 #include "PlayerID.h"
 #include "playerlist.h"
-//#include "activeplayer.h"
 #include "profilename.h"
 #include "cardidloop.h"
 #include "playerloop.h"
@@ -40,12 +41,10 @@ public:
     void closeEvent(QCloseEvent*);
 
 private:
-    void update(const BoardSnapshot* const, const bool);
     QHBoxLayout* layout;
     LogWidget* log_widget;
     PlayerList* player_list_widget;
     RulesGridWidget* rules_widget;
-    //ActivePlayer* active_player_widget;
     QVBoxLayout* mid_column;
     QVBoxLayout* mid_column_right;
     QHBoxLayout* rules_goals_row;
@@ -66,23 +65,13 @@ private:
     ActiveHand* active_hand;
     ActiveKeepers* active_keepers;
 
-
-    void message(const QString&, const QString&) const;
+    void update(const BoardSnapshot* const, const bool);
     void uiElements();
-
     void changePlayer(const ProfileName &next_player, QEventLoop &loop);
     void endTurn(const ProfileName&, QEventLoop&);
     void connectActiveKeepers(CardIdLoop&);
     void connectActiveHand(CardIdLoop&);
     void updateActiveHandAndKeepers(const BoardSnapshot* const, const bool);
-
-
-
-signals:
-
-public slots:
-
-
 };
 
 #endif // GUI_H

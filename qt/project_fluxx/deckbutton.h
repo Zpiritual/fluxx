@@ -1,3 +1,6 @@
+//This class contain a button used for the trash, will open a BigCardCollection when clicked
+//Similar to cardbutton
+
 #ifndef DECKBUTTON_H
 #define DECKBUTTON_H
 
@@ -18,9 +21,6 @@ private:
       QIcon* icon;
 
       void uiElements();
-signals:
-public slots:
-
 };
 
 #endif // DECKBUTTON_H
