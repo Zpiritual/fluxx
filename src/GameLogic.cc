@@ -151,7 +151,7 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 
 	BoardSnapshot snapshot(makeBoardSnapshot(pid, container));
 
-	if (_ccm->getSize(container) == 1 && container.val.find("_hand") == string::npos)
+    if (_ccm->getSize(container) == 1 && (container == CardContainerID("Goal")))
 	{
 		return _ccm->getCards(container).at(0);
 	}
@@ -360,11 +360,11 @@ void GameLogic::executeEffect(const Effect &effect)
 		ss >> container;
 		effect_SwapPlayerContainer(container);
 	}
-	else if (identifier.compare("TrashCards") == 0)
+	else if (identifier.compare("TrashKeepers") == 0)
 	{
 		int quantity;
 		ss >> quantity;
-		effect_TrashCards(quantity);
+		effect_TrashKeepers(quantity);
 	}
 	else if (identifier.compare("TrashCardsFromContainer") == 0)
 	{
@@ -404,14 +404,14 @@ void GameLogic::executeEffect(const Effect &effect)
 		char relation;
 		string bonus;
 		ss >> quantity >> container >> relation >> bonus;
-		effect_bonusPlayerContainerQuantity(quantity, container, relation, bonus);
+		effect_BonusPlayerContainerQuantity(quantity, container, relation, bonus);
 	}
 	else if (identifier.compare("BonusPlayerContainerEmpty") == 0)
 	{
 		int quantity;
 		string container;
 		ss >> quantity >> container;
-		effect_bonusPlayerContainerEmpty(quantity, container);
+		effect_BonusPlayerContainerEmpty(quantity, container);
 	}
 	else if (identifier.compare("RepeatTurn") == 0)
 	{
@@ -421,7 +421,7 @@ void GameLogic::executeEffect(const Effect &effect)
 	{
 		string container;
 		ss >> container;
-		effect_rotatePlayerContainer(container);
+		effect_RotatePlayerContainer(container);
 	}
 	else if (identifier.compare("DrawAndDistribute") == 0)
 	{
@@ -972,14 +972,45 @@ void GameLogic::effect_SwapPlayerContainer(string container)
 	_ccm->swapCards(CardContainerID(id1s), CardContainerID(id2s));
 }
 
-void GameLogic::effect_TrashCards(int quantity)
+void GameLogic::effect_TrashKeepers(int quantity)
 {
-	string id1 = pickPlayer().getString() + "_keepers";
+	// string id1 = pickPlayer().getString() + "_keepers";
 
-	for (int i = 0; i < quantity && _ccm->getSize(CardContainerID(id1)) > 0; i++)
+	// for (int i = 0; i < quantity && _ccm->getSize(CardContainerID(id1)) > 0; i++)
+	// {
+	// 	CardID cid = pickCard(_pm->getCurrentPlayerID(), CardContainerID(id1));
+	// 	_ccm->moveCard(CardContainerID(id1), CardContainerID("Trash"), cid);
+	// }
+
+	CardContainerID player_keepers(_pm->getCurrentPlayerID().getString() + "_keepers");	
+	int players_with_keepers{0};
+
+	for ( Player p : _pm->getPlayers() )
 	{
-		CardID cid = pickCard(_pm->getCurrentPlayerID(), CardContainerID(id1));
-		_ccm->moveCard(CardContainerID(id1), CardContainerID("Trash"), cid);
+        if (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > 0)
+		{
+			++players_with_keepers;
+		}
+	}
+
+	if ( ((_ccm->getSize(player_keepers) >  0) && (players_with_keepers >= 2)) ||
+		 ((_ccm->getSize(player_keepers) == 0) && (players_with_keepers >= 1)) )
+	{
+		while ( true )
+		{
+            CardContainerID opponent_keepers(pickPlayer().getString() + "_keepers");
+
+            if (_ccm->getSize(opponent_keepers) > 0)
+            {
+	            for (int i = 0 ; i  < quantity && _ccm->getSize(opponent_keepers) > 0; i++)
+				{
+					_ccm->moveCard(opponent_keepers,
+						CardContainerID("Trash"),
+						pickCard(_pm->getCurrentPlayerID(), opponent_keepers));
+				}
+				break;
+            }
+		}
 	}
 }
 
@@ -1060,7 +1091,7 @@ void GameLogic::effect_ScramblePlayerContainer(string container)
 	}
 }
 
-void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string container, char relation, string bonus)
+void GameLogic::effect_BonusPlayerContainerQuantity(int quantity, string container, char relation, string bonus)
 {
 	quantity += _rm->getInflation();
 	vector<int> containersSize;
@@ -1123,7 +1154,7 @@ void GameLogic::effect_bonusPlayerContainerQuantity(int quantity, string contain
 	}
 }
 
-void GameLogic::effect_bonusPlayerContainerEmpty(int quantity, string container)
+void GameLogic::effect_BonusPlayerContainerEmpty(int quantity, string container)
 {
 	quantity += _rm->getInflation();
 	int containerSize = _ccm->getSize(CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_" + container));
@@ -1137,9 +1168,16 @@ void GameLogic::effect_bonusPlayerContainerEmpty(int quantity, string container)
 	}
 }
 
-void GameLogic::effect_rotatePlayerContainer(string container)
+void GameLogic::effect_RotatePlayerContainer(string container)
 {
-	bool rotation = playerDecision("Pick the play order:", "Counterclockwise", "Clockwise");
+
+	bool rotate_clockwise{true};
+
+	if (_pm->getPlayers().size() > 2)
+	{
+        rotate_clockwise = playerDecision("Pick the rotation direction:", "Clockwise", "Counterclockwise");
+	}
+	
 	vector<vector<CardID>> containers;
 
 	for (unsigned int i = 0; i < _pm->getPlayers().size(); i++)
@@ -1152,18 +1190,19 @@ void GameLogic::effect_rotatePlayerContainer(string container)
 	{
 		int target = i;
 		
-		if (rotation)
-		{
-			target = i - 1;
-			if (target == -1)
-				target = int(_pm->getPlayers().size() - 1);
-		}
-		else
+		if (rotate_clockwise)
 		{
 			target = i + 1;
 			if (target == int(_pm->getPlayers().size()))
 				target = 0;
 		}
+		else
+		{
+			target = i - 1;
+			if (target == -1)
+				target = int(_pm->getPlayers().size() - 1);
+		}
+		
 		CardContainerID ccid(_pm->getPlayers().at(i).getID().getString() + "_" + container);
 		CardContainerID ccid2(_pm->getPlayers().at(target).getID().getString() + "_" + container);
 		
@@ -1302,11 +1341,35 @@ void GameLogic::effect_TakeRandomAndPlayFromPlayer(string container, int quantit
 
 void GameLogic::effect_MoveKeepers(int quantity)
 {
-	CardContainerID ccid(pickPlayer().getString() + "_keepers");
-	
-	for (int i = 0 ; i  < quantity && _ccm->getSize(ccid) > 0; i++)
+	CardContainerID player_keepers(_pm->getCurrentPlayerID().getString() + "_keepers");	
+	int players_with_keepers{0};
+
+	for ( Player p : _pm->getPlayers() )
 	{
-		_ccm->moveCard(ccid, CardContainerID(_pm->getCurrentPlayerID().getString() + "_keepers"), pickCard(_pm->getCurrentPlayerID(), ccid));
+        if (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > 0)
+		{
+			++players_with_keepers;
+		}
+	}
+
+	if ( ((_ccm->getSize(player_keepers) >  0) && (players_with_keepers >= 2)) ||
+		 ((_ccm->getSize(player_keepers) == 0) && (players_with_keepers >= 1)) )
+	{
+		while ( true )
+		{
+            CardContainerID opponent_keepers(pickPlayer().getString() + "_keepers");
+
+            if (_ccm->getSize(opponent_keepers) > 0)
+            {
+	            for (int i = 0 ; i  < quantity && _ccm->getSize(opponent_keepers) > 0; i++)
+				{
+					_ccm->moveCard(opponent_keepers,
+						CardContainerID(_pm->getCurrentPlayerID().getString() + "_keepers"),
+						pickCard(_pm->getCurrentPlayerID(), opponent_keepers));
+				}
+				break;
+            }
+		}
 	}
 }
 

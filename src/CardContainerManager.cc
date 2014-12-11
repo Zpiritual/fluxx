@@ -101,8 +101,7 @@ void CardContainerManager::moveCard(const CardContainerID from, const CardContai
 	}
 	getContainer(from)->removeCard(card);
 	getContainer(to)->addCard(card);
-	notify(from,to,card,Event::CARD_MOVED);
-	
+	notify(from, to, card, Event::CARD_MOVED);
 }
 
 void CardContainerManager::moveCards(const CardContainerID from, const CardContainerID to)
@@ -167,7 +166,6 @@ void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID
 	getContainer(ccid)->removeCard(cid);
 	_suspendedCards.push(cid);
 	notify(ccid, CardContainerID("SuspendedCards"),cid,Event::CARD_MOVED);
-	
 }
 
 CardID CardContainerManager::getSuspendedCard()
@@ -194,7 +192,6 @@ void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 		getContainer(ccid)->addCard(id);
 		_suspendedCards.pop();
 		notify(CardContainerID("SuspendedCards"), ccid,id,Event::CARD_MOVED);
-
 	}	
 }
 
