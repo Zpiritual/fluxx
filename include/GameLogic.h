@@ -66,7 +66,7 @@ public:
     void effect_SpecificKeeperCheck(vector<int>);
 	void effect_ContainerQuantityCheck(string, int);
 	void effect_SwapPlayerContainer(string);
-	void effect_TrashCards(int);
+	void effect_TrashKeepers(int);
 	void effect_TrashCardsFromContainer(int,string);
     void effect_ForceRandomPlay(int);
 	void effect_MoveContainer(string, string);
@@ -74,9 +74,9 @@ public:
 	void effect_MoveKeepers(int);
 	void effect_RepeatTurn();
 	void effect_ScramblePlayerContainer(string);
-	void effect_bonusPlayerContainerQuantity(int, string, char,string);
-	void effect_bonusPlayerContainerEmpty(int, string);
-	void effect_rotatePlayerContainer(string);
+	void effect_BonusPlayerContainerQuantity(int, string, char,string);
+	void effect_BonusPlayerContainerEmpty(int, string);
+	void effect_RotatePlayerContainer(string);
     void effect_DrawAndDistribute(int);
     void effect_TakeAndPlayBasedOnSubtype(string, vector<string>);
     void effect_DiscardPercentileOfContainer(string,int);
@@ -84,6 +84,7 @@ public:
     void effect_SetOrder(string);
     void effect_PlayersGiveToPlayer(int);
 	void effect_SwapKeepers(int);
+    
 	void writeToLog(const string);
 
 	GameState getCurrentGameState() const;

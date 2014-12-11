@@ -49,7 +49,9 @@ void GoalButtons::updateCards(const CardContainer& container)
 
 void GoalButtons::setConnections(CardIdLoop &loop)
 {
+
     BigCardCollection* bigcollection = new BigCardCollection{cards_, loop};
+    bigcollection->setWindowTitle(QString("Goals"));
     bigcollection->show();
     loop.exec();
     bigcollection->close();

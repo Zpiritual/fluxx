@@ -82,7 +82,8 @@ void CardContainerManager::drawCard(const CardContainerID container)
 	if(_stock->empty())
 	{
 		containerToStock(CardContainerID("Trash"));
-		reshuffle();		
+		reshuffle();
+
 		if(_stock->empty())
 		{
 			return;
@@ -90,7 +91,7 @@ void CardContainerManager::drawCard(const CardContainerID container)
 	}
 	CardID id = _stock->pop();
 	getContainer(container)->addCard(id);
-	notify(_stock->getID(),container,id,Event::CARD_MOVED);
+	notify(_stock->getID(), container, id, Event::CARD_MOVED);
 }
 
 void CardContainerManager::moveCard(const CardContainerID from, const CardContainerID to, const CardID card)
@@ -101,8 +102,7 @@ void CardContainerManager::moveCard(const CardContainerID from, const CardContai
 	}
 	getContainer(from)->removeCard(card);
 	getContainer(to)->addCard(card);
-	notify(from,to,card,Event::CARD_MOVED);
-	
+	notify(from, to, card, Event::CARD_MOVED);
 }
 
 void CardContainerManager::moveCards(const CardContainerID from, const CardContainerID to)
@@ -121,10 +121,11 @@ int CardContainerManager::getSize(const CardContainerID container)
 
 CardContainer* CardContainerManager::getContainer(const CardContainerID container)
 {
-	if(!_temps.empty()&& container == getTemp())
+	if(!_temps.empty() && container == getTemp())
 	{
 		return _temps.top();
 	}
+	cerr << "CardContainerManager::getContainer() - Accessing container " << container.val << " in CCM." << endl;
 	return _containers.at(container);
 }
 
@@ -163,11 +164,12 @@ CardID CardContainerManager::getRandomCard(const CardContainerID container)
 void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID& cid)
 {
 	if(cid == CardID(0))
+	{
 		return;
+	}
 	getContainer(ccid)->removeCard(cid);
 	_suspendedCards.push(cid);
 	notify(ccid, CardContainerID("SuspendedCards"),cid,Event::CARD_MOVED);
-	
 }
 
 CardID CardContainerManager::getSuspendedCard()
@@ -177,14 +179,15 @@ CardID CardContainerManager::getSuspendedCard()
 		return _suspendedCards.top();
 	}
 	else
+	{
 		return CardID(0);
+	}
 }
 
 bool CardContainerManager::hasSuspendedCard()
 {
 	return !_suspendedCards.empty();
 }
-
 
 void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 {
@@ -194,21 +197,22 @@ void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 		getContainer(ccid)->addCard(id);
 		_suspendedCards.pop();
 		notify(CardContainerID("SuspendedCards"), ccid,id,Event::CARD_MOVED);
-
 	}	
 }
 
-void CardContainerManager::swapCards(const CardContainerID ccid1, const CardContainerID ccid2)
+void CardContainerManager::swapCards(const CardContainerID container1, const CardContainerID container2)
 {
-	std::vector<CardID> cardIDList = getCards(ccid1);
-	std::vector<CardID> cardIDList2 = getCards(ccid2);
-	for(CardID id: cardIDList)
+	std::vector<CardID> cardIDList1 = getCards(container1);
+	std::vector<CardID> cardIDList2 = getCards(container2);
+	
+	for(CardID id: cardIDList1)
 	{
-		moveCard(ccid1, ccid2, id);
+		moveCard(container1, container2, id);
 	}
+
 	for(CardID id : cardIDList2)
 	{
-		moveCard(ccid2,ccid1,id);
+		moveCard(container2, container1, id);
 	}
 }
 
@@ -224,7 +228,7 @@ CardContainerID CardContainerManager::getTemp() const
 {
 	if(_temps.empty())
 	{
-		throw std::logic_error("No Temp Container Created");
+		throw std::logic_error("CardContainerManager::getTemp() - No temp container found.");
 	}
 	return _temps.top()->getID();
 }

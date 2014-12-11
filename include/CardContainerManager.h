@@ -26,24 +26,28 @@ public:
 
 	~CardContainerManager();
 
-	void reshuffle();
-	void drawCard(const CardContainerID);
-	void moveCard(const CardContainerID, const CardContainerID, const CardID);
-	void containerToStock(const CardContainerID);
-	void moveCards(const CardContainerID, const CardContainerID);
-	int getSize(const CardContainerID);
-	std::vector<CardID> getCards(const CardContainerID);
-	std::vector<CardContainer> getContainers() const;
-    CardID getRandomCard(const CardContainerID);
-	void unSuspendCard(const CardContainerID& ccid);
-	void suspendCard(const CardContainerID& ccid, const CardID& cid);
-	CardID getSuspendedCard();
-	bool hasSuspendedCard();
-	void swapCards(const CardContainerID, const CardContainerID);
-	CardContainerID newTemp();
-	CardContainerID getTemp() const;
-	void deleteTemp();
-	bool isEmptyTemp() const;
+	void						 reshuffle();
+	void						 drawCard(const CardContainerID);
+	void						 moveCard(const CardContainerID, const CardContainerID, const CardID);
+	void						 containerToStock(const CardContainerID);
+	void						 moveCards(const CardContainerID, const CardContainerID);
+	void						 swapCards(const CardContainerID, const CardContainerID);
+	
+	int							 getSize(const CardContainerID);
+	std::vector<CardID>			 getCards(const CardContainerID);
+	std::vector<CardContainer>	 getContainers() const;
+    CardID						 getRandomCard(const CardContainerID);
+	
+	void						 unSuspendCard(const CardContainerID& ccid);
+	void						 suspendCard(const CardContainerID& ccid, const CardID& cid);
+	CardID						 getSuspendedCard();
+	bool						 hasSuspendedCard();
+	
+
+	CardContainerID				 newTemp();
+	CardContainerID				 getTemp() const;
+	void						 deleteTemp();
+	bool						 isEmptyTemp() const;
 
 private:
 	CardContainer* getContainer(const CardContainerID);

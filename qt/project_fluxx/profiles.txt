@@ -1,4 +1,5 @@
 profile Rasmus
+<<<<<<< HEAD
 wins 4
 games 12
 playedcards 160
@@ -15,12 +16,12 @@ maxconsecutiveplays 4
 playtime 1163
 
 profile Fredrik
-wins 1
-games 2
-playedcards 20
-drawncards 34
-maxconsecutiveplays 3
-playtime 268
+wins 3
+games 10
+playedcards 61
+drawncards 127
+maxconsecutiveplays 4
+playtime 741
 
 profile Johannes
 wins 0

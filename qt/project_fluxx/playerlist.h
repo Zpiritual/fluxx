@@ -15,7 +15,7 @@ class PlayerList : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PlayerList(const std::vector<ProfileName>, QWidget *parent = 0);
+    explicit PlayerList(const std::vector<ProfileName>&, QWidget *parent = 0);
     ~PlayerList();
     void updatePlayers(const BoardSnapshot* const);
     void updatePlayerState(int, int);
@@ -27,9 +27,6 @@ private:
     QVBoxLayout* vertical_layout;
     std::vector<ProfileName> player_ids;
     std::vector<PlayerListItem*> players;
-
-    int current_player;
-    int next_player;
 
     void uiElements();
 };

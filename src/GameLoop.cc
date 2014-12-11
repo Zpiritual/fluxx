@@ -76,6 +76,7 @@ SessionData	GameLoop::run()
         _game_logic->drawCard(p.getID());
         _game_logic->drawCard(p.getID());
     }
+
 	try
 	{
         while (executePlayerTurn() == GameState::CONTINUE)
@@ -85,7 +86,7 @@ SessionData	GameLoop::run()
 	}
 	catch(std::logic_error & error)
 	{
-		std::cerr << error.what();
+		std::cerr << "GameLoop::run() - Error in executePlayerTurn():" << error.what();
 	}
 
 	string gamestate;
@@ -131,7 +132,9 @@ GameState GameLoop::executePlayerTurn()
 	checkTriggeredRules(RuleTrigger::POST_DRAW);
 	checkTriggeredRules(RuleTrigger::PRE_PLAY);
 	
- 	while (getCardsPlayed() < getPlayNO() && _game_logic->getCCM()->getSize(getCurrentPlayerID().getString() + "_hand") != 0 && _game_logic->getCurrentGameState() == GameState::CONTINUE) // played_cards ligger i player.
+ 	while (getCardsPlayed() < getPlayNO()
+        && _game_logic->getCCM()->getSize(getCurrentPlayerID().getString() + "_hand") != 0
+        && _game_logic->getCurrentGameState() == GameState::CONTINUE)
  	{
  		_game_logic->playCard();
  	}

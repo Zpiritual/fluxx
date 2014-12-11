@@ -121,6 +121,6 @@ void PlayerListItem::connectSignals()
 void PlayerListItem::showKeepers()
 {
     BigCardCollection* big_keepers = new BigCardCollection(keepers_id, this);
-
+    big_keepers->setWindowTitle(QString::fromStdString(player_name.val) + QString(" keepers"));
     big_keepers->show();
 }

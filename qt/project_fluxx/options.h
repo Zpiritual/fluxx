@@ -28,6 +28,8 @@ private:
     QPushButton* ok_button;
     QPushButton* cancel_button;
 
+    QLabel* profile_stats;
+
     MainMenu* parent2;
 
     std::vector<Profile> profiles;
@@ -48,6 +50,7 @@ public slots:
     void enableAddButton();
     void ok();
     void cancel();
+    void showProfileStats();
 };
 
 #endif // OPTIONS_H

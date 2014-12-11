@@ -23,8 +23,8 @@ public:
 	~Card() 						= default;
 
 	CardID 			getID() 			const;
-    string        	getName()         const;
-	string 			getType() 		const;
+    string        	getName()       	const;
+	string 			getType() 			const;
 	string 			getSubtype() 		const;
 	string 		 	getDescription() 	const;
 	vector<Effect>  getEffects()		const;
