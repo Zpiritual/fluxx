@@ -130,6 +130,10 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
 
 bool GameLogic::playerDecision(string question, string leftButton, string rightButton)
 {
+	if (getCurrentGameState() != GameState::CONTINUE)
+	{
+		return false;
+	}
 	if (!_gui->isVisible())
 	{
 		_currentGameState = GameState::QUIT;
@@ -143,6 +147,8 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 {
 	if (getCurrentGameState() != GameState::CONTINUE)
 	{
+	cerr << "GameLogic::pickCard: " << "GameState != CONTINUE"<< pid.getString() << " " << container.val << endl;
+
 		return CardID(0);
 	}
 
@@ -872,7 +878,7 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NK
 	{
 		secondCheck = true;
 	}
-
+	cerr << "BooleanKeeperCheck" << firstCheck << " " << secondCheck << endl;
 	if (firstCheck && secondCheck)
 	{
 		_currentGameState = GameState::GAME_OVER;
