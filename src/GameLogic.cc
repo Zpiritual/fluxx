@@ -636,8 +636,9 @@ void GameLogic::effect_DrawAndPlay(int draw, int play, int trash)
 		{
 			_ccm->drawCard(ccid);
 		}
-		catch (...)
-		{
+		catch (const exception & e)
+		{	
+            cout << "GameLogic::effect_DrawAndPlay: " << e.what() << endl;
 			cout << "GameLogic::effect_DrawAndPlay() - Error while moving cards to temp container." << endl;
 		}
 	}
@@ -1146,11 +1147,12 @@ void GameLogic::effect_BonusPlayerContainerQuantity(int quantity, string contain
 
 	if (amountOfPlayers == 0 && bestPlayer != -1 && _pm->getCurrentPlayerID() == _pm->getPlayers().at(bestPlayer).getID())
 	{
+        CardContainerID player_hand(_pm->getCurrentPlayerID().getString() + "_hand");
 		for (int  i = 0; i < quantity; i++)
 		{
 			if(bonus.compare("Draw") == 0)
-				_ccm->drawCard(CardContainerID(_pm->getPlayers().at(bestPlayer).getID().getString() + "_hand"));
-            else if(bonus.compare("Play") == 0 && playerDecision("Play another card?", "Yes", "No"))
+				_ccm->drawCard(player_hand);
+            else if(bonus.compare("Play") == 0 && playerDecision("Play another card?", "Yes", "No") && _ccm->getSize(player_hand))
 				playCard();
 		}
 		
