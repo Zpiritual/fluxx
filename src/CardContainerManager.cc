@@ -228,7 +228,7 @@ CardContainerID CardContainerManager::getTemp() const
 {
 	if(_temps.empty())
 	{
-		throw std::logic_error("No temp container found.");
+		throw std::logic_error("CardContainerManager::getTemp() - No temp container found.");
 	}
 	return _temps.top()->getID();
 }
