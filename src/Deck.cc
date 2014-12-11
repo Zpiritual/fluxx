@@ -1,6 +1,6 @@
 #include "Deck.h"
 
-Deck::Deck(const std::vector< const Card* > &cards)
+Deck::Deck(const std::vector<const Card*> &cards)
 {
 	for(auto a: cards)
 	{

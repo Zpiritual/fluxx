@@ -10,9 +10,9 @@ Card::Card(const CardID id, const string name, const string type, const string s
 	 _effects{effects}
 	{}
 
-CardID 		  	Card::getID() 			const	{ return _id; }
-string          Card::getName()         const   { return _name; }
-string 		  	Card::getType() 		const	{ return _type; }
-string 		  	Card::getSubtype() 		const	{ return _subtype; }
-string 		  	Card::getDescription() 	const	{ return _description; }
-vector<Effect>  Card::getEffects()		const	{ return _effects; }
+CardID 		  	Card::getID() 			const { return _id; }
+string          Card::getName()         const { return _name; }
+string 		  	Card::getType() 		const { return _type; }
+string 		  	Card::getSubtype() 		const { return _subtype; }
+string 		  	Card::getDescription() 	const { return _description; }
+vector<Effect>  Card::getEffects()		const { return _effects; }
