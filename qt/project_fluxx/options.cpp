@@ -13,6 +13,7 @@ Options::Options(const std::vector<Profile>& prfiles, QWidget *parent) :
 
 Options::~Options()
 {
+    delete profile_stats;
     delete user_profiles;
     delete profile_text;
     delete add_profile_button;
@@ -55,6 +56,7 @@ void Options::removeProfile()
     removeProfile(Profile(selected_item->text().toStdString()));
     delete selected_item;
 
+    profile_stats->setText(QString(""));
     user_profiles->clearSelection();
     remove_profile_button->setEnabled(false);
 }
@@ -106,6 +108,28 @@ void Options::cancel()
     }
 }
 
+void Options::showProfileStats()
+{
+    QList<QListWidgetItem*> selected_items = user_profiles->selectedItems();
+    profile_stats->setText(QString(""));
+    for(int i = 0; i < selected_items.size(); i++)
+    {
+        QListWidgetItem* selected_item = selected_items.at(i);
+        for(unsigned int i = 0; i < profiles.size(); i++)
+        {
+            if(profiles.at(i).getName() == selected_item->text().toStdString())
+            {
+                profile_stats->setText(profile_stats->text() + "Wins: " + QString::number(profiles.at(i).getWins()) + QString("\n"));
+                profile_stats->setText(profile_stats->text() + "Games: " + QString::number(profiles.at(i).getGames()) + QString("\n"));
+                profile_stats->setText(profile_stats->text() + "Played Cards: " + QString::number(profiles.at(i).getPlayedCards()) + QString("\n"));
+                profile_stats->setText(profile_stats->text() + "Drawn Cards: " + QString::number(profiles.at(i).getDrawnCards()) + QString("\n"));
+                profile_stats->setText(profile_stats->text() + "Max Consecutive Play: " + QString::number(profiles.at(i).getMaxConsecutivePlays()) + QString("\n"));
+                profile_stats->setText(profile_stats->text() + "Playtime: " + QString::number(profiles.at(i).getPlayTime()) + QString("\n"));
+            }
+        }
+    }
+}
+
 bool Options::profileExist(const QString& profile_name) const
 {
     // Check if player profile already exists
@@ -131,6 +155,7 @@ void Options::connectSignals()
     QObject::connect(add_profile_button, SIGNAL(clicked()), this, SLOT(addProfile()));
     QObject::connect(remove_profile_button, SIGNAL(clicked()), this, SLOT(removeProfile()));
     QObject::connect(user_profiles, SIGNAL(clicked(QModelIndex)), this, SLOT(enableRemoveButton()));
+    QObject::connect(user_profiles, SIGNAL(itemSelectionChanged()), this, SLOT(showProfileStats()));
     QObject::connect(ok_button, SIGNAL(clicked()), this, SLOT(ok()));
     QObject::connect(cancel_button, SIGNAL(clicked()), this, SLOT(cancel()));
     QObject::connect(profile_text, SIGNAL(textChanged(QString)), this, SLOT(enableAddButton()));
@@ -151,6 +176,8 @@ void Options::uiElements()
     ok_button = new QPushButton(QString("OK"));
     cancel_button = new QPushButton(QString("Cancel"));
 
+    profile_stats = new QLabel();
+
     remove_profile_button->setEnabled(false);
     add_profile_button->setEnabled(false);
 
@@ -158,10 +185,12 @@ void Options::uiElements()
     vertical_profile_layout->addWidget(profile_text);
     vertical_profile_layout->addWidget(add_profile_button);
     vertical_profile_layout->addWidget(remove_profile_button);
-    vertical_profile_layout->setAlignment(remove_profile_button, Qt::AlignTop);
+    vertical_profile_layout->addWidget(profile_stats);
 
     finish_layout->addWidget(ok_button);
     finish_layout->addWidget(cancel_button);
+
+    vertical_profile_layout->setAlignment(profile_stats, Qt::AlignTop);
 
     profile_layout->addLayout(vertical_profile_layout);
     main_layout->addLayout(profile_layout);
