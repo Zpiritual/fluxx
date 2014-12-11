@@ -37,7 +37,7 @@ void GameOver::uiElementSetup(SessionData session_data,std::vector<ProfileName> 
     {
         stats_label->setText(stats_label->text() + QString::fromStdString(players.at(stat_item._id.getInt()-1).val) + QString("\n"));
         stats_label->setText(stats_label->text() + QString("Maximum number of cards played consecutively: ") + QString::number(stat_item._max_consecutive_plays) + QString("cards\n"));
-        stats_label->setText(stats_label->text() + QString("Number of cards drawn an played: " + QString::number(stat_item._total_drawn_cards) + " cards drawn and " + QString::number(stat_item._total_played_cards) + " cards played. \n"));
+        stats_label->setText(stats_label->text() + QString("Number of cards drawn and played: " + QString::number(stat_item._total_drawn_cards) + " cards drawn and " + QString::number(stat_item._total_played_cards) + " cards played. \n"));
     }
 
     stats_label->setAlignment(Qt::AlignCenter);

@@ -16,7 +16,6 @@ Gui::Gui(std::vector<ProfileName> players, MainMenu* main_menu, QWidget *parent)
 
 Gui::~Gui()
 {
-    qDebug() << "GUI DESTRUCTOR";
     delete card_id_loop;
     delete player_loop;
     delete event_loop;
