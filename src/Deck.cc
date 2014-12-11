@@ -1,6 +1,7 @@
 #include "Deck.h"
-
-Deck::Deck(const std::vector<const Card*> &cards)
+#include <exception>
+#include <iostream>
+Deck::Deck(const std::vector< const Card* > &cards)
 {
 	for(auto a: cards)
 	{
@@ -32,8 +33,9 @@ const Card* Deck::getCard(const CardID id) const
 	{
 		return _cards.at(id);
 	}
-	catch(...)
+	catch(std::exception & e)
 	{
+        std::cerr <<"Error in: Deck::getCard: " << e.what() << std::endl;
 		return nullptr;
 	}
 }
