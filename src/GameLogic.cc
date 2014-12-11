@@ -75,7 +75,11 @@ void GameLogic::playCard()
 
 void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
 {
-    if (getCurrentGameState() != GameState::CONTINUE) return;
+    if (getCurrentGameState() != GameState::CONTINUE)
+    {
+    	cerr << "GameLogic::playCardWithID: " << "getCurrentGameState != GameState::CONTINUE" << cid.val << " " << ccid.val << endl;
+    	return;	
+    } 
     
     string str = "Played Card: ";
     str.append(_cm->getCard(cid)->getName());

@@ -49,6 +49,8 @@ CardContainerManager::CardContainerManager(const Deck* deck)
 
 void CardContainerManager::containerToStock(const  CardContainerID ccid)
 {
+	if(ccid == CardContainerID("tempA"))
+		cerr << "CardContainerManager::containerToStock - Recieved container id \"tempA\"." << endl;
 	for(const CardID id : getCards(ccid))
 		{
 			getContainer(ccid)->removeCard(id);
@@ -79,6 +81,8 @@ void CardContainerManager::reshuffle()
 
 void CardContainerManager::drawCard(const CardContainerID container)
 {
+	if(container == CardContainerID("tempA"))
+		cerr << "CardContainerManager::drawCard - Recieved container id \"tempA\"." << endl;
 	if(_stock->empty())
 	{
 		containerToStock(CardContainerID("Trash"));
@@ -96,6 +100,8 @@ void CardContainerManager::drawCard(const CardContainerID container)
 
 void CardContainerManager::moveCard(const CardContainerID from, const CardContainerID to, const CardID card)
 {
+	if(from == CardContainerID("tempA"))
+		cerr << "CardContainerManager::moveCard - Recieved container id \"tempA\"." << endl;
 	if(card == CardID(0))
 	{
 		return;
@@ -116,21 +122,29 @@ void CardContainerManager::moveCards(const CardContainerID from, const CardConta
 
 int CardContainerManager::getSize(const CardContainerID container)
 {
+	if(container == CardContainerID("tempA"))
+		cerr << "CardContainerManager::getSize - Recieved container id \"tempA\"." << endl;
 	return getContainer(container)->getSize();
 }
 
 CardContainer* CardContainerManager::getContainer(const CardContainerID container)
 {
-	if(!_temps.empty() && container == getTemp())
+	cerr << "CardContainerManager::getContainer() - Accessing container " << container.val << " in CCM." << endl;
+	if(!_temps.empty() && container == CardContainerID("tempA"))
 	{
 		return _temps.top();
 	}
-	cerr << "CardContainerManager::getContainer() - Accessing container " << container.val << " in CCM." << endl;
+	else if(container == CardContainerID("tempA"))
+	{
+		throw logic_error("Temp container does no exist");
+	}
 	return _containers.at(container);
 }
 
 vector<CardID> CardContainerManager::getCards(const CardContainerID container)
 {
+	if(container == CardContainerID("tempA"))
+		cerr << "CardContainerManager::getCards - Recieved container id \"tempA\"." << endl;
 	return getContainer(container)->getCards();
 }
 
@@ -158,11 +172,15 @@ std::vector<CardContainer> CardContainerManager::getContainers() const
 
 CardID CardContainerManager::getRandomCard(const CardContainerID container)
 {
+	if(container == CardContainerID("tempA"))
+		cerr << "CardContainerManager::getRandomCard - Recieved container id \"tempA\"." << endl;
 	return getContainer(container)->getRandomCard();
 }
 
 void CardContainerManager::suspendCard(const CardContainerID& ccid, const CardID& cid)
 {
+	if(ccid == CardContainerID("tempA"))
+		cerr << "CardContainerManager::suspendCard - Recieved container id \"tempA\"." << endl;
 	if(cid == CardID(0))
 	{
 		return;
@@ -191,6 +209,8 @@ bool CardContainerManager::hasSuspendedCard()
 
 void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 {
+	if(ccid == CardContainerID("tempA"))
+		cerr << "CardContainerManager::unSuspendCard - Recieved container id \"tempA\"." << endl;
 	if(!_suspendedCards.empty())
 	{
 		CardID id = _suspendedCards.top();
@@ -202,6 +222,7 @@ void CardContainerManager::unSuspendCard(const CardContainerID& ccid)
 
 void CardContainerManager::swapCards(const CardContainerID container1, const CardContainerID container2)
 {
+	
 	std::vector<CardID> cardIDList1 = getCards(container1);
 	std::vector<CardID> cardIDList2 = getCards(container2);
 	
