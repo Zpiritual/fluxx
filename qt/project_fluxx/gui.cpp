@@ -229,6 +229,7 @@ void Gui::uiElements()
     mid_column_right->setSpacing(0);
     left_column->setSpacing(0);
     rules_goals_row->setSpacing(0);
+    rules_keepers_column->setSpacing(0);
 
     //Set up properties of the game window, background, titlebar etc.
     this->setAutoFillBackground(true);
@@ -257,6 +258,9 @@ void Gui::uiElements()
     //Set scroll areas to only horizontal scrolling
     scroll_area_hand->setMinimumHeight(active_hand->minimumSizeHint().height() + scroll_area_hand->horizontalScrollBar()->height() + 10);
     scroll_area_hand->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scroll_area_keepers->setMinimumWidth(active_keepers->minimumSizeHint().width() + 25);
+    scroll_area_keepers->setMinimumHeight(active_keepers->minimumSizeHint().height() + scroll_area_keepers->horizontalScrollBar()->height() + 5);
+    scroll_area_keepers->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     //Add widgets to layouts
     left_column->addWidget(trash_widget);
@@ -282,6 +286,7 @@ void Gui::uiElements()
     rules_goals_row->setAlignment(rules_keepers_column, Qt::AlignTop);
     rules_goals_row->setAlignment(mid_column_right, Qt::AlignRight|Qt::AlignTop);
     mid_column->setAlignment(scroll_area_hand, Qt::AlignBottom);
+    //rules_keepers_column->setAlignment(scroll_area_keepers, Qt::AlignCenter);
 }
 
 //Updates the content of everywidget

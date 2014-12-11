@@ -39,6 +39,7 @@ void ActiveKeepers::updateCards(const CardContainer& container)
         this->setMinimumWidth(this->minimumWidth() + 89 );
         tempbutton->smallButton();
         layout->addWidget(tempbutton);
+        layout->setAlignment(tempbutton, Qt::AlignCenter);
         buttons_.push_back(tempbutton);
     }
     this->setMinimumWidth(this->minimumWidth() + 8);
@@ -49,15 +50,16 @@ void ActiveKeepers::connectButtons(CardIdLoop &loop)
     this->setAutoFillBackground(true);
     for(auto button : buttons_)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
-
 }
 
 void ActiveKeepers::uiElements()
 {
     layout = new QHBoxLayout();
     this->setPalette(QPalette(QPalette::Background, Qt::green));
+    setContentsMargins(3,3,3,3);
+    layout->setSpacing(2);
 
-    this->setMaximumHeight(135);
-    this->setMinimumHeight(135);
+    this->setMaximumHeight(138);
+    this->setMinimumHeight(138);
     this->setLayout(layout);
 }
