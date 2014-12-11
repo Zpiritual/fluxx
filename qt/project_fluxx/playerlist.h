@@ -13,7 +13,7 @@ class PlayerList : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PlayerList(const std::vector<ProfileName>, QWidget *parent = 0);
+    explicit PlayerList(const std::vector<ProfileName>&, QWidget *parent = 0);
     ~PlayerList();
     void updatePlayers(const BoardSnapshot* const);
     void updatePlayerState(int, int);
