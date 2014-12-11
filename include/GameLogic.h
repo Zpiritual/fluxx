@@ -84,6 +84,7 @@ public:
     void effect_SetOrder(string);
     void effect_PlayersGiveToPlayer(int);
 	void effect_SwapKeepers(int);
+    
 	void writeToLog(const string);
 
 	GameState getCurrentGameState() const;

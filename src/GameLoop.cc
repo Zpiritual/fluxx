@@ -86,7 +86,7 @@ SessionData	GameLoop::run()
 	}
 	catch(std::logic_error & error)
 	{
-		std::cerr << error.what();
+		std::cerr << "GameLoop::run() - Error in executePlayerTurn():" << error.what();
 	}
 
 	string gamestate;
