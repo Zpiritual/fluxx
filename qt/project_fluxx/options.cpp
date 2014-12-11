@@ -78,7 +78,7 @@ void Options::enableAddButton()
 
 void Options::ok()
 {
-    qDebug() << "Add ok functionality.";
+    // qDebug() << "Add ok functionality.";
     // TODO: Add functionality
     if(parent2 != nullptr)
     {
@@ -93,7 +93,7 @@ void Options::ok()
 
 void Options::cancel()
 {
-    qDebug() << "Add cancel functionality.";
+    // qDebug() << "Add cancel functionality.";
     // TODO: Add functionality
     if(parent2 != nullptr)
     {
