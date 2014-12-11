@@ -28,6 +28,10 @@ Gui::~Gui()
     delete rules_widget;
     delete active_hand;
     delete active_keepers;
+    delete scroll_area_rules;
+    delete scroll_area_hand;
+    delete scroll_area_keepers;
+    delete rules_keepers_column;
     delete mid_column;
     delete player_list_widget;
     delete layout;
@@ -63,12 +67,11 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 {
     qDebug() << "Entering pick card in gui";
-if(snapshot->active_player != previous_active_player && snapshot->current_player != snapshot->active_player)
+    if(snapshot->active_player != previous_active_player && snapshot->current_player != snapshot->active_player)
     {
         previous_active_player = snapshot->active_player;
         event_loop = new QEventLoop();
         changePlayer(player_ids.at(snapshot->active_player.getInt()-1), *event_loop);
-
 
         delete event_loop;
         event_loop = NULL;
