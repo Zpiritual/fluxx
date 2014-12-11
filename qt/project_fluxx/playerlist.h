@@ -26,9 +26,6 @@ private:
     std::vector<ProfileName> player_ids;
     std::vector<PlayerListItem*> players;
 
-    int current_player;
-    int next_player;
-
     void uiElements();
 
 signals:

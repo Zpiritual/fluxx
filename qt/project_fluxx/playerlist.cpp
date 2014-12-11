@@ -1,11 +1,9 @@
 #include "playerlist.h"
 
-PlayerList::PlayerList(const std::vector<ProfileName> plyers, QWidget *parent) :
+PlayerList::PlayerList(const std::vector<ProfileName>& plyers, QWidget *parent) :
     QWidget(parent)
 {
     player_ids = plyers;
-    current_player = -1;
-    next_player = -1;
 
     uiElements();
 }
