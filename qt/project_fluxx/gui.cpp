@@ -43,7 +43,7 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 
     do
     {
-        delete player_loop; //Remove because this is done at the end of this function? No, using new every time the loop runs and the loop can run multiple times before reaching the end of the function.
+        delete player_loop;
         player_loop = new PlayerLoop{};
         player_list_widget->setConnections(*player_loop);
 
