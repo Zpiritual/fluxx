@@ -105,8 +105,11 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
         _ccm->suspendCard(ccid, cid);
         addEffect(*(_cm->getCard(cid)->getEffects().begin()));
         executeNextEffect();
+        
         if(_ccm->hasSuspendedCard() && _cm->getCard(_ccm->getSuspendedCard())->getType().compare("RULE") == 0)
-             _ccm->unSuspendCard(CardContainerID("Rules"));
+        {
+        	_ccm->unSuspendCard(CardContainerID("Rules"));
+        }
     }
     else if (_cm->getCard(cid)->getType().compare("ACTION") == 0)
     {
@@ -550,7 +553,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                     CardContainerID player_keepers(p.getID().getString() + "_keepers");
                     CardID card_to_trash(0);
 
-                    if (_rm->getHandLimit() == 0)
+                    if (_rm->getKeeperLimit() == 0)
                     {
                         card_to_trash = _ccm->getRandomCard(player_keepers);
                     }
