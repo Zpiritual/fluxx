@@ -14,6 +14,7 @@ Options::Options(const std::vector<Profile>& prfiles, QWidget *parent) :
 Options::~Options()
 {
     delete user_profiles;
+    delete profile_text;
     delete add_profile_button;
     delete remove_profile_button;
     delete ok_button;
