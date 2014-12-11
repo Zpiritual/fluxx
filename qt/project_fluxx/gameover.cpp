@@ -20,8 +20,8 @@ void GameOver::uiElementSetup(SessionData session_data,std::vector<ProfileName> 
 {
     layout = new QVBoxLayout;
     ok_button = new QPushButton("Return to main menu");
-    winning_player_label = new QLabel(QString("Congratulations ") + QString::fromStdString(players.at(session_data.winning_player.getInt()-1).val)+ QString(" has won!"));
-    time_played_label = new QLabel(QString("Time played: ") + QString::number(session_data.elapsed_time/60) + QString(":") + QString::number(session_data.elapsed_time%60));
+    winning_player_label = new QLabel(QString("Congratulations! \n") + QString::fromStdString(players.at(session_data.winning_player.getInt()-1).val)+ QString(" has won!"));
+    time_played_label = new QLabel(QString("Time played: ") + QString::number(session_data.elapsed_time/60) + QString("m, ") + QString::number(session_data.elapsed_time%60) + QString("s"));
     stats_label = new QLabel;
 
     layout->addWidget(winning_player_label);

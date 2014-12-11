@@ -32,13 +32,16 @@ void ActiveKeepers::updateCards(const CardContainer& container)
 
     std::vector<CardID> cards_{container.getCards()};
 
+    this->setMinimumWidth(8);
     for(CardID card : cards_)
     {
         CardButton* tempbutton = new CardButton(card, this);
+        this->setMinimumWidth(this->minimumWidth() + 89 );
         tempbutton->smallButton();
         layout->addWidget(tempbutton);
         buttons_.push_back(tempbutton);
     }
+    this->setMinimumWidth(this->minimumWidth() + 8);
 }
 
 void ActiveKeepers::connectButtons(CardIdLoop &loop)

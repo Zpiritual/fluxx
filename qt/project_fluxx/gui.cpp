@@ -62,6 +62,7 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 //BoardSnapshot* snapshot
 CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 {
+    qDebug() << "Entering pick card in gui";
 if(snapshot->active_player != previous_active_player && snapshot->current_player != snapshot->active_player)
     {
         previous_active_player = snapshot->active_player;
@@ -133,6 +134,7 @@ void Gui::nextPlayer(const BoardSnapshot* const snapshot)
     endTurn(player_ids.at(snapshot->next_player.getInt()-1),*event_loop);
     delete event_loop;
     event_loop = NULL;
+    qDebug() << "exiting nextPlayer";
 }
 
 //Popup giving the player two choices, left button returns true, right false
@@ -259,7 +261,7 @@ void Gui::uiElements()
     mid_column_right->addWidget(deck_widget);
     mid_column_right->addWidget(goals_widget);
     rules_keepers_column->addWidget(scroll_area_rules);
-    rules_keepers_column->addWidget(active_keepers);
+    rules_keepers_column->addWidget(scroll_area_keepers);
 
     rules_goals_row->addLayout(rules_keepers_column);
     rules_goals_row->addLayout(mid_column_right);
