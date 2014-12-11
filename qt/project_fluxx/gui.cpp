@@ -32,6 +32,7 @@ Gui::~Gui()
     delete scroll_area_rules;
     delete scroll_area_hand;
     delete scroll_area_keepers;
+    delete rules_keepers_column;
     delete mid_column;
     delete player_list_widget;
     delete layout;
