@@ -53,6 +53,21 @@ void NewGame::addToPlayerList(const std::vector<Profile>& profiles)
     }
 }
 
+void NewGame::addPlayer(QListWidgetItem* player)
+{
+    if(existPlayer(ProfileName(player->text().toStdString())))
+    {
+        message(QString("New Game"), player->text() + QString(" is already chosen."));
+    }
+    else
+    {
+        QString temp = view_players->text();
+        temp = temp + "\nPlayer " + QString::number(current_player++) + ": " + player->text();
+        view_players->setText(temp);
+        players.push_back(ProfileName{player->text().toStdString()});
+    }
+}
+
 void NewGame::startGame()
 {
     if(current_player < 3)
@@ -92,7 +107,7 @@ void NewGame::selectPlayer()
     const QListWidgetItem* selected = player_list->currentItem();
     if(existPlayer(ProfileName(selected->text().toStdString())))
     {
-        message(QString("New Game"), QString("Player is already chosen."));
+        message(QString("New Game"), selected->text() + QString(" is already chosen."));
     }
     else if(current_player <= 6)
     {
@@ -109,9 +124,31 @@ void NewGame::selectPlayer()
     select_player_button->setEnabled(false);
 }
 
+void NewGame::selectPlayers()
+{
+    QList<QListWidgetItem*> selected_items = player_list->selectedItems();
+    if(selected_items.size() > 6)
+    {
+        for(int i = 0; i < 6; i++)
+        {
+            addPlayer(selected_items.at(i));
+        }
+    }
+    else
+    {
+        for(int i = 0; i < selected_items.size(); i++)
+        {
+            addPlayer(selected_items.at(i));
+        }
+    }
+}
+
 void NewGame::enableSelectPlayerButton()
 {
-    select_player_button->setEnabled(true);
+    if(player_list->selectedItems().size() != 0)
+        select_player_button->setEnabled(true);
+    else
+        select_player_button->setEnabled(false);
 }
 
 void NewGame::uiElementSetup()
@@ -124,11 +161,13 @@ void NewGame::uiElementSetup()
     player_list = new QListWidget();
     view_players = new QLabel();
 
-    select_player_button = new QPushButton(QString("Select player"));
+    select_player_button = new QPushButton(QString("Select players"));
     start_button = new QPushButton(QString("Start Game"));
     back_button = new QPushButton(QString("Cancel"));
 
     select_player_button->setEnabled(false);
+
+    player_list->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     list_layout->addWidget(player_list);
     list_layout->addWidget(select_player_button);
@@ -153,9 +192,9 @@ void NewGame::uiElementSetup()
 void NewGame::connectSignals()
 {
     QObject::connect(start_button, SIGNAL(clicked()), this, SLOT(startGame()));
-    QObject::connect(select_player_button, SIGNAL(clicked()), this, SLOT(selectPlayer()));
+    QObject::connect(select_player_button, SIGNAL(clicked()), this, SLOT(selectPlayers()));
     QObject::connect(back_button, SIGNAL(clicked()), this, SLOT(goBack()));
-    QObject::connect(player_list, SIGNAL(clicked(QModelIndex)), this, SLOT(enableSelectPlayerButton()));
+    QObject::connect(player_list, SIGNAL(itemSelectionChanged()), this, SLOT(enableSelectPlayerButton()));
     QObject::connect(player_list, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(selectPlayer()));
 }
 
