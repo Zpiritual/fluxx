@@ -1,11 +1,9 @@
 #include "playerlist.h"
 
-PlayerList::PlayerList(const std::vector<ProfileName> plyers, QWidget *parent) :
+PlayerList::PlayerList(const std::vector<ProfileName>& plyers, QWidget *parent) :
     QWidget(parent)
 {
     player_ids = plyers;
-    current_player = -1;
-    next_player = -1;
 
     uiElements();
 }
@@ -42,9 +40,8 @@ void PlayerList::uiElements()
     {
         players.push_back(new PlayerListItem(player_ids.at(i)));
         vertical_layout->addWidget(players.at(i));
-        vertical_layout->setAlignment(players.at(i), Qt::AlignTop);
     }
-
+    vertical_layout->setAlignment(players.at(player_ids.size() - 1), Qt::AlignTop);
     this->setLayout(vertical_layout);
 }
 

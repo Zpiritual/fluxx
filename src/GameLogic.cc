@@ -146,6 +146,10 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
 
 bool GameLogic::playerDecision(string question, string leftButton, string rightButton)
 {
+	if (getCurrentGameState() != GameState::CONTINUE)
+	{
+		return false;
+	}
 	if (!_gui->isVisible())
 	{
 		_currentGameState = GameState::QUIT;
@@ -895,7 +899,7 @@ void GameLogic::effect_BooleanKeeperCheck(vector<int> &AKeepers, vector<int> &NK
 	{
 		secondCheck = true;
 	}
-
+	cerr << "BooleanKeeperCheck" << firstCheck << " " << secondCheck << endl;
 	if (firstCheck && secondCheck)
 	{
 		_currentGameState = GameState::GAME_OVER;
@@ -1170,11 +1174,12 @@ void GameLogic::effect_BonusPlayerContainerQuantity(int quantity, string contain
 
 	if (amountOfPlayers == 0 && bestPlayer != -1 && _pm->getCurrentPlayerID() == _pm->getPlayers().at(bestPlayer).getID())
 	{
+        CardContainerID player_hand(_pm->getCurrentPlayerID().getString() + "_hand");
 		for (int  i = 0; i < quantity; i++)
 		{
 			if(bonus.compare("Draw") == 0)
-				_ccm->drawCard(CardContainerID(_pm->getPlayers().at(bestPlayer).getID().getString() + "_hand"));
-            else if(bonus.compare("Play") == 0 && playerDecision("Play another card?", "Yes", "No"))
+				_ccm->drawCard(player_hand);
+            else if(bonus.compare("Play") == 0 && playerDecision("Play another card?", "Yes", "No") && _ccm->getSize(player_hand))
 				playCard();
 		}
 		

@@ -33,6 +33,7 @@ void TrashButton::clickbutton()
     if(cards_.size() != 0)
     {
         BigCardCollection* bigcollection = new BigCardCollection{cards_, this};
+        bigcollection->setWindowTitle(QString("Trash"));
         bigcollection->show();
     }
 }
@@ -40,6 +41,7 @@ void TrashButton::clickbutton()
 void TrashButton::setConnections(CardIdLoop& loop)
 {
     BigCardCollection* bigcollection = new BigCardCollection{cards_, loop, this};
+    bigcollection->setWindowTitle(QString("Trash"));
     bigcollection->show();
     loop.exec();
     bigcollection->close();

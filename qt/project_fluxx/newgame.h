@@ -39,6 +39,7 @@ private:
     void message(const QString&, const QString&) const;
     bool existPlayer(const ProfileName&) const;
     void addToPlayerList(const std::vector<Profile>&);
+    void addPlayer(QListWidgetItem*);
 
 signals:
 
@@ -46,6 +47,7 @@ public slots:
     void startGame();
     void goBack();
     void selectPlayer();
+    void selectPlayers();
     void enableSelectPlayerButton();
 };
 
