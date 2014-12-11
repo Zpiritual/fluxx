@@ -16,6 +16,7 @@ Gui::Gui(std::vector<ProfileName> players, MainMenu* main_menu, QWidget *parent)
 
 Gui::~Gui()
 {
+    qDebug() << "GUI DESTRUCTOR";
     delete card_id_loop;
     delete player_loop;
     delete event_loop;
@@ -28,6 +29,9 @@ Gui::~Gui()
     delete rules_widget;
     delete active_hand;
     delete active_keepers;
+    delete scroll_area_rules;
+    delete scroll_area_hand;
+    delete scroll_area_keepers;
     delete mid_column;
     delete player_list_widget;
     delete layout;
@@ -62,7 +66,7 @@ PlayerID Gui::pickPlayer(const BoardSnapshot* const snapshot)
 //BoardSnapshot* snapshot
 CardID Gui::pickCard(const BoardSnapshot* const snapshot)
 {
-if(snapshot->active_player != previous_active_player && snapshot->current_player != snapshot->active_player)
+    if(snapshot->active_player != previous_active_player && snapshot->current_player != snapshot->active_player)
     {
         previous_active_player = snapshot->active_player;
         event_loop = new QEventLoop();
