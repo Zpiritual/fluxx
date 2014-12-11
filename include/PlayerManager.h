@@ -22,11 +22,13 @@ public:
 
 	Player*		 	getPlayer(const PlayerID pid);
 	void 			addPlayer(Player p);
-	Player*		  	getCurrentPlayer();
-	PlayerID		getCurrentPlayerID();
-	PlayerID		getNextPlayerID(Direction direction);
-	std::vector<Player> getPlayers() const;
+	
+	Player*		  			 getCurrentPlayer();
+	PlayerID				 getCurrentPlayerID();
+	PlayerID				 getNextPlayerID(Direction direction);
+	std::vector<Player>		 getPlayers() const;
 	std::vector<PlayerStats> getPlayerStats() const;
+
     void 			nextPlayer(Direction);
     void			repeatTurn();
     PlayerID		getWinningPlayer();

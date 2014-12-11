@@ -19,20 +19,9 @@ struct CardContainerID
 
 	~CardContainerID() = default;
 
-	bool operator ==(const CardContainerID &p) const
-	{
-		return val.compare(p.val) == 0;
-	}
-
-	bool operator !=(const CardContainerID &p) const
-	{
-		return val.compare(p.val) != 0;
-	}
-
-	bool operator<(const CardContainerID &p) const
-	{
-		return val < p.val;
-	}
+	bool operator ==(const CardContainerID &p) const { return val.compare(p.val) == 0; }
+	bool operator !=(const CardContainerID &p) const { return val.compare(p.val) != 0; }
+	bool operator<(const CardContainerID &p)   const { return val < p.val; }
 };
 
 #endif
