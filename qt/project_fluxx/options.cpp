@@ -14,6 +14,7 @@ Options::Options(const std::vector<Profile>& prfiles, QWidget *parent) :
 Options::~Options()
 {
     delete user_profiles;
+    delete profile_text;
     delete add_profile_button;
     delete remove_profile_button;
     delete ok_button;
@@ -65,8 +66,9 @@ void Options::enableRemoveButton()
 
 void Options::enableAddButton()
 {
-    if(profile_text->text() == "")
+    if(profile_text->text() == "" || profile_text->text().at(0) == QString(" "))
     {
+        profile_text->setText(QString(""));
         add_profile_button->setEnabled(false);
     }
     else
@@ -77,7 +79,7 @@ void Options::enableAddButton()
 
 void Options::ok()
 {
-    qDebug() << "Add ok functionality.";
+    // qDebug() << "Add ok functionality.";
     // TODO: Add functionality
     if(parent2 != nullptr)
     {
@@ -92,7 +94,7 @@ void Options::ok()
 
 void Options::cancel()
 {
-    qDebug() << "Add cancel functionality.";
+    // qDebug() << "Add cancel functionality.";
     // TODO: Add functionality
     if(parent2 != nullptr)
     {
