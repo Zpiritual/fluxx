@@ -20,11 +20,12 @@ void TrashButton::updateCards(const CardContainer cards)
 
     if(cards.getSize() != 0)
     {
-        QString temp_string{":Images/"+QString::number(cards_.back().val)+".png"};
+        QString temp_string{"./Images/"+QString::number(cards_.back().val)+".png"};
         icon = QIcon{temp_string};
         this->setIcon(icon);
-
     }
+    else
+        icon = QIcon();
 }
 
 void TrashButton::clickbutton()
