@@ -125,6 +125,4 @@ QMAKE_CXXFLAGS += -std=c++11
 
 OTHER_FILES +=
 
-RESOURCES += \
-    images.qrc \
-    textfiles.qrc
+RESOURCES +=

@@ -275,13 +275,6 @@ void Gui::uiElements()
     layout->addLayout(mid_column);
     layout->addWidget(player_list_widget);
 
-    this->setMinimumSize(640, 480);
-
-    this->showMaximized();
-
-    layout->setContentsMargins(0, 0, 0, 0); // Remove margins for window borders
-    this->setLayout(layout);
-
     //Set alignments
     mid_column_right->setAlignment(deck_widget, Qt::AlignRight | Qt::AlignTop);
     mid_column_right->setAlignment(goals_widget, Qt::AlignTrailing);
