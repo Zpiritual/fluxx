@@ -32,6 +32,7 @@ void RulesGridWidget::updateCards(const CardContainer container)
         }
     }
     this->setMinimumWidth(0);
+    this->setMaximumWidth(0);
 
     std::vector<CardID> cards_{container.getCards()};
 
@@ -40,8 +41,12 @@ void RulesGridWidget::updateCards(const CardContainer container)
         CardButton* tempbutton = new CardButton(card);
         layout->addWidget(tempbutton);
         this->setMinimumWidth(this->minimumWidth()+170);
+        this->setMaximumWidth(this->maximumWidth()+170);
         buttons_.push_back(tempbutton);
     }
+    this->setMinimumWidth(this->minimumWidth()+12);
+    this->setMaximumWidth(this->maximumWidth()+12);
+
 }
 
 void RulesGridWidget::setConnections(CardIdLoop & loop)

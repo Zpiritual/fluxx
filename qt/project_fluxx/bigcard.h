@@ -1,3 +1,5 @@
+//This class is used for a big image of a card that is shown when the player right clicks on any card.
+
 #ifndef BIGCARD_H
 #define BIGCARD_H
 
@@ -11,7 +13,6 @@ class BigCard : public QGraphicsView
 public:
     explicit BigCard(const CardID*, QWidget* parent = 0);
     ~BigCard();
-
     void closeEvent(QCloseEvent*);
 
 private:
@@ -19,11 +20,6 @@ private:
     QGraphicsPixmapItem* item;
 
     void uiElements(const CardID*);
-
-signals:
-
-public slots:
-
 };
 
 #endif // BIGCARD_H

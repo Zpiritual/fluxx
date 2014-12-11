@@ -1,3 +1,5 @@
+//The screen shown when the main menu starts.
+
 #ifndef START_H
 #define START_H
 
@@ -15,7 +17,6 @@ public:
 
 private:
     QVBoxLayout* layout;
-//    QPushButton* continue_game_button;
     QPushButton* new_game_button;
     QPushButton* options_button;
     QPushButton* exit_button;
@@ -29,11 +30,8 @@ private:
 
     void message(const QString&, const QString&) const;
 
-signals:
-
 public slots:
     void new_game();
-//    void continue_game();
     void options();
     void exit();
 

@@ -1,3 +1,5 @@
+//This class is a used for showing several cards in a separate window than GUI
+
 #ifndef BIGCARDCOLLECTION_H
 #define BIGCARDCOLLECTION_H
 
@@ -13,10 +15,12 @@ class BigCardCollection : public QWidget
 {
     Q_OBJECT
 public:
+    //Used to show cards in a container
     explicit BigCardCollection(const std::vector<CardID>&, QWidget *parent = 0);
-    ~BigCardCollection();
+    //Used to select cards from a container
     explicit BigCardCollection(const std::vector<CardID>&, CardIdLoop&, QWidget *parent = 0);
 
+    ~BigCardCollection();
     void closeEvent(QCloseEvent*);
 
 private:
@@ -28,11 +32,6 @@ private:
 
     void uiElements(const std::vector<CardID>&);
     void uiElements(const std::vector<CardID>&, CardIdLoop&);
-
-signals:
-
-public slots:
-
 };
 
 

@@ -10,24 +10,8 @@
 MainMenu::MainMenu(const Deck* const dck, QWidget *parent) :
     QWidget(parent)
 {
-    main_layout = new QVBoxLayout();
-    start_widget = new Start(this);
-    options_widget = NULL;
-    newgame_widget = NULL;
-    game_over_widget = NULL;
     deck = dck;
-
-    this->setWindowTitle(QString("Main Menu"));
-    this->setMinimumWidth(640);
-    this->setMinimumHeight(480);
-    this->setMaximumWidth(640);
-    this->setMaximumHeight(480);
-
-    this->setWindowFlags(Qt::Dialog);
-
-    main_layout->addWidget(start_widget);
-    this->setLayout(main_layout);
-
+    uiElements();
     createPictures();
     readProfiles();
 }
@@ -134,20 +118,33 @@ void MainMenu::updateProfiles(const SessionData& session_data)
     profiles.at(session_data.winning_player.getInt() - 1).setWins(profiles.at(session_data.winning_player.getInt() - 1).getWins() + 1);
 }
 
+void MainMenu::uiElements()
+{
+    main_layout = new QVBoxLayout();
+    start_widget = new Start(this);
+    options_widget = NULL;
+    newgame_widget = NULL;
+    game_over_widget = NULL;
+
+    this->setWindowTitle(QString("Main Menu"));
+    this->setFixedSize(640,480);
+    this->setLayout(main_layout);
+    this->setWindowFlags(Qt::Dialog);
+
+    main_layout->addWidget(start_widget);
+
+}
+
 void MainMenu::writeProfilesToFile() const
 {
     std::ofstream file("./profiles.txt");
     if(file)
     {
         for(unsigned int i = 0; i < profiles.size(); i++)
-        {
             file << profiles.at(i);
-        }
     }
     else
-    {
         std::cout << "Couldn't open profiles.txt!\n";
-    }
     file.close();
 }
 
@@ -165,14 +162,10 @@ void MainMenu::readProfiles()
     if(file)
     {
         while(file >> p)
-        {
             profiles.push_back(p);
-        }
     }
     else
-    {
         qDebug() << "Couldn't open profiles.txt!\n";
-    }
     file.close();
 }
 

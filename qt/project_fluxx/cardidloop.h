@@ -1,3 +1,5 @@
+//This is a wrapper of a QEventloop that also store the cardid of the card that stopped the loop.
+
 #ifndef CARDIDLOOP_H
 #define CARDIDLOOP_H
 
@@ -14,8 +16,6 @@ public:
     bool isRunning() const;
     void exec();
     void exit();
-
-signals:
 
 public slots:
     void quit();

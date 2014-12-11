@@ -15,11 +15,25 @@ ActiveKeepers::~ActiveKeepers()
      delete layout;
 }
 
+void ActiveKeepers::uiElements()
+{
+    layout = new QHBoxLayout();
+    this->setPalette(QPalette(QPalette::Background, Qt::green));
+    setContentsMargins(3,3,3,3);
+    layout->setSpacing(2);
+
+    this->setMaximumHeight(138);
+    this->setMinimumHeight(138);
+    this->setLayout(layout);
+}
+
+
 void ActiveKeepers::updateCards(const CardContainer& container)
 {
     this->setAutoFillBackground(false);
-    buttons_.clear();
 
+    //Delete everything in the layout
+    buttons_.clear();
     if (layout->layout() != NULL)
     {
         QLayoutItem* item;
@@ -33,16 +47,21 @@ void ActiveKeepers::updateCards(const CardContainer& container)
     std::vector<CardID> cards_{container.getCards()};
 
     this->setMinimumWidth(8);
-    for(CardID card : cards_)
+    this->setMaximumWidth(8);
+
+    for(CardID card : cards_) //Add cards to layout
     {
         CardButton* tempbutton = new CardButton(card, this);
-        this->setMinimumWidth(this->minimumWidth() + 89 );
+        this->setMinimumWidth(this->minimumWidth() + 89);
+        this->setMaximumWidth(this->maximumWidth() + 89);
+
         tempbutton->smallButton();
         layout->addWidget(tempbutton);
         layout->setAlignment(tempbutton, Qt::AlignCenter);
         buttons_.push_back(tempbutton);
     }
     this->setMinimumWidth(this->minimumWidth() + 8);
+    this->setMaximumWidth(this->maximumWidth() + 8);
 }
 
 void ActiveKeepers::connectButtons(CardIdLoop &loop)
@@ -52,14 +71,3 @@ void ActiveKeepers::connectButtons(CardIdLoop &loop)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
 }
 
-void ActiveKeepers::uiElements()
-{
-    layout = new QHBoxLayout();
-    this->setPalette(QPalette(QPalette::Background, Qt::green));
-    setContentsMargins(3,3,3,3);
-    layout->setSpacing(2);
-
-    this->setMaximumHeight(138);
-    this->setMinimumHeight(138);
-    this->setLayout(layout);
-}

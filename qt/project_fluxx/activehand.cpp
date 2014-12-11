@@ -15,6 +15,16 @@ ActiveHand::~ActiveHand()
     delete layout;
 }
 
+void ActiveHand::uiElements()
+{
+    layout = new QHBoxLayout();
+    this->setPalette(QPalette(QPalette::Background, Qt::green));
+    this->setMaximumHeight(283);
+    this->setMinimumHeight(283);
+    this->setLayout(layout);
+}
+
+
 void ActiveHand::updateCards(const CardContainer container)
 {
     buttons_.clear();
@@ -54,11 +64,3 @@ void ActiveHand::connectButtons(CardIdLoop& loop)
         QObject::connect(button,SIGNAL(clicked()), &loop, SLOT(quit()));
 }
 
-void ActiveHand::uiElements()
-{
-    layout = new QHBoxLayout();
-    this->setPalette(QPalette(QPalette::Background, Qt::green));
-    this->setMaximumHeight(283);
-    this->setMinimumHeight(283);
-    this->setLayout(layout);
-}

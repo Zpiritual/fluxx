@@ -25,7 +25,6 @@ CardCollection::CardCollection(const std::vector<CardID>& crds, CardIdLoop &loop
     }
 }
 
-
 CardCollection::~CardCollection()
 {
     for(unsigned int i = 0; i < cards.size(); i++)

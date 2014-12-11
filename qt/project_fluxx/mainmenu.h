@@ -1,3 +1,5 @@
+//Class used for the main window. Will swap out it's contents between gameover, start, options and newgame
+
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
@@ -16,10 +18,10 @@ public:
     ~MainMenu();
 
     void newGame();
-    void newGameBack();
+    void newGameBack();//Can be merged with the other back functions
     void options();
-    void optionsBack();
-    void gameOverBack();
+    void optionsBack();//Can be merged with the other back functions
+    void gameOverBack(); //Can be merged with the other back functions
     void gameOverScreen(SessionData, std::vector<ProfileName>);
 
     void setProfiles(const std::vector<Profile>&);
@@ -44,11 +46,7 @@ private:
     void createPictures() const;
     void addProfile(const Profile&);
     void updateProfiles(const SessionData&);
-
-
-signals:
-
-public slots:
+    void uiElements();
 };
 
 #endif // MAINMENU_H

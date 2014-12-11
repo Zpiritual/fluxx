@@ -1,3 +1,7 @@
+//Widget that show information about one player in the game.
+//Has a button to show a players keepers and will show the size of a players hand
+//and how many keepers a player have
+
 #ifndef PLAYERLISTITEM_H
 #define PLAYERLISTITEM_H
 

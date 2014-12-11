@@ -1,3 +1,5 @@
+//THIS FILE IS NO LONGER IN USE AND IS RETIRED
+
 #include "activeplayer.h"
 
 ActivePlayer::ActivePlayer(QWidget *parent) :
@@ -87,7 +89,6 @@ void ActivePlayer::uiElements()
 
     scroll_area_keepers->setWidget(active_keepers);
     scroll_area_hand->setWidget(active_hand);
-   // layout->setAlignment(scroll_area_hand, Qt::AlignTop);
     scroll_area_keepers->setFrameShape(QFrame::NoFrame);
     scroll_area_hand->setFrameShape(QFrame::NoFrame);
 

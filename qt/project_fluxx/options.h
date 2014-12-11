@@ -1,3 +1,5 @@
+//Class shown in the main menu wndow that add profiles, remove profiles and show profilestats.
+
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
@@ -38,9 +40,6 @@ private:
     void addProfile(const Profile&);
     void removeProfile(const Profile&);
     void addToProfiles();
-
-
-signals:
 
 public slots:
     void addProfile();

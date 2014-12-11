@@ -52,10 +52,3 @@ void SwitchPlayer::connectSignals(QEventLoop& loop)
 {
     QObject::connect(next_player_button, SIGNAL(clicked()), &loop, SLOT(quit()));
 }
-
-void SwitchPlayer::nextPlayer()
-{
-    qDebug() << "Next Player Functionality";
-    // TODO: Add next player functionality
-    // Switch player and enter gameboard
-}

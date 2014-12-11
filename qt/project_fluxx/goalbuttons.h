@@ -1,3 +1,5 @@
+//Class that contain the goal buttons, will store an infinite amount of goals but gui does not handle more than two.
+
 #ifndef GOALBUTTONS_H
 #define GOALBUTTONS_H
 
@@ -24,10 +26,6 @@ private:
     QVBoxLayout* layout;
 
     void uiElements();
-
-signals:
-
-public slots:
 };
 
 #endif // GOALBUTTONS_H

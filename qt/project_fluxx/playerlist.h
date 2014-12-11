@@ -1,3 +1,5 @@
+//Widget that contain one playerlistitem for each player in the game
+
 #ifndef PLAYERLIST_H
 #define PLAYERLIST_H
 
@@ -30,11 +32,6 @@ private:
     int next_player;
 
     void uiElements();
-
-signals:
-
-public slots:
-
 };
 
 
