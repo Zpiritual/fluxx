@@ -84,6 +84,7 @@ void GameLogic::playCard()
 
 void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
 {
+    cerr << "GameLogic::playCardWithID() -- " << cid.val <<" " << ccid.val << endl;
     if (getCurrentGameState() != GameState::CONTINUE)
     {
     	cerr << "GameLogic::playCardWithID: " << "getCurrentGameState != GameState::CONTINUE" << cid.val << " " << ccid.val << endl;
@@ -558,6 +559,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                 while (_ccm->getSize(CardContainerID(p.getID().getString() + "_hand")) > _rm->getHandLimit() && getCurrentGameState() == GameState::CONTINUE)
                 {
                     CardContainerID player_hand(p.getID().getString() + "_hand");
+                    cerr << "GameLogic::onNotify -- " << cc1.val << " " << cc2.val << " " << cid.val << " " << " hand limit" << endl;
                     CardID card_to_trash(0);
 
                     if (_rm->getHandLimit() == 0)
@@ -574,6 +576,7 @@ void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 
                 while (_ccm->getSize(CardContainerID(p.getID().getString() + "_keepers")) > _rm->getKeeperLimit()  && getCurrentGameState() == GameState::CONTINUE)
                 {
                     CardContainerID player_keepers(p.getID().getString() + "_keepers");
+                    cerr << "GameLogic::onNotify -- " << cc1.val << " " << cc2.val << " " << cid.val << " " << " keeper limit" << endl;
                     CardID card_to_trash(0);
 
                     if (_rm->getKeeperLimit() == 0)
@@ -649,8 +652,13 @@ PlayerManager *GameLogic::getPM()
 
 void GameLogic::effect_DrawAndPlay(int draw, int play, int trash)
 {
-	draw += _rm->getInflation();
-	play += _rm->getInflation();
+    if(draw != 0)
+	   draw += _rm->getInflation();
+    if(play != 0)
+	   play += _rm->getInflation();
+    if(trash != 0)
+       trash += _rm->getInflation();
+
 	CardContainerID ccid(_ccm->newTemp());
 
 	for (int i = 0 ; i < draw ; i++)
@@ -672,13 +680,17 @@ void GameLogic::effect_DrawAndPlay(int draw, int play, int trash)
 	
 	for (int i = 0 ; i < trash; i++)
 	{
+        if(_ccm->getSize(_ccm->getTemp()) > 0)
 		_ccm->moveCard(ccid, CardContainerID("Trash"), pickCard(_pm->getCurrentPlayer()->getID(), ccid));
+        else break;
 	}
 	
-	for (CardID cid : _ccm->getCards(ccid))
-	{
-		_ccm->moveCard(ccid, CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"), cid);
-	}
+    if(_ccm->getSize(_ccm->getTemp()) > 0 )
+	   for (CardID cid : _ccm->getCards(ccid))
+	   {
+		  _ccm->moveCard(ccid, CardContainerID(_pm->getCurrentPlayer()->getID().getString() + "_hand"), cid);
+	   }
+       cout << "GameLogic::effect_DrawAndPlay -- Size of temp before delete: " << _ccm->getSize(_ccm->getTemp())  << endl;
 	_ccm->deleteTemp();
 }
 

@@ -121,7 +121,7 @@ CARD_ID 020
 CARD_NAME Draw 3, Play 2 of Them
 CARD_TYPE ACTION
 CARD_DESCRIPTION Draw 3, play 2 of them
-CARD_EFFECT DrawAndPlay 3 2 0
+CARD_EFFECT DrawAndPlay 3 2 1
 
 CARD_ID 021
 CARD_NAME Winning the Lottery

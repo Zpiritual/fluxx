@@ -1,4 +1,5 @@
 profile Rasmus
+
 wins 6
 games 18
 playedcards 207
@@ -23,12 +24,12 @@ maxconsecutiveplays 9
 playtime 1516
 
 profile Johannes
-wins 0
-games 1
-playedcards 2
-drawncards 2
-maxconsecutiveplays 2
-playtime 21
+wins 1
+games 2
+playedcards 10
+drawncards 8
+maxconsecutiveplays 5
+playtime 86
 
 profile Derp
 wins 1
