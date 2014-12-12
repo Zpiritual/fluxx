@@ -4,6 +4,9 @@ fluxx
 
 Digital version of the game fluxx
 
+Qt Project File Location
+====================
+qt/project_fluxx/project_fluxx.pro
 
 Project Organisation
 ====================
