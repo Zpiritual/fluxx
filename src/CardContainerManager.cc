@@ -56,11 +56,7 @@ void CardContainerManager::containerToStock(const  CardContainerID ccid)
 			getContainer(ccid)->removeCard(id);
 			_stock->push(id);
 		}
-		while(!_temps.empty())
-		{
-			delete _temps.top();
-			_temps.pop();
-		}
+
 }
 
 CardContainerManager::~CardContainerManager()
@@ -69,6 +65,11 @@ CardContainerManager::~CardContainerManager()
 	{
 		delete i.second;
 		i.second = nullptr;
+	}
+	while(!_temps.empty())
+	{
+		delete _temps.top();
+		_temps.pop();
 	}
 	delete _stock;
 	_stock = nullptr;
