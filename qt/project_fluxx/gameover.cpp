@@ -20,8 +20,12 @@ void GameOver::uiElementSetup(SessionData session_data,std::vector<ProfileName> 
 {
     layout = new QVBoxLayout;
     ok_button = new QPushButton("Return to main menu");
-    winning_player_label = new QLabel(QString("Congratulations! \n") + QString::fromStdString(players.at(session_data.winning_player.getInt()-1).val)+ QString(" has won!"));
-    time_played_label = new QLabel(QString("Time played: ") + QString::number(session_data.elapsed_time/60) + QString("m, ") + QString::number(session_data.elapsed_time%60) + QString("s"));
+    winning_player_label = new QLabel(QString("Congratulations! \n") +
+                                      QString::fromStdString(players.at(session_data.winning_player.getInt()-1).val)+
+                                      QString(" has won!"));
+    time_played_label = new QLabel(QString("Time played: ") +
+                                   QString::number(session_data.elapsed_time/60) + QString("m, ") +
+                                   QString::number(session_data.elapsed_time%60) + QString("s"));
     stats_label = new QLabel;
 
     layout->addWidget(winning_player_label);
@@ -36,11 +40,17 @@ void GameOver::uiElementSetup(SessionData session_data,std::vector<ProfileName> 
     for(const PlayerStats stat_item : session_data.players)
     {
         stats_label->setText(stats_label->text() + QString::fromStdString(players.at(stat_item._id.getInt()-1).val) + QString("\n"));
-        stats_label->setText(stats_label->text() + QString("Maximum number of cards played consecutively: ") + QString::number(stat_item._max_consecutive_plays) + QString("cards\n"));
-        stats_label->setText(stats_label->text() + QString("Number of cards drawn and played: " + QString::number(stat_item._total_drawn_cards) + " cards drawn and " + QString::number(stat_item._total_played_cards) + " cards played. \n"));
+        stats_label->setText(stats_label->text() +
+                             QString("Maximum number of cards played consecutively: ") +
+                             QString::number(stat_item._max_consecutive_plays) + QString("cards\n"));
+        stats_label->setText(stats_label->text() +
+                             QString::fromStdString(players.at(stat_item._id.getInt()-1).val) + " drew " +
+                             QString::number(stat_item._total_drawn_cards) + " cards and played " +
+                             QString::number(stat_item._total_played_cards) + " cards. \n");
     }
 
     stats_label->setAlignment(Qt::AlignCenter);
+    winning_player_label->setAlignment(Qt::AlignCenter);
 
     this->setLayout(layout);
 }

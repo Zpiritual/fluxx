@@ -309,10 +309,10 @@ void Gui::uiElements()
     //Set up properties of the game window, background, titlebar etc.
     this->setAutoFillBackground(true);
     this->setPalette(Qt::white);
-    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowMaximizeButtonHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
     this->setWindowTitle(QString("Fluxx"));
     this->setMinimumSize(640, 480);
-    this->showMaximized();
+
     this->setLayout(layout);
 
     //Init scroll areas
@@ -361,5 +361,5 @@ void Gui::uiElements()
     rules_goals_row->setAlignment(rules_keepers_column, Qt::AlignTop);
     rules_goals_row->setAlignment(mid_column_right, Qt::AlignRight|Qt::AlignTop);
     mid_column->setAlignment(scroll_area_hand, Qt::AlignBottom);
-    //rules_keepers_column->setAlignment(scroll_area_keepers, Qt::AlignCenter);
+    this->showMaximized();
 }
