@@ -13,7 +13,6 @@ Profile& Profile::operator+=(const PlayerStats& stat)
 {
     drawn_cards += stat._total_drawn_cards;
     played_cards += stat._total_played_cards;
-    games += 1;
     return *this;
 }
 
