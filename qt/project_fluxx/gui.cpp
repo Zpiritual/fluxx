@@ -313,6 +313,7 @@ void Gui::uiElements()
     this->setWindowTitle(QString("Fluxx"));
     this->setMinimumSize(640, 480);
     this->showMaximized();
+    this->showMaximized();
     this->setLayout(layout);
 
     //Init scroll areas
