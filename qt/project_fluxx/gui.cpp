@@ -309,7 +309,7 @@ void Gui::uiElements()
     //Set up properties of the game window, background, titlebar etc.
     this->setAutoFillBackground(true);
     this->setPalette(Qt::white);
-    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+    this->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowMaximizeButtonHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
     this->setWindowTitle(QString("Fluxx"));
     this->setMinimumSize(640, 480);
     this->showMaximized();
