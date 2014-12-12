@@ -33,6 +33,7 @@ GameLogic::~GameLogic()
 
 void GameLogic::addEffect(Effect effect)
 {
+	cout << "GameLogic::addEffect -- " << effect.val << endl;
 	if (getCurrentGameState() != GameState::CONTINUE)
     {
         return;
@@ -60,11 +61,7 @@ void GameLogic::removeRule(const CardID cid)
 
 void GameLogic::playCard()
 {
-	if (getCurrentGameState() != GameState::CONTINUE)
-    {
-        return;
-    }
-
+	cout << "GameLogic::playCard" << endl;
 	CardContainerID player_hand(_pm->getCurrentPlayer()->getID().getString() + "_hand");
 
 	if (!_ccm->isEmptyTemp())
@@ -147,6 +144,7 @@ void GameLogic::playCardWithID(const CardID cid, const CardContainerID ccid)
 
 bool GameLogic::playerDecision(string question, string leftButton, string rightButton)
 {
+	cout << "GameLogic::playerDecision -- " << question << " " << leftButton<< " " << rightButton << endl;
 	if (getCurrentGameState() != GameState::CONTINUE)
 	{
 		return false;
@@ -196,6 +194,7 @@ CardID GameLogic::pickCard(const PlayerID pid, const CardContainerID container)
 
 PlayerID GameLogic::pickPlayer()
 {
+	cout<< "GameLogic::pickPlayer" << endl;
 	if (!_gui->isVisible())
 	{
 		_currentGameState = GameState::QUIT;
@@ -238,10 +237,6 @@ void GameLogic::switchPlayer()
 
 void GameLogic::drawCard(const PlayerID pid)
 {
-	if (getCurrentGameState() != GameState::CONTINUE)
-	{
-		return;
-	}
 	_ccm->drawCard(pid.getString() + "_hand");
 	_pm->getCurrentPlayer()->incrementTotalCardsDrawn();
 }
@@ -265,6 +260,7 @@ void GameLogic::checkRules(RuleTrigger rt)
 
 void GameLogic::resolveEffects()
 {
+	cerr << "GameLogic::resolveEffects";
 	if (getCurrentGameState() != GameState::CONTINUE)
 	{
 		return;
@@ -278,8 +274,10 @@ void GameLogic::resolveEffects()
 
 void GameLogic::executeNextEffect()
 {
+	cerr << "GameLogic::executeNextEffect"<<endl;
 	if (getCurrentGameState() != GameState::CONTINUE)
 	{
+		effect_queue.clear();
 		return;
 	}
 	Effect e = effect_queue.front();
@@ -514,6 +512,7 @@ void GameLogic::executeEffect(const Effect &effect)
 
 void GameLogic::onNotify(const CardContainerID &cc1, const CardContainerID &cc2 , const CardID &cid,  const Event event)
 {
+	cout << "GameLogic::onNotify --" << cc1.val << " " << cc2.val << " " << cid.val << endl;
 	if (getCurrentGameState() != GameState::CONTINUE)
 	{
 		return;
@@ -975,7 +974,7 @@ void GameLogic::effect_ContainerQuantityCheck(string container, int quantity)
 			players_with_max++;
 		}
 	}
-
+		cout << "GameLogic::effect_ContainerQuantityCheck" << endl;
 	if (max_size >= quantity && players_with_max == 1)
 	{
 		_currentGameState = GameState::GAME_OVER;

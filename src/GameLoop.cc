@@ -136,6 +136,7 @@ GameState GameLoop::executePlayerTurn()
         && _game_logic->getCCM()->getSize(getCurrentPlayerID().getString() + "_hand") != 0
         && _game_logic->getCurrentGameState() == GameState::CONTINUE)
  	{
+ 		std::cout << "GameLoop::executePlayerTurn " << endl;
  		_game_logic->playCard();
  	}
  	checkTriggeredRules(RuleTrigger::POST_PLAY);

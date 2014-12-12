@@ -228,7 +228,7 @@ CARD_ID 038
 CARD_NAME Chocolate Cookies
 CARD_TYPE GOAL
 CARD_DESCRIPTION The player with Chocolate and Cookies on the table wins.
-CARD_EFFECT BooleanKeeperCheck 2 0 073 070
+CARD_EFFECT BooleanKeeperCheck 2 0 079 075
 
 CARD_ID 039
 CARD_NAME Time is Money
