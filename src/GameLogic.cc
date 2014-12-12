@@ -1272,7 +1272,8 @@ void GameLogic::effect_DrawAndDistribute(int quantity)
 	
 	for (Player p : _pm->getPlayers())
 	{
-		for (int j = 0; j <  quantity; j++)
+        if(_ccm->getSize(_ccm->getTemp()) > 0)
+        for (int j = 0; j <  quantity; j++)
 		{
 			_ccm->moveCard(id, CardContainerID(p.getID().getString() + "_hand"), pickCard(_pm->getCurrentPlayer()->getID(), id));
 		}
