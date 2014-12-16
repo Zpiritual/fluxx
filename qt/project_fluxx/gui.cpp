@@ -355,26 +355,6 @@ void Gui::uiElements()
     layout->addLayout(mid_column);
     layout->addWidget(player_list_widget);
 
-    //Enable touch scrolling
-    QScroller::grabGesture(scroll_area_hand->viewport(),
-                           QScroller::TouchGesture);
-    QScroller::grabGesture(scroll_area_rules->viewport(),
-                           QScroller::TouchGesture);
-    QScroller::grabGesture(scroll_area_keepers->viewport(),
-                           QScroller::TouchGesture);
-
-
-    // Adjust OvershootPolicy so it does not look wobbly, like table not attached to widget
-//    QScrollerProperties properties = QScroller::scroller(scroll_area_hand)->scrollerProperties();
-//    QVariant overshootPolicy =
-//            QVariant::fromValue<QScrollerProperties::OvershootPolicy>
-//            (QScrollerProperties::OvershootAlwaysOff);
-//    properties.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy,
-//                               overshootPolicy);
-//    properties.setScrollMetric(QScrollerProperties::VerticalOvershootPolicy,
-//                               overshootPolicy);
-//    QScroller::scroller(scroll_area_hand)->setScrollerProperties(properties);
-
     //Set alignments
     mid_column_right->setAlignment(deck_widget, Qt::AlignRight | Qt::AlignTop);
     mid_column_right->setAlignment(goals_widget, Qt::AlignTrailing);
