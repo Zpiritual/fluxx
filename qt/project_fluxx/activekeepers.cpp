@@ -19,8 +19,8 @@ void ActiveKeepers::uiElements()
 {
     layout = new QHBoxLayout();
     this->setPalette(QPalette(QPalette::Background, Qt::green));
-    setContentsMargins(3,3,3,3);
-    layout->setSpacing(2);
+//    setContentsMargins(3,3,3,3);
+//    layout->setSpacing(2);
 
     this->setMaximumHeight(138);
     this->setMinimumHeight(138);

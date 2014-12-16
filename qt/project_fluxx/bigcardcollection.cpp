@@ -37,6 +37,9 @@ void BigCardCollection::uiElements(const std::vector<CardID>& crds)
 
     this->setWindowTitle("Card Collection");
     this->setLayout(horizontal_layout);
+    QScroller::grabGesture(scroll_area->viewport(),
+                           QScroller::TouchGesture);
+
 }
 
 void BigCardCollection::uiElements(const std::vector<CardID>& crds, CardIdLoop& loop)

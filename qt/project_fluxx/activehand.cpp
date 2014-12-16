@@ -19,8 +19,9 @@ void ActiveHand::uiElements()
 {
     layout = new QHBoxLayout();
     this->setPalette(QPalette(QPalette::Background, Qt::green));
-    this->setMaximumHeight(283);
-    this->setMinimumHeight(283);
+    this->setMaximumHeight(278);
+    this->setMinimumHeight(278);
+    layout->setContentsMargins(3,3,3,3);
     this->setLayout(layout);
 }
 

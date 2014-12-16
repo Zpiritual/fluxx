@@ -331,7 +331,7 @@ void Gui::uiElements()
     scroll_area_hand->setFrameShape(QFrame::NoFrame);
 
     //Set scroll areas to only horizontal scrolling
-    scroll_area_hand->setMinimumHeight(active_hand->minimumSizeHint().height() + scroll_area_hand->horizontalScrollBar()->height() + 10);
+    scroll_area_hand->setMinimumHeight(active_hand->minimumSizeHint().height() + scroll_area_hand->horizontalScrollBar()->height() + 20);
     scroll_area_hand->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scroll_area_keepers->setMinimumWidth(active_keepers->minimumSizeHint().width() + 25);
     scroll_area_keepers->setMinimumHeight(active_keepers->minimumSizeHint().height() + scroll_area_keepers->horizontalScrollBar()->height() + 5);
@@ -354,6 +354,26 @@ void Gui::uiElements()
     layout->addLayout(left_column);
     layout->addLayout(mid_column);
     layout->addWidget(player_list_widget);
+
+    //Enable touch scrolling
+    QScroller::grabGesture(scroll_area_hand->viewport(),
+                           QScroller::TouchGesture);
+    QScroller::grabGesture(scroll_area_rules->viewport(),
+                           QScroller::TouchGesture);
+    QScroller::grabGesture(scroll_area_keepers->viewport(),
+                           QScroller::TouchGesture);
+
+
+    // Adjust OvershootPolicy so it does not look wobbly, like table not attached to widget
+//    QScrollerProperties properties = QScroller::scroller(scroll_area_hand)->scrollerProperties();
+//    QVariant overshootPolicy =
+//            QVariant::fromValue<QScrollerProperties::OvershootPolicy>
+//            (QScrollerProperties::OvershootAlwaysOff);
+//    properties.setScrollMetric(QScrollerProperties::HorizontalOvershootPolicy,
+//                               overshootPolicy);
+//    properties.setScrollMetric(QScrollerProperties::VerticalOvershootPolicy,
+//                               overshootPolicy);
+//    QScroller::scroller(scroll_area_hand)->setScrollerProperties(properties);
 
     //Set alignments
     mid_column_right->setAlignment(deck_widget, Qt::AlignRight | Qt::AlignTop);
