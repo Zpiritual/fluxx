@@ -138,14 +138,14 @@ void MainMenu::uiElements()
 
 void MainMenu::writeProfilesToFile() const
 {
-    std::ofstream file("./profiles.txt");
+    std::ofstream file("./profiles.profile");
     if(file)
     {
         for(unsigned int i = 0; i < profiles.size(); i++)
             file << profiles.at(i);
     }
     else
-        std::cout << "Couldn't open profiles.txt!\n";
+        std::cout << "Couldn't open profiles.profile!\n";
     file.close();
 }
 
@@ -158,7 +158,7 @@ void MainMenu::closeEvent(QCloseEvent* event)
 
 void MainMenu::readProfiles()
 {
-    std::ifstream file("./profiles.txt");
+    std::ifstream file("./profiles.profile");
     Profile p;
     if(file)
     {
@@ -166,7 +166,7 @@ void MainMenu::readProfiles()
             profiles.push_back(p);
     }
     else
-        qDebug() << "Couldn't open profiles.txt!\n";
+        qDebug() << "Couldn't open profiles.profile!\n";
     file.close();
 }
 
