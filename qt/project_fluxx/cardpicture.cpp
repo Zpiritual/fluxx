@@ -43,7 +43,7 @@ void CardPicture::renderPicture()
         }
         else if(card_type->text().toLower() == QString("rule"))
         {
-            pal.setColor(QPalette::Background, QColor(220, 255, 100));
+            pal.setColor(QPalette::Background, Qt::yellow);
             pal_log.setColor(QPalette::Base, QColor(220, 255, 100));
         }
 
