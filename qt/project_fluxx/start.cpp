@@ -107,7 +107,7 @@ void Start::uiElements()
 
     new_game_button = new QPushButton(QString("New Game"));
     //continue_game_button = new QPushButton(QString("Continue Game"));
-    options_button = new QPushButton(QString("Options"));
+    options_button = new QPushButton(QString("Profiles"));
     exit_button = new QPushButton(QString("Exit"));
 
 //    continue_game_button->setEnabled(false);

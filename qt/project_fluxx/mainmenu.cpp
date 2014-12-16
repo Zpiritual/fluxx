@@ -53,7 +53,7 @@ void MainMenu::options()
     options_widget = new Options(profiles, this);
     main_layout->addWidget(options_widget);
     main_layout->removeWidget(start_widget);
-    this->setWindowTitle(QString("Options"));
+    this->setWindowTitle(QString("Profiles"));
 
     delete start_widget;
     start_widget = NULL;

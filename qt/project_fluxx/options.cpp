@@ -123,8 +123,8 @@ void Options::showProfileStats()
                 profile_stats->setText(profile_stats->text() + "Games: " + QString::number(profiles.at(i).getGames()) + QString("\n"));
                 profile_stats->setText(profile_stats->text() + "Played Cards: " + QString::number(profiles.at(i).getPlayedCards()) + QString("\n"));
                 profile_stats->setText(profile_stats->text() + "Drawn Cards: " + QString::number(profiles.at(i).getDrawnCards()) + QString("\n"));
-                profile_stats->setText(profile_stats->text() + "Max Consecutive Play: " + QString::number(profiles.at(i).getMaxConsecutivePlays()) + QString("\n"));
-                profile_stats->setText(profile_stats->text() + "Playtime: " + QString::number(profiles.at(i).getPlayTime()) + QString(" seconds\n"));
+                profile_stats->setText(profile_stats->text() + "Max Consecutive Plays: " + QString::number(profiles.at(i).getMaxConsecutivePlays()) + QString("\n"));
+                profile_stats->setText(profile_stats->text() + "Playtime: " + QString::number(profiles.at(i).getPlayTime()/3600) + " hours, " + QString::number((profiles.at(i).getPlayTime()- (profiles.at(i).getPlayTime()/3600) * 3600)/60) + " minutes. \n");
             }
         }
     }
